@@ -79,5 +79,6 @@ android {
             implementation libs.okhttp
             testImplementation libs.junit.jupiter.api
             testRuntimeOnly libs.junit.jupiter.engine
+            implementation 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.17'
         }
 
