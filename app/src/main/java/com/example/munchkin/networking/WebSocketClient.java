@@ -10,11 +10,13 @@ import okhttp3.WebSocketListener;
 
 public class WebSocketClient {
 
+
     // TODO use correct hostname:port
     /**
      * localhost from the Android emulator is reachable as 10.0.2.2
      * https://developer.android.com/studio/run/emulator-networking
      */
+
     private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/dummy";
 
     private WebSocket webSocket;
@@ -35,6 +37,7 @@ public class WebSocketClient {
             }
 
             @Override
+
             public void onMessage(WebSocket webSocket, String text) {
                 messageHandler.onMessageReceived(text);
             }
@@ -70,4 +73,7 @@ public class WebSocketClient {
     public static String concatenateStrings(String first, String second) {
         return first + " " + second;
     }
+
+
+
 }
