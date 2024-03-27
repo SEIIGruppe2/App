@@ -8,6 +8,8 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
+import com.example.munchkin.model.WebSocketClientModel;
+
 public class WebSocketClient {
 
 
@@ -20,6 +22,13 @@ public class WebSocketClient {
     private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/dummy";
 
     private WebSocket webSocket;
+
+    private WebSocketClientModel model;
+
+    public WebSocketClient(WebSocketClientModel model) {
+        this.model = model;
+    }
+
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
         if (messageHandler == null)
@@ -40,6 +49,7 @@ public class WebSocketClient {
 
             public void onMessage(WebSocket webSocket, String text) {
                 messageHandler.onMessageReceived(text);
+                model.notifyObservers(text);
             }
 
             @Override
@@ -49,8 +59,6 @@ public class WebSocketClient {
 
             @Override
             public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-                // Permission needed to transmit cleartext in the manifest
-                // https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted
                 Log.d("Network", "connection failure");
             }
         });
