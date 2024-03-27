@@ -2,6 +2,8 @@ package com.example.munchkin.networking;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,8 +14,6 @@ import com.example.munchkin.model.WebSocketClientModel;
 
 public class WebSocketClient {
 
-
-    // TODO use correct hostname:port
     /**
      * localhost from the Android emulator is reachable as 10.0.2.2
      * https://developer.android.com/studio/run/emulator-networking
@@ -41,24 +41,24 @@ public class WebSocketClient {
 
         webSocket = client.newWebSocket(request, new WebSocketListener() {
             @Override
-            public void onOpen(WebSocket webSocket, Response response) {
+            public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
                 Log.d("Network", "connected");
             }
 
             @Override
 
-            public void onMessage(WebSocket webSocket, String text) {
+            public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 messageHandler.onMessageReceived(text);
                 model.notifyObservers(text);
             }
 
             @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
+            public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
                 // WebSocket connection closed
             }
 
             @Override
-            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+            public void onFailure(@NonNull WebSocket webSocket,@NonNull Throwable t, Response response) {
                 Log.d("Network", "connection failure");
             }
         });

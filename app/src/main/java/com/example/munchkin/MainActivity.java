@@ -1,20 +1,15 @@
 package com.example.munchkin;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.networking.WebSocketClient;
 import com.example.munchkin.view.ConnectToServerView;
 
 public class MainActivity extends AppCompatActivity {
