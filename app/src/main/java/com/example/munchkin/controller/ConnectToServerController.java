@@ -21,9 +21,15 @@ public class ConnectToServerController implements ModelObserver  {
         model.connectToServer(this::messageReceivedFromServer);
     }
 
-    public void sendMessage() {
-        model.sendMessageToServer("test message");
+    public void reconnectToServer() {
+        model.connectToServer(this::messageReceivedFromServer);
     }
+
+    public void sendMessage(String username) {
+        model.sendMessageToServer(username);
+    }
+
+
 
     private void messageReceivedFromServer(String message) {
         view.updateServerResponse(message);

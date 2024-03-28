@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
 
+    private String username;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void sendMessage() {
-        controller.sendMessage();
+    public void sendMessage(String username) {
+        controller.sendMessage(username);
     }
 
+    public void reconnectToServer() {
+        controller.reconnectToServer();
+    }
 
 }
 
