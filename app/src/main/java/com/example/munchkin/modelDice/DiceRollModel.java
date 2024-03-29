@@ -1,5 +1,5 @@
 // DiceRollModel.java
-package com.example.munchkin.model;
+package com.example.munchkin.modelDice;
 
 import android.view.View;
 import android.view.animation.Animation;

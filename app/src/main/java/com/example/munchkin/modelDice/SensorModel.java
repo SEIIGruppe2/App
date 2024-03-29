@@ -1,5 +1,5 @@
 // SensorModel.java
-package com.example.munchkin.model;
+package com.example.munchkin.modelDice;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
