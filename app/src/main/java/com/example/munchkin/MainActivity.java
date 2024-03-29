@@ -3,6 +3,7 @@ package com.example.munchkin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,6 +28,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        //nur zu testzwecken
+        Button test = findViewById(R.id.testforloading);
+        test.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Actions to perform when the button is clicked
+                // For example, you can display a toast message
+                switchtoloadingactivity();
+            }
+        }));
+        //ende
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button buttonSendMsg = findViewById(R.id.sendbutton);
+        /*Button buttonSendMsg = findViewById(R.id.sendbutton);
         buttonSendMsg.setOnClickListener(v -> sendMessage());
 
         textViewServerResponse = findViewById(R.id.responseTextView);
 
-        networkHandler = new WebSocketClient();
+        networkHandler = new WebSocketClient();*/
     }
 
 
@@ -67,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //only for testreasons.. can be later delated
-    void switchtoloadingactivity(){
+    public void switchtoloadingactivity(){
         Intent test = new Intent(this, Loadingscreen.class);
         startActivity(test);
 
