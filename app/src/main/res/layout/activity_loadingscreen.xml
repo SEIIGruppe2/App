@@ -6,38 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Loadingscreen"
-    android:background="@drawable/hintergrund">
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="142dp"
+        android:layout_height="168dp"
+        android:background="@drawable/munchkin1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.279" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Munchkin panic loading..."
-        android:textColor="@color/white"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/chewyregular"
+        android:text="Munchkin panic is loading..."
+        android:textColor="#FFE500"
+
+        android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_goneMarginTop="20dp" />
 
     <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:outlineAmbientShadowColor="@color/white"
+
+        android:layout_width="80dp"
+        android:layout_height="52dp"
+        android:indeterminateTint="#FFE500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.807" />
+        app:layout_constraintVertical_bias="0.891" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
