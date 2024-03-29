@@ -1,5 +1,6 @@
 package com.example.munchkin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
         // TODO handle received messages
         Log.d("Network", message);
         textViewServerResponse.setText(message);
+    }
+
+
+    //only for testreasons.. can be later delated
+    void switchtoloadingactivity(){
+        Intent test = new Intent(this, Loadingscreen.class);
+        startActivity(test);
+
     }
 }
 
