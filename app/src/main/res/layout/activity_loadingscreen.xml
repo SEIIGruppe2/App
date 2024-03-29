@@ -10,24 +10,28 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="142dp"
-        android:layout_height="168dp"
-        android:background="@drawable/munchkin1"
+        android:layout_width="190dp"
+        android:layout_height="175dp"
+        android:background="@drawable/munchkin2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.23" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/chewyregular"
+        android:shadowColor="@color/black"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="4"
         android:text="Munchkin panic is loading..."
         android:textColor="#FFE500"
-
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -41,11 +45,13 @@
         android:layout_width="80dp"
         android:layout_height="52dp"
         android:indeterminateTint="#FFE500"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.741" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
