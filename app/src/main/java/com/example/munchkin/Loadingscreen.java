@@ -26,7 +26,7 @@ public class Loadingscreen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },30000);
+        },3000);
         //end of test
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

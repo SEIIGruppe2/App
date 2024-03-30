@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        /*Button buttonSendMsg = findViewById(R.id.sendbutton);
+        Button buttonSendMsg = findViewById(R.id.sendbutton);
         buttonSendMsg.setOnClickListener(v -> sendMessage());
 
         textViewServerResponse = findViewById(R.id.responseTextView);
 
-        networkHandler = new WebSocketClient();*/
+        networkHandler = new WebSocketClient();
     }
 
 
