@@ -8,56 +8,74 @@
     android:background="@android:color/white"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_view_title"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:text="@string/button_register"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/buttonOptions"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOptions"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/buttonOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         android:text="@string/button_options"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
         android:textSize="18sp"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/buttonExit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonRegister"
-        app:layout_constraintBottom_toTopOf="@id/buttonExit"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegister"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/buttonExit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
         android:text="@string/button_exit"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
         android:textSize="18sp"
-        app:layout_constraintVertical_bias="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonOptions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/buttonOptions"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
