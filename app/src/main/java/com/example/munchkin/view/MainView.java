@@ -10,13 +10,13 @@ import com.example.munchkin.R;
 public class MainView {
 
     private MainActivity mainActivity;
-    private Button buttonRegister, buttonOptions, buttonQuit;
+    private Button buttonRegister, buttonOptions, buttonExit;
 
     public MainView(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.buttonRegister = mainActivity.findViewById(R.id.button1);
-        this.buttonOptions = mainActivity.findViewById(R.id.button2);
-        this.buttonQuit = mainActivity.findViewById(R.id.button3);
+        this.buttonRegister = mainActivity.findViewById(R.id.buttonRegister);
+        this.buttonOptions = mainActivity.findViewById(R.id.buttonOptions);
+        this.buttonExit = mainActivity.findViewById(R.id.buttonExit);
         setupUI();
     }
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Munchkin</string>
+
+    <string name="button_register">Anmelden</string>
+    <string name="button_options">Optionen</string>
+    <string name="button_exit">Beenden</string>
 </resources>
