@@ -9,20 +9,21 @@ import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Carddeck extends AppCompatActivity {
     LinearLayout parentlayout;
-    ImageView selectedCard;
+    CardView selectedCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carddeck);
         parentlayout= findViewById(R.id.containterforcards);
-        fillcards();
+        //fillcards();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -34,7 +35,7 @@ public class Carddeck extends AppCompatActivity {
     public void fillcards(){
         for(int i=0; i<=5; i++){
 
-            ImageView cards = new ImageView(this);
+            CardView cards = new CardView(this);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -53,12 +54,13 @@ public class Carddeck extends AppCompatActivity {
             // Setze die Layoutparameter für die ImageView
             cards.setLayoutParams(layoutParams);
             // Setze das Bild für die ImageView
-            cards.setImageResource(R.drawable.card); // Ändere 'your_image' zu deinem Bild
+            cards.setBackgroundResource(R.drawable.card); // Ändere 'your_image' zu deinem Bild
             // Füge die ImageView zum LinearLayout hinzu
             parentlayout.addView(cards);
+
         }
     }
-    public void oncardclick(ImageView card){
+    public void oncardclick(CardView card){
         Log.d("card", "Card was selected");
         if (card == selectedCard) {
             // Wenn ja, entferne die Markierung
