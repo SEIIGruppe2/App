@@ -16,21 +16,21 @@ public class ConnectToServerView {
 
     public ConnectToServerView(ConnectToServerActivity connectToServerActivity) {
         this.connectToServerActivity = connectToServerActivity;
-        this.textViewServerResponse = connectToServerActivity.findViewById(R.id.responseTextView);
-        this.editTextUsername = connectToServerActivity.findViewById(R.id.usernameEditText);
+        this.textViewServerResponse = connectToServerActivity.findViewById(R.id.textViewResponse);
+        this.editTextUsername = connectToServerActivity.findViewById(R.id.editTextUsername);
         setupUI();
 
     }
 
     private void setupUI() {
-        Button buttonSendMsg = connectToServerActivity.findViewById(R.id.sendbutton);
+        Button buttonSendMsg = connectToServerActivity.findViewById(R.id.buttonConnect);
         buttonSendMsg.setOnClickListener(v -> {
             String username = editTextUsername.getText().toString();
             connectToServerActivity.sendMessage(username);
         });
 
 
-        Button buttonReconnect = connectToServerActivity.findViewById(R.id.reConnectButton);
+        Button buttonReconnect = connectToServerActivity.findViewById(R.id.buttonReconnect);
         buttonReconnect.setOnClickListener(v -> connectToServerActivity.reconnectToServer());
 
     }

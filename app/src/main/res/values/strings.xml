@@ -6,9 +6,9 @@
     <string name="button_options">Optionen</string>
     <string name="button_exit">Beenden</string>
 
-    <string name="username_text">Geben Sie ihren Benutzernamen ein:</string>
-    <string name="username_hint">Benutzername</string>
-    <string name="response_text">Antwort vom Server</string>
-    <string name="start_game">Spiel suchen</string>
-    <string name="reconnect_to_server">Verbindung wiederherstellen</string>
+    <string name="text_view_username">Geben Sie ihren Benutzernamen ein:</string>
+    <string name="edit_text_username_hint">Benutzername</string>
+    <string name="text_view_response">Antwort vom Server</string>
+    <string name="button_connect">Spiel suchen</string>
+    <string name="button_reconnect">Verbindung wiederherstellen</string>
 </resources>
