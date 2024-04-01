@@ -34,6 +34,7 @@
         android:layout_weight="1"
         >
         <Button
+            android:id="@+id/buttonzurück"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Zurück"
@@ -45,6 +46,7 @@
         android:fontFamily="@font/chewyregular"
         />
         <Button
+            android:id="@+id/buttonspielen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Spielen"
@@ -55,6 +57,7 @@
             android:fontFamily="@font/chewyregular"
             />
         <Button
+            android:id="@+id/buttontauschen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tauschen"

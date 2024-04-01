@@ -92,8 +92,8 @@ public class Carddeck extends AppCompatActivity {
             karteninhalt.addView(kartenbild);
 
             TextView kartenbeschreibung = new TextView(this);
-            LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
+                    ViewGroup.LayoutParams.MATCH_PARENT);
             kartenbeschreibung.setText("Füge einem Monster im Rittering 2 Schadenspunkte zu");
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -107,35 +107,52 @@ public class Carddeck extends AppCompatActivity {
 
 
 
-            /*cards.setOnClickListener((new View.OnClickListener() {
+            cards.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     oncardclick(cards);
                     //buttonsvisible machen
                     //eventuell alte ausgewählte karte entleuchten
                 }
-            }));*/
+            }));
+
             parentlayout.addView(cards);
 
         }
     }
     public void oncardclick(CardView card){
         Log.d("card", "Card was selected");
+
+
         if (card == selectedCard) {
-            // Wenn ja, entferne die Markierung
-            card.setBackgroundColor(Color.TRANSPARENT); // Setze die Hintergrundfarbe auf transparent
+            changecardview(selectedCard, 125f,200f,16,16,12);
             selectedCard = null; // Setze die ausgewählte Karte zurück
         } else {
-            // Wenn nein, markiere die Karte
+
             if (selectedCard != null) {
-                // Entferne die Markierung von der vorher ausgewählten Karte, wenn eine vorhanden ist
-                selectedCard.setBackgroundColor(Color.TRANSPARENT);
+                changecardview(selectedCard, 125f,200f,16,16,12);
 
             }
-            // Markiere die ausgewählte Karte
-            card.setBackgroundColor(Color.RED); // Ändere die Hintergrundfarbe nach deinen Wünschen
+            changecardview(card, 155f,250f,20,20,15);
             selectedCard = card; // Setze die ausgewählte Karte
         }
+    }
+    public void changecardview(CardView card, float layoutparam1, float layoutparam2, int margin, int textsizekartenname, int textsizekartenbeschreibung){
+        float dpValue = layoutparam1;
+        float dpValue2 = layoutparam2;// Change this value to your desired dp
+        float density = getResources().getDisplayMetrics().density;
+        int pixelValue1 = (int) (dpValue * density);
+        int pixelValue2 = (int) (dpValue2 * density);
+
+
+        LinearLayout.LayoutParams layoutParamscards = new LinearLayout.LayoutParams(pixelValue1,pixelValue2);
+        layoutParamscards.setMargins(margin,margin,margin,margin);
+        card.setLayoutParams(layoutParamscards);
+        LinearLayout karteninhalt = (LinearLayout) card.getChildAt(0);
+        TextView kartenname = (TextView) karteninhalt.getChildAt(0);
+        kartenname.setTextSize(textsizekartenname);
+        TextView kartenbeschreibung = (TextView) karteninhalt.getChildAt(2);
+        kartenbeschreibung.setTextSize(textsizekartenbeschreibung);
     }
 
     }
