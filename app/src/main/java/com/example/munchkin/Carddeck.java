@@ -2,12 +2,14 @@ package com.example.munchkin;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,12 +25,17 @@ import androidx.core.view.WindowInsetsCompat;
 public class Carddeck extends AppCompatActivity {
     LinearLayout parentlayout;
     CardView selectedCard;
+
+    Button spielen;
+    Button tauschen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carddeck);
         parentlayout= findViewById(R.id.containerforcards);
+        spielen= findViewById(R.id.buttonspielen);
+        tauschen = findViewById(R.id.buttontauschen);
         fillcards();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -126,7 +133,9 @@ public class Carddeck extends AppCompatActivity {
 
         if (card == selectedCard) {
             changecardview(selectedCard, 125f,200f,16,16,12);
-            selectedCard = null; // Setze die ausgewählte Karte zurück
+            selectedCard = null;
+            spielen.setVisibility(View.GONE);
+            tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
             if (selectedCard != null) {
@@ -134,7 +143,9 @@ public class Carddeck extends AppCompatActivity {
 
             }
             changecardview(card, 155f,250f,20,20,15);
-            selectedCard = card; // Setze die ausgewählte Karte
+            selectedCard = card;
+            spielen.setVisibility(View.VISIBLE);
+            tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
         }
     }
     public void changecardview(CardView card, float layoutparam1, float layoutparam2, int margin, int textsizekartenname, int textsizekartenbeschreibung){
