@@ -1,5 +1,4 @@
-// DiceRollModel.java
-package com.example.munchkin.modelDice;
+package com.example.munchkin.model;
 
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,14 +9,14 @@ import android.widget.TextView;
 
 import com.example.munchkin.R;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class DiceRollModel {
 
     private ImageView diceImage;
     private Button btnRoll;
     private TextView textView;
-    private Random random = new Random();
+    private SecureRandom secureRandom = new SecureRandom();
 
     public DiceRollModel(ImageView diceImage, Button btnRoll, TextView textView) {
         this.diceImage = diceImage;
@@ -34,7 +33,7 @@ public class DiceRollModel {
 
     private boolean rolling = false;
 
-    void rollDice() {
+    public void rollDice() {
         if (rolling) {
             return;
         }
@@ -50,13 +49,13 @@ public class DiceRollModel {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
 
                 diceImage.post(new Runnable() {
                     @Override
                     public void run() {
-                        int randomNumber = random.nextInt(4);
+                        int randomNumber = secureRandom.nextInt(4);
                         diceImage.setImageResource(R.drawable.dice_1 + randomNumber);
                         textView.setText(String.valueOf(randomNumber + 1));
 
