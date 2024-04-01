@@ -134,15 +134,17 @@ public class Carddeck extends AppCompatActivity {
         if (card == selectedCard) {
             changecardview(selectedCard, 125f,200f,16,16,12);
             selectedCard = null;
+            card.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));
             spielen.setVisibility(View.GONE);
             tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
             if (selectedCard != null) {
                 changecardview(selectedCard, 125f,200f,16,16,12);
-
+                selectedCard.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));;
             }
             changecardview(card, 155f,250f,20,20,15);
+            card.setForeground(getResources().getDrawable(R.drawable.yellowborder));
             selectedCard = card;
             spielen.setVisibility(View.VISIBLE);
             tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
