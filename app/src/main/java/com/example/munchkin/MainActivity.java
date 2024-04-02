@@ -1,9 +1,7 @@
 package com.example.munchkin;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,17 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        //nur zu testzwecken
-        Button test = findViewById(R.id.testforloading);
-        test.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Actions to perform when the button is clicked
-                // For example, you can display a toast message
-                switchtoloadingactivity();
-            }
-        }));
-        //ende
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -78,12 +65,5 @@ public class MainActivity extends AppCompatActivity {
         textViewServerResponse.setText(message);
     }
 
-
-    //only for testreasons.. can be later delated
-    public void switchtoloadingactivity(){
-        Intent test = new Intent(this, Loadingscreen.class);
-        startActivity(test);
-
-    }
 }
 

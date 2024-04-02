@@ -1,10 +1,7 @@
 package com.example.munchkin;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -22,7 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Carddeck extends AppCompatActivity {
+public class CarddeckActivity extends AppCompatActivity {
     LinearLayout parentlayout;
     CardView selectedCard;
 
