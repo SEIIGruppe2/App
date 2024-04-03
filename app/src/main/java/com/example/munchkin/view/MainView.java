@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.munchkin.ConnectToServerActivity;
-import com.example.munchkin.MainActivity;
+import com.example.munchkin.activity.ConnectToServerActivity;
+import com.example.munchkin.activity.MainActivity;
 import com.example.munchkin.R;
 
 public class MainView {
