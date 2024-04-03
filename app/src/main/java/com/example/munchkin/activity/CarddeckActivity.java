@@ -1,4 +1,4 @@
-package com.example.munchkin;
+package com.example.munchkin.activity;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.munchkin.R;
 
 public class CarddeckActivity extends AppCompatActivity {
     LinearLayout parentlayout;

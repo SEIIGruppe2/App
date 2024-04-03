@@ -1,4 +1,4 @@
-package com.example.munchkin;
+package com.example.munchkin.activity;
 
 import android.os.Bundle;
 
@@ -7,7 +7,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-
+import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
