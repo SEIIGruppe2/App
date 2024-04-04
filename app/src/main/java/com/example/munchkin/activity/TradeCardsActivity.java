@@ -32,8 +32,8 @@ public class TradeCardsActivity extends AppCompatActivity {
         Button switchButtonDeck = findViewById(R.id.tauschen_btn_deck);
         TradeCardsView view = new TradeCardsView(cardDeckController, switchButtonPlayer,switchButtonDeck);
 
-        router.registerController("SWITCH_CARDS_PLAYER", cardDeckController);
-        router.registerController("SWITCH_CARDS_DECK", cardDeckController);
+        router.registerController("MONSTER_ATTACK", cardDeckController);
+        router.registerController("PLAYER_ATTACK", cardDeckController);
 
         model.setMessageRouter(router);
     }
