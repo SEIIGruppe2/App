@@ -10,6 +10,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
+
 import com.example.munchkin.model.WebSocketClientModel;
 
 public class WebSocketClient {
@@ -24,6 +25,7 @@ public class WebSocketClient {
     private WebSocket webSocket;
 
     private WebSocketClientModel model;
+
 
     public WebSocketClient(WebSocketClientModel model) {
         this.model = model;
