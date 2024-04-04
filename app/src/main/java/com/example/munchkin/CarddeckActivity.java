@@ -1,5 +1,6 @@
 package com.example.munchkin;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -34,6 +36,8 @@ public class CarddeckActivity extends AppCompatActivity {
         spielen= findViewById(R.id.buttonspielen);
         tauschen = findViewById(R.id.buttontauschen);
         fillcards();
+        setonclicklistenertoButtons();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -163,6 +167,45 @@ public class CarddeckActivity extends AppCompatActivity {
         kartenname.setTextSize(textsizekartenname);
         TextView kartenbeschreibung = (TextView) karteninhalt.getChildAt(2);
         kartenbeschreibung.setTextSize(textsizekartenbeschreibung);
+    }
+
+    public void setonclicklistenertoButtons(){
+        Button buttonzurück = findViewById(R.id.buttonzurück);
+        buttonzurück.setOnClickListener(v -> {
+           zurück();
+        });
+
+        Button zugbeenden = findViewById(R.id.buttonzugbeenden);
+        zugbeenden.setOnClickListener(v -> {
+           zugbeenden();
+        });
+    }
+
+    private void zurück(){
+        Intent intent = new Intent(this, LoadingscreenActivity.class);
+        startActivity(intent);
+    }
+
+    private void zugbeenden(){
+
+        View popupdrawable = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        PopupWindow popupzugzuende = new PopupWindow(popupdrawable,width,height,true);
+        popupzugzuende.setOutsideTouchable(false);
+        popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        Button ja = popupdrawable.findViewById(R.id.buttonja);
+        Button nein = popupdrawable.findViewById(R.id.nein);
+
+
+        ja.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LoadingscreenActivity.class);
+            startActivity(intent);
+        });
+        nein.setOnClickListener(v -> {
+            popupzugzuende.dismiss();
+        });
     }
 
     }

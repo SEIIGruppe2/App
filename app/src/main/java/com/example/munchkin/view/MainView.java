@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.munchkin.ConnectToServerActivity;
+import com.example.munchkin.LoadingscreenActivity;
 import com.example.munchkin.MainActivity;
 import com.example.munchkin.R;
 
@@ -22,6 +23,7 @@ public class MainView {
         this.buttonOptions = mainActivity.findViewById(R.id.buttonOptions);
         this.buttonExit = mainActivity.findViewById(R.id.buttonExit);
         setupUI();
+
     }
 
     private void setupUI() {
@@ -32,5 +34,15 @@ public class MainView {
                 mainActivity.startActivity(intent);
             }
         });
+
+        //zutestzwecken
+        buttonOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mainActivity, LoadingscreenActivity.class);
+                mainActivity.startActivity(intent);
+            }
+        });
+        //ende
     }
 }
