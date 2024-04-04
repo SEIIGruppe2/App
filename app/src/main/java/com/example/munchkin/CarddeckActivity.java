@@ -1,17 +1,23 @@
 package com.example.munchkin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -179,6 +185,10 @@ public class CarddeckActivity extends AppCompatActivity {
         zugbeenden.setOnClickListener(v -> {
            zugbeenden();
         });
+        Button tauschen = findViewById(R.id.buttontauschen);
+        tauschen.setOnClickListener(v -> {
+            tauschen();
+        });
     }
 
     private void zurück(){
@@ -194,6 +204,7 @@ public class CarddeckActivity extends AppCompatActivity {
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
         PopupWindow popupzugzuende = new PopupWindow(popupdrawable,width,height,true);
         popupzugzuende.setOutsideTouchable(false);
+        popupzugzuende.setElevation(10);
         popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         Button ja = popupdrawable.findViewById(R.id.buttonja);
         Button nein = popupdrawable.findViewById(R.id.nein);
@@ -208,5 +219,44 @@ public class CarddeckActivity extends AppCompatActivity {
         });
     }
 
+    private void tauschen(){
+
+        View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
+
+
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        PopupWindow popuptauschen = new PopupWindow(popupdrawable,width,height,true);
+        popuptauschen.setOutsideTouchable(false);
+        popuptauschen.setElevation(10);
+        popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        Button tauschen = popupdrawable.findViewById(R.id.buttontauschen2);
+        Button zurueck = popupdrawable.findViewById(R.id.buttonzurück2);
+
+        String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
+        Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CarddeckActivity.this, R.layout.list, options);
+        dropdownmenu.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+
+
+
+        tauschen.setOnClickListener(v -> {
+            //tobedone
+            Intent intent = new Intent(this, LoadingscreenActivity.class);
+            startActivity(intent);
+        });
+
+        zurueck.setOnClickListener(v -> {
+            popuptauschen.dismiss();
+        });
     }
+
+    }
+
+
 

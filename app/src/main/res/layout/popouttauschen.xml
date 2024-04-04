@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="#D6D6D6">
+    <LinearLayout
+        android:layout_width="550dp"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:background="@drawable/popupdrawable"
+        android:layout_margin = "10dp"
+        android:gravity="center">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="125dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:padding="20dp"
+            android:foreground="@drawable/bg_roundrect_ripple_light_border"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blauer Ritter"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/chewyregular"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <ImageView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/blue_knight" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Füge einem Monster im Rittering 2 Schadenspunkte zu"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/chewyregular"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/buttontauschen2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500"
+                android:layout_marginRight="20dp"
+                android:fontFamily="@font/chewyregular"
+                android:text="Tauschen" />
+
+            <Button
+                android:id="@+id/buttonzurück2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500"
+                android:fontFamily="@font/chewyregular"
+                android:text="Zurück" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
