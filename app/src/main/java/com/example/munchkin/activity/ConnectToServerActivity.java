@@ -16,9 +16,6 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
 
-    private String username;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

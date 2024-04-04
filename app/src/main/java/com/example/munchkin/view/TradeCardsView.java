@@ -19,7 +19,10 @@ public class TradeCardsView {
             @Override
             public void onClick(View v) {
                 // Hier werden die konkreten Werte übergeben
-                onSwitchButtonClicked("username", "abgegebeneKarte", "erhalteneKarte");
+                String username = "username";
+                String abgegebeneKarte = "abgegebeneKarte";
+                String erhalteneKarte = "erhalteneKarte";
+                onSwitchButtonClicked(username, abgegebeneKarte, erhalteneKarte);
             }
         });
     }
@@ -28,5 +31,4 @@ public class TradeCardsView {
         // Nachricht an den Controller senden
         cardDeckController.sendSwitchCardsPlayerMessage(username, abgegebeneKarte, erhalteneKarte);
     }
-
 }
