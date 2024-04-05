@@ -1,5 +1,6 @@
 package com.example.munchkin;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -206,6 +208,7 @@ public class CarddeckActivity extends AppCompatActivity {
         popupzugzuende.setOutsideTouchable(false);
         popupzugzuende.setElevation(10);
         popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        dimmwindow(popupzugzuende);
         Button ja = popupdrawable.findViewById(R.id.buttonja);
         Button nein = popupdrawable.findViewById(R.id.nein);
 
@@ -225,21 +228,21 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
 
-        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        PopupWindow popuptauschen = new PopupWindow(popupdrawable,width,height,true);
+
+        PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1000,true);
         popuptauschen.setOutsideTouchable(false);
-        popuptauschen.setElevation(10);
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschen2);
         Button zurueck = popupdrawable.findViewById(R.id.buttonzurück2);
 
         String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
         Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(CarddeckActivity.this, R.layout.list, options);
         dropdownmenu.setAdapter(adapter);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.list);
 
 
 
@@ -254,6 +257,15 @@ public class CarddeckActivity extends AppCompatActivity {
         zurueck.setOnClickListener(v -> {
             popuptauschen.dismiss();
         });
+    }
+    private void dimmwindow(PopupWindow popup){
+        View container = (View) popup.getContentView().getParent();
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        // add flag
+        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.3f;
+        wm.updateViewLayout(container, p);
     }
 
     }

@@ -11,4 +11,16 @@
     <string name="text_view_response">Antwort vom Server</string>
     <string name="button_connect">Spiel suchen</string>
     <string name="button_reconnect">Verbindung wiederherstellen</string>
+
+
+    <string name="button_zurück">Zurück</string>
+    <string name="button_spielen">Spielen</string>
+    <string name="button_tauschen">Tauschen</string>
+    <string name="button_zugbeenden">Zug beenden</string>
+    <string name="button_ja">Ja</string>
+    <string name="button_nein">Nein</string>
+
+
+
+
 </resources>

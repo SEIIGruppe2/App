@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
-    android:background="#D6D6D6">
+    android:foreground="@drawable/ripple_for_popupwindow"
+    android:background="@drawable/ripple_for_popupwindow">
     <LinearLayout
         android:layout_width="450dp"
         android:layout_height="200dp"
         android:orientation="vertical"
-        android:background="@drawable/popupdrawable"
+        android:background="@drawable/steinmauer"
         android:layout_margin = "10dp"
         android:gravity="center">
 
@@ -20,6 +21,7 @@
             android:fontFamily="@font/chewyregular"
             android:text="Bist du sicher, dass du den Zug beenden möchtest?"
             android:textColor="@color/black"
+            android:background="#FFFFE500"
             android:textSize="20sp">
         </TextView>
         <LinearLayout
