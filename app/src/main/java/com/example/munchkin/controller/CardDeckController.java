@@ -69,6 +69,11 @@ public class CardDeckController extends BaseController {
         tradeCardsView.setupCardSelection();
     }
 
+    public void tradeCard(ActionCardDTO card) {
+        // Example implementation.
+        // Here, we're just sending a trade message to the deck as an example
+        sendSwitchCardsDeckMessage(card.getName()); // Adjust based on your message format
+    }
 }
 
 
