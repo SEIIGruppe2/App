@@ -1,7 +1,11 @@
 package com.example.munchkin.view;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,19 +13,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.R;
-import com.example.munchkin.model.DiceRollModel;
-import com.example.munchkin.model.SensorModel;
 
-public class DiceRollView extends AppCompatActivity {
+public class DiceRollView extends AppCompatActivity implements ShakeDetectorView.OnShakeListener {
 
     private ImageView diceImage;
     private Button btnRoll;
     private TextView textView;
-    private DiceRollModel diceRollModel;
-
-    private SensorModel sensorModel;
-
-
+    private com.example.munchkin.model.DiceRollModel diceRollModel;
+    private ShakeDetectorView shakeDetectorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,25 +31,64 @@ public class DiceRollView extends AppCompatActivity {
         btnRoll = findViewById(R.id.btn_roll);
         textView = findViewById(R.id.text_view);
 
+        diceRollModel = new com.example.munchkin.model.DiceRollModel();
 
-        diceRollModel = new DiceRollModel(diceImage, btnRoll, textView);
-        sensorModel = new SensorModel(this, diceRollModel);
         btnRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                diceRollModel.rollDice();
+                rollDice();
             }
         });
+
+        shakeDetectorView = new ShakeDetectorView(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        sensorModel.registerListener();
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (accelerometer != null) {
+            sensorManager.registerListener(shakeDetectorView, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     @Override
     protected void onPause() {
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager.unregisterListener(shakeDetectorView);
         super.onPause();
-        sensorModel.unregisterListener();
+    }
+
+
+    private void rollDice() {
+        btnRoll.setEnabled(false);
+
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        diceImage.startAnimation(animation);
+
+        diceRollModel.rollDice(new com.example.munchkin.model.DiceRollModel.DiceRollCallback() {
+            @Override
+            public void onDiceRolled(final int randomNumber) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateUI(randomNumber);
+                    }
+                });
+            }
+        });
+    }
+
+    private void updateUI(int randomNumber) {
+        diceImage.setImageResource(R.drawable.dice_1 + randomNumber);
+        textView.setText(String.valueOf(randomNumber + 1));
+
+        btnRoll.setEnabled(true);
+    }
+
+    @Override
+    public void onShake() {
+        rollDice();
     }
 }
