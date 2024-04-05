@@ -20,7 +20,6 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -56,7 +55,6 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public void fillcards(){
         for(int i=0; i<=20; i++){
-            //Karte
             CardView cards = new CardView(this);
             float dpValue = 125f;
             float dpValue2 = 200f;// Change this value to your desired dp
@@ -90,7 +88,9 @@ public class CarddeckActivity extends AppCompatActivity {
             layoutParamskartenname.setMargins(0,pixelValuemargin,pixelValuemargin,0);
             Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
             kartenname.setTypeface(typeface);
-            kartenname.setText(R.string.blauerritter1);
+            String kartenname1 = "blauerritter1";
+            int resIDkartenname = getResources().getIdentifier(kartenname1,"string",getPackageName());
+            kartenname.setText(resIDkartenname);
             kartenname.setTextColor(getResources().getColor(R.color.black));
             kartenname.setTextSize(16);
             kartenname.setGravity(Gravity.CENTER);
@@ -103,14 +103,18 @@ public class CarddeckActivity extends AppCompatActivity {
             int pixelValueimage = (int) (dpvalueimage * density);
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                    pixelValueimage);
-            kartenbild.setImageResource(R.drawable.blue_knight);
+            String test ="blue_knight";
+            int resIDkartenbild = getResources().getIdentifier(test,"drawable",getPackageName());
+            kartenbild.setImageResource(resIDkartenbild);
             kartenbild.setLayoutParams(layoutParamskartenbild);
             karteninhalt.addView(kartenbild);
 
             TextView kartenbeschreibung = new TextView(this);
             LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            kartenbeschreibung.setText(R.string.blauerritter2);
+            String kartenbeschreibung2 = "blauerritter2";
+            int resIDkartenbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+            kartenbeschreibung.setText(resIDkartenbeschreibung);
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             kartenbeschreibung.setTextSize(12);
@@ -127,8 +131,7 @@ public class CarddeckActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     oncardclick(cards);
-                    //buttonsvisible machen
-                    //eventuell alte ausgewählte karte entleuchten
+
                 }
             }));
 
@@ -188,7 +191,7 @@ public class CarddeckActivity extends AppCompatActivity {
         });
         Button tauschen = findViewById(R.id.buttontauschen);
         tauschen.setOnClickListener(v -> {
-            tauschen();
+            tauschen("blauerritter");
         });
     }
 
@@ -221,12 +224,9 @@ public class CarddeckActivity extends AppCompatActivity {
         });
     }
 
-    private void tauschen(){
+    private void tauschen(String karte){
 
         View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
-
-
-
 
         PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1000,true);
         popuptauschen.setOutsideTouchable(false);
@@ -234,6 +234,23 @@ public class CarddeckActivity extends AppCompatActivity {
         dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschen2);
         Button zurueck = popupdrawable.findViewById(R.id.buttonzurueck2);
+        TextView kartenname = popupdrawable.findViewById(R.id.kartennamepopup);
+        TextView kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
+        ImageView kartenbild = popupdrawable.findViewById(R.id.kartenbildpopup);
+        String kartenname2 = karte+"1";
+        int resIDkartenname = getResources().getIdentifier(kartenname2,"string",getPackageName());
+        kartenname.setText(resIDkartenname);
+
+        String kartenbeschreibung2 = karte+"2";
+        int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+        kartenbeschreibung.setText(resIDkartennbeschreibung);
+
+        String kartenbild2 = "blue_knight";
+        int resIDkartenbild = getResources().getIdentifier(kartenbild2,"drawable",getPackageName());
+        kartenbild.setImageResource(resIDkartenbild);
+
+
+
 
         String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
         Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);
@@ -242,10 +259,6 @@ public class CarddeckActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list, options);
         dropdownmenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
-
-
-
-
 
         tauschen.setOnClickListener(v -> {
             //tobedone

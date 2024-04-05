@@ -37,10 +37,9 @@
                 android:padding="8dp"
                 >
                 <TextView
-
+                    android:id="@+id/kartennamepopup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/blauerritter1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/chewyregular"
                     android:layout_gravity="center"
@@ -49,18 +48,17 @@
                     />
 
                 <ImageView
-
+                    android:id="@+id/kartenbildpopup"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/blue_knight"
+
                     />
 
                 <TextView
-
+                    android:id="@+id/kartenbeschreibungpopup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/blauerritter2"
                     android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="12sp"
