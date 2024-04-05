@@ -191,7 +191,7 @@ public class CarddeckActivity extends AppCompatActivity {
         });
         Button tauschen = findViewById(R.id.buttontauschen);
         tauschen.setOnClickListener(v -> {
-            tauschen("blauerritter");
+            tauschen("roterritter");
         });
     }
 
@@ -245,7 +245,7 @@ public class CarddeckActivity extends AppCompatActivity {
         int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
         kartenbeschreibung.setText(resIDkartennbeschreibung);
 
-        String kartenbild2 = "blue_knight";
+        String kartenbild2 = karte;
         int resIDkartenbild = getResources().getIdentifier(kartenbild2,"drawable",getPackageName());
         kartenbild.setImageResource(resIDkartenbild);
 
