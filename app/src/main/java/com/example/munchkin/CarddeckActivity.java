@@ -180,7 +180,7 @@ public class CarddeckActivity extends AppCompatActivity {
     public void setonclicklistenertoButtons(){
         Button buttonzurück = findViewById(R.id.buttonzurück);
         buttonzurück.setOnClickListener(v -> {
-           zurück();
+           zurueck();
         });
 
         Button zugbeenden = findViewById(R.id.buttonzugbeenden);
@@ -193,7 +193,7 @@ public class CarddeckActivity extends AppCompatActivity {
         });
     }
 
-    private void zurück(){
+    private void zurueck(){
         Intent intent = new Intent(this, LoadingscreenActivity.class);
         startActivity(intent);
     }
@@ -234,7 +234,7 @@ public class CarddeckActivity extends AppCompatActivity {
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschen2);
-        Button zurueck = popupdrawable.findViewById(R.id.buttonzurück2);
+        Button zurueck = popupdrawable.findViewById(R.id.buttonzurueck2);
 
         String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
         Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);

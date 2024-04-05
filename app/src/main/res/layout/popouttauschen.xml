@@ -40,7 +40,7 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blauer Ritter"
+                    android:text="@string/blauerritter1"
                     android:textColor="@color/black"
                     android:fontFamily="@font/chewyregular"
                     android:layout_gravity="center"
@@ -53,13 +53,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/blue_knight" />
+                    android:src="@drawable/blue_knight"
+                    />
 
                 <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Füge einem Monster im Rittering 2 Schadenspunkte zu"
+                    android:text="@string/blauerritter2"
                     android:textColor="@color/black"
                     android:textAlignment="center"
                     android:textSize="12sp"
@@ -89,12 +90,12 @@
                 android:layout_gravity="center"
                 android:background="@drawable/rippleeffect"
                 android:backgroundTint="#FFE500"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/chewyregular"
                 android:text="@string/button_tauschen" />
 
             <Button
-                android:id="@+id/buttonzurück2"
+                android:id="@+id/buttonzurueck2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
