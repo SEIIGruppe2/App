@@ -150,7 +150,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
             if (selectedCard != null) {
                 changecardview(selectedCard, 125f,200f,16,16,12);
-                selectedCard.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));;
+                selectedCard.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));
             }
             changecardview(card, 155f,250f,20,20,15);
             card.setForeground(getResources().getDrawable(R.drawable.yellowborder));
@@ -160,11 +160,10 @@ public class CarddeckActivity extends AppCompatActivity {
         }
     }
     public void changecardview(CardView card, float layoutparam1, float layoutparam2, int margin, int textsizekartenname, int textsizekartenbeschreibung){
-        float dpValue = layoutparam1;
-        float dpValue2 = layoutparam2;// Change this value to your desired dp
+
         float density = getResources().getDisplayMetrics().density;
-        int pixelValue1 = (int) (dpValue * density);
-        int pixelValue2 = (int) (dpValue2 * density);
+        int pixelValue1 = (int) (layoutparam1 * density);
+        int pixelValue2 = (int) (layoutparam2 * density);
 
 
         LinearLayout.LayoutParams layoutParamscards = new LinearLayout.LayoutParams(pixelValue1,pixelValue2);
@@ -178,8 +177,8 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
     public void setonclicklistenertoButtons(){
-        Button buttonzurück = findViewById(R.id.buttonzurück);
-        buttonzurück.setOnClickListener(v -> {
+        Button zurueck = findViewById(R.id.buttonzurueck1);
+        zurueck.setOnClickListener(v -> {
            zurueck();
         });
 
@@ -240,7 +239,7 @@ public class CarddeckActivity extends AppCompatActivity {
         Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CarddeckActivity.this, R.layout.list, options);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list, options);
         dropdownmenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
 
