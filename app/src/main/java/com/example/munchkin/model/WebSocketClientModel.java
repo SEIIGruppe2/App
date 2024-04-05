@@ -14,9 +14,9 @@ import java.util.List;
 public class WebSocketClientModel {
 
     private WebSocketClient networkHandler;
-    private MessageRouter messageRouter; // For routing messages
+    private MessageRouter messageRouter;
 
-    // Removed the observer list and related methods (addObserver, removeObserver)
+
 
     public void setMessageRouter(MessageRouter router) { // Sets the router
         this.messageRouter = router;
@@ -27,11 +27,10 @@ public class WebSocketClientModel {
         if(messageRouter != null) {
             messageRouter.routeMessage(message); // Directly route the message
         } else {
-            // Error handling if the router is null
+            throw new IllegalStateException("MessageRouter not initialized. Cannot route messages without a valid MessageRouter.");
         }
     }
 
-    // Constructor and other existing methods remain the same
 
     public WebSocketClientModel() {
         networkHandler = new WebSocketClient(this);

@@ -1,11 +1,13 @@
 package com.example.munchkin.activity;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
@@ -36,11 +38,12 @@ public class TradeCardsActivity extends AppCompatActivity {
         tradeCardsView.setCardDeckController(cardDeckController);
 
         // Setup router and model
-        router.registerController("MONSTER_ATTACK", cardDeckController);
-        router.registerController("PLAYER_ATTACK", cardDeckController);
+        router.registerController("SWITCH_CARDS_DECK", cardDeckController);
+        router.registerController("SWITCH_CARDS_PLAYER", cardDeckController);
         model.setMessageRouter(router);
-    }
 
+
+    }
 
 
 }
