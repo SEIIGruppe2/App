@@ -1,24 +1,13 @@
 package com.example.munchkin;
 
 import android.os.Bundle;
-
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
-
-
-import com.example.munchkin.controller.ConnectToServerController;
-import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
+import com.example.munchkin.view.MainView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ConnectToServerController controller;
-
-    private String username;
-
-
+    private MainView mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        ConnectToServerView view = new ConnectToServerView(this);
-        WebSocketClientModel model = new WebSocketClientModel();
-        controller = new ConnectToServerController(model, view);
-    }
-
-
-    public void sendMessage(String username) {
-        controller.sendMessage(username);
-    }
-
-    public void reconnectToServer() {
-        controller.reconnectToServer();
+        mainView = new MainView(this);
     }
 
 }

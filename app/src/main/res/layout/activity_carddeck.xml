@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".CarddeckActivity">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/containerforcards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        >
+        <Button
+            android:id="@+id/buttonzurück"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zurück"
+        android:layout_gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:background="@drawable/rippleeffect"
+        android:backgroundTint="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        />
+        <Button
+            android:id="@+id/buttonspielen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spielen"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/rippleeffect"
+            android:backgroundTint="#FFE500"
+            android:fontFamily="@font/chewyregular"
+            android:visibility="gone"
+            />
+        <Button
+            android:id="@+id/buttontauschen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tauschen"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/rippleeffect"
+            android:backgroundTint="#FFE500"
+            android:fontFamily="@font/chewyregular"
+            android:visibility="gone"/>
+
+
+</LinearLayout>
+
+</LinearLayout>
