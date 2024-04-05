@@ -91,7 +91,7 @@
                 android:backgroundTint="#FFE500"
                 android:layout_marginRight="20dp"
                 android:fontFamily="@font/chewyregular"
-                android:text="Tauschen" />
+                android:text="@string/button_tauschen" />
 
             <Button
                 android:id="@+id/buttonzurück2"
@@ -101,7 +101,7 @@
                 android:background="@drawable/rippleeffect"
                 android:backgroundTint="#FFE500"
                 android:fontFamily="@font/chewyregular"
-                android:text="Zurück" />
+                android:text="@string/button_zurück" />
         </LinearLayout>
 
 

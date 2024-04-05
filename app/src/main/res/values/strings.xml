@@ -20,6 +20,20 @@
     <string name="button_ja">Ja</string>
     <string name="button_nein">Nein</string>
 
+    <string name="popupzugbeenden">Bist du sicher, dass du den Zug beenden möchtest?</string>
+
+    <string name="blauerritter1">Blauer Ritter</string>
+    <string name="blauerritter2">Füge einem Monster im Rittering 2 Schadenspunkte zu</string>
+
+    <string name="roterritter1">Roter Ritter</string>
+    <string name="roterritter2">Füge einem Monster im Rittering 2 Schadenspunkte zu</string>
+
+    <string name="weisserritter1">Blauer Ritter</string>
+    <string name="weisserritter2">Füge einem Monster im Rittering 2 Schadenspunkte zu</string>
+
+    <string name="braunerritter1">Blauer Ritter</string>
+    <string name="braunerritter2">Füge einem Monster im Rittering 2 Schadenspunkte zu</string>
+
 
 
 

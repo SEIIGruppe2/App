@@ -2,7 +2,7 @@ package com.example.munchkin;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,16 +10,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,7 +90,7 @@ public class CarddeckActivity extends AppCompatActivity {
             layoutParamskartenname.setMargins(0,pixelValuemargin,pixelValuemargin,0);
             Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
             kartenname.setTypeface(typeface);
-            kartenname.setText("Blauer Ritter");
+            kartenname.setText(R.string.blauerritter1);
             kartenname.setTextColor(getResources().getColor(R.color.black));
             kartenname.setTextSize(16);
             kartenname.setGravity(Gravity.CENTER);
@@ -110,7 +110,7 @@ public class CarddeckActivity extends AppCompatActivity {
             TextView kartenbeschreibung = new TextView(this);
             LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            kartenbeschreibung.setText("Füge einem Monster im Rittering 2 Schadenspunkte zu");
+            kartenbeschreibung.setText(R.string.blauerritter2);
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             kartenbeschreibung.setTextSize(12);
