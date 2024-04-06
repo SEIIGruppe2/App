@@ -29,7 +29,6 @@ public class ConnectToServerController {
     }
 
 
-
     private void messageReceivedFromServer(String message) {
         view.updateServerResponse(message);
     }

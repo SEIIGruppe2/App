@@ -2,8 +2,11 @@ package com.example.munchkin.view;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DrawableUtils.CardUtils;
@@ -12,6 +15,7 @@ import com.example.munchkin.R;
 import com.example.munchkin.activity.TradeCardsActivity;
 import com.example.munchkin.controller.CardDeckController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TradeCardsView {
@@ -24,7 +28,6 @@ public class TradeCardsView {
 
     private PlayerHand playerHand;
 
-
     private String targetPlayerUsername;
 
     public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck) {
@@ -32,7 +35,6 @@ public class TradeCardsView {
         buttonSwitchPlayer.setOnClickListener(v -> performPlayerTrade());
         buttonSwitchDeck.setOnClickListener(v -> performTrade());
     }
-
 
 
     public void displayPlayerCards(List<ActionCardDTO> playerCards) {
@@ -107,10 +109,27 @@ public class TradeCardsView {
         }
     }
 
+    public void updateUsernamesSpinner(ArrayList<String> usernames) {
+        Activity activity = (Activity) tradeCardsActivity; // Assuming tradeCardsActivity is context
+        activity.runOnUiThread(() -> {
+            Spinner userSpinner = activity.findViewById(R.id.spinner); // Adjust ID as necessary
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, usernames);
+            userSpinner.setAdapter(adapter);
 
-    public void setTargetPlayerUsername(String targetPlayerUsername) {
-        this.targetPlayerUsername = targetPlayerUsername;
+            userSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    targetPlayerUsername = parent.getItemAtPosition(position).toString();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+        });
+
     }
+
+
 
 
 

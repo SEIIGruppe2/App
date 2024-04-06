@@ -3,7 +3,11 @@ package com.example.munchkin.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,35 +18,60 @@ import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.TradeCardsView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TradeCardsActivity extends AppCompatActivity {
 
     private CardDeckController cardDeckController;
-
+    private WebSocketClientModel model = new WebSocketClientModel(); // Use field directly
     private TradeCardsView tradeCardsView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testlayer_for_game_board);
+        setContentView(R.layout.tauschen_test_layer);
 
-        WebSocketClientModel model = new WebSocketClientModel();
         MessageRouter router = new MessageRouter();
-
-
-        Button switchButtonPlayer = findViewById(R.id.tauschen_btn_player);
-        Button switchButtonDeck = findViewById(R.id.tauschen_btn_deck);
-        tradeCardsView = new TradeCardsView(null, switchButtonPlayer, switchButtonDeck); // Temporarily passing null
-
-
         cardDeckController = new CardDeckController(model, tradeCardsView);
 
-        tradeCardsView.setCardDeckController(cardDeckController);
+        // Now that cardDeckController is initialized, we can create tradeCardsView
+        tradeCardsView = new TradeCardsView(cardDeckController, findViewById(R.id.tauschen_btn_deck), findViewById(R.id.tauschen_btn_player));
+
+        cardDeckController.setTradeCardsView(tradeCardsView);
+        cardDeckController.requestUsernames();
+
+        // Spinner setup remains mostly the same, assuming updateCardImageView is implemented correctly
+        setupSpinner();
 
         // Setup router and model
         router.registerController("SWITCH_CARDS_DECK", cardDeckController);
         router.registerController("SWITCH_CARDS_PLAYER", cardDeckController);
         model.setMessageRouter(router);
+    }
 
+    private void setupSpinner() {
+        Spinner cardSpinner = findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getCardNames());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cardSpinner.setAdapter(adapter);
 
+        cardSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Implement card selection logic for trade
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private List<String> getCardNames() {
+        // Replace this placeholder method with actual logic
+        // This could involve fetching the player's hand from a local database or a network request
+        return new ArrayList<>();
     }
 
 
