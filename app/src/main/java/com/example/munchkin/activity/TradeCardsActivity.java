@@ -24,7 +24,7 @@ import java.util.List;
 public class TradeCardsActivity extends AppCompatActivity {
 
     private CardDeckController cardDeckController;
-    private WebSocketClientModel model = new WebSocketClientModel(); // Use field directly
+    private WebSocketClientModel model = new WebSocketClientModel();
     private TradeCardsView tradeCardsView;
 
     @Override

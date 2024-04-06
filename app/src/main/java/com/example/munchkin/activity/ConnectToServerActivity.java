@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
@@ -19,18 +20,21 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_connect_to_server);
 
-
+        MessageRouter router = new MessageRouter();
 
         ConnectToServerView view = new ConnectToServerView(this);
         WebSocketClientModel model = new WebSocketClientModel();
         controller = new ConnectToServerController(model, view);
+
+
+        router.registerController("REGISTER_USERNAME",controller);
+        model.setMessageRouter(router);
     }
 
 

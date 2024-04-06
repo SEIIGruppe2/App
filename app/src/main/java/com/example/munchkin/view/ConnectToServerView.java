@@ -37,7 +37,12 @@ public class ConnectToServerView {
     }
 
     public void updateServerResponse(String message) {
-        textViewServerResponse.setText(message);
+        textViewServerResponse.post(new Runnable() {
+            @Override
+            public void run() {
+                textViewServerResponse.setText(message);
+            }
+        });
     }
 
 

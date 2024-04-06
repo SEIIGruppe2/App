@@ -57,9 +57,7 @@ public class WebSocketClient {
             }
 
             @Override
-
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-                messageHandler.onMessageReceived(text);
                 model.notifyObservers(text);
             }
 

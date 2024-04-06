@@ -41,10 +41,7 @@ public class ConnectToServerController extends BaseController {
 
     private void messageReceivedFromServer(String message) {
 
-
     }
-
-
 
     @Override
     public void handleMessage(String message) {

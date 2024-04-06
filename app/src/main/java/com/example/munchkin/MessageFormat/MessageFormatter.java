@@ -27,7 +27,6 @@ public class MessageFormatter {
     }
 
 
-
     public static String createUsernameRequestMessage() {
         return ("REQUEST_USERNAMES");
     }
