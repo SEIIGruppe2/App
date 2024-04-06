@@ -108,8 +108,12 @@ public class CardDeckController extends BaseController {
         tradeCardsView.setupCardSelection();
     }
 
-    public void tradeCard(ActionCardDTO card) {
-        sendSwitchCardsDeckMessage(card.getName());
+    public void tradeCardDeck(ActionCardDTO card) {
+
+        int id = card.getId();
+        String idAsString = Integer.toString(id);
+
+        sendSwitchCardsDeckMessage(idAsString);
     }
 
 
