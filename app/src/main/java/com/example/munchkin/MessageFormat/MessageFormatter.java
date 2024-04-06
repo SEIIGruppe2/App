@@ -18,6 +18,13 @@ public class MessageFormatter {
         return createMessage("SWITCH_CARDS_PLAYER", "switchedWith", switchedWith, "cardGiven", cardGiven, "cardGotten", cardGotten);
     }
 
+
+    public static String createUsernameRequestMessage() {
+        return ("REQUEST_USERNAMES");
+    }
+
+
+
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {
