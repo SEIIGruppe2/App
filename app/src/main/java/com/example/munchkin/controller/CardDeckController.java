@@ -97,13 +97,13 @@ public class CardDeckController extends BaseController {
             ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone);
             updateCardsListWithNewCard(newCard);
         } catch (JSONException e) {
-            e.printStackTrace(); // Consider more sophisticated error handling
+            e.printStackTrace();
         }
     }
 
     private void updateCardsListWithNewCard(ActionCardDTO newCard) {
-        playerHand.addCard(newCard); // Update the player's hand
-        // UI updates should be done on the main thread. Ensure this method is called from the UI thread.
+        playerHand.addCard(newCard);
+
         tradeCardsView.displayPlayerCards(playerHand.getCards());
         tradeCardsView.setupCardSelection();
     }
@@ -111,11 +111,6 @@ public class CardDeckController extends BaseController {
     public void tradeCard(ActionCardDTO card) {
         sendSwitchCardsDeckMessage(card.getName());
     }
-
-
-
-
-
 
 
 

@@ -10,25 +10,25 @@ public class CardUtils {
 
     private CardUtils() {}
 
-/*
-    public static int getDrawableForCard(ActionCardDTO card) {
-        switch (card.getName()) {
+
+    public static int getDrawableForCard(String cardName) {
+        switch (cardName) {
             case "Bogenschütze":
-                return R.drawable.Bogenschuetze_image;
+                return R.drawable.card;
             case "Schwertkämpfer":
-                return R.drawable.Schwertkaempfer_image;
+                return R.drawable.blue_knight;
             case "Held":
-                return R.drawable.Held_image;
+                return R.drawable.card;
             case "Ritter":
-                return R.drawable.Ritter_image;
+                return R.drawable.card;
 
             default:
-                return R.drawable.default_card_image;
+                return R.drawable.card;
         }
     }
 
 
 
 
- */
+
 }
