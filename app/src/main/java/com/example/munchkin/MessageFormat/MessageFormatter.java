@@ -10,10 +10,6 @@ public class MessageFormatter {
         return createMessage("MONSTER_ATTACK", "monsterid", monsterId);
     }
 
-    public static String createDrawCardMessage() {
-        return createMessage("DRAW_CARD");
-    }
-
     public static String createSwitchCardsDeckMessage(String card) {
         return createMessage("SWITCH_CARDS_DECK", "card", card);
     }

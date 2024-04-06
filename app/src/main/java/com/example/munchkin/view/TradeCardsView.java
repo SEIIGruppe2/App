@@ -1,18 +1,33 @@
 package com.example.munchkin.view;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.DrawableUtils.CardUtils;
+import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.R;
+import com.example.munchkin.activity.TradeCardsActivity;
 import com.example.munchkin.controller.CardDeckController;
+
+import java.util.List;
 
 public class TradeCardsView {
 
     private CardDeckController cardDeckController;
 
-    public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck){
+    private TradeCardsActivity tradeCardsActivity;
+
+    private ActionCardDTO selectedCardForTrade;
+
+    private PlayerHand playerHand;
+
+    public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck) {
         this.cardDeckController = cardDeckController;
         setSwitchButtonClickListenerPlayer(buttonSwitchPlayer);
-        setSwitchButtonClickListenerDeck(buttonSwitchDeck);
+        buttonSwitchDeck.setOnClickListener(v -> performTrade());
     }
 
     private void setSwitchButtonClickListenerPlayer(Button switchButton) {
@@ -34,25 +49,70 @@ public class TradeCardsView {
     }
 
 
+    public void displayPlayerCards(List<ActionCardDTO> playerCards) {
+        ImageView[] cardViews = new ImageView[]{
+                tradeCardsActivity.findViewById(R.id.card1),
+                tradeCardsActivity.findViewById(R.id.card2),
+                // tradeCardsActivity.findViewById(R.id.card3),
+                // tradeCardsActivity.findViewById(R.id.card4),
+                // tradeCardsActivity.findViewById(R.id.card5)
+        };
 
-    private void setSwitchButtonClickListenerDeck(Button switchButton) {
-        switchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Hier werden die konkreten Werte übergeben
-                String card = "Ritter 1";
-
-                onSwitchButtonClickedDeck(card);
+        for (int i = 0; i < cardViews.length; i++) {
+            if (i < playerCards.size()) {
+                ActionCardDTO card = playerCards.get(i);
+                //cardViews[i].setImageResource(CardUtils.getDrawableForCard(card));
+                cardViews[i].setVisibility(View.VISIBLE);
+            } else {
+                cardViews[i].setVisibility(View.INVISIBLE);
             }
-        });
-    }
-
-    private void onSwitchButtonClickedDeck(String card) {
-        cardDeckController.sendSwitchCardsDeckMessage(card);
+        }
     }
 
 
+    public void setupCardSelection() {
+        ImageView[] cardViews = new ImageView[]{
+                tradeCardsActivity.findViewById(R.id.card1),
+                tradeCardsActivity.findViewById(R.id.card2),
+                // Additional card ImageViews if present
+        };
 
+        for (int i = 0; i < cardViews.length; i++) {
+            final int index = i;
+            cardViews[i].setOnClickListener(v -> {
+                // Highlight the selected card and dim others
+                for (ImageView otherCardView : cardViews) {
+                    otherCardView.setAlpha(0.5f); // Dim
+                }
+                v.setAlpha(1.0f); // Highlight
+
+                // Update the selected card
+                selectedCardForTrade = playerHand.getCards().get(index);
+
+                // Optionally, enable a "Trade" button or trigger other actions
+                // Example: tradeButton.setEnabled(true);
+            });
+        }
+    }
+
+
+    public void setCardDeckController(CardDeckController cardDeckController) {
+        this.cardDeckController = cardDeckController;
+    }
+
+
+    private void performTrade() {
+        if (selectedCardForTrade != null) {
+            // Assuming your CardDeckController has a method to handle trading a card
+            // This method could be 'tradeCardWithDeck' or 'tradeCardWithPlayer' depending on your game logic
+            cardDeckController.tradeCard(selectedCardForTrade);
+            // Reset selected card after trade
+            selectedCardForTrade = null;
+        } else {
+            throw new IllegalArgumentException("Trade fehlgeschlagen");
+        }
+    }
 
 
 }
+

@@ -1,11 +1,13 @@
 package com.example.munchkin.activity;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
@@ -16,6 +18,7 @@ public class TradeCardsActivity extends AppCompatActivity {
 
     private CardDeckController cardDeckController;
 
+    private TradeCardsView tradeCardsView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +28,22 @@ public class TradeCardsActivity extends AppCompatActivity {
         MessageRouter router = new MessageRouter();
 
 
-        cardDeckController = new CardDeckController(model);
-
-
         Button switchButtonPlayer = findViewById(R.id.tauschen_btn_player);
         Button switchButtonDeck = findViewById(R.id.tauschen_btn_deck);
-        TradeCardsView view = new TradeCardsView(cardDeckController, switchButtonPlayer,switchButtonDeck);
+        tradeCardsView = new TradeCardsView(null, switchButtonPlayer, switchButtonDeck); // Temporarily passing null
 
-        router.registerController("SWITCH_CARDS_PLAYER", cardDeckController);
+
+        cardDeckController = new CardDeckController(model, tradeCardsView);
+
+        tradeCardsView.setCardDeckController(cardDeckController);
+
+        // Setup router and model
         router.registerController("SWITCH_CARDS_DECK", cardDeckController);
-
+        router.registerController("SWITCH_CARDS_PLAYER", cardDeckController);
         model.setMessageRouter(router);
+
+
     }
+
+
 }
