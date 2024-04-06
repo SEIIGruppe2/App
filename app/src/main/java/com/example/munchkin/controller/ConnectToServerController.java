@@ -2,10 +2,10 @@ package com.example.munchkin.controller;
 
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
-import com.example.munchkin.observer.ModelObserver;
 
 
-public class ConnectToServerController implements ModelObserver  {
+
+public class ConnectToServerController {
 
     private WebSocketClientModel model;
     private ConnectToServerView view;
@@ -13,7 +13,6 @@ public class ConnectToServerController implements ModelObserver  {
     public ConnectToServerController(WebSocketClientModel model, ConnectToServerView view) {
         this.model = model;
         this.view = view;
-        model.addObserver(this);
         setupController();
     }
 
@@ -35,8 +34,5 @@ public class ConnectToServerController implements ModelObserver  {
         view.updateServerResponse(message);
     }
 
-    @Override
-    public void update(String message) {
-        view.updateServerResponse(message);
-    }
+
 }
