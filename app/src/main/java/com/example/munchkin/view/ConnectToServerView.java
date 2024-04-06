@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
 
+
+
 public class ConnectToServerView {
 
     private ConnectToServerActivity connectToServerActivity;

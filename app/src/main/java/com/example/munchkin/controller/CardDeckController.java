@@ -73,8 +73,7 @@ public class CardDeckController extends BaseController {
 
     private void handleUserName(JSONObject jsonResponse){
         try {
-            // Assuming the response contains an array of usernames under the key "usernames"
-            JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
+            JSONArray usernamesArray = jsonResponse.getJSONArray("Usernames");
             ArrayList<String> usernamesList = new ArrayList<>();
             for (int i = 0; i < usernamesArray.length(); i++) {
                 usernamesList.add(usernamesArray.getString(i));
@@ -92,9 +91,10 @@ public class CardDeckController extends BaseController {
 
     private void handleCardSwitchResponse(JSONObject jsonResponse) {
         try {
-            String newCardName = jsonResponse.getString("newCardName");
-            int newCardZone = jsonResponse.getInt("newCardZone");
-            ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone);
+            String newCardName = jsonResponse.getString("CardName");
+            int newCardZone = jsonResponse.getInt("CardZone");
+            int cardID = jsonResponse.getInt("ID");
+            ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone,cardID);
             updateCardsListWithNewCard(newCard);
         } catch (JSONException e) {
             e.printStackTrace();
