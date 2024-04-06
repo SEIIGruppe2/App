@@ -18,10 +18,22 @@ public class MessageFormatter {
         return createMessage("SWITCH_CARDS_PLAYER", "switchedWith", switchedWith, "cardGiven", cardGiven, "cardGotten", cardGotten);
     }
 
+    public static String createDrawCardMessage() {
+        return ("DRAW_CARD");
+    }
+
+    public static String registerUserMessage(String username) {
+        return createMessage("REGISTER_USERNAME", "username",username);
+    }
+
+
 
     public static String createUsernameRequestMessage() {
         return ("REQUEST_USERNAMES");
     }
+
+
+
 
 
     private static String createMessage(String type, String... params) {

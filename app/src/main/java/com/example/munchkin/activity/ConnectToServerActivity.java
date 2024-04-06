@@ -7,6 +7,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
@@ -15,6 +16,7 @@ import com.example.munchkin.view.ConnectToServerView;
 public class ConnectToServerActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
+
 
 
 
@@ -33,7 +35,9 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
     public void sendMessage(String username) {
-        controller.sendMessage(username);
+
+        controller.registerUserMessage(username);
+
     }
 
     public void reconnectToServer() {

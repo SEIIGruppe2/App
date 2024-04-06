@@ -20,7 +20,7 @@ public class WebSocketClient {
      * https://developer.android.com/studio/run/emulator-networking
      */
 
-    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/dummy";
+    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
 
     private WebSocket webSocket;
 
