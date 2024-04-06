@@ -21,7 +21,6 @@ public class ConnectToServerView {
         this.textViewServerResponse = connectToServerActivity.findViewById(R.id.textViewResponse);
         this.editTextUsername = connectToServerActivity.findViewById(R.id.editTextUsername);
         setupUI();
-
     }
 
     private void setupUI() {

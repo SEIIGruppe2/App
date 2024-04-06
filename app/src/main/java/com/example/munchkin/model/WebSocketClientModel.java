@@ -24,7 +24,7 @@ public class WebSocketClientModel {
 
     public void notifyObservers(String message) {
         if(messageRouter != null) {
-            messageRouter.routeMessage(message); // Directly route the message
+            messageRouter.routeMessage(message);
         } else {
             throw new IllegalStateException("MessageRouter not initialized. Cannot route messages without a valid MessageRouter.");
         }
@@ -32,7 +32,7 @@ public class WebSocketClientModel {
 
 
     public WebSocketClientModel() {
-        networkHandler = new WebSocketClient(this);
+        networkHandler = WebSocketClient.getINSTANCE(this);
     }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {

@@ -40,7 +40,8 @@ public class ConnectToServerController extends BaseController {
 
 
     private void messageReceivedFromServer(String message) {
-        view.updateServerResponse(message);
+
+
     }
 
 

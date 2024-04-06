@@ -28,8 +28,6 @@ public class MessageRouter {
             BaseController controller = messageTypeToControllerMap.get(messageType);
             if (controller != null) {
                 controller.handleMessage(message);
-            } else {
-                // Log or handle the case where no controller is registered for a message type
             }
         } catch (JSONException e) {
             e.printStackTrace();

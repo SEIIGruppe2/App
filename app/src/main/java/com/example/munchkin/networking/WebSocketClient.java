@@ -26,11 +26,20 @@ public class WebSocketClient {
 
     private WebSocketClientModel model;
 
+    private static WebSocketClient INSTANCE;
 
-    public WebSocketClient(WebSocketClientModel model) {
+
+    private WebSocketClient(WebSocketClientModel model) {
         this.model = model;
     }
 
+    public static WebSocketClient getINSTANCE(WebSocketClientModel model){
+
+        if(INSTANCE == null){
+            INSTANCE = new WebSocketClient(model);
+        }
+        return INSTANCE;
+    }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
         if (messageHandler == null)
