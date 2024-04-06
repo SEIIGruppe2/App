@@ -65,12 +65,20 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/userspinner"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rippleeffect"
                 android:backgroundTint="#FFE500"
                 />
+
+            <Spinner
+                android:id="@+id/cardSelectionSpinner"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500" />
 
         </LinearLayout>
 
