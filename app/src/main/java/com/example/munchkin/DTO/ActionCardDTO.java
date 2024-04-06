@@ -8,9 +8,11 @@ public class ActionCardDTO extends EntityDTO {
     }
 
     // Constructor including inherited fields
-    public ActionCardDTO(String name, int zone) {
-        super(name, zone);
+    public ActionCardDTO(String name, int zone, int id) {
+        super(name, zone,id);
     }
+
+
 
 
 }
