@@ -24,7 +24,6 @@ public class MessageFormatter {
     }
 
 
-
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {
@@ -33,7 +32,6 @@ public class MessageFormatter {
         message.append("}");
         return message.toString();
     }
-
 
 
 }

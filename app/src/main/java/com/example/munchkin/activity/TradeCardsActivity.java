@@ -51,7 +51,7 @@ public class TradeCardsActivity extends AppCompatActivity {
     }
 
     private void setupSpinner() {
-        Spinner cardSpinner = findViewById(R.id.spinner);
+        Spinner cardSpinner = findViewById(R.id.cardSelectionSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getCardNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cardSpinner.setAdapter(adapter);
@@ -69,8 +69,7 @@ public class TradeCardsActivity extends AppCompatActivity {
     }
 
     private List<String> getCardNames() {
-        // Replace this placeholder method with actual logic
-        // This could involve fetching the player's hand from a local database or a network request
+
         return new ArrayList<>();
     }
 
