@@ -24,29 +24,15 @@ public class TradeCardsView {
 
     private PlayerHand playerHand;
 
+
+    private String targetPlayerUsername;
+
     public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck) {
         this.cardDeckController = cardDeckController;
-        setSwitchButtonClickListenerPlayer(buttonSwitchPlayer);
+        buttonSwitchPlayer.setOnClickListener(v -> performPlayerTrade());
         buttonSwitchDeck.setOnClickListener(v -> performTrade());
     }
 
-    private void setSwitchButtonClickListenerPlayer(Button switchButton) {
-        switchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Hier werden die konkreten Werte übergeben
-                String username = "username";
-                String abgegebeneKarte = "abgegebeneKarte";
-                String erhalteneKarte = "erhalteneKarte";
-                onSwitchButtonClickedPlayer(username, abgegebeneKarte, erhalteneKarte);
-            }
-        });
-    }
-
-    private void onSwitchButtonClickedPlayer(String username, String abgegebeneKarte, String erhalteneKarte) {
-        // Nachricht an den Controller senden
-        cardDeckController.sendSwitchCardsPlayerMessage(username, abgegebeneKarte, erhalteneKarte);
-    }
 
 
     public void displayPlayerCards(List<ActionCardDTO> playerCards) {
@@ -106,12 +92,26 @@ public class TradeCardsView {
             // Assuming your CardDeckController has a method to handle trading a card
             // This method could be 'tradeCardWithDeck' or 'tradeCardWithPlayer' depending on your game logic
             cardDeckController.tradeCard(selectedCardForTrade);
-            // Reset selected card after trade
             selectedCardForTrade = null;
         } else {
             throw new IllegalArgumentException("Trade fehlgeschlagen");
         }
     }
+
+    public void performPlayerTrade() {
+        if (selectedCardForTrade != null && targetPlayerUsername != null) {
+            cardDeckController.sendSwitchCardsPlayerMessage(selectedCardForTrade.getName(), targetPlayerUsername, "null");
+            selectedCardForTrade = null;
+        } else {
+            throw new IllegalArgumentException("Trade fehlgeschlagen");
+        }
+    }
+
+
+    public void setTargetPlayerUsername(String targetPlayerUsername) {
+        this.targetPlayerUsername = targetPlayerUsername;
+    }
+
 
 
 }
