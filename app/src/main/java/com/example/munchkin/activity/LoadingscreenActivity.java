@@ -44,7 +44,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
         test.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingscreenActivity.this, TradeCardsActivity.class);
+                Intent intent = new Intent(LoadingscreenActivity.this, CarddeckActivity.class);
                 startActivity(intent);
                 finish();
             }
