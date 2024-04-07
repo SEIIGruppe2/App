@@ -2,6 +2,8 @@ package com.example.munchkin.MessageFormat;
 
 
 
+import android.util.Log;
+
 import com.example.munchkin.controller.BaseController;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.controller.ConnectToServerController;
@@ -28,11 +30,9 @@ public class MessageRouter {
             BaseController controller = messageTypeToControllerMap.get(messageType);
             if (controller != null) {
                 controller.handleMessage(message);
-            } else {
-                // Log or handle the case where no controller is registered for a message type
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei routeMessage");
         }
     }
 

@@ -10,8 +10,8 @@ public class MonsterDTO extends EntityDTO {
     }
 
     // Constructor including inherited fields
-    public MonsterDTO(String name, int zone, int ring, int lifePoints) {
-        super(name, zone);
+    public MonsterDTO(String name, int zone, int ring, int lifePoints, int id) {
+        super(name, zone, id);
         this.ring = ring;
         this.lifePoints = lifePoints;
     }

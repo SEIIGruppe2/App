@@ -4,14 +4,17 @@ public class EntityDTO {
     protected String name;
     protected int zone;
 
+    protected int id;
+
     // No-argument constructor
     public EntityDTO() {
     }
 
     // All-argument constructor for common fields
-    public EntityDTO(String name, int zone) {
+    public EntityDTO(String name, int zone, int id) {
         this.name = name;
         this.zone = zone;
+        this.id = id;
     }
 
     // Getters and setters
@@ -29,5 +32,14 @@ public class EntityDTO {
 
     public void setZone(int zone) {
         this.zone = zone;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

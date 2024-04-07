@@ -20,17 +20,26 @@ public class WebSocketClient {
      * https://developer.android.com/studio/run/emulator-networking
      */
 
-    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/dummy";
+    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
 
     private WebSocket webSocket;
 
     private WebSocketClientModel model;
 
+    private static WebSocketClient INSTANCE;
 
-    public WebSocketClient(WebSocketClientModel model) {
+
+    private WebSocketClient(WebSocketClientModel model) {
         this.model = model;
     }
 
+    public static WebSocketClient getINSTANCE(WebSocketClientModel model){
+
+        if(INSTANCE == null){
+            INSTANCE = new WebSocketClient(model);
+        }
+        return INSTANCE;
+    }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
         if (messageHandler == null)
@@ -48,9 +57,7 @@ public class WebSocketClient {
             }
 
             @Override
-
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-                messageHandler.onMessageReceived(text);
                 model.notifyObservers(text);
             }
 

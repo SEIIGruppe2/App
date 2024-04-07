@@ -4,11 +4,15 @@ import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.activity.TradeCardsActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.TradeCardsView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class CardDeckController extends BaseController {
 
@@ -16,10 +20,17 @@ public class CardDeckController extends BaseController {
     private PlayerHand playerHand;
     private TradeCardsView tradeCardsView;
 
+    private TradeCardsActivity tradeCardsActivity;
+
     public CardDeckController(WebSocketClientModel model, TradeCardsView tradeCardsView) {
         super(model);
         this.playerHand = new PlayerHand();
         this.tradeCardsView = tradeCardsView;
+    }
+
+
+    public void setTradeCardsView(TradeCardsView view) {
+        this.tradeCardsView = view;
     }
 
     @Override
@@ -32,12 +43,14 @@ public class CardDeckController extends BaseController {
                 case "SWITCH_CARDS_DECK_RESPONSE":
                     handleCardSwitchResponse(jsonResponse);
                     break;
+                case "REQUEST_USERNAMES":
+                    handleUserName(jsonResponse);
+                    break;
                 default:
-                    // Handle other message types or log an unsupported message
                     break;
             }
         } catch (JSONException e) {
-            e.printStackTrace(); // Consider more sophisticated error handling
+            throw new IllegalArgumentException("Fehler bei handleMessage/CardDeckController");
         }
     }
 
@@ -51,29 +64,60 @@ public class CardDeckController extends BaseController {
         model.sendMessageToServer(message);
     }
 
+    public void requestUsernames() {
+        String message = MessageFormatter.createUsernameRequestMessage();
+        model.sendMessageToServer(message);
+    }
+
+
+
+    private void handleUserName(JSONObject jsonResponse){
+        try {
+            JSONArray usernamesArray = jsonResponse.getJSONArray("Usernames");
+            ArrayList<String> usernamesList = new ArrayList<>();
+            for (int i = 0; i < usernamesArray.length(); i++) {
+                usernamesList.add(usernamesArray.getString(i));
+            }
+
+            tradeCardsActivity.runOnUiThread(() -> {
+                tradeCardsView.updateUsernamesSpinner(usernamesList);
+            });
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleUserName/CardDeckController");
+        }
+    }
+
+
+
     private void handleCardSwitchResponse(JSONObject jsonResponse) {
         try {
-            String newCardName = jsonResponse.getString("newCardName");
-            int newCardZone = jsonResponse.getInt("newCardZone");
-            ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone);
+            String newCardName = jsonResponse.getString("CardName");
+            int newCardZone = jsonResponse.getInt("CardZone");
+            int cardID = jsonResponse.getInt("ID");
+            ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone,cardID);
             updateCardsListWithNewCard(newCard);
         } catch (JSONException e) {
-            e.printStackTrace(); // Consider more sophisticated error handling
+            throw new IllegalArgumentException("Fehler bei handleCardSwitchResponse/CardDeckController");
         }
     }
 
     private void updateCardsListWithNewCard(ActionCardDTO newCard) {
-        playerHand.addCard(newCard); // Update the player's hand
-        // UI updates should be done on the main thread. Ensure this method is called from the UI thread.
+        playerHand.addCard(newCard);
+
         tradeCardsView.displayPlayerCards(playerHand.getCards());
         tradeCardsView.setupCardSelection();
     }
 
-    public void tradeCard(ActionCardDTO card) {
-        // Example implementation.
-        // Here, we're just sending a trade message to the deck as an example
-        sendSwitchCardsDeckMessage(card.getName()); // Adjust based on your message format
+    public void tradeCardDeck(ActionCardDTO card) {
+
+        int id = card.getId();
+        String idAsString = Integer.toString(id);
+
+        sendSwitchCardsDeckMessage(idAsString);
     }
+
+
+
 }
 
 

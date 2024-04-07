@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
 
+
+
 public class ConnectToServerView {
 
     private ConnectToServerActivity connectToServerActivity;
@@ -19,7 +21,6 @@ public class ConnectToServerView {
         this.textViewServerResponse = connectToServerActivity.findViewById(R.id.textViewResponse);
         this.editTextUsername = connectToServerActivity.findViewById(R.id.editTextUsername);
         setupUI();
-
     }
 
     private void setupUI() {
@@ -36,7 +37,12 @@ public class ConnectToServerView {
     }
 
     public void updateServerResponse(String message) {
-        textViewServerResponse.setText(message);
+        textViewServerResponse.post(new Runnable() {
+            @Override
+            public void run() {
+                textViewServerResponse.setText(message);
+            }
+        });
     }
 
 
