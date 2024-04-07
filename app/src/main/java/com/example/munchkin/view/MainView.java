@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.munchkin.ConnectToServerActivity;
 import com.example.munchkin.MainActivity;
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.R;
 
 public class MainView {
@@ -29,6 +30,14 @@ public class MainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mainActivity, ConnectToServerActivity.class);
+                mainActivity.startActivity(intent);
+            }
+        });
+
+        buttonOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mainActivity, MainGameActivity.class);
                 mainActivity.startActivity(intent);
             }
         });
