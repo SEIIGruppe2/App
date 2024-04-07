@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DrawableUtils.CardUtils;
@@ -24,18 +26,35 @@ public class TradeCardsView {
 
     private PlayerHand playerHand;
 
-    public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck) {
+    private Spinner username;
+    private TextView cardname;
+
+    public TradeCardsView(CardDeckController cardDeckController, Button buttonSwitchPlayer, Button buttonSwitchDeck, Spinner username, TextView card) {
         this.cardDeckController = cardDeckController;
         setSwitchButtonClickListenerPlayer(buttonSwitchPlayer);
         buttonSwitchDeck.setOnClickListener(v -> performTrade());
+        this.username=username;
+        this.cardname=card;
     }
 
     private void setSwitchButtonClickListenerPlayer(Button switchButton) {
         switchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                TextView textView = (TextView)username.getSelectedView();
+                String result = textView.getText().toString();
+                System.out.println(result);
+
+                String abgegebenekarteaustextview = cardname.getResources().toString();
+                System.out.println(abgegebenekarteaustextview);
+
+
+
                 // Hier werden die konkreten Werte übergeben
-                String username = "username";
+                String username = result;
                 String abgegebeneKarte = "abgegebeneKarte";
                 String erhalteneKarte = "erhalteneKarte";
                 onSwitchButtonClickedPlayer(username, abgegebeneKarte, erhalteneKarte);

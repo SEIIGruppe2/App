@@ -20,6 +20,8 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.munchkin.activity.TradeCardsActivity;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -105,7 +107,7 @@ public class CarddeckActivity extends AppCompatActivity {
             int pixelValueimage = (int) (dpvalueimage * density);
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                    pixelValueimage);
-            String test ="blue_knight";
+            String test ="blauerritter";
             int resIDkartenbild = getResources().getIdentifier(test,"drawable",getPackageName());
             kartenbild.setImageResource(resIDkartenbild);
             kartenbild.setLayoutParams(layoutParamskartenbild);
@@ -228,7 +230,10 @@ public class CarddeckActivity extends AppCompatActivity {
 
     private void tauschen(String karte){
 
-        View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
+        Intent intent = new Intent(this, TradeCardsActivity.class);
+        this.startActivity(intent);
+
+        /*View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
 
         PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1000,true);
         popuptauschen.setOutsideTouchable(false);
@@ -270,7 +275,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
         zurueck.setOnClickListener(v -> {
             popuptauschen.dismiss();
-        });
+        });*/
     }
     private void dimmwindow(PopupWindow popup){
         View container = (View) popup.getContentView().getParent();

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.MainActivity;
 import com.example.munchkin.R;
@@ -29,6 +30,14 @@ public class MainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mainActivity, ConnectToServerActivity.class);
+                mainActivity.startActivity(intent);
+            }
+        });
+
+        buttonOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mainActivity, CarddeckActivity.class);
                 mainActivity.startActivity(intent);
             }
         });
