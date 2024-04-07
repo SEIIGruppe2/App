@@ -1,5 +1,6 @@
 package com.example.munchkin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,20 +9,27 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.DrawCardController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DrawView;
 
+import java.io.Serializable;
+
 public class DrawActivity extends AppCompatActivity {
     private DrawCardController controller;
     private DrawView view;
+
+    private PlayerHand handkarten;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_draw);
+        this.handkarten=new PlayerHand();
 
 
         MessageRouter router = new MessageRouter();
@@ -46,5 +54,18 @@ public class DrawActivity extends AppCompatActivity {
         controller.drawMeassage();
 
     }
+
+    public void addcardtolist(ActionCardDTO karte){
+        handkarten.addCard(karte);
+        System.out.println("---- add to list"+handkarten.getCards().size());
+
+    }
+
+    public void transitionToCardDeckscreen() {
+
+        Intent intent = new Intent(DrawActivity.this, CarddeckActivity.class);
+        startActivity(intent);
+    }
+
 
 }

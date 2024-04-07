@@ -17,12 +17,11 @@ import java.util.Map;
 
 public class MessageRouter {
 
-    private Map<String, BaseController> messageTypeToControllerMap = new HashMap<>();
+    private static Map<String, BaseController> messageTypeToControllerMap = new HashMap<>();
 
     public void registerController(String messageType, BaseController controller) {
         messageTypeToControllerMap.put(messageType, controller);
-        System.out.println("ANFANG register controller");
-        messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
+
 
     }
 
@@ -30,7 +29,6 @@ public class MessageRouter {
         try {
             JSONObject jsonMessage = new JSONObject(message);
             String messageType = jsonMessage.getString("type");
-            System.out.println("ANFANG route message");
             messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
             BaseController controller = messageTypeToControllerMap.get(messageType);
 

@@ -2,7 +2,9 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DrawView;
 
@@ -15,10 +17,12 @@ public class DrawCardController extends BaseController{
     private DrawView view;
 
 
+
     public DrawCardController(WebSocketClientModel model, DrawView view) {
         super(model);
         this.model = model;
         this.view = view;
+
 
     }
 
@@ -34,13 +38,11 @@ public class DrawCardController extends BaseController{
 
 
 
-    private void messageReceivedFromServer(String message) {
 
-    }
 
     @Override
     public void handleMessage(String message) {
-        System.out.println("messagereceivedfromserver");
+
         try {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
@@ -59,21 +61,17 @@ public class DrawCardController extends BaseController{
 
 
     private void handledrawcard(JSONObject jsonResponse) {
-        System.out.println("handledrawcardresponsereceived");
-        //TODO überarbeiten abhängig von antwort
-        String accepted = "accepted";
+
+
         try{
 
-            String serverResponse = jsonResponse.getString("id");
-            System.out.println(serverResponse);
-            /*String serverResponse = jsonResponse.getString("response");
+            int id = Integer.parseInt(jsonResponse.getString("id"));
+            String name = jsonResponse.getString("name");
+            int zone = Integer.parseInt(jsonResponse.getString("zone"));
+            ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+            view.addtoList(karte);
 
-            if(serverResponse.equals(accepted)){
-                view.startcarddeckactivity(serverResponse);
-            }
-            else {
-                throw new IllegalArgumentException("User konnte nicht erstellt werden");
-            }*/
+
         }
         catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handledrawcard/DrawCardController");

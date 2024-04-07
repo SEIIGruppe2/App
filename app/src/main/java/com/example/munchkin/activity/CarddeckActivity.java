@@ -20,7 +20,10 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.activity.TradeCardsActivity;
 
 import androidx.activity.EdgeToEdge;
@@ -37,6 +40,8 @@ import com.example.munchkin.controller.DrawCardController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
 
+import java.util.List;
+
 public class CarddeckActivity extends AppCompatActivity {
     LinearLayout parentlayout;
     CardView selectedCard;
@@ -44,6 +49,9 @@ public class CarddeckActivity extends AppCompatActivity {
 
     Button spielen;
     Button tauschen;
+    PlayerHand spielerkarten;
+
+    List<ActionCardDTO> handkarten;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +59,29 @@ public class CarddeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carddeck);
 
 
+        spielerkarten = new PlayerHand();
+
+        handkarten= spielerkarten.getCards();
+        int testsize = handkarten.size();
+        System.out.println("Länge der Handkarten" +testsize);
+
+
+
+
 
 
         parentlayout= findViewById(R.id.containerforcards);
         spielen= findViewById(R.id.buttonspielen);
         tauschen = findViewById(R.id.buttontauschen);
-        String[] handcards = new String [] {"blauerritter","roterritter","gruenerritter","braunerritter",
-                "blauerbogenschuetze","roterbogenschuetze","gruenerbogenschuetze","braunerbogenschuetze",
-                "blauerschwertkaempfer","roterschwertkaempfer","gruenerschwertkaempfer","braunerschwertkaempfer",
-                "blauerheld","roterheld","gruenerheld","braunerheld"};
+        String[] handcards = CardUtils.getresources(handkarten);
+        System.out.println("+++++++Testmapping");
+        for(String a:handcards){
+
+            System.out.println(a);
+        }
+
+        //TODO ersetzen durch gemapte zone
+
         fillcards(handcards);
         setonclicklistenertoButtons();
 

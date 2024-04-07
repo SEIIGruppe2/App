@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.DrawActivity;
@@ -27,15 +28,17 @@ public class DrawView {
         Button buttonSendMsg = drawActivity.findViewById(R.id.playgame);
         buttonSendMsg.setOnClickListener(v -> {
             drawActivity.sendMessage();
+            drawActivity.transitionToCardDeckscreen();
+
+
         });
 
 
 
     }
 
-    //todo antwort vom server
-    public void startcarddeckactivity(String message) {
-       //start activtiy carddeck übergebe liste von karten
+    public void addtoList(ActionCardDTO karte){
+        drawActivity.addcardtolist(karte);
     }
 
 }
