@@ -21,7 +21,6 @@ public class CardUtils {
                 return R.drawable.card;
             case "Ritter":
                 return R.drawable.card;
-
             default:
                 return R.drawable.card;
         }

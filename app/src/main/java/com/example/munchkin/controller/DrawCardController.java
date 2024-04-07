@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DrawView;
@@ -24,6 +26,7 @@ public class DrawCardController extends BaseController{
 
     public void drawMeassage() {
         String message = MessageFormatter.createDrawCardMessage();
+        System.out.println(message);
         model.sendMessageToServer(message);
     }
 
@@ -37,6 +40,7 @@ public class DrawCardController extends BaseController{
 
     @Override
     public void handleMessage(String message) {
+        System.out.println("messagereceivedfromserver");
         try {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
@@ -55,17 +59,21 @@ public class DrawCardController extends BaseController{
 
 
     private void handledrawcard(JSONObject jsonResponse) {
+        System.out.println("handledrawcardresponsereceived");
         //TODO überarbeiten abhängig von antwort
         String accepted = "accepted";
         try{
-            String serverResponse = jsonResponse.getString("response");
+
+            String serverResponse = jsonResponse.getString("id");
+            System.out.println(serverResponse);
+            /*String serverResponse = jsonResponse.getString("response");
 
             if(serverResponse.equals(accepted)){
                 view.startcarddeckactivity(serverResponse);
             }
             else {
                 throw new IllegalArgumentException("User konnte nicht erstellt werden");
-            }
+            }*/
         }
         catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handledrawcard/DrawCardController");

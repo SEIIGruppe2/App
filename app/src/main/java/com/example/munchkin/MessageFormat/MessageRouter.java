@@ -21,13 +21,20 @@ public class MessageRouter {
 
     public void registerController(String messageType, BaseController controller) {
         messageTypeToControllerMap.put(messageType, controller);
+        System.out.println("ANFANG register controller");
+        messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
+
     }
 
     public void routeMessage(String message) {
         try {
             JSONObject jsonMessage = new JSONObject(message);
             String messageType = jsonMessage.getString("type");
+            System.out.println("ANFANG route message");
+            messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
             BaseController controller = messageTypeToControllerMap.get(messageType);
+
+
             if (controller != null) {
                 controller.handleMessage(message);
             }

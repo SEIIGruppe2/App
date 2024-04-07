@@ -58,6 +58,7 @@ public class WebSocketClient {
 
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
+
                 model.notifyObservers(text);
             }
 
@@ -74,6 +75,7 @@ public class WebSocketClient {
     }
 
     public void sendMessageToServer(String msg) {
+        System.out.println("WebSocketClient"+msg);
         webSocket.send(msg);
     }
 
