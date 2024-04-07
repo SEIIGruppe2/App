@@ -46,7 +46,11 @@ public class CarddeckActivity extends AppCompatActivity {
         parentlayout= findViewById(R.id.containerforcards);
         spielen= findViewById(R.id.buttonspielen);
         tauschen = findViewById(R.id.buttontauschen);
-        fillcards();
+        String[] handcards = new String [] {"blauerritter","roterritter","gruenerritter","braunerritter",
+                "blauerbogenschuetze","roterbogenschuetze","gruenerbogenschuetze","braunerbogenschuetze",
+                "blauerschwertkaempfer","roterschwertkaempfer","gruenerschwertkaempfer","braunerschwertkaempfer",
+                "blauerheld","roterheld","gruenerheld","braunerheld"};
+        fillcards(handcards);
         setonclicklistenertoButtons();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -57,8 +61,10 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
 
-    public void fillcards(){
-        for(int i=0; i<=20; i++){
+    public void fillcards(String[] handcards){
+        for(int i=0; i<handcards.length; i++){
+
+            String filler = handcards[i];
             CardView cards = new CardView(this);
             float dpValue = 125f;
             float dpValue2 = 200f;// Change this value to your desired dp
@@ -92,7 +98,9 @@ public class CarddeckActivity extends AppCompatActivity {
             layoutParamskartenname.setMargins(0,pixelValuemargin,pixelValuemargin,0);
             Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
             kartenname.setTypeface(typeface);
-            String kartenname1 = "blauerritter1";
+            //todo
+            String kartenname1 = filler+"1";
+
             int resIDkartenname = getResources().getIdentifier(kartenname1,"string",getPackageName());
             kartenname.setText(resIDkartenname);
             kartenname.setTextColor(getResources().getColor(R.color.black));
@@ -107,8 +115,7 @@ public class CarddeckActivity extends AppCompatActivity {
             int pixelValueimage = (int) (dpvalueimage * density);
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                    pixelValueimage);
-            String test ="blauerritter";
-            int resIDkartenbild = getResources().getIdentifier(test,"drawable",getPackageName());
+            int resIDkartenbild = getResources().getIdentifier(filler,"drawable",getPackageName());
             kartenbild.setImageResource(resIDkartenbild);
             kartenbild.setLayoutParams(layoutParamskartenbild);
             karteninhalt.addView(kartenbild);
@@ -116,7 +123,8 @@ public class CarddeckActivity extends AppCompatActivity {
             TextView kartenbeschreibung = new TextView(this);
             LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            String kartenbeschreibung2 = "blauerritter2";
+            //todo3
+            String kartenbeschreibung2 = filler+"2";
             int resIDkartenbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
             kartenbeschreibung.setText(resIDkartenbeschreibung);
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
