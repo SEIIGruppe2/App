@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class MessageRouter {
 
-    private Map<String, BaseController> messageTypeToControllerMap = new HashMap<>();
+    private static Map<String, BaseController> messageTypeToControllerMap = new HashMap<>();
 
     public void registerController(String messageType, BaseController controller) {
         messageTypeToControllerMap.put(messageType, controller);
@@ -26,7 +26,7 @@ public class MessageRouter {
 
     }
 
-    public void routeMessage(String message) {
+    public static void routeMessage(String message) {
         try {
             JSONObject jsonMessage = new JSONObject(message);
             String messageType = jsonMessage.getString("type");

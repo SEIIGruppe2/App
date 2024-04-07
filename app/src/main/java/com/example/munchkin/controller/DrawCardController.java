@@ -31,9 +31,6 @@ public class DrawCardController extends BaseController{
     }
 
 
-
-
-
     private void messageReceivedFromServer(String message) {
 
     }
