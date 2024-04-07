@@ -30,7 +30,7 @@ public class DrawCardController extends BaseController{
 
 
 
-    //TODO: warten auf antwort vom server - überprüfe ob wir das brauchen??
+
     private void messageReceivedFromServer(String message) {
 
     }
@@ -42,7 +42,7 @@ public class DrawCardController extends BaseController{
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
                 case "DRAW_CARD":
-                    handleDrawCards(jsonResponse);
+                    handledrawcard(jsonResponse);
                     break;
                 default:
                     break;
@@ -54,23 +54,21 @@ public class DrawCardController extends BaseController{
 
 
 
-    private void handleDrawCards(JSONObject jsonResponse) {
-        //TODO gehört noch abgeändert die json Response muss umgewandelt werden
-
-
+    private void handledrawcard(JSONObject jsonResponse) {
+        //TODO überarbeiten abhängig von antwort
         String accepted = "accepted";
         try{
             String serverResponse = jsonResponse.getString("response");
 
             if(serverResponse.equals(accepted)){
-                view.updateServerResponse(serverResponse);
+                view.startcarddeckactivity(serverResponse);
             }
             else {
                 throw new IllegalArgumentException("User konnte nicht erstellt werden");
             }
         }
         catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei handleRegisterUsernameMessage/DrawCardController");
+            throw new IllegalArgumentException("Fehler bei handledrawcard/DrawCardController");
         }
 
     }

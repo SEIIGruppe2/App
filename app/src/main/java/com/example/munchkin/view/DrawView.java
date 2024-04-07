@@ -1,5 +1,6 @@
 package com.example.munchkin.view;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.DrawActivity;
+import com.example.munchkin.activity.LoadingscreenActivity;
 
 public class DrawView {
 
@@ -32,13 +34,8 @@ public class DrawView {
     }
 
     //todo antwort vom server
-    public void updateServerResponse(String message) {
-        textViewServerResponse.post(new Runnable() {
-            @Override
-            public void run() {
-                textViewServerResponse.setText(message);
-            }
-        });
+    public void startcarddeckactivity(String message) {
+       //start activtiy carddeck übergebe liste von karten
     }
 
 }
