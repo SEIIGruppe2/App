@@ -11,7 +11,7 @@ import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.networking.WebSocketMessageHandler;
 
-public class GameActivity extends AppCompatActivity implements WebSocketMessageHandler<String> {
+public class GameActivity extends AppCompatActivity {
 
     private GameController gameController;
 
@@ -50,12 +50,4 @@ public class GameActivity extends AppCompatActivity implements WebSocketMessageH
         model.setMessageRouter(router);
     }
 
-    @Override
-    public void onMessageReceived(String message) {
-
-        runOnUiThread(() -> {
-            // Update your UI elements based on the received message
-            // This might include showing the new card received from a card exchange
-        });
-    }
 }

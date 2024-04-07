@@ -31,6 +31,10 @@ public class MessageRouter {
             if (controller != null) {
                 controller.handleMessage(message);
             }
+            else
+            {
+                Log.e("Network","Message not routable");
+            }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei routeMessage");
         }

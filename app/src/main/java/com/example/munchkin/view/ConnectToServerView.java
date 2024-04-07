@@ -28,6 +28,7 @@ public class ConnectToServerView {
         buttonSendMsg.setOnClickListener(v -> {
             String username = editTextUsername.getText().toString();
             connectToServerActivity.sendMessage(username);
+            connectToServerActivity.transitionToLoadingScreen(username);
         });
 
 
