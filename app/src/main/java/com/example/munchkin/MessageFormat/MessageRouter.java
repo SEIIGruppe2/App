@@ -25,7 +25,7 @@ public class MessageRouter {
 
     }
 
-    public void routeMessage(String message) {
+    public static void routeMessage(String message) {
         try {
             JSONObject jsonMessage = new JSONObject(message);
             String messageType = jsonMessage.getString("type");
