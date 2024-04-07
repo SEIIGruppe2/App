@@ -34,7 +34,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
         loadingController = new LoadingController(model);
 
 
-        router.registerController("REGISTER_USERNAME",loadingController);
+        router.registerController("LOBBY_ASSIGNED",loadingController);
         model.setMessageRouter(router);
 
 
