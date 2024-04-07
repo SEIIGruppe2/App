@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -77,9 +79,9 @@ public class TradeCardsActivity extends AppCompatActivity {
         Spinner dropdownmenu = findViewById(R.id.spinner1);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeCardsActivity.this, R.layout.list, options);
-        dropdownmenu.setAdapter(adapter);
-        adapter.setDropDownViewResource(R.layout.list);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeCardsActivity.this, R.layout.list, options);
+        //dropdownmenu.setAdapter(adapter);
+        //adapter.setDropDownViewResource(R.layout.list);
 
 
 

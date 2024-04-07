@@ -16,7 +16,7 @@ public class CardUtils {
             case "Bogenschütze":
                 return R.drawable.card;
             case "Schwertkämpfer":
-                return R.drawable.blue_knight;
+                return R.drawable.card;
             case "Held":
                 return R.drawable.card;
             case "Ritter":
