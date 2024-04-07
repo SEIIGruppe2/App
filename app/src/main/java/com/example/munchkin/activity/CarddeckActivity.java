@@ -20,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.activity.TradeCardsActivity;
 
 import androidx.activity.EdgeToEdge;
@@ -31,10 +32,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.munchkin.R;
+import com.example.munchkin.controller.ConnectToServerController;
+import com.example.munchkin.controller.DrawCardController;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.ConnectToServerView;
 
 public class CarddeckActivity extends AppCompatActivity {
     LinearLayout parentlayout;
     CardView selectedCard;
+
 
     Button spielen;
     Button tauschen;
@@ -43,6 +49,10 @@ public class CarddeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carddeck);
+
+
+
+
         parentlayout= findViewById(R.id.containerforcards);
         spielen= findViewById(R.id.buttonspielen);
         tauschen = findViewById(R.id.buttontauschen);
