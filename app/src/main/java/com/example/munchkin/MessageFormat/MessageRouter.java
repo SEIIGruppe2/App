@@ -2,6 +2,8 @@ package com.example.munchkin.MessageFormat;
 
 
 
+import android.util.Log;
+
 import com.example.munchkin.controller.BaseController;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.controller.ConnectToServerController;
@@ -30,7 +32,7 @@ public class MessageRouter {
                 controller.handleMessage(message);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei routeMessage");
         }
     }
 

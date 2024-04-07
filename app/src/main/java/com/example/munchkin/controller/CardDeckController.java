@@ -50,7 +50,7 @@ public class CardDeckController extends BaseController {
                     break;
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei handleMessage/CardDeckController");
         }
     }
 
@@ -83,7 +83,7 @@ public class CardDeckController extends BaseController {
                 tradeCardsView.updateUsernamesSpinner(usernamesList);
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei handleUserName/CardDeckController");
         }
     }
 
@@ -97,7 +97,7 @@ public class CardDeckController extends BaseController {
             ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone,cardID);
             updateCardsListWithNewCard(newCard);
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei handleCardSwitchResponse/CardDeckController");
         }
     }
 

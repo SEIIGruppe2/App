@@ -56,7 +56,7 @@ public class ConnectToServerController extends BaseController {
                     break;
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei handleMessage/ConnectToServerController");
         }
     }
 
@@ -76,7 +76,7 @@ public class ConnectToServerController extends BaseController {
             }
         }
         catch (JSONException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Fehler bei handleRegisterUsernameMessage/ConnectToServerController");
         }
 
     }
