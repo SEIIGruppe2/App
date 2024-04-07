@@ -1,5 +1,6 @@
 package com.example.munchkin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -34,6 +35,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
         router.registerController("REGISTER_USERNAME",controller);
+
         model.setMessageRouter(router);
     }
 
@@ -48,5 +50,15 @@ public class ConnectToServerActivity extends AppCompatActivity {
         controller.reconnectToServer();
     }
 
+
+
+    public void transitionToLoadingScreen(String username) {
+        Intent intent = new Intent(ConnectToServerActivity.this, LoadingscreenActivity.class);
+        startActivity(intent);
+    }
+
 }
+
+
+
 
