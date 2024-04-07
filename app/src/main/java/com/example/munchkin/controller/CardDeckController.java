@@ -83,7 +83,7 @@ public class CardDeckController extends BaseController {
                 tradeCardsView.updateUsernamesSpinner(usernamesList);
             });
         } catch (JSONException e) {
-            e.printStackTrace(); // Handle error
+            e.printStackTrace();
         }
     }
 

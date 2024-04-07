@@ -22,6 +22,7 @@ public class MessageFormatter {
         return ("DRAW_CARD");
     }
 
+
     public static String registerUserMessage(String username) {
         return createMessage("REGISTER_USERNAME", "username",username);
     }
@@ -30,10 +31,6 @@ public class MessageFormatter {
     public static String createUsernameRequestMessage() {
         return ("REQUEST_USERNAMES");
     }
-
-
-
-
 
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
