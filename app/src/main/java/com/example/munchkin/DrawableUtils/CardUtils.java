@@ -13,20 +13,7 @@ public class CardUtils {
     private CardUtils() {}
 
 
-    public static int getDrawableForCard(String cardName) {
-        switch (cardName) {
-            case "Bogenschütze":
-                return R.drawable.card;
-            case "Schwertkämpfer":
-                return R.drawable.card;
-            case "Held":
-                return R.drawable.card;
-            case "Ritter":
-                return R.drawable.card;
-            default:
-                return R.drawable.card;
-        }
-    }
+
 
     public static String[] getresources(List<ActionCardDTO> handkarten){
         String[]result = new String[handkarten.size()];

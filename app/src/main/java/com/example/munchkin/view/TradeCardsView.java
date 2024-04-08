@@ -96,8 +96,8 @@ public class TradeCardsView {
 
     public void updateCardImageView(String cardName) {
         ImageView cardImageView = tradeCardsActivity.findViewById(R.id.kartenbildpopup);
-        int resourceId = CardUtils.getDrawableForCard(cardName); // This method should return a drawable resource ID based on the card name
-        cardImageView.setImageResource(resourceId);
+        /*int resourceId = CardUtils.getDrawableForCard(cardName); // This method should return a drawable resource ID based on the card name
+        cardImageView.setImageResource(resourceId);*/
     }
 
     public void setCardDeckController(CardDeckController cardDeckController) {

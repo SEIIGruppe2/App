@@ -40,11 +40,6 @@ public class MessageFormatter {
         message.append("}");
         return message.toString();
     }
-    private static String createMessagewithoutparams(String type) {
-        StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
-
-        return message.toString();
-    }
 
 
 
