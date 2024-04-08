@@ -1,10 +1,7 @@
 package com.example.munchkin.controller;
 
-import android.util.Log;
-
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
-import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DrawView;
 
@@ -13,14 +10,14 @@ import org.json.JSONObject;
 
 public class DrawCardController extends BaseController{
 
-    private WebSocketClientModel model;
+    private WebSocketClientModel websocket;
     private DrawView view;
 
 
 
     public DrawCardController(WebSocketClientModel model, DrawView view) {
         super(model);
-        this.model = model;
+        this.websocket = model;
         this.view = view;
 
 
@@ -31,7 +28,7 @@ public class DrawCardController extends BaseController{
     public void drawMeassage() {
         String message = MessageFormatter.createDrawCardMessage();
         System.out.println(message);
-        model.sendMessageToServer(message);
+        websocket.sendMessageToServer(message);
     }
 
 
