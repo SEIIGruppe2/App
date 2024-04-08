@@ -10,6 +10,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
+
 import com.example.munchkin.model.WebSocketClientModel;
 
 public class WebSocketClient {
@@ -19,16 +20,26 @@ public class WebSocketClient {
      * https://developer.android.com/studio/run/emulator-networking
      */
 
-    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/dummy";
+    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
 
     private WebSocket webSocket;
 
     private WebSocketClientModel model;
 
-    public WebSocketClient(WebSocketClientModel model) {
+    private static WebSocketClient INSTANCE;
+
+
+    private WebSocketClient(WebSocketClientModel model) {
         this.model = model;
     }
 
+    public static WebSocketClient getINSTANCE(WebSocketClientModel model){
+
+        if(INSTANCE == null){
+            INSTANCE = new WebSocketClient(model);
+        }
+        return INSTANCE;
+    }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
         if (messageHandler == null)
@@ -46,9 +57,8 @@ public class WebSocketClient {
             }
 
             @Override
-
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-                messageHandler.onMessageReceived(text);
+
                 model.notifyObservers(text);
             }
 
@@ -65,6 +75,7 @@ public class WebSocketClient {
     }
 
     public void sendMessageToServer(String msg) {
+        System.out.println("WebSocketClient"+msg);
         webSocket.send(msg);
     }
 

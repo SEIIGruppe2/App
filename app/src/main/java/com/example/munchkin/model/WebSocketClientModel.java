@@ -1,10 +1,12 @@
 package com.example.munchkin.model;
 
 
+import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.networking.WebSocketClient;
 
 import com.example.munchkin.networking.WebSocketMessageHandler;
-import com.example.munchkin.observer.ModelObserver;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +15,25 @@ import java.util.List;
 public class WebSocketClientModel {
 
     private WebSocketClient networkHandler;
+    private MessageRouter messageRouter;
 
 
-    private List<ModelObserver> observers = new ArrayList<>();
-
-    public void addObserver(ModelObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(ModelObserver observer) {
-        observers.remove(observer);
+    public void setMessageRouter(MessageRouter router) { // Sets the router
+        this.messageRouter = router;
     }
 
     public void notifyObservers(String message) {
-        for (ModelObserver observer : observers) {
-            observer.update(message);
+        if(messageRouter != null) {
+
+            messageRouter.routeMessage(message);
+        } else {
+            throw new IllegalStateException("MessageRouter not initialized. Cannot route messages without a valid MessageRouter.");
         }
     }
 
+
     public WebSocketClientModel() {
-        networkHandler = new WebSocketClient(this);
+        networkHandler = WebSocketClient.getINSTANCE(this);
     }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
@@ -42,6 +43,7 @@ public class WebSocketClientModel {
     public void sendMessageToServer(String msg) {
         networkHandler.sendMessageToServer(msg);
     }
+
 
 
 }

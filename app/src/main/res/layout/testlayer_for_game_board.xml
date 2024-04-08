@@ -1,0 +1,64 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- Linear layout for cards -->
+
+    <!-- Button to exchange with deck -->
+
+    <!-- Card 1 -->
+    <ImageView
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintDimensionRatio="H,1:1.4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card2"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/background" /> <!-- Replace with your image resource -->
+
+    <!-- Card 2 -->
+    <ImageView
+        android:id="@+id/card2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintDimensionRatio="H,1:1.4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card1"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/blauerritter" /> <!-- Replace with your image resource -->
+
+    <Button
+        android:id="@+id/tauschen_btn_deck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Tauschen mit Deck"
+        app:layout_constraintBottom_toTopOf="@+id/tauschen_btn_player"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Button to exchange with player -->
+    <Button
+        android:id="@+id/tauschen_btn_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tauschen mit Spieler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

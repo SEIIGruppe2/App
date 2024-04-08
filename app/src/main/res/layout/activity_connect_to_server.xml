@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".ConnectToServerActivity"
+    tools:context=".activity.ConnectToServerActivity"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-5dp">
 

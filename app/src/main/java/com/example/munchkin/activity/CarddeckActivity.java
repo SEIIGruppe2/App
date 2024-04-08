@@ -1,4 +1,7 @@
-package com.example.munchkin;
+package com.example.munchkin.activity;
+
+import android.content.Context;
+import android.content.Intent;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -6,10 +9,22 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+
+import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.DrawableUtils.CardUtils;
+import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.activity.TradeCardsActivity;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,21 +34,57 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.munchkin.R;
+import com.example.munchkin.controller.ConnectToServerController;
+import com.example.munchkin.controller.DrawCardController;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.ConnectToServerView;
+
+import java.util.List;
+
 public class CarddeckActivity extends AppCompatActivity {
     LinearLayout parentlayout;
     CardView selectedCard;
 
+
     Button spielen;
     Button tauschen;
+    PlayerHand spielerkarten;
+
+    List<ActionCardDTO> handkarten;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carddeck);
+
+
+        spielerkarten = new PlayerHand();
+
+        handkarten= spielerkarten.getCards();
+        int testsize = handkarten.size();
+        System.out.println("Länge der Handkarten" +testsize);
+
+
+
+
+
+
         parentlayout= findViewById(R.id.containerforcards);
         spielen= findViewById(R.id.buttonspielen);
         tauschen = findViewById(R.id.buttontauschen);
-        fillcards();
+        String[] handcards = CardUtils.getresources(handkarten);
+        System.out.println("+++++++Testmapping");
+        for(String a:handcards){
+
+            System.out.println(a);
+        }
+
+        //TODO ersetzen durch gemapte zone
+
+        fillcards(handcards);
+        setonclicklistenertoButtons();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,9 +93,10 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
 
-    public void fillcards(){
-        for(int i=0; i<=20; i++){
-            //Karte
+    public void fillcards(String[] handcards){
+        for(int i=0; i<handcards.length; i++){
+
+            String filler = handcards[i];
             CardView cards = new CardView(this);
             float dpValue = 125f;
             float dpValue2 = 200f;// Change this value to your desired dp
@@ -78,7 +130,11 @@ public class CarddeckActivity extends AppCompatActivity {
             layoutParamskartenname.setMargins(0,pixelValuemargin,pixelValuemargin,0);
             Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
             kartenname.setTypeface(typeface);
-            kartenname.setText("Blauer Ritter");
+            //todo
+            String kartenname1 = filler+"1";
+
+            int resIDkartenname = getResources().getIdentifier(kartenname1,"string",getPackageName());
+            kartenname.setText(resIDkartenname);
             kartenname.setTextColor(getResources().getColor(R.color.black));
             kartenname.setTextSize(16);
             kartenname.setGravity(Gravity.CENTER);
@@ -91,14 +147,18 @@ public class CarddeckActivity extends AppCompatActivity {
             int pixelValueimage = (int) (dpvalueimage * density);
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                    pixelValueimage);
-            kartenbild.setImageResource(R.drawable.blue_knight);
+            int resIDkartenbild = getResources().getIdentifier(filler,"drawable",getPackageName());
+            kartenbild.setImageResource(resIDkartenbild);
             kartenbild.setLayoutParams(layoutParamskartenbild);
             karteninhalt.addView(kartenbild);
 
             TextView kartenbeschreibung = new TextView(this);
             LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            kartenbeschreibung.setText("Füge einem Monster im Rittering 2 Schadenspunkte zu");
+            //todo3
+            String kartenbeschreibung2 = filler+"2";
+            int resIDkartenbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+            kartenbeschreibung.setText(resIDkartenbeschreibung);
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             kartenbeschreibung.setTextSize(12);
@@ -115,8 +175,7 @@ public class CarddeckActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     oncardclick(cards);
-                    //buttonsvisible machen
-                    //eventuell alte ausgewählte karte entleuchten
+
                 }
             }));
 
@@ -138,7 +197,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
             if (selectedCard != null) {
                 changecardview(selectedCard, 125f,200f,16,16,12);
-                selectedCard.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));;
+                selectedCard.setForeground(getResources().getDrawable(R.drawable.bg_roundrect_ripple_light_border));
             }
             changecardview(card, 155f,250f,20,20,15);
             card.setForeground(getResources().getDrawable(R.drawable.yellowborder));
@@ -148,11 +207,10 @@ public class CarddeckActivity extends AppCompatActivity {
         }
     }
     public void changecardview(CardView card, float layoutparam1, float layoutparam2, int margin, int textsizekartenname, int textsizekartenbeschreibung){
-        float dpValue = layoutparam1;
-        float dpValue2 = layoutparam2;// Change this value to your desired dp
+
         float density = getResources().getDisplayMetrics().density;
-        int pixelValue1 = (int) (dpValue * density);
-        int pixelValue2 = (int) (dpValue2 * density);
+        int pixelValue1 = (int) (layoutparam1 * density);
+        int pixelValue2 = (int) (layoutparam2 * density);
 
 
         LinearLayout.LayoutParams layoutParamscards = new LinearLayout.LayoutParams(pixelValue1,pixelValue2);
@@ -165,5 +223,111 @@ public class CarddeckActivity extends AppCompatActivity {
         kartenbeschreibung.setTextSize(textsizekartenbeschreibung);
     }
 
+    public void setonclicklistenertoButtons(){
+        Button zurueck = findViewById(R.id.buttonzurueck1);
+        zurueck.setOnClickListener(v -> {
+           zurueck();
+        });
+
+        Button zugbeenden = findViewById(R.id.buttonzugbeenden);
+        zugbeenden.setOnClickListener(v -> {
+           zugbeenden();
+        });
+        Button tauschen = findViewById(R.id.buttontauschen);
+        tauschen.setOnClickListener(v -> {
+            tauschen("roterritter");
+        });
     }
+
+    private void zurueck(){
+        Intent intent = new Intent(this, LoadingscreenActivity.class);
+        startActivity(intent);
+    }
+
+    private void zugbeenden(){
+
+        View popupdrawable = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        PopupWindow popupzugzuende = new PopupWindow(popupdrawable,width,height,true);
+        popupzugzuende.setOutsideTouchable(false);
+        popupzugzuende.setElevation(10);
+        popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        dimmwindow(popupzugzuende);
+        Button ja = popupdrawable.findViewById(R.id.buttonja);
+        Button nein = popupdrawable.findViewById(R.id.nein);
+
+
+        ja.setOnClickListener(v -> {
+            Intent intent = new Intent(this, LoadingscreenActivity.class);
+            startActivity(intent);
+        });
+        nein.setOnClickListener(v -> {
+            popupzugzuende.dismiss();
+        });
+    }
+
+    private void tauschen(String karte){
+
+        Intent intent = new Intent(this, TradeCardsActivity.class);
+        this.startActivity(intent);
+
+        /*View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
+
+        PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1000,true);
+        popuptauschen.setOutsideTouchable(false);
+        popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+        dimmwindow(popuptauschen);
+        Button tauschen = popupdrawable.findViewById(R.id.buttontauschen2);
+        Button zurueck = popupdrawable.findViewById(R.id.buttonzurueck2);
+        TextView kartenname = popupdrawable.findViewById(R.id.kartennamepopup);
+        TextView kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
+        ImageView kartenbild = popupdrawable.findViewById(R.id.kartenbildpopup);
+        String kartenname2 = karte+"1";
+        int resIDkartenname = getResources().getIdentifier(kartenname2,"string",getPackageName());
+        kartenname.setText(resIDkartenname);
+
+        String kartenbeschreibung2 = karte+"2";
+        int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+        kartenbeschreibung.setText(resIDkartennbeschreibung);
+
+        String kartenbild2 = karte;
+        int resIDkartenbild = getResources().getIdentifier(kartenbild2,"drawable",getPackageName());
+        kartenbild.setImageResource(resIDkartenbild);
+
+
+
+
+        String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
+        Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner);
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list, options);
+        dropdownmenu.setAdapter(adapter);
+        adapter.setDropDownViewResource(R.layout.list);
+
+        tauschen.setOnClickListener(v -> {
+            //tobedone
+            Intent intent = new Intent(this, LoadingscreenActivity.class);
+            startActivity(intent);
+        });
+
+        zurueck.setOnClickListener(v -> {
+            popuptauschen.dismiss();
+        });*/
+    }
+    private void dimmwindow(PopupWindow popup){
+        View container = (View) popup.getContentView().getParent();
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        // add flag
+        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.3f;
+        wm.updateViewLayout(container, p);
+    }
+
+    }
+
+
 

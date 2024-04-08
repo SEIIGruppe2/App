@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:foreground="@drawable/ripple_for_popupwindow"
+    android:background="@drawable/ripple_for_popupwindow">
+    <LinearLayout
+        android:layout_width="450dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@drawable/steinmauer"
+        android:layout_margin = "10dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/chewyregular"
+            android:text="@string/popupzugbeenden"
+            android:textColor="@color/black"
+            android:background="#FFFFE500"
+            android:textSize="20sp">
+        </TextView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        <Button
+            android:id="@+id/buttonja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rippleeffect"
+            android:backgroundTint="#FFE500"
+            android:fontFamily="@font/chewyregular"
+            android:text="@string/button_ja" />
+
+        <Button
+            android:id="@+id/nein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rippleeffect"
+            android:backgroundTint="#FFE500"
+            android:fontFamily="@font/chewyregular"
+            android:text="@string/button_nein"
+            android:layout_margin="20dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

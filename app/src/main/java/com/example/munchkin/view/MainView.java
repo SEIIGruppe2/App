@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.munchkin.ConnectToServerActivity;
-import com.example.munchkin.MainActivity;
-import com.example.munchkin.MainGameActivity;
+import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.ConnectToServerActivity;
+import com.example.munchkin.activity.MainActivity;
 import com.example.munchkin.R;
 
 public class MainView {
@@ -37,7 +37,7 @@ public class MainView {
         buttonOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mainActivity, MainGameActivity.class);
+                Intent intent = new Intent(mainActivity, CarddeckActivity.class);
                 mainActivity.startActivity(intent);
             }
         });

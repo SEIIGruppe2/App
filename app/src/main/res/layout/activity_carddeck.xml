@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background"
-    tools:context=".CarddeckActivity">
+    tools:context=".activity.CarddeckActivity">
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,10 +34,10 @@
         android:layout_weight="1"
         >
         <Button
-            android:id="@+id/buttonzurück"
+            android:id="@+id/buttonzurueck1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zurück"
+        android:text="@string/button_zurück"
         android:layout_gravity="center"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -49,7 +49,7 @@
             android:id="@+id/buttonspielen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spielen"
+            android:text="@string/button_spielen"
             android:layout_gravity="center"
             android:layout_marginLeft="70dp"
             android:background="@drawable/rippleeffect"
@@ -61,15 +61,27 @@
             android:id="@+id/buttontauschen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tauschen"
+            android:text="@string/button_tauschen"
             android:layout_gravity="center"
             android:layout_marginLeft="70dp"
             android:background="@drawable/rippleeffect"
             android:backgroundTint="#FFE500"
             android:fontFamily="@font/chewyregular"
             android:visibility="gone"/>
+        <Button
+            android:id="@+id/buttonzugbeenden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_zugbeenden"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:background="@drawable/rippleeffect"
+            android:backgroundTint="#FFE500"
+            android:fontFamily="@font/chewyregular"
+            />
 
 
-</LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
