@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DrawActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.LoadingscreenActivity"
             android:exported="false" />
         <activity
@@ -30,14 +33,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".activity.ConnectToServerActivity" />
-
-        <activity android:name=".view.DiceRollView"
-            android:screenOrientation="landscape">
-        </activity>
-
+        <activity
+            android:name=".view.DiceRollView"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

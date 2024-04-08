@@ -1,17 +1,17 @@
 package com.example.munchkin.activity;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
@@ -55,6 +55,36 @@ public class TradeCardsActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getCardNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cardSpinner.setAdapter(adapter);
+
+        //soll mit activity übergeben werden
+        String kartedesc = "blauerritter";
+
+        TextView kartenname = findViewById(R.id.kartennamepopup);
+        TextView kartenbeschreibung =  findViewById(R.id.kartenbeschreibungpopup);
+        ImageView kartenbild = findViewById(R.id.kartenbildpopup);
+        String kartenname2 = kartedesc+"1";
+        int resIDkartenname = getResources().getIdentifier(kartenname2,"string",getPackageName());
+        kartenname.setText(resIDkartenname);
+
+        String kartenbeschreibung2 = kartedesc+"2";
+        int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+        kartenbeschreibung.setText(resIDkartennbeschreibung);
+
+        String kartenbild2 = kartedesc;
+        int resIDkartenbild = getResources().getIdentifier(kartenbild2,"drawable",getPackageName());
+        kartenbild.setImageResource(resIDkartenbild);
+
+
+        String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
+        Spinner dropdownmenu = findViewById(R.id.spinner1);
+
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(TradeCardsActivity.this, R.layout.list, options);
+        //dropdownmenu.setAdapter(adapter);
+        //adapter.setDropDownViewResource(R.layout.list);
+
+
+
 
         cardSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

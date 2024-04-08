@@ -38,7 +38,7 @@
         app:layout_constraintStart_toEndOf="@+id/card1"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"
-        android:src="@drawable/blue_knight" /> <!-- Replace with your image resource -->
+        android:src="@drawable/blauerritter" /> <!-- Replace with your image resource -->
 
     <Button
         android:id="@+id/tauschen_btn_deck"

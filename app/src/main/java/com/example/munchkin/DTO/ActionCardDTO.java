@@ -12,7 +12,18 @@ public class ActionCardDTO extends EntityDTO {
         super(name, zone,id);
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
 
+    @Override
+    public int getZone() {
+        return super.getZone();
+    }
 
-
+    @Override
+    public String getName() {
+        return super.getName();
+    }
 }

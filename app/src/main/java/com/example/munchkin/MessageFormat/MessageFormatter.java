@@ -19,7 +19,7 @@ public class MessageFormatter {
     }
 
     public static String createDrawCardMessage() {
-        return ("DRAW_CARD");
+        return createMessage("DRAW_CARD");
     }
 
 
@@ -40,6 +40,7 @@ public class MessageFormatter {
         message.append("}");
         return message.toString();
     }
+
 
 
 }

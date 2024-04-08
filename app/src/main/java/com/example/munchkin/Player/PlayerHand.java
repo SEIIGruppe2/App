@@ -7,11 +7,8 @@ import java.util.List;
 
 public class PlayerHand {
 
-    private List<ActionCardDTO> cards;
+    private static List<ActionCardDTO> cards= new ArrayList<>();
 
-    public PlayerHand() {
-        this.cards = new ArrayList<>();
-    }
 
     public void addCard(ActionCardDTO card) {
         cards.add(card);
