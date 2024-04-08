@@ -12,6 +12,10 @@
     <string name="button_connect">Spiel suchen</string>
     <string name="button_reconnect">Verbindung wiederherstellen</string>
 
+    <string name="button_end_round">Zug beenden</string>
+    <string name="button_cards">Karten</string>
+    <string name="text_view_trophies">Trophäen:</string>
+    <string name="text_view_actions">Aktionen:</string>
 
     <string name="button_zurück">Zurück</string>
     <string name="button_spielen">Spielen</string>
