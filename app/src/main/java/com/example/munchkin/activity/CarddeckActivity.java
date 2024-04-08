@@ -162,7 +162,7 @@ public class CarddeckActivity extends AppCompatActivity {
             kartenbeschreibung.setTextColor(getResources().getColor(R.color.black));
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             kartenbeschreibung.setTextSize(12);
-            layoutParamskartenbeschreibung.setMargins(0,4,0,0);
+            layoutParamskartenbeschreibung.setMargins(3,4,3,0);
             kartenbeschreibung.setTypeface(typeface);
             kartenbeschreibung.setLayoutParams(layoutParamskartenbeschreibung);
             karteninhalt.addView(kartenbeschreibung);

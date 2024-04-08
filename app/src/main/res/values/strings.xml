@@ -25,51 +25,51 @@
     <string name="popupzugbeenden">Bist du sicher, dass du den Zug beenden möchtest?</string>
 
     <string name="blauerschwertkaempfer1">Blauer Schwertkämpfer</string>
-    <string name="blauerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schadne zu</string>
+    <string name="blauerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
     <string name="roterschwertkaempfer1">Roter Schwertkämpfer</string>
-    <string name="roterschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schadne zu</string>
+    <string name="roterschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
 
     <string name="gruenerschwertkaempfer1">Grüner Schwertkämpfer</string>
-    <string name="gruenerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schadne zu</string>
+    <string name="gruenerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
 
     <string name="braunerschwertkaempfer1">Brauner Schwertkämpfer</string>
-    <string name="braunerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schadne zu</string>
+    <string name="braunerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
 
-    <string name="blauerritter1">Blauer Ritter</string>
-    <string name="blauerritter2">Füge einem Monster im Rittering 1 Punkt Schadne zu</string>
+    <string name="blauerritter1">Blauer\nRitter</string>
+    <string name="blauerritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
-    <string name="roterritter1">Roter Ritter</string>
-    <string name="roterritter2">Füge einem Monster im Rittering 1 Punkt Schadne zu</string>
+    <string name="roterritter1">Roter\nRitter</string>
+    <string name="roterritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
-    <string name="gruenerritter1">Grüner Ritter</string>
-    <string name="gruenerritter2">Füge einem Monster im Rittering 1 Punkt Schadne zu</string>
+    <string name="gruenerritter1">Grüner\nRitter</string>
+    <string name="gruenerritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
-    <string name="braunerritter1">Brauner Ritter</string>
-    <string name="braunerritter2">Füge einem Monster im Rittering 1 Punkt Schadne zu</string>
+    <string name="braunerritter1">Brauner\nRitter</string>
+    <string name="braunerritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
     <string name="blauerbogenschuetze1">Blauer Bogenschütze</string>
-    <string name="blauerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schadne zu</string>
+    <string name="blauerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
     <string name="roterbogenschuetze1">Roter Bogenschütze</string>
-    <string name="roterbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schadne zu</string>
+    <string name="roterbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
     <string name="gruenerbogenschuetze1">Grüner Bogenschütze</string>
-    <string name="gruenerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schadne zu</string>
+    <string name="gruenerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
     <string name="braunerbogenschuetze1">Brauner Bogenschütze</string>
-    <string name="braunerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schadne zu</string>
+    <string name="braunerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
-    <string name="blauerheld1">Blauer Held</string>
-    <string name="blauerheld2">Füge einem Monster im blauen Ring 1 Punkt Schadne zu</string>
+    <string name="blauerheld1">Blauer\nHeld</string>
+    <string name="blauerheld2">Füge einem Monster im blauen Ring 1 Punkt Schaden zu</string>
 
-    <string name="roterheld1">Roter Held</string>
-    <string name="roterheld2">Füge einem Monster im roten Ring 1 Punkt Schadne zu</string>
+    <string name="roterheld1">Roter\nHeld</string>
+    <string name="roterheld2">Füge einem Monster im roten Ring 1 Punkt Schaden zu</string>
 
-    <string name="gruenerheld1">Grüner Held</string>
-    <string name="gruenerheld2">Füge einem Monster im grünen Ring 1 Punkt Schadne zu</string>
+    <string name="gruenerheld1">Grüner\nHeld</string>
+    <string name="gruenerheld2">Füge einem Monster im grünen Ring 1 Punkt Schaden zu</string>
 
-    <string name="braunerheld1">Brauner Held</string>
-    <string name="braunerheld2">Füge einem Monster im braunen Ring 1 Punkt Schadne zu</string>
+    <string name="braunerheld1">Brauner\nHeld</string>
+    <string name="braunerheld2">Füge einem Monster im braunen Ring 1 Punkt Schaden zu</string>
 
 
 </resources>
