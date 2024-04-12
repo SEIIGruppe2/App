@@ -4,8 +4,10 @@ import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.TradeCardsActivity;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.CarddeckView;
 import com.example.munchkin.view.TradeCardsView;
 
 import org.json.JSONArray;
@@ -18,20 +20,20 @@ public class CardDeckController extends BaseController {
 
 
     private PlayerHand playerHand;
-    private TradeCardsView tradeCardsView;
+    private CarddeckView carddeckView;
 
-    private TradeCardsActivity tradeCardsActivity;
+    private CarddeckActivity carddeckActivity;
 
-    public CardDeckController(WebSocketClientModel model, TradeCardsView tradeCardsView) {
+    public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
         super(model);
         this.playerHand = new PlayerHand();
-        this.tradeCardsView = tradeCardsView;
+        this.carddeckView = carddeckView;
     }
 
 
-    public void setTradeCardsView(TradeCardsView view) {
+    /*public void setTradeCardsView(TradeCardsView view) {
         this.tradeCardsView = view;
-    }
+    }*/
 
     @Override
     public void handleMessage(String message) {
@@ -41,10 +43,10 @@ public class CardDeckController extends BaseController {
             switch (messageType) {
                 case "SWITCH_CARDS_PLAYER_RESPONSE":
                 case "SWITCH_CARDS_DECK_RESPONSE":
-                    handleCardSwitchResponse(jsonResponse);
+                    //handleCardSwitchResponse(jsonResponse);
                     break;
                 case "REQUEST_USERNAMES":
-                    handleUserName(jsonResponse);
+                    //handleUserName(jsonResponse);
                     break;
                 default:
                     break;
@@ -54,7 +56,7 @@ public class CardDeckController extends BaseController {
         }
     }
 
-    public void sendSwitchCardsPlayerMessage(String username, String givenCard, String receivedCard) {
+    /*public void sendSwitchCardsPlayerMessage(String username, String givenCard, String receivedCard) {
         String message = MessageFormatter.createSwitchCardsPlayerMessage(username, givenCard, receivedCard);
         model.sendMessageToServer(message);
     }
@@ -114,7 +116,7 @@ public class CardDeckController extends BaseController {
         String idAsString = Integer.toString(id);
 
         sendSwitchCardsDeckMessage(idAsString);
-    }
+    }*/
 
 
 
