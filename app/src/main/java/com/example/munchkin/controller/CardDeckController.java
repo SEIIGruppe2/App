@@ -1,5 +1,9 @@
 package com.example.munchkin.controller;
 
+import android.widget.ImageView;
+
+import androidx.cardview.widget.CardView;
+
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
@@ -26,13 +30,24 @@ public class CardDeckController extends BaseController {
         this.carddeckView = carddeckView;
     }
 
-    public void switchcardMeassage() {
+    public void switchcardMeassage(String text, String id) {
 
-        //TODO: ueberprüfen ob das richtig ist
-        int cardid = playerHand.getCards().get(1).getId();
-        String message = MessageFormatter.createSwitchCardsDeckMessage(String.valueOf(cardid));
-        System.out.println(message);
-        websocket.sendMessageToServer(message);
+        ActionCardDTO toremove = new ActionCardDTO();
+        for(ActionCardDTO a: playerHand.getCards()){
+            if(a.getId() == Integer.parseInt(id)){
+                toremove=a;
+            }
+        }
+        playerHand.removeCard(toremove);
+
+        if(text.equals("Kartenstapel")) {
+            String message = MessageFormatter.createSwitchCardsDeckMessage(id);
+            System.out.println(message);
+            websocket.sendMessageToServer(message);
+        }
+        else{
+            System.out.println("Das muss noch ausimplementiert werden Carddeckcontroller java");
+        }
 
     }
 

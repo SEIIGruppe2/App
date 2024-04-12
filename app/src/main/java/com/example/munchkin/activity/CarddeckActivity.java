@@ -3,6 +3,7 @@ package com.example.munchkin.activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -26,6 +27,8 @@ import com.example.munchkin.Player.PlayerHand;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -177,8 +180,14 @@ public class CarddeckActivity extends AppCompatActivity {
         dropdownmenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
 
-        tauschen.setOnClickListener(v -> {
-           sendmessage();
+
+        tauschen.setOnClickListener(v -> {String text = dropdownmenu.getSelectedItem().toString();
+            CardView currentcard = selectedCard;
+            LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+            TextView gettag = (TextView)  getkardname.getChildAt(2);
+            String id = (String) gettag.getTag();
+            System.out.println("Tag der gewählten Karte" +id);
+            sendmessage(text, id);
            tauschen.setVisibility(View.GONE);
            zurueck.setVisibility(View.GONE);
            LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
@@ -186,9 +195,17 @@ public class CarddeckActivity extends AppCompatActivity {
             LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
                     ViewGroup.LayoutParams.WRAP_CONTENT);
 
+
+
+
+
            neuerbutton.setLayoutParams(layoutParamskarteninhalt);
            neuerbutton.setText("ok");
+           neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
+           neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.yellow));
            buttoncontainer.addView(neuerbutton);
+           Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
+           neuerbutton.setTypeface(typeface);
            neuerbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -215,8 +232,8 @@ public class CarddeckActivity extends AppCompatActivity {
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
     }
-    private void sendmessage(){
-        controller.switchcardMeassage();
+    private void sendmessage(String text, String id){
+        controller.switchcardMeassage(text,id);
     }
 
     }

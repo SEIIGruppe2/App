@@ -144,6 +144,7 @@ public class CarddeckView {
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     pixelValueimage);
             kartenbild.setImageResource(carddeckActivity.getimageressource(filler));
+            String id = String.valueOf(carddeckActivity.handkarten.get(i).getId());
             kartenbild.setTag(filler);
             kartenbild.setLayoutParams(layoutParamskartenbild);
             karteninhalt.addView(kartenbild);
@@ -156,6 +157,7 @@ public class CarddeckView {
             kartenbeschreibung.setText(carddeckActivity.getstringressource(kartenbeschreibung2));
             kartenbeschreibung.setTextColor(carddeckActivity.getblackcolour());
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            kartenbeschreibung.setTag(id);
             kartenbeschreibung.setTextSize(12);
             layoutParamskartenbeschreibung.setMargins(3,4,3,0);
             kartenbeschreibung.setTypeface(typeface);
