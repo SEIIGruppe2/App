@@ -74,6 +74,21 @@ public class CarddeckView {
 
     }
 
+    public void updatenachtauschen(){
+
+        String[] handcrads = CardUtils.getresources(carddeckActivity.handkarten);
+        for(String a:handcrads){
+            System.out.println(a);
+        }
+        parentlayout.removeAllViews();
+
+       fillcards(handcrads);
+
+
+    }
+
+
+
     public void fillcards(String[] handcards){
         for(int i=0; i<handcards.length; i++){
 
@@ -136,7 +151,7 @@ public class CarddeckView {
             TextView kartenbeschreibung = new TextView(carddeckActivity);
             LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            //todo3
+
             String kartenbeschreibung2 = filler+"2";
             kartenbeschreibung.setText(carddeckActivity.getstringressource(kartenbeschreibung2));
             kartenbeschreibung.setTextColor(carddeckActivity.getblackcolour());

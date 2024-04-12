@@ -5,20 +5,15 @@ import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.activity.CarddeckActivity;
-import com.example.munchkin.activity.TradeCardsActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
-import com.example.munchkin.view.TradeCardsView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class CardDeckController extends BaseController {
 
-
+    WebSocketClientModel websocket;
     private PlayerHand playerHand;
     private CarddeckView carddeckView;
 
@@ -26,8 +21,19 @@ public class CardDeckController extends BaseController {
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
         super(model);
+        websocket=model;
         this.playerHand = new PlayerHand();
         this.carddeckView = carddeckView;
+    }
+
+    public void switchcardMeassage() {
+
+        //TODO: ueberprüfen ob das richtig ist
+        int cardid = playerHand.getCards().get(1).getId();
+        String message = MessageFormatter.createSwitchCardsDeckMessage(String.valueOf(cardid));
+        System.out.println(message);
+        websocket.sendMessageToServer(message);
+
     }
 
 
@@ -38,12 +44,13 @@ public class CardDeckController extends BaseController {
     @Override
     public void handleMessage(String message) {
         try {
+            System.out.println("Carddeckcontroller message received");
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
-                case "SWITCH_CARDS_PLAYER_RESPONSE":
-                case "SWITCH_CARDS_DECK_RESPONSE":
-                    //handleCardSwitchResponse(jsonResponse);
+                case "SWITCH_CARD_PLAYER_RESPONSE":
+                case "SWITCH_CARD_DECK_RESPONSE":
+                    updatehanddeck(jsonResponse);
                     break;
                 case "REQUEST_USERNAMES":
                     //handleUserName(jsonResponse);
@@ -56,6 +63,26 @@ public class CardDeckController extends BaseController {
         }
     }
 
+    private void updatehanddeck(JSONObject jsonResponse) {
+
+
+        try{
+
+            int id = Integer.parseInt(jsonResponse.getString("id"));
+            String name = jsonResponse.getString("name");
+            int zone = Integer.parseInt(jsonResponse.getString("zone"));
+            ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+            playerHand.addCard(karte);
+            System.out.println("Testfunktion updatehanddeck"+karte.getName());
+            //carddeckView.updatenachtauschen();
+
+
+        }
+        catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei updatehanddeck/Cardddeckcontroller");
+        }
+
+    }
     /*public void sendSwitchCardsPlayerMessage(String username, String givenCard, String receivedCard) {
         String message = MessageFormatter.createSwitchCardsPlayerMessage(username, givenCard, receivedCard);
         model.sendMessageToServer(message);
@@ -91,17 +118,7 @@ public class CardDeckController extends BaseController {
 
 
 
-    private void handleCardSwitchResponse(JSONObject jsonResponse) {
-        try {
-            String newCardName = jsonResponse.getString("name");
-            int newCardZone = jsonResponse.getInt("zone");
-            int cardID = jsonResponse.getInt("id");
-            ActionCardDTO newCard = new ActionCardDTO(newCardName, newCardZone,cardID);
-            updateCardsListWithNewCard(newCard);
-        } catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei handleCardSwitchResponse/CardDeckController");
-        }
-    }
+
 
     private void updateCardsListWithNewCard(ActionCardDTO newCard) {
         playerHand.addCard(newCard);

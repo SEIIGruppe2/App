@@ -42,14 +42,10 @@ public class CarddeckActivity extends AppCompatActivity {
 
     private CardDeckController controller;
 
-
     public CardView selectedCard;
 
-
     PlayerHand spielerkarten;
-
     public List<ActionCardDTO> handkarten;
-
     CarddeckView view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +56,18 @@ public class CarddeckActivity extends AppCompatActivity {
         spielerkarten = new PlayerHand();
         MessageRouter router = new MessageRouter();
         WebSocketClientModel model = new WebSocketClientModel();
-        view =new CarddeckView(this);
-        controller = new CardDeckController(model,view);
 
-        router.registerController("SWITCH_CARD_DECK",controller);
-        router.registerController("SWITCH_CARD_PLAYER",controller);
+
 
         model.setMessageRouter(router);
 
         handkarten= spielerkarten.getCards();
 
 
-
+        view =new CarddeckView(this);
+        controller = new CardDeckController(model,view);
+        router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
+        router.registerController("SWITCH_CARD_PLAYER",controller);
 
 
 
@@ -182,9 +178,28 @@ public class CarddeckActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.list);
 
         tauschen.setOnClickListener(v -> {
-            //tobedone
-            Intent intent = new Intent(this, LoadingscreenActivity.class);
-            startActivity(intent);
+           sendmessage();
+           tauschen.setVisibility(View.GONE);
+           zurueck.setVisibility(View.GONE);
+           LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
+           Button neuerbutton = new Button(this);
+            LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+           neuerbutton.setLayoutParams(layoutParamskarteninhalt);
+           neuerbutton.setText("ok");
+           buttoncontainer.addView(neuerbutton);
+           neuerbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popuptauschen.dismiss();
+                    view.updatenachtauschen();
+                }
+            });
+
+
+
+           //popuptauschen.dismiss();
         });
 
         zurueck.setOnClickListener(v -> {
@@ -199,6 +214,9 @@ public class CarddeckActivity extends AppCompatActivity {
         p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
+    }
+    private void sendmessage(){
+        controller.switchcardMeassage();
     }
 
     }

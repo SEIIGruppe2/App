@@ -11,7 +11,7 @@ public class MessageFormatter {
     }
 
     public static String createSwitchCardsDeckMessage(String card) {
-        return createMessage("SWITCH_CARDS_DECK", "card", card);
+        return createMessage("SWITCH_CARD_DECK", "cardid", card);
     }
 
     public static String createSwitchCardsPlayerMessage(String switchedWith, String cardGiven, String cardGotten) {
