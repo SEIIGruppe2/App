@@ -15,10 +15,27 @@
         android:layout_margin = "10dp"
         android:background="@drawable/steinmauer"
         android:gravity="center">
+        <TextView
+            android:id="@+id/tauschentext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chewyregular"
+            android:shadowColor="@color/black"
+            android:shadowDx="8"
+            android:shadowDy="8"
+            android:shadowRadius="4"
+            android:text="Wähle mit wem du tauschen möchtest"
+            android:textColor="#FFE500"
+            android:textSize="30dp"
+            android:textStyle="bold">
+
+        </TextView>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:id="@+id/parentlayoutpopup"
     android:gravity="center">
 
         <androidx.cardview.widget.CardView

@@ -52,10 +52,6 @@ public class CardDeckController extends BaseController {
     }
 
 
-    /*public void setTradeCardsView(TradeCardsView view) {
-        this.tradeCardsView = view;
-    }*/
-
     @Override
     public void handleMessage(String message) {
         try {
@@ -88,7 +84,8 @@ public class CardDeckController extends BaseController {
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
             playerHand.addCard(karte);
-            System.out.println("Testfunktion updatehanddeck"+karte.getName());
+
+            //carddeckActivity.popuptest();
             //carddeckView.updatenachtauschen();
 
 

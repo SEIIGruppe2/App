@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.DrawableUtils.CardUtils;
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.Player.PlayerHand;
 
@@ -111,7 +113,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
     public void zurueck(){
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, MainGameActivity.class);
         startActivity(intent);
     }
 
@@ -148,8 +150,9 @@ public class CarddeckActivity extends AppCompatActivity {
 
         View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
 
-        PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1000,true);
+        PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1200,true);
         popuptauschen.setOutsideTouchable(false);
+        popuptauschen.setAnimationStyle(R.anim.popup);
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschendurchfuehren);
@@ -188,17 +191,34 @@ public class CarddeckActivity extends AppCompatActivity {
             String id = (String) gettag.getTag();
             System.out.println("Tag der gewählten Karte" +id);
             sendmessage(text, id);
+            //popuptauschen.dismiss();
+            //AB hier neues popup
            tauschen.setVisibility(View.GONE);
            zurueck.setVisibility(View.GONE);
            LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
            Button neuerbutton = new Button(this);
-            LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
+           LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+           TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
+           tauschentext.setText("Du hast folgende Karte erhalten");
+           String[] handcards = CardUtils.getresources(handkarten);
+           String neuekarte = handcards[handcards.length-1];
+            System.out.println("neue karte test"+neuekarte);
+            String neuerkartenname= neuekarte+"1";
+            getResources().getIdentifier(kartenname2,"string",getPackageName());
+            kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
+
+            String neuekartenbeschreibung = neuekarte+"2";
+
+            kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
 
 
 
+            kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
 
 
+           LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
+           parentlayout.removeView(parentlayout.getChildAt(1));
            neuerbutton.setLayoutParams(layoutParamskarteninhalt);
            neuerbutton.setText("ok");
            neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
@@ -215,8 +235,7 @@ public class CarddeckActivity extends AppCompatActivity {
             });
 
 
-
-           //popuptauschen.dismiss();
+           //hier ist zuende
         });
 
         zurueck.setOnClickListener(v -> {
@@ -234,6 +253,11 @@ public class CarddeckActivity extends AppCompatActivity {
     }
     private void sendmessage(String text, String id){
         controller.switchcardMeassage(text,id);
+    }
+    public void popuptest(){
+
+
+
     }
 
     }
