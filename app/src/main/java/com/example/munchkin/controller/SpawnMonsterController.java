@@ -59,7 +59,7 @@ public class SpawnMonsterController extends BaseController {
 
             gameView.displayMonster(monster, monsterZone);
         } catch (JSONException e) {
-            e.printStackTrace(); // Hier besser geeignete Fehlerbehandlung
+            throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");
         }
 
     }
