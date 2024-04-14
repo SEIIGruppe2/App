@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,46 +194,56 @@ public class CarddeckActivity extends AppCompatActivity {
             sendmessage(text, id);
             //popuptauschen.dismiss();
             //AB hier neues popup
-           tauschen.setVisibility(View.GONE);
-           zurueck.setVisibility(View.GONE);
-           LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
-           Button neuerbutton = new Button(this);
-           LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-           TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
-           tauschentext.setText("Du hast folgende Karte erhalten");
-           String[] handcards = CardUtils.getresources(handkarten);
-           String neuekarte = handcards[handcards.length-1];
-            System.out.println("neue karte test"+neuekarte);
-            String neuerkartenname= neuekarte+"1";
-            getResources().getIdentifier(kartenname2,"string",getPackageName());
-            kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
-
-            String neuekartenbeschreibung = neuekarte+"2";
-
-            kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
-
-
-
-            kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
-
-
-           LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
-           parentlayout.removeView(parentlayout.getChildAt(1));
-           neuerbutton.setLayoutParams(layoutParamskarteninhalt);
-           neuerbutton.setText("ok");
-           neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
-           neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.yellow));
-           buttoncontainer.addView(neuerbutton);
-           Typeface typeface = ResourcesCompat.getFont(this, R.font.chewyregular);
-           neuerbutton.setTypeface(typeface);
-           neuerbutton.setOnClickListener(new View.OnClickListener() {
+            Handler handler = new Handler();
+            tauschen.setVisibility(View.GONE);
+            zurueck.setVisibility(View.GONE);
+            LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
+            parentlayout.removeView(parentlayout.getChildAt(1));
+            TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
+            tauschentext.setText("Anfrage wurde gesendet...");
+            kartenname.setText("");
+            kartenbeschreibung.setText("");
+            kartenbild.setImageResource(getResources().getIdentifier("loadingimage","drawable",getPackageName()));
+            // Post a delayed Runnable to the Handler
+            handler.postDelayed(new Runnable() {
                 @Override
-                public void onClick(View v) {
-                    popuptauschen.dismiss();
-                    view.updatenachtauschen();
+                public void run() {
+
+                    LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
+                    Button neuerbutton = new Button(CarddeckActivity.this);
+                    LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    tauschentext.setText("Du hast folgende Karte erhalten");
+                    String[] handcards = CardUtils.getresources(handkarten);
+                    String neuekarte = handcards[handcards.length-1];
+                    String neuerkartenname= neuekarte+"1";
+                    getResources().getIdentifier(kartenname2,"string",getPackageName());
+                    kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
+
+                    String neuekartenbeschreibung = neuekarte+"2";
+                    kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
+
+                    kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
+
+                    neuerbutton.setLayoutParams(layoutParamskarteninhalt);
+                    neuerbutton.setText("ok");
+                    neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
+                    neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CarddeckActivity.this, R.color.yellow));
+                    buttoncontainer.addView(neuerbutton);
+                    Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
+                    neuerbutton.setTypeface(typeface);
+                    neuerbutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popuptauschen.dismiss();
+                            view.updatenachtauschen();
+                        }
+                    });
+
                 }
-            });
+            }, 3000);
+
 
 
            //hier ist zuende
@@ -254,11 +265,7 @@ public class CarddeckActivity extends AppCompatActivity {
     private void sendmessage(String text, String id){
         controller.switchcardMeassage(text,id);
     }
-    public void popuptest(){
 
-
-
-    }
 
     }
 

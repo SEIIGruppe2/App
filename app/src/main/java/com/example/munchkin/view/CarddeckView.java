@@ -82,6 +82,7 @@ public class CarddeckView {
         }
         parentlayout.removeAllViews();
 
+
        fillcards(handcrads);
 
 

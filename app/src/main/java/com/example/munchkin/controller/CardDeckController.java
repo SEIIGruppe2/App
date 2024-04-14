@@ -83,9 +83,10 @@ public class CardDeckController extends BaseController {
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+            System.out.println(karte.getName());
             playerHand.addCard(karte);
 
-            //carddeckActivity.popuptest();
+
             //carddeckView.updatenachtauschen();
 
 
