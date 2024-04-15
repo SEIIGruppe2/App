@@ -1,11 +1,13 @@
 package com.example.munchkin.activity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.Player.Player;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.controller.SpawnMonsterController;
@@ -20,6 +22,9 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +33,12 @@ public class GameActivity extends AppCompatActivity {
         String zone = getIntent().getStringExtra("diceResult");
 
         WebSocketClientModel model = new WebSocketClientModel();
-        gameController = new GameController(model);
         gameView = new GameView(this);
         spawnMonsterController = new SpawnMonsterController(model,gameView);
         MessageRouter router = new MessageRouter();
+        gameController = new GameController(model,gameView);
 
-
-
-
-
-
+        gameController.requestUsernames();
 
 
 
@@ -62,7 +63,7 @@ public class GameActivity extends AppCompatActivity {
         router.registerController("PLAYER_ATTACK", gameController);
         router.registerController("MONSTER_ATTACK", gameController);
         router.registerController("SPAWN_MONSTER", spawnMonsterController);
-
+        router.registerController("REQUEST_USERNAMES", gameController);
 
         model.setMessageRouter(router);
 

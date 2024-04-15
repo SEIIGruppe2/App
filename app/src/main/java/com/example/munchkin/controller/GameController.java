@@ -5,9 +5,11 @@ import com.example.munchkin.Player.Player;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.GameView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,10 +21,11 @@ public class GameController extends BaseController {
     private int roundCounter = 1;
     private GameView gameView;
 
-    public GameController(WebSocketClientModel model, GameView gameView, LinkedList<Player> players) {
+
+    public GameController(WebSocketClientModel model, GameView gameView) {
         super(model);
         this.gameView = gameView;
-        this.playerQueue = new LinkedList<>(players);
+        playerQueue = new LinkedList<>();
     }
 
     @Override
@@ -36,6 +39,9 @@ public class GameController extends BaseController {
                     break;
                 case "MONSTER_ATTACK":
                     handlMonserAttackMessage(jsonResponse);
+                    break;
+                case "REQUEST_USERNAMES":
+                    handleUserName(jsonResponse);
                     break;
                 default:
                     break;
@@ -68,6 +74,11 @@ public class GameController extends BaseController {
 
 
 
+    public void requestUsernames() {
+        String message = MessageFormatter.createUsernameRequestMessage();
+        model.sendMessageToServer(message);
+    }
+
     public void sendPlayerAttackMessage(String monsterId, String cardTypePlayed) {
         String message = MessageFormatter.createPlayerAttackMessage(monsterId, cardTypePlayed);
         model.sendMessageToServer(message);
@@ -90,5 +101,18 @@ public class GameController extends BaseController {
     }
 
 
+
+    private void handleUserName(JSONObject jsonResponse){
+        try {
+            JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
+            for (int i = 0; i < usernamesArray.length(); i++) {
+                String username = usernamesArray.getString(i);
+                Player player = new Player(username);
+                playerQueue.add(player);
+            }
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleUserName/GameController");
+        }
+    }
 
 }

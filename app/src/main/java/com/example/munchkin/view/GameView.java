@@ -2,8 +2,10 @@ package com.example.munchkin.view;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.munchkin.DTO.MonsterDTO;
+import com.example.munchkin.Player.Player;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.GameActivity;
 import com.example.munchkin.controller.GameController;
@@ -13,10 +15,16 @@ public class GameView {
     private GameActivity gameActivity;
     private Button[] monsterButtons;
 
-
+    private Button[] allPlayerButtons;
 
     public GameView(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
+        allPlayerButtons = new Button[]{
+                gameActivity.findViewById(R.id.buttonEndRound),
+                gameActivity.findViewById(R.id.buttonCards)
+                // Button entfernen damit der Spieler nichts machen kann
+        };
+
         this.monsterButtons = new Button[] {
                 gameActivity.findViewById(R.id.b00),
                 gameActivity.findViewById(R.id.b01),
@@ -33,6 +41,22 @@ public class GameView {
     }
 
 
+    public void displayCurrentPlayer(Player currentPlayer) {
+        // Beispieltextfeld oder Label in der UI, das den Namen des aktuellen Spielers anzeigt
+        TextView currentPlayerTextView = gameActivity.findViewById(R.id.currentPlayerText);
+        currentPlayerTextView.setText(currentPlayer.getName());
+
+        // Optional: UI-Elemente für andere Spieler deaktivieren oder visuell ändern
+        for (Button button : allPlayerButtons) {
+            if (!button.getTag().equals(currentPlayer.getName())) {
+                button.setEnabled(false);
+                button.setAlpha(0.5f);
+            } else {
+                button.setEnabled(true);
+                button.setAlpha(1.0f);
+            }
+        }
+    }
 
 
     private void setupUI() {
@@ -52,4 +76,10 @@ public class GameView {
 
                */
     }
+
+
+
+
+
+
 }
