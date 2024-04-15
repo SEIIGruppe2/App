@@ -25,18 +25,18 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
 
-        this.b00 = mainGameActivity.findViewById(R.id.b00);
-        this.b01 = mainGameActivity.findViewById(R.id.b01);
-        this.b02 = mainGameActivity.findViewById(R.id.b02);
-        this.b03 = mainGameActivity.findViewById(R.id.b03);
-        this.b04 = mainGameActivity.findViewById(R.id.b04);
-        this.b05 = mainGameActivity.findViewById(R.id.b05);
-        this.b06 = mainGameActivity.findViewById(R.id.b06);
-        this.b07 = mainGameActivity.findViewById(R.id.b07);
-        this.b08 = mainGameActivity.findViewById(R.id.b08);
-        this.b09 = mainGameActivity.findViewById(R.id.b09);
-        this.b010 = mainGameActivity.findViewById(R.id.b010);
-        this.b011 = mainGameActivity.findViewById(R.id.b011);
+        this.b00 = mainGameActivity.findViewById(R.id.button_forest1_spawn1);
+        this.b01 = mainGameActivity.findViewById(R.id.button_forest1_spawn2);
+        this.b02 = mainGameActivity.findViewById(R.id.button_forest1_spawn3);
+        this.b03 = mainGameActivity.findViewById(R.id.button_archer1_spawn1);
+        this.b04 = mainGameActivity.findViewById(R.id.button_archer1_spawn2);
+        this.b05 = mainGameActivity.findViewById(R.id.button_archer1_spawn3);
+        this.b06 = mainGameActivity.findViewById(R.id.button_knight1_spawn1);
+        this.b07 = mainGameActivity.findViewById(R.id.button_knight1_spawn2);
+        this.b08 = mainGameActivity.findViewById(R.id.button_knight1_spawn3);
+        this.b09 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn1);
+        this.b010 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn2);
+        this.b011 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn3);
 
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);

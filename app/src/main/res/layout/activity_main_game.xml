@@ -139,7 +139,7 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <Button
-        android:id="@+id/b00"
+        android:id="@+id/button_forest1_spawn1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -154,7 +154,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/b01"
+        android:id="@+id/button_forest1_spawn2"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -168,7 +168,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/b02"
+        android:id="@+id/button_forest1_spawn3"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -183,7 +183,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/b03"
+        android:id="@+id/button_archer1_spawn1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -198,7 +198,7 @@
         app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
-        android:id="@+id/b04"
+        android:id="@+id/button_archer1_spawn2"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -212,7 +212,7 @@
         app:layout_constraintVertical_bias="0.12" />
 
     <Button
-        android:id="@+id/b05"
+        android:id="@+id/button_archer1_spawn3"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -227,7 +227,7 @@
         app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
-        android:id="@+id/b06"
+        android:id="@+id/button_knight1_spawn1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -242,7 +242,7 @@
         app:layout_constraintVertical_bias="0.24000001" />
 
     <Button
-        android:id="@+id/b07"
+        android:id="@+id/button_knight1_spawn2"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -256,7 +256,7 @@
         app:layout_constraintVertical_bias="0.24000001" />
 
     <Button
-        android:id="@+id/b08"
+        android:id="@+id/button_knight1_spawn3"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -271,7 +271,7 @@
         app:layout_constraintVertical_bias="0.24000001" />
 
     <Button
-        android:id="@+id/b09"
+        android:id="@+id/button_swordsman1_spawn1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -286,7 +286,7 @@
         app:layout_constraintVertical_bias="0.32999998" />
 
     <Button
-        android:id="@+id/b010"
+        android:id="@+id/button_swordsman1_spawn2"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
@@ -300,7 +300,7 @@
         app:layout_constraintVertical_bias="0.32999998" />
 
     <Button
-        android:id="@+id/b011"
+        android:id="@+id/button_swordsman1_spawn3"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@color/transparent"
