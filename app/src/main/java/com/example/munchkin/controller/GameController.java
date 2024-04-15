@@ -8,6 +8,9 @@ import com.example.munchkin.view.GameView;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class GameController extends BaseController {
 
@@ -24,10 +27,21 @@ public class GameController extends BaseController {
 
     @Override
     public void handleMessage(String message) {
-        if (message.contains("PLAYER_ATTACK")) {
-            handlePlayerAttackMessage(message);
-        } else if (message.contains("MONSTER_ATTACK")) {
-            handlMonserAttackMessage(message);
+        try {
+            JSONObject jsonResponse = new JSONObject(message);
+            String messageType = jsonResponse.getString("type");
+            switch (messageType) {
+                case "PLAYER_ATTACK":
+                    handlePlayerAttackMessage(jsonResponse);
+                    break;
+                case "MONSTER_ATTACK":
+                    handlMonserAttackMessage(jsonResponse);
+                    break;
+                default:
+                    break;
+            }
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
     }
 
@@ -67,11 +81,11 @@ public class GameController extends BaseController {
 
 
     // Methode zum Verarbeiten der empfangenen Nachrichten vom Server
-    private void handlePlayerAttackMessage(String message) {
+    private void handlePlayerAttackMessage(JSONObject message) {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Spieler
     }
 
-    private void handlMonserAttackMessage(String message) {
+    private void handlMonserAttackMessage(JSONObject message) {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 

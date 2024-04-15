@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.munchkin.Player.Player;
 import com.example.munchkin.R;
-import com.example.munchkin.game.GameRound;
 
 public class DiceRollView extends AppCompatActivity implements ShakeDetectorView.OnShakeListener {
 
