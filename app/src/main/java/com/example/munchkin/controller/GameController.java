@@ -1,13 +1,25 @@
 package com.example.munchkin.controller;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.Player.Player;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.GameView;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class GameController extends BaseController {
 
-    public GameController(WebSocketClientModel model) {
+    private Queue<Player> playerQueue; // Warteschlange für die Spieler
+    private Player currentPlayer;
+    private int roundCounter = 1;
+    private GameView gameView;
+
+    public GameController(WebSocketClientModel model, GameView gameView, LinkedList<Player> players) {
         super(model);
+        this.gameView = gameView;
+        this.playerQueue = new LinkedList<>(players);
     }
 
     @Override
@@ -18,6 +30,29 @@ public class GameController extends BaseController {
             handlMonserAttackMessage(message);
         }
     }
+
+
+    public void startRound() {
+        System.out.println("Runde " + roundCounter + " beginnt.");
+        currentPlayer = playerQueue.poll();
+        playerQueue.offer(currentPlayer);
+        gameView.displayCurrentPlayer(currentPlayer);
+        // Hier könnte ein Event oder Call zur DiceRollView initiiert werden, um das Würfeln zu starten
+    }
+
+    public void endTurn() {
+        if (playerQueue.peek() == currentPlayer) {
+            roundCounter++;
+            startRound();
+        } else {
+            currentPlayer = playerQueue.poll();
+            playerQueue.offer(currentPlayer);
+            gameView.displayCurrentPlayer(currentPlayer);
+        }
+    }
+
+
+
 
     public void sendPlayerAttackMessage(String monsterId, String cardTypePlayed) {
         String message = MessageFormatter.createPlayerAttackMessage(monsterId, cardTypePlayed);
