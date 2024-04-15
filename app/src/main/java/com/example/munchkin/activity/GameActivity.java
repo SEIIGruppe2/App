@@ -2,6 +2,7 @@ package com.example.munchkin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -36,6 +37,9 @@ public class GameActivity extends AppCompatActivity {
         setupControllers();
         setupDiceRollLauncher();
         requestRoll();
+
+        Button endRoundButton = findViewById(R.id.buttonEndRound);
+        endRoundButton.setOnClickListener(v -> gameController.endTurn());
     }
 
     private void setupControllers() {

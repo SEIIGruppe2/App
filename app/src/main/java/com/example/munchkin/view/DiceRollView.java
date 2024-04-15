@@ -107,10 +107,14 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
 
     }
 
+
+
     @Override
     public void onShake() {
         rollDice();
     }
+
+
 
 
 
