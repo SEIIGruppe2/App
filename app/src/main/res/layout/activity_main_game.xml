@@ -138,6 +138,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
+
+    <!--START: Monster Buttons for Zone 1 (Rot/Feuer)-->
     <Button
         android:id="@+id/button_forest1_spawn1"
         android:layout_width="30dp"
@@ -280,7 +282,7 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.32999998" />
@@ -309,9 +311,547 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.32999998" />
+    <!--END: Monster Buttons for Zone 1 (Rot/Feuer)-->
+
+
+    <!--START: Monster Buttons for Zone 2 (Türkis/Luft)-->
+    <Button
+        android:id="@+id/button_forest2_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.207" />
+
+    <Button
+        android:id="@+id/button_forest2_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_forest2_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79" />
+
+    <Button
+        android:id="@+id/button_archer2_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.259" />
+
+    <Button
+        android:id="@+id/button_archer2_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_archer2_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74" />
+
+    <Button
+        android:id="@+id/button_knight2_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.338" />
+
+    <Button
+        android:id="@+id/button_knight2_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_knight2_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.649"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Button
+        android:id="@+id/button_swordsman2_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.42000002" />
+
+    <Button
+        android:id="@+id/button_swordsman2_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_swordsman2_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59000003" />
+    <!--END: Monster Buttons for Zone 2 (Türkis/Luft)-->
+
+
+    <!--START: Monster Buttons for Zone 3 (Blau/Wasser)-->
+    <Button
+        android:id="@+id/button_forest3_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button_forest3_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button_forest3_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/button_archer3_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <Button
+        android:id="@+id/button_archer3_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <Button
+        android:id="@+id/button_archer3_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88" />
+
+    <Button
+        android:id="@+id/button_knight3_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <Button
+        android:id="@+id/button_knight3_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <Button
+        android:id="@+id/button_knight3_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <Button
+        android:id="@+id/button_swordsman3_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997" />
+
+    <Button
+        android:id="@+id/button_swordsman3_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997" />
+
+    <Button
+        android:id="@+id/button_swordsman3_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997" />
+    <!--END: Monster Buttons for Zone 3 (Blau/Wasser)-->
+
+
+    <!--START: Monster Buttons for Zone 4 (Orange/Erde)-->
+    <Button
+        android:id="@+id/button_forest4_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.207" />
+
+    <Button
+        android:id="@+id/button_forest4_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_forest4_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79" />
+
+    <Button
+        android:id="@+id/button_archer4_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.259" />
+
+    <Button
+        android:id="@+id/button_archer4_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_archer4_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74" />
+
+    <Button
+        android:id="@+id/button_knight4_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.338" />
+
+    <Button
+        android:id="@+id/button_knight4_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_knight4_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <Button
+        android:id="@+id/button_swordsman4_spawn1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.42000002" />
+
+    <Button
+        android:id="@+id/button_swordsman4_spawn2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_swordsman4_spawn3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="gone"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59000003" />
+    <!--END: Monster Buttons for Zone 4 (Orange/Erde)-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

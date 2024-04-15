@@ -14,7 +14,7 @@ import java.util.List;
 public class MainGameView {
     private MainGameActivity mainGameActivity;
     private Button buttonEndRound, buttonCards;
-    private Button b00, b01, b02, b03, b04, b05, b06, b07, b08, b09, b010, b011;
+    private List<Button> spawnMonster = new ArrayList<>();
 
     // ListViews
     private ListView listActions;
@@ -25,18 +25,23 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
 
-        this.b00 = mainGameActivity.findViewById(R.id.button_forest1_spawn1);
-        this.b01 = mainGameActivity.findViewById(R.id.button_forest1_spawn2);
-        this.b02 = mainGameActivity.findViewById(R.id.button_forest1_spawn3);
-        this.b03 = mainGameActivity.findViewById(R.id.button_archer1_spawn1);
-        this.b04 = mainGameActivity.findViewById(R.id.button_archer1_spawn2);
-        this.b05 = mainGameActivity.findViewById(R.id.button_archer1_spawn3);
-        this.b06 = mainGameActivity.findViewById(R.id.button_knight1_spawn1);
-        this.b07 = mainGameActivity.findViewById(R.id.button_knight1_spawn2);
-        this.b08 = mainGameActivity.findViewById(R.id.button_knight1_spawn3);
-        this.b09 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn1);
-        this.b010 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn2);
-        this.b011 = mainGameActivity.findViewById(R.id.button_swordsman1_spawn3);
+        // Add all spawn buttons to the list
+        addSpawnButtonsToList(R.id.button_forest1_spawn1, R.id.button_forest1_spawn2, R.id.button_forest1_spawn3,
+                R.id.button_archer1_spawn1, R.id.button_archer1_spawn2, R.id.button_archer1_spawn3,
+                R.id.button_knight1_spawn1, R.id.button_knight1_spawn2, R.id.button_knight1_spawn3,
+                R.id.button_swordsman1_spawn1, R.id.button_swordsman1_spawn2, R.id.button_swordsman1_spawn3,
+                R.id.button_forest2_spawn1, R.id.button_forest2_spawn2, R.id.button_forest2_spawn3,
+                R.id.button_archer2_spawn1, R.id.button_archer2_spawn2, R.id.button_archer2_spawn3,
+                R.id.button_knight2_spawn1, R.id.button_knight2_spawn2, R.id.button_knight2_spawn3,
+                R.id.button_swordsman2_spawn1, R.id.button_swordsman2_spawn2, R.id.button_swordsman2_spawn3,
+                R.id.button_forest3_spawn1, R.id.button_forest3_spawn2, R.id.button_forest3_spawn3,
+                R.id.button_archer3_spawn1, R.id.button_archer3_spawn2, R.id.button_archer3_spawn3,
+                R.id.button_knight3_spawn1, R.id.button_knight3_spawn2, R.id.button_knight3_spawn3,
+                R.id.button_swordsman3_spawn1, R.id.button_swordsman3_spawn2, R.id.button_swordsman3_spawn3,
+                R.id.button_forest4_spawn1, R.id.button_forest4_spawn2, R.id.button_forest4_spawn3,
+                R.id.button_archer4_spawn1, R.id.button_archer4_spawn2, R.id.button_archer4_spawn3,
+                R.id.button_knight4_spawn1, R.id.button_knight4_spawn2, R.id.button_knight4_spawn3,
+                R.id.button_swordsman4_spawn1, R.id.button_swordsman4_spawn2, R.id.button_swordsman4_spawn3);
 
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
@@ -44,8 +49,13 @@ public class MainGameView {
         setUI();
     }
 
-    public void setUI() {
+    private void addSpawnButtonsToList(int... buttonIds) {
+        for (int id : buttonIds) {
+            spawnMonster.add(mainGameActivity.findViewById(id));
+        }
+    }
 
+    public void setUI() {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,26 +79,13 @@ public class MainGameView {
         // Check which button to spawn the monster in based on the dice roll
         switch (diceRoll) {
             case 1:
-                // Check if b00 is empty
-                if (isButtonEmpty(b00)) {
-                    b00.setVisibility(View.VISIBLE);
-                    b00.setBackground(null); // Clear existing background
-                    b00.setBackgroundResource(R.drawable.munchkin2); // Set monster image
-                    return; // Monster spawned, exit method
-                }
-                // Check if b01 is empty
-                if (isButtonEmpty(b01)) {
-                    b01.setVisibility(View.VISIBLE);
-                    b01.setBackground(null); // Clear existing background
-                    b01.setBackgroundResource(R.drawable.munchkin2);
-                    return; // Monster spawned, exit method
-                }
-                // Check if b02 is empty
-                if (isButtonEmpty(b02)) {
-                    b02.setVisibility(View.VISIBLE);
-                    b02.setBackground(null); // Clear existing background
-                    b02.setBackgroundResource(R.drawable.munchkin2);
-                    return; // Monster spawned, exit method
+                for (Button button : spawnMonster) {
+                    if (isButtonEmpty(button)) {
+                        button.setVisibility(View.VISIBLE);
+                        button.setBackground(null); // Clear existing background
+                        button.setBackgroundResource(R.drawable.munchkin2); // Set monster image
+                        return; // Monster spawned, exit method
+                    }
                 }
                 // If all buttons are occupied, do nothing
                 break;
@@ -97,7 +94,7 @@ public class MainGameView {
     }
 
     private int rollDice() {
-        return 1;
+        return 1; // For testing, replace with actual dice rolling logic
     }
 
     private boolean isButtonEmpty(Button button) {
