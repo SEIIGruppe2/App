@@ -14,7 +14,11 @@ import java.util.List;
 public class MainGameView {
     private MainGameActivity mainGameActivity;
     private Button buttonEndRound, buttonCards;
-    private List<Button> spawnMonster = new ArrayList<>();
+    private List<Button> Zone1Monster = new ArrayList<>();
+    private List<Button> Zone2Monster = new ArrayList<>();
+    private List<Button> Zone3Monster = new ArrayList<>();
+    private List<Button> Zone4Monster = new ArrayList<>();
+
 
     // ListViews
     private ListView listActions;
@@ -26,18 +30,25 @@ public class MainGameView {
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
 
         // Add all spawn buttons to the list
-        addSpawnButtonsToList(R.id.button_forest1_spawn1, R.id.button_forest1_spawn2, R.id.button_forest1_spawn3,
+        addButtonsToZoneList(Zone1Monster,
+                R.id.button_forest1_spawn1, R.id.button_forest1_spawn2, R.id.button_forest1_spawn3,
                 R.id.button_archer1_spawn1, R.id.button_archer1_spawn2, R.id.button_archer1_spawn3,
                 R.id.button_knight1_spawn1, R.id.button_knight1_spawn2, R.id.button_knight1_spawn3,
-                R.id.button_swordsman1_spawn1, R.id.button_swordsman1_spawn2, R.id.button_swordsman1_spawn3,
+                R.id.button_swordsman1_spawn1, R.id.button_swordsman1_spawn2, R.id.button_swordsman1_spawn3);
+
+        addButtonsToZoneList(Zone2Monster,
                 R.id.button_forest2_spawn1, R.id.button_forest2_spawn2, R.id.button_forest2_spawn3,
                 R.id.button_archer2_spawn1, R.id.button_archer2_spawn2, R.id.button_archer2_spawn3,
                 R.id.button_knight2_spawn1, R.id.button_knight2_spawn2, R.id.button_knight2_spawn3,
-                R.id.button_swordsman2_spawn1, R.id.button_swordsman2_spawn2, R.id.button_swordsman2_spawn3,
+                R.id.button_swordsman2_spawn1, R.id.button_swordsman2_spawn2, R.id.button_swordsman2_spawn3);
+
+        addButtonsToZoneList(Zone3Monster,
                 R.id.button_forest3_spawn1, R.id.button_forest3_spawn2, R.id.button_forest3_spawn3,
                 R.id.button_archer3_spawn1, R.id.button_archer3_spawn2, R.id.button_archer3_spawn3,
                 R.id.button_knight3_spawn1, R.id.button_knight3_spawn2, R.id.button_knight3_spawn3,
-                R.id.button_swordsman3_spawn1, R.id.button_swordsman3_spawn2, R.id.button_swordsman3_spawn3,
+                R.id.button_swordsman3_spawn1, R.id.button_swordsman3_spawn2, R.id.button_swordsman3_spawn3);
+
+        addButtonsToZoneList(Zone4Monster,
                 R.id.button_forest4_spawn1, R.id.button_forest4_spawn2, R.id.button_forest4_spawn3,
                 R.id.button_archer4_spawn1, R.id.button_archer4_spawn2, R.id.button_archer4_spawn3,
                 R.id.button_knight4_spawn1, R.id.button_knight4_spawn2, R.id.button_knight4_spawn3,
@@ -49,9 +60,9 @@ public class MainGameView {
         setUI();
     }
 
-    private void addSpawnButtonsToList(int... buttonIds) {
+    private void addButtonsToZoneList(List<Button> zoneList, int... buttonIds) {
         for (int id : buttonIds) {
-            spawnMonster.add(mainGameActivity.findViewById(id));
+            zoneList.add(mainGameActivity.findViewById(id));
         }
     }
 
@@ -76,21 +87,35 @@ public class MainGameView {
         // Roll a dice (assuming the dice roll logic is implemented elsewhere)
         int diceRoll = rollDice();
 
-        // Check which button to spawn the monster in based on the dice roll
+        // Check which zone to spawn the monster in based on the dice roll
         switch (diceRoll) {
             case 1:
-                for (Button button : spawnMonster) {
-                    if (isButtonEmpty(button)) {
-                        button.setVisibility(View.VISIBLE);
-                        button.setBackground(null); // Clear existing background
-                        button.setBackgroundResource(R.drawable.munchkin2); // Set monster image
-                        return; // Monster spawned, exit method
-                    }
-                }
-                // If all buttons are occupied, do nothing
+                spawnMonsterInZone(Zone1Monster);
                 break;
-            // Handle other dice roll cases if needed
+            case 2:
+                spawnMonsterInZone(Zone2Monster);
+                break;
+            case 3:
+                spawnMonsterInZone(Zone3Monster);
+                break;
+            case 4:
+                spawnMonsterInZone(Zone4Monster);
+                break;
+            // Handle other cases if needed
         }
+    }
+
+    // Method to spawn monster in a specific zone
+    private void spawnMonsterInZone(List<Button> zoneButtons) {
+        for (Button button : zoneButtons) {
+            if (isButtonEmpty(button)) {
+                button.setVisibility(View.VISIBLE);
+                button.setBackground(null); // Clear existing background
+                button.setBackgroundResource(R.drawable.munchkin2); // Set monster image
+                return; // Monster spawned, exit method
+            }
+        }
+        // If all buttons in the zone are occupied, do nothing
     }
 
     private int rollDice() {
