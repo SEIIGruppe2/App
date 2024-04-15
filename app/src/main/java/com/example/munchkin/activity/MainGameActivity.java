@@ -1,4 +1,4 @@
-package com.example.munchkin;
+package com.example.munchkin.activity;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.munchkin.R;
 import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 

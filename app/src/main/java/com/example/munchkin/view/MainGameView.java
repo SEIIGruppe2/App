@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.munchkin.MainGameActivity;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 
 import java.util.ArrayList;
