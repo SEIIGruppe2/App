@@ -25,11 +25,10 @@ public class MainGameView {
     private Button b00, b01, b02, b03, b04, b05, b06, b07, b08, b09, b010, b011;
 
     private GameController gameController;
-    private Obsolete1 gameActivity;
+
     private Button[] monsterButtons;
 
     private Button[] allPlayerButtons;
-
 
 
     // ListViews
@@ -60,16 +59,16 @@ public class MainGameView {
         setUI();
 
 
-        this.gameActivity = gameActivity;
+        this.mainGameActivity = mainGameActivity;
         allPlayerButtons = new Button[]{
-                gameActivity.findViewById(R.id.buttonEndRound),
-                gameActivity.findViewById(R.id.buttonCards)
+                mainGameActivity.findViewById(R.id.buttonEndRound),
+                mainGameActivity.findViewById(R.id.buttonCards)
                 // Button entfernen damit der Spieler nichts machen kann
         };
 
         this.monsterButtons = new Button[] {
-                gameActivity.findViewById(R.id.b00),
-                gameActivity.findViewById(R.id.b01),
+                mainGameActivity.findViewById(R.id.b00),
+                mainGameActivity.findViewById(R.id.b01),
 
         };
     }
@@ -83,32 +82,33 @@ public class MainGameView {
             }
         });
 
+
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainGameActivity.sendMessage();
-                mainGameActivity.transitionToCardDeckscreen();
+        //        mainGameActivity.sendMessage();
+         //       mainGameActivity.transitionToCardDeckscreen();
                 updateListActions();
                 updateListTrophies();
             }
         });
     }
     public void addtoList(ActionCardDTO karte){
-        mainGameActivity.addcardtolist(karte);
+     //   mainGameActivity.addcardtolist(karte);
     }
 
     public void displayMonster(MonsterDTO monster, int position) {
         if (position >= 0 && position < monsterButtons.length) {
             Button button = monsterButtons[position];
             button.setVisibility(View.VISIBLE);
-            button.setBackground(gameActivity.getDrawable(R.drawable.munchkin2));
+            button.setBackground(mainGameActivity.getDrawable(R.drawable.munchkin2));
         }
     }
 
 
     public void displayCurrentPlayer(Player currentPlayer) {
         // Beispieltextfeld oder Label in der UI, das den Namen des aktuellen Spielers anzeigt
-        TextView currentPlayerTextView = gameActivity.findViewById(R.id.Spieler);
+        TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
         currentPlayerTextView.setText("Spieler: " + currentPlayer.getName());
 
         // Optional: UI-Elemente für andere Spieler deaktivieren oder visuell ändern
@@ -124,9 +124,10 @@ public class MainGameView {
     }
 
     public void updateRoundView(int round) {
-        TextView roundView = gameActivity.findViewById(R.id.textViewRound);
+        TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
         roundView.setText("Runde: " + round);
     }
+
 
 
 
@@ -163,6 +164,9 @@ public class MainGameView {
             // Handle other dice roll cases if needed
         }
     }
+
+
+
 
     private int rollDice() {
         return 1;

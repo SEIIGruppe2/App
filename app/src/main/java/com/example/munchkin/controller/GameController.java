@@ -25,6 +25,7 @@ public class GameController extends BaseController implements DiceRollListener {
     private SpawnMonsterController spawnMonsterController;
 
 
+
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController) {
         super(model);
         this.maingameView = maingameView;

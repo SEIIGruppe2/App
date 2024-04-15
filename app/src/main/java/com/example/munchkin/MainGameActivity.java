@@ -54,8 +54,8 @@ public class MainGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_game);
 
         setupControllers();
-        setupDiceRollLauncher();
-        requestRoll();
+      //  setupDiceRollLauncher();
+      //  requestRoll();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -71,7 +71,8 @@ public class MainGameActivity extends AppCompatActivity {
     private void setupControllers() {
         WebSocketClientModel model = new WebSocketClientModel();
         maingameView = new MainGameView(this);
-        spawnMonsterController = new SpawnMonsterController(model, maingameView);
+        gameController = new GameController(model, maingameView,spawnMonsterController);
+       spawnMonsterController = new SpawnMonsterController(model, maingameView);
         gameController = new GameController(model, maingameView,spawnMonsterController);
         gameController.requestUsernames();
         drawCardController = new DrawCardController(model,maingameView);
@@ -84,7 +85,10 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("REQUEST_USERNAMES", gameController);
         router.registerController("DRAW_CARD",drawCardController);
         model.setMessageRouter(router);
+
+
     }
+
 
 
     public void sendMessage() {
@@ -129,4 +133,6 @@ public class MainGameActivity extends AppCompatActivity {
                 }
         );
     }
+
+
 }
