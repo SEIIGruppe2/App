@@ -32,6 +32,9 @@ public class GameView {
         };
     }
 
+
+
+
     public void displayMonster(MonsterDTO monster, int position) {
         if (position >= 0 && position < monsterButtons.length) {
             Button button = monsterButtons[position];
@@ -57,6 +60,16 @@ public class GameView {
             }
         }
     }
+
+    public void updateRoundView(int round) {
+        TextView roundView = gameActivity.findViewById(R.id.textViewRound);
+        roundView.setText("Runde: " + round);
+    }
+
+
+
+
+
 
 
     private void setupUI() {

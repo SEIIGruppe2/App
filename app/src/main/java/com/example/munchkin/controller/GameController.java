@@ -57,24 +57,24 @@ public class GameController extends BaseController implements DiceRollListener {
 
 
     public void startRound() {
-        System.out.println("Runde " + roundCounter + " beginnt."); //Muss ersetzt werden durch pop-up
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
         gameView.displayCurrentPlayer(currentPlayer);
-        // Hier könnte ein Event oder Call zur DiceRollView initiiert werden, um das Würfeln zu starten
+        gameView.updateRoundView(roundCounter);
+        roundCounter++;
     }
 
 
 
     public void endTurn() {
+        currentPlayer = playerQueue.poll();
+        playerQueue.offer(currentPlayer);
+        gameView.displayCurrentPlayer(currentPlayer);
+
         if (playerQueue.peek() == currentPlayer) {
             roundCounter++;
-            startRound();
-        } else {
-            currentPlayer = playerQueue.poll();
-            playerQueue.offer(currentPlayer);
-            gameView.displayCurrentPlayer(currentPlayer);
         }
+        startRound();
     }
 
 
