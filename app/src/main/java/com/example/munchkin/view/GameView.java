@@ -46,8 +46,8 @@ public class GameView {
 
     public void displayCurrentPlayer(Player currentPlayer) {
         // Beispieltextfeld oder Label in der UI, das den Namen des aktuellen Spielers anzeigt
-        TextView currentPlayerTextView = gameActivity.findViewById(R.id.currentPlayerText);
-        currentPlayerTextView.setText(currentPlayer.getName());
+        TextView currentPlayerTextView = gameActivity.findViewById(R.id.Spieler);
+        currentPlayerTextView.setText("Spieler: " + currentPlayer.getName());
 
         // Optional: UI-Elemente für andere Spieler deaktivieren oder visuell ändern
         for (Button button : allPlayerButtons) {
