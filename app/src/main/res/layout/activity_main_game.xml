@@ -337,10 +337,10 @@
         android:layout_width="85dp"
         android:layout_height="25dp"
         android:layout_marginBottom="8dp"
-        android:text="currentPlayer"
+        android:text="curr Player"
         app:layout_constraintBottom_toTopOf="@+id/textViewActions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintHorizontal_bias="0.805"
         app:layout_constraintStart_toStartOf="@+id/Spieler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

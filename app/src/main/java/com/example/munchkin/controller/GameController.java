@@ -2,6 +2,7 @@ package com.example.munchkin.controller;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
+import com.example.munchkin.interfaces.DiceRollListener;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.GameView;
 
@@ -14,18 +15,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class GameController extends BaseController {
+public class GameController extends BaseController implements DiceRollListener {
 
     private Queue<Player> playerQueue; // Warteschlange für die Spieler
     private Player currentPlayer;
     private int roundCounter = 1;
     private GameView gameView;
 
+    private SpawnMonsterController spawnMonsterController;
 
-    public GameController(WebSocketClientModel model, GameView gameView) {
+
+    public GameController(WebSocketClientModel model, GameView gameView, SpawnMonsterController spawnMonsterController) {
         super(model);
         this.gameView = gameView;
         playerQueue = new LinkedList<>();
+        this.spawnMonsterController = spawnMonsterController;
     }
 
     @Override
@@ -53,12 +57,14 @@ public class GameController extends BaseController {
 
 
     public void startRound() {
-        System.out.println("Runde " + roundCounter + " beginnt.");
+        System.out.println("Runde " + roundCounter + " beginnt."); //Muss ersetzt werden durch pop-up
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
         gameView.displayCurrentPlayer(currentPlayer);
         // Hier könnte ein Event oder Call zur DiceRollView initiiert werden, um das Würfeln zu starten
     }
+
+
 
     public void endTurn() {
         if (playerQueue.peek() == currentPlayer) {
@@ -115,4 +121,12 @@ public class GameController extends BaseController {
         }
     }
 
+    @Override
+    public void onDiceRolled(int[] results) {
+
+        for (int result : results) {
+            spawnMonsterController.sendMonsterSpawnMessage("Zone" + result);
+        }
+
+    }
 }
