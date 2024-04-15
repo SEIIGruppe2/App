@@ -13,12 +13,11 @@ import java.util.List;
 
 public class MainGameView {
     private MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards;
+    private Button buttonEndRound, buttonCards, damage;
     private List<Button> Zone1Monster = new ArrayList<>();
     private List<Button> Zone2Monster = new ArrayList<>();
     private List<Button> Zone3Monster = new ArrayList<>();
     private List<Button> Zone4Monster = new ArrayList<>();
-
 
     // ListViews
     private ListView listActions;
@@ -28,6 +27,7 @@ public class MainGameView {
         this.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
+        this.damage = mainGameActivity.findViewById(R.id.Damage);
 
         // Add all spawn buttons to the list
         addButtonsToZoneList(Zone1Monster,
@@ -81,6 +81,19 @@ public class MainGameView {
                 updateListTrophies();
             }
         });
+
+        damage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeVisibleMonster();
+            }
+        });
+    }
+
+
+    //START: Spawn Monsters
+    private int rollDice() {
+        return 1; // For testing, replace with actual dice rolling logic
     }
 
     private void spawnMonster() {
@@ -117,16 +130,35 @@ public class MainGameView {
         }
         // If all buttons in the zone are occupied, do nothing
     }
+    //END: Spawn Monsters
 
-    private int rollDice() {
-        return 1; // For testing, replace with actual dice rolling logic
+
+    //START: Remove Monsters
+    private void removeVisibleMonster() {
+        removeVisibleMonsterById(R.id.button_knight1_spawn2);
     }
+
+    private void removeVisibleMonsterById(int buttonId) {
+        Button button = mainGameActivity.findViewById(buttonId);
+        if (isButtonFull(button)) {
+            button.setVisibility(View.GONE);
+        }
+    }
+    //END: Remove Monsters
+
 
     private boolean isButtonEmpty(Button button) {
         // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.GONE;
     }
 
+    private boolean isButtonFull(Button button) {
+        // Check if the button background is not set (assuming empty buttons have no background)
+        return button.getVisibility() == View.VISIBLE;
+    }
+
+
+    //List Views
     private void updateListActions() {
         List<String> actionsList = new ArrayList<>();
         actionsList.add("Action 1");
