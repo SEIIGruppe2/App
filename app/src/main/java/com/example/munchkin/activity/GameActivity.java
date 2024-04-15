@@ -33,34 +33,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game); // Make sure to use the correct layout file
-
         setupControllers();
         setupDiceRollLauncher();
         requestRoll();
-        diceResults = getIntent().getIntegerArrayListExtra("diceResults");
-
-        if (diceResults != null) {
-            for (int result : diceResults) {
-                spawnMonsterController.sendMonsterSpawnMessage("Zone" + result);
-            }
-        }
-        /*
-        Button buttonPlayerAttack = findViewById(R.id.buttonPlayerAttack);
-        Button buttonMonsterAttack = findViewById(R.id.buttonMonsterAttack);
-
-        buttonPlayerAttack.setOnClickListener(v -> {
-            // Assuming you have a way to determine the monsterId and cardTypePlayed
-            String monsterId = "someMonsterId";
-            String cardTypePlayed = "someCardType";
-            gameController.sendPlayerAttackMessage(monsterId, cardTypePlayed);
-        });
-
-        buttonMonsterAttack.setOnClickListener(v -> {
-            String monsterId = "someMonsterId";
-            gameController.sendMonsterAttackMessage(monsterId);
-        });
-         */
-
     }
 
     private void setupControllers() {
@@ -105,18 +80,4 @@ public class GameActivity extends AppCompatActivity {
                 }
         );
     }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1) {
-            ArrayList<Integer> results = data.getIntegerArrayListExtra("diceResults");
-            if (results != null) {
-                diceResults.addAll(results);
-                processDiceResults();
-            }
-        }
-    }
-
 }
