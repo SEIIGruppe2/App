@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.R;
-import com.example.munchkin.activity.GameActivity;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.DiceRollModel;
 import java.util.ArrayList;

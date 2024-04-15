@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.DrawActivity;
@@ -13,22 +14,23 @@ import com.example.munchkin.activity.LoadingscreenActivity;
 
 public class DrawView {
 
-    private DrawActivity drawActivity;
+    /*
+    private MainGameActivity mainGameActivity;
     private TextView textViewServerResponse;
 
     private EditText editTextUsername;
-    public DrawView(DrawActivity drawActivity){
-        this.drawActivity=drawActivity;
+    public DrawView(MainGameActivity mainGameActivity){
+        this.mainGameActivity=mainGameActivity;
 
         setupUI();
 
     }
 
     private void setupUI() {
-        Button buttonSendMsg = drawActivity.findViewById(R.id.playgame);
+        Button buttonSendMsg = mainGameActivity.findViewById(R.id.buttonCards);
         buttonSendMsg.setOnClickListener(v -> {
-            drawActivity.sendMessage();
-            drawActivity.transitionToCardDeckscreen();
+            mainGameActivity.sendMessage();
+            mainGameActivity.transitionToCardDeckscreen();
 
 
         });
@@ -38,7 +40,7 @@ public class DrawView {
     }
 
     public void addtoList(ActionCardDTO karte){
-        drawActivity.addcardtolist(karte);
+        mainGameActivity.addcardtolist(karte);
     }
-
+*/
 }

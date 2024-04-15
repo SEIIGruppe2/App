@@ -4,7 +4,7 @@ import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
+import com.example.munchkin.view.MainGameView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,12 +13,12 @@ public class SpawnMonsterController extends BaseController {
 
 
     private WebSocketClientModel model;
-    private GameView gameView;
+    private MainGameView maingameView;
 
-    public SpawnMonsterController(WebSocketClientModel model,GameView gameView) {
+    public SpawnMonsterController(WebSocketClientModel model, MainGameView maingameView) {
         super(model);
         this.model = model;
-        this.gameView = gameView;
+        this.maingameView = maingameView;
     }
 
 
@@ -57,7 +57,7 @@ public class SpawnMonsterController extends BaseController {
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
 
-            gameView.displayMonster(monster, monsterZone);
+            maingameView.displayMonster(monster, monsterZone);
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");
         }

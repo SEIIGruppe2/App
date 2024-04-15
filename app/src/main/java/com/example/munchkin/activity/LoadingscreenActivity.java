@@ -10,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.LoadingController;
@@ -44,7 +45,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
         test.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingscreenActivity.this, DrawActivity.class);
+                Intent intent = new Intent(LoadingscreenActivity.this, MainGameActivity.class);
                 startActivity(intent);
                 finish();
             }

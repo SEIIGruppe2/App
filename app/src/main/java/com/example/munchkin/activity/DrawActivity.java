@@ -10,18 +10,24 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.DrawCardController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DrawView;
+import com.example.munchkin.view.MainGameView;
 
 import java.io.Serializable;
 
 public class DrawActivity extends AppCompatActivity {
+
+    /*
     private DrawCardController controller;
-    private DrawView view;
+    private MainGameView mainGameView;
+
+    private MainGameActivity mainGameActivity;
 
     private PlayerHand handkarten;
     @Override
@@ -34,9 +40,9 @@ public class DrawActivity extends AppCompatActivity {
 
         MessageRouter router = new MessageRouter();
         WebSocketClientModel model = new WebSocketClientModel();
-        view = new DrawView(this);
+        mainGameView = new MainGameView(mainGameActivity);
 
-        controller = new DrawCardController(model, view);
+        controller = new DrawCardController(model, mainGameView);
 
 
         router.registerController("DRAW_CARD",controller);
@@ -66,6 +72,6 @@ public class DrawActivity extends AppCompatActivity {
         Intent intent = new Intent(DrawActivity.this, CarddeckActivity.class);
         startActivity(intent);
     }
-
+*/
 
 }

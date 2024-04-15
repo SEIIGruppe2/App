@@ -4,7 +4,7 @@ import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
 import com.example.munchkin.interfaces.DiceRollListener;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
+import com.example.munchkin.view.MainGameView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,17 +20,19 @@ public class GameController extends BaseController implements DiceRollListener {
     private Queue<Player> playerQueue; // Warteschlange für die Spieler
     private Player currentPlayer;
     private int roundCounter = 1;
-    private GameView gameView;
+    private MainGameView maingameView;
 
     private SpawnMonsterController spawnMonsterController;
 
 
-    public GameController(WebSocketClientModel model, GameView gameView, SpawnMonsterController spawnMonsterController) {
+    public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController) {
         super(model);
-        this.gameView = gameView;
+        this.maingameView = maingameView;
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
     }
+
+
 
     @Override
     public void handleMessage(String message) {
@@ -59,8 +61,8 @@ public class GameController extends BaseController implements DiceRollListener {
     public void startRound() {
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
-        gameView.displayCurrentPlayer(currentPlayer);
-        gameView.updateRoundView(roundCounter);
+        maingameView.displayCurrentPlayer(currentPlayer);
+        maingameView.updateRoundView(roundCounter);
         roundCounter++;
     }
 
@@ -69,7 +71,7 @@ public class GameController extends BaseController implements DiceRollListener {
     public void endTurn() {
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
-        gameView.displayCurrentPlayer(currentPlayer);
+        maingameView.displayCurrentPlayer(currentPlayer);
 
         if (playerQueue.peek() == currentPlayer) {
             roundCounter++;
@@ -129,4 +131,6 @@ public class GameController extends BaseController implements DiceRollListener {
         }
 
     }
+
+
 }
