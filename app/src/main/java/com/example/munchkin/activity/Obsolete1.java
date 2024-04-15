@@ -14,20 +14,22 @@ import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.controller.SpawnMonsterController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
 import com.example.munchkin.view.DiceRollView;
+import com.example.munchkin.view.MainGameView;
 
 import java.util.ArrayList;
 
-public class GameActivity extends AppCompatActivity {
+public class Obsolete1 extends AppCompatActivity {
+
 
     private GameController gameController;
     private SpawnMonsterController spawnMonsterController;
-    private GameView gameView;
+    private MainGameView maingameView;
 
     private ArrayList<Integer> diceResults = new ArrayList<>();
 
     private ActivityResultLauncher<Intent> diceRollLauncher;
+
 
 
     @Override
@@ -44,9 +46,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void setupControllers() {
         WebSocketClientModel model = new WebSocketClientModel();
-        gameView = new GameView(this);
-        spawnMonsterController = new SpawnMonsterController(model, gameView);
-        gameController = new GameController(model, gameView,spawnMonsterController);
+        spawnMonsterController = new SpawnMonsterController(model, maingameView);
+        gameController = new GameController(model, maingameView,spawnMonsterController);
         gameController.requestUsernames();
 
 
@@ -84,4 +85,6 @@ public class GameActivity extends AppCompatActivity {
                 }
         );
     }
+
+
 }

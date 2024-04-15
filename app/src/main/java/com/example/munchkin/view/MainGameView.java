@@ -5,8 +5,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.activity.Obsolete1;
+import com.example.munchkin.controller.GameController;
+import android.widget.TextView;
+
+import com.example.munchkin.DTO.MonsterDTO;
+import com.example.munchkin.Player.Player;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +23,14 @@ public class MainGameView {
     private MainGameActivity mainGameActivity;
     private Button buttonEndRound, buttonCards;
     private Button b00, b01, b02, b03, b04, b05, b06, b07, b08, b09, b010, b011;
+
+    private GameController gameController;
+    private Obsolete1 gameActivity;
+    private Button[] monsterButtons;
+
+    private Button[] allPlayerButtons;
+
+
 
     // ListViews
     private ListView listActions;
@@ -42,6 +58,20 @@ public class MainGameView {
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
 
         setUI();
+
+
+        this.gameActivity = gameActivity;
+        allPlayerButtons = new Button[]{
+                gameActivity.findViewById(R.id.buttonEndRound),
+                gameActivity.findViewById(R.id.buttonCards)
+                // Button entfernen damit der Spieler nichts machen kann
+        };
+
+        this.monsterButtons = new Button[] {
+                gameActivity.findViewById(R.id.b00),
+                gameActivity.findViewById(R.id.b01),
+
+        };
     }
 
     public void setUI() {
@@ -56,11 +86,49 @@ public class MainGameView {
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainGameActivity.sendMessage();
+                mainGameActivity.transitionToCardDeckscreen();
                 updateListActions();
                 updateListTrophies();
             }
         });
     }
+    public void addtoList(ActionCardDTO karte){
+        mainGameActivity.addcardtolist(karte);
+    }
+
+    public void displayMonster(MonsterDTO monster, int position) {
+        if (position >= 0 && position < monsterButtons.length) {
+            Button button = monsterButtons[position];
+            button.setVisibility(View.VISIBLE);
+            button.setBackground(gameActivity.getDrawable(R.drawable.munchkin2));
+        }
+    }
+
+
+    public void displayCurrentPlayer(Player currentPlayer) {
+        // Beispieltextfeld oder Label in der UI, das den Namen des aktuellen Spielers anzeigt
+        TextView currentPlayerTextView = gameActivity.findViewById(R.id.Spieler);
+        currentPlayerTextView.setText("Spieler: " + currentPlayer.getName());
+
+        // Optional: UI-Elemente für andere Spieler deaktivieren oder visuell ändern
+        for (Button button : allPlayerButtons) {
+            if (!button.getTag().equals(currentPlayer.getName())) {
+                button.setEnabled(false);
+                button.setAlpha(0.5f);
+            } else {
+                button.setEnabled(true);
+                button.setAlpha(1.0f);
+            }
+        }
+    }
+
+    public void updateRoundView(int round) {
+        TextView roundView = gameActivity.findViewById(R.id.textViewRound);
+        roundView.setText("Runde: " + round);
+    }
+
+
 
     private void spawnMonster() {
         // Roll a dice (assuming the dice roll logic is implemented elsewhere)

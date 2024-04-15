@@ -7,17 +7,19 @@ import android.widget.TextView;
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.Player.Player;
 import com.example.munchkin.R;
-import com.example.munchkin.activity.GameActivity;
+import com.example.munchkin.activity.Obsolete1;
 import com.example.munchkin.controller.GameController;
 
-public class GameView {
+public class Obsolete2 {
+
+
     private GameController gameController;
-    private GameActivity gameActivity;
+    private Obsolete1 gameActivity;
     private Button[] monsterButtons;
 
     private Button[] allPlayerButtons;
 
-    public GameView(GameActivity gameActivity) {
+    public Obsolete2(Obsolete1 gameActivity) {
         this.gameActivity = gameActivity;
         allPlayerButtons = new Button[]{
                 gameActivity.findViewById(R.id.buttonEndRound),
@@ -66,33 +68,5 @@ public class GameView {
         roundView.setText("Runde: " + round);
     }
 
-
-
-
-
-
-
-    private void setupUI() {
-      //  Button playerAttackButton = // initialize button
-              /*  playerAttackButton.setOnClickListener(v -> {
-                    String monsterId = // get monster ID
-                            String cardTypePlayed = // get card type
-                            gameController.handlePlayerAttack(monsterId, cardTypePlayed);
-                });
-
-        Button monsterAttackButton = // initialize button
-                monsterAttackButton.setOnClickListener(v -> {
-                    String monsterId = // get monster ID
-                            gameController.handleMonsterAttack(monsterId);
-                });
-
-
-               */
-    }
-
-
-
-
-
-
 }
+
