@@ -22,7 +22,6 @@ import java.util.List;
 public class MainGameView {
     private MainGameActivity mainGameActivity;
     private Button buttonEndRound, buttonCards;
-    private Button b00, b01, b02, b03, b04, b05, b06, b07, b08, b09, b010, b011;
 
     private GameController gameController;
 
@@ -40,18 +39,6 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
 
-        this.b00 = mainGameActivity.findViewById(R.id.b00);
-        this.b01 = mainGameActivity.findViewById(R.id.b01);
-        this.b02 = mainGameActivity.findViewById(R.id.b02);
-        this.b03 = mainGameActivity.findViewById(R.id.b03);
-        this.b04 = mainGameActivity.findViewById(R.id.b04);
-        this.b05 = mainGameActivity.findViewById(R.id.b05);
-        this.b06 = mainGameActivity.findViewById(R.id.b06);
-        this.b07 = mainGameActivity.findViewById(R.id.b07);
-        this.b08 = mainGameActivity.findViewById(R.id.b08);
-        this.b09 = mainGameActivity.findViewById(R.id.b09);
-        this.b010 = mainGameActivity.findViewById(R.id.b010);
-        this.b011 = mainGameActivity.findViewById(R.id.b011);
 
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
@@ -69,6 +56,16 @@ public class MainGameView {
         this.monsterButtons = new Button[] {
                 mainGameActivity.findViewById(R.id.b00),
                 mainGameActivity.findViewById(R.id.b01),
+                mainGameActivity.findViewById(R.id.b02),
+                mainGameActivity.findViewById(R.id.b03),
+                mainGameActivity.findViewById(R.id.b04),
+                mainGameActivity.findViewById(R.id.b05),
+                mainGameActivity.findViewById(R.id.b06),
+                mainGameActivity.findViewById(R.id.b07),
+                mainGameActivity.findViewById(R.id.b08),
+                mainGameActivity.findViewById(R.id.b09),
+                mainGameActivity.findViewById(R.id.b010),
+                mainGameActivity.findViewById(R.id.b011),
 
         };
     }
@@ -78,7 +75,6 @@ public class MainGameView {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spawnMonster();
             }
         });
 
@@ -86,15 +82,15 @@ public class MainGameView {
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //        mainGameActivity.sendMessage();
-         //       mainGameActivity.transitionToCardDeckscreen();
+                mainGameActivity.sendMessage();
+                mainGameActivity.transitionToCardDeckscreen();
                 updateListActions();
                 updateListTrophies();
             }
         });
     }
     public void addtoList(ActionCardDTO karte){
-     //   mainGameActivity.addcardtolist(karte);
+       mainGameActivity.addcardtolist(karte);
     }
 
     public void displayMonster(MonsterDTO monster, int position) {
@@ -130,6 +126,7 @@ public class MainGameView {
 
 
 
+    /*
 
     private void spawnMonster() {
         // Roll a dice (assuming the dice roll logic is implemented elsewhere)
@@ -166,6 +163,8 @@ public class MainGameView {
     }
 
 
+
+     */
 
 
     private int rollDice() {
