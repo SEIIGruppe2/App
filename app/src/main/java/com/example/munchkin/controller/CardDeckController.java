@@ -46,8 +46,23 @@ public class CardDeckController extends BaseController {
             websocket.sendMessageToServer(message);
         }
         else{
-            System.out.println("Das muss noch ausimplementiert werden Carddeckcontroller java");
+            String message = MessageFormatter.createSwitchCardsPlayerMessage(text,id,"null");
+            websocket.sendMessageToServer(message);
         }
+
+    }
+
+    public void switchcardMeassagepassive(String text, String id) {
+
+        ActionCardDTO toremove = new ActionCardDTO();
+        for(ActionCardDTO a: playerHand.getCards()){
+            if(a.getId() == Integer.parseInt(id)){
+                toremove=a;
+            }
+        }
+        playerHand.removeCard(toremove);
+            String message = MessageFormatter.createSwitchCardsPlayerMessage(text,"null",id);
+            websocket.sendMessageToServer(message);
 
     }
 

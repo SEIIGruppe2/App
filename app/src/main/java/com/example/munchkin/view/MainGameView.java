@@ -1,12 +1,19 @@
 package com.example.munchkin.view;
 
+import android.content.Context;
+import android.content.Intent;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 
 import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.activity.LoadingscreenActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +63,10 @@ public class MainGameView {
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateListActions();
-                updateListTrophies();
+                /*updateListActions();
+                updateListTrophies();*/
+                //Testzwecke
+                tauschanfrageerhalten();
             }
         });
     }
@@ -132,4 +141,27 @@ public class MainGameView {
         ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
     }
+
+
+    public void tauschanfrageerhalten(){
+
+        View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
+        popuptauschanfrage.setOutsideTouchable(false);
+        popuptauschanfrage.setElevation(10);
+        popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+
+        mainGameActivity.dimmwindow(popuptauschanfrage);
+        Button ok = popupdrawable.findViewById(R.id.ok);
+
+        ok.setOnClickListener(v -> {
+            popuptauschanfrage.dismiss();
+            mainGameActivity.gehezuhandkarten();
+        });
+    }
+
+
 }

@@ -23,10 +23,13 @@
     <string name="button_zugbeenden">Zug beenden</string>
     <string name="button_ja">Ja</string>
     <string name="button_nein">Nein</string>
+    <string name="button_ok">Ok</string>
     <string name="button_tauschendeck">Decktausch</string>
     <string name="button_tauschenspieler">Spielertausch</string>
 
     <string name="popupzugbeenden">Bist du sicher, dass du den Zug beenden möchtest?</string>
+
+    <string name="popuptauschenanfrage">Du hast eine Tauschanfrage erhalten. Wähle eine Karte die du tauschen möchtest!</string>
 
     <string name="blauerschwertkaempfer1">Blauer Schwertkämpfer</string>
     <string name="blauerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>

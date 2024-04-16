@@ -48,6 +48,8 @@ public class CarddeckActivity extends AppCompatActivity {
 
     private CardDeckController controller;
 
+    public static int passivmode;
+
     public CardView selectedCard;
 
     PlayerHand spielerkarten;
@@ -74,8 +76,6 @@ public class CarddeckActivity extends AppCompatActivity {
         controller = new CardDeckController(model,view);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -140,6 +140,19 @@ public class CarddeckActivity extends AppCompatActivity {
         nein.setOnClickListener(v -> {
             popupzugzuende.dismiss();
         });
+    }
+
+    public void passivetauschen(){
+        CardView currentcard = selectedCard;
+        LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+        TextView gettag = (TextView)  getkardname.getChildAt(2);
+        String id = (String) gettag.getTag();
+        System.out.println("Tag der gewählten Karte" +id);
+        sendmessage("Testuser",id);
+        zurueck();
+
+        //username von absender, idauslesen
+
     }
 
     public void tauschen(){
@@ -263,7 +276,12 @@ public class CarddeckActivity extends AppCompatActivity {
         wm.updateViewLayout(container, p);
     }
     private void sendmessage(String text, String id){
-        controller.switchcardMeassage(text,id);
+        if(passivmode==1) {
+            controller.switchcardMeassagepassive(text,id);
+        }
+        else{
+            controller.switchcardMeassage(text, id);
+        }
     }
 
 

@@ -36,7 +36,10 @@ public class CarddeckView {
     public CarddeckView(CarddeckActivity carddeckActivity){
         this.carddeckActivity=carddeckActivity;
 
-        setupUI();
+
+
+            setupUI();
+
 
     }
 
@@ -45,10 +48,15 @@ public class CarddeckView {
         parentlayout= carddeckActivity.findViewById(R.id.containerforcards);
 
         zugbeenden = carddeckActivity.findViewById(R.id.buttonzugbeenden);
-        zugbeenden.setOnClickListener(v -> {
-            carddeckActivity.zugbeenden();
-        });
 
+        if(CarddeckActivity.passivmode==1){
+            zugbeenden.setVisibility(View.GONE);
+        }
+        else {
+            zugbeenden.setOnClickListener(v -> {
+                carddeckActivity.zugbeenden();
+            });
+        }
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
 
 
@@ -59,10 +67,14 @@ public class CarddeckView {
         });
 
         zurueck = carddeckActivity.findViewById(R.id.buttonzurueck1);
-
-        zurueck.setOnClickListener(v -> {
-            carddeckActivity.zurueck();
-        });
+        if(CarddeckActivity.passivmode==1){
+            zurueck.setVisibility(View.GONE);
+        }
+        else {
+            zurueck.setOnClickListener(v -> {
+                carddeckActivity.zurueck();
+            });
+        }
         String[] handcards = CardUtils.getresources(carddeckActivity.handkarten);
 
 
@@ -172,13 +184,43 @@ public class CarddeckView {
             cards.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    oncardclick(cards);
+                    if(carddeckActivity.passivmode == 1){
+                        oncardclickpassive(cards);
+                    }else{
+                        oncardclick(cards);
+                    }
 
                 }
             }));
 
             parentlayout.addView(cards);
 
+        }
+    }
+
+    public void oncardclickpassive(CardView card){
+
+
+        if (card == carddeckActivity.selectedCard) {
+            changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
+            carddeckActivity.selectedCard = null;
+            card.setForeground(carddeckActivity.getcardforeground());
+            tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
+        } else {
+
+            if (carddeckActivity.selectedCard != null) {
+                changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
+                carddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
+            }
+            changecardview(card, 155f,250f,20,20,15);
+            card.setForeground(carddeckActivity.getyellowborder());
+            carddeckActivity.selectedCard = card;
+            tauschen.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    carddeckActivity.passivetauschen();
+                }}));
+            tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
         }
     }
 
