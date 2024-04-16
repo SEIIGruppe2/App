@@ -91,7 +91,7 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
     }
 
     private void updateUI(int randomNumber) {
-        diceResults.add(randomNumber);
+        diceResults.add(randomNumber + 1);
         rollCount++;
 
         if (rollCount == 3) {
