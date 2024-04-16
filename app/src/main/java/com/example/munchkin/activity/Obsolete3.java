@@ -1,27 +1,8 @@
 package com.example.munchkin.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.munchkin.DTO.ActionCardDTO;
-import com.example.munchkin.MainGameActivity;
-import com.example.munchkin.MessageFormat.MessageRouter;
-import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.R;
-import com.example.munchkin.controller.DrawCardController;
-import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.DrawView;
-import com.example.munchkin.view.MainGameView;
-
-import java.io.Serializable;
-
-public class DrawActivity extends AppCompatActivity {
+public class Obsolete3 extends AppCompatActivity {
 
     /*
     private DrawCardController controller;
