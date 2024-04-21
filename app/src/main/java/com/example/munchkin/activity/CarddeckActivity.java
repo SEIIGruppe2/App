@@ -210,13 +210,14 @@ public class CarddeckActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.list);
 
 
-        tauschen.setOnClickListener(v -> {String text = dropdownmenu.getSelectedItem().toString();
+        tauschen.setOnClickListener(v -> {
+
+            String username = dropdownmenu.getSelectedItem().toString();
             CardView currentcard = selectedCard;
             LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
             TextView gettag = (TextView)  getkardname.getChildAt(2);
             String id = (String) gettag.getTag();
-            System.out.println("Tag der gewählten Karte" +id);
-            sendmessage(text, id);
+            sendmessage(username, id);
             //popuptauschen.dismiss();
             //AB hier neues popup
             Handler handler = new Handler();
@@ -225,12 +226,12 @@ public class CarddeckActivity extends AppCompatActivity {
             LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
             parentlayout.removeView(parentlayout.getChildAt(1));
             TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
-            tauschentext.setText("Anfrage wurde gesendet...");
+
             kartenname.setText("");
             kartenbeschreibung.setText("");
             kartenbild.setImageResource(getResources().getIdentifier("loadingimage","drawable",getPackageName()));
             // Post a delayed Runnable to the Handler
-            handler.postDelayed(new Runnable() {
+            /*handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
 
@@ -267,7 +268,7 @@ public class CarddeckActivity extends AppCompatActivity {
                     });
 
                 }
-            }, 3000);
+            }, 3000);*/
 
 
 
@@ -287,17 +288,18 @@ public class CarddeckActivity extends AppCompatActivity {
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
     }
-    private void sendmessage(String text, String id){
+    private void sendmessage(String username, String id){
         if(passivmode==1) {
-            controller.switchcardMeassagepassive(text,id);
+            controller.switchcardMeassagepassive(username,id);
         }
         else{
-            controller.switchcardMeassage(text, id);
+            controller.switchcardMeassage(username, id);
         }
     }
 
 
     }
+
 
 
 

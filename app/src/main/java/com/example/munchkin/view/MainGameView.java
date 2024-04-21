@@ -66,7 +66,7 @@ public class MainGameView {
                 /*updateListActions();
                 updateListTrophies();*/
                 //Testzwecke
-                tauschanfrageerhalten();
+                //tauschanfrageerhalten();
             }
         });
     }
@@ -143,24 +143,30 @@ public class MainGameView {
     }
 
 
-    public void tauschanfrageerhalten(){
+    public void tauschanfrageerhalten(String message){
 
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+        //hier versuchen mit post
+        popupdrawable.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
+                popuptauschanfrage.setOutsideTouchable(false);
+                popuptauschanfrage.setElevation(10);
+                popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
 
-        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
-        popuptauschanfrage.setOutsideTouchable(false);
-        popuptauschanfrage.setElevation(10);
-        popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+                mainGameActivity.dimmwindow(popuptauschanfrage);
+                Button ok = popupdrawable.findViewById(R.id.ok);
 
-        mainGameActivity.dimmwindow(popuptauschanfrage);
-        Button ok = popupdrawable.findViewById(R.id.ok);
-
-        ok.setOnClickListener(v -> {
-            popuptauschanfrage.dismiss();
-            mainGameActivity.gehezuhandkarten();
+                ok.setOnClickListener(v -> {
+                    popuptauschanfrage.dismiss();
+                    mainGameActivity.gehezuhandkarten();
+                });
+            }
         });
+
     }
 
 

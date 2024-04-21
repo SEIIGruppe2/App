@@ -11,22 +11,36 @@ import android.widget.PopupWindow;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.LoadingscreenActivity;
+import com.example.munchkin.controller.GameController;
+import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 
 public class MainGameActivity extends AppCompatActivity {
 
     private MainGameView mainGameView;
+    private GameController gameController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_game);
+        WebSocketClientModel model = new WebSocketClientModel();
+
+        MessageRouter router = new MessageRouter();
 
         mainGameView = new MainGameView(this);
+        gameController = new GameController(model,mainGameView);
+        router.registerController("PLAYER_ATTACK", gameController);
+        router.registerController("MONSTER_ATTACK", gameController);
+        router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+
+
+        model.setMessageRouter(router);
     }
 
     public void dimmwindow(PopupWindow popup){

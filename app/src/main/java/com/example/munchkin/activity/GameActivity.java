@@ -25,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.testlayer_for_game_board); // Make sure to use the correct layout file
 
         WebSocketClientModel model = new WebSocketClientModel();
-        gameController = new GameController(model);
+        //gameController = new GameController(model);
         MessageRouter router = new MessageRouter();
         /*
 

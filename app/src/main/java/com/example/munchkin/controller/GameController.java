@@ -1,21 +1,49 @@
 package com.example.munchkin.controller;
 
+import android.os.Handler;
+
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.GameView;
+import com.example.munchkin.view.MainGameView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class GameController extends BaseController {
 
-    public GameController(WebSocketClientModel model) {
+    MainGameView gameView;
+    private MainGameActivity mainGameActivity;
+
+    public GameController(WebSocketClientModel model, MainGameView gameView) {
         super(model);
+        this.gameView=gameView;
     }
 
     @Override
     public void handleMessage(String message) {
-        if (message.contains("PLAYER_ATTACK")) {
-            handlePlayerAttackMessage(message);
-        } else if (message.contains("MONSTER_ATTACK")) {
-            handlMonserAttackMessage(message);
+        try {
+            JSONObject jsonResponse = new JSONObject(message);
+            String messageType = jsonResponse.getString("type");
+            switch (messageType) {
+                case "PLAYER_ATTACK":
+                    handlePlayerAttackMessage(message);
+                    break;
+                case "MONSTER_ATTACK":
+                    handlMonserAttackMessage(message);
+                    break;
+                case "SWITCH_CARD_PLAYER_RESPONSE":
+                    handleswitchrequest(message);
+                    break;
+                default:
+                    break;
+
+
+            }
+        }catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleMessage/CardDeckController");
         }
     }
 
@@ -40,6 +68,12 @@ public class GameController extends BaseController {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
+    private void handleswitchrequest(String message){
+        System.out.println("Tauschanfrage erhalten");
+
+        gameView.tauschanfrageerhalten(message);
+
+    }
 
 
 }

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import androidx.cardview.widget.CardView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
@@ -24,6 +25,8 @@ public class CardDeckController extends BaseController {
     private PlayerHand playerHand;
     private CarddeckView carddeckView;
 
+
+
     private CarddeckActivity carddeckActivity;
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
@@ -33,7 +36,7 @@ public class CardDeckController extends BaseController {
         this.carddeckView = carddeckView;
     }
 
-    public void switchcardMeassage(String text, String id) {
+    public void switchcardMeassage(String username, String id) {
 
         ActionCardDTO toremove = new ActionCardDTO();
         for(ActionCardDTO a: playerHand.getCards()){
@@ -43,14 +46,24 @@ public class CardDeckController extends BaseController {
         }
         playerHand.removeCard(toremove);
 
-        if(text.equals("Kartenstapel")) {
+        if(username.equals("Kartenstapel")) {
             String message = MessageFormatter.createSwitchCardsDeckMessage(id);
             System.out.println(message);
             websocket.sendMessageToServer(message);
         }
         else{
-            String message = MessageFormatter.createSwitchCardsPlayerMessage(text,id,"null");
-            websocket.sendMessageToServer(message);
+            if(CarddeckActivity.passivmode==1){
+                //wenn ich passivespielerbin dann karte unter cardgotten
+                //username ist der von dem ich die karte erhalten habe
+                String message = MessageFormatter.createSwitchCardsPlayerMessage(username, "null", id);
+                websocket.sendMessageToServer(message);
+            }else {
+                System.out.println("+++++username"+username);
+
+                //wenn ich activespieler bin dann karte unter cardgiven
+                String message = MessageFormatter.createSwitchCardsPlayerMessage(username, id, "null");
+                websocket.sendMessageToServer(message);
+            }
         }
 
     }
@@ -106,10 +119,6 @@ public class CardDeckController extends BaseController {
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
             System.out.println(karte.getName());
             playerHand.addCard(karte);
-
-
-            //carddeckView.updatenachtauschen();
-
 
         }
         catch (JSONException e) {
