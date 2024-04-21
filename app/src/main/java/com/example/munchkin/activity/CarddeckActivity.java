@@ -41,6 +41,9 @@ import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CarddeckActivity extends AppCompatActivity {
@@ -55,6 +58,8 @@ public class CarddeckActivity extends AppCompatActivity {
     PlayerHand spielerkarten;
     public List<ActionCardDTO> handkarten;
     CarddeckView view;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +81,7 @@ public class CarddeckActivity extends AppCompatActivity {
         controller = new CardDeckController(model,view);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
+        router.registerController("REQUEST_USERNAMES",controller);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -155,7 +161,13 @@ public class CarddeckActivity extends AppCompatActivity {
 
     }
 
+
+
     public void tauschen(){
+
+
+        controller.getactiveusers();
+
 
 
         LinearLayout getkartenname = (LinearLayout) selectedCard.getChildAt(0);
@@ -188,12 +200,12 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
 
+        view.usernames.add("Kartenstapel");
 
-        String[] options = {"Kartenstapel", "Spieler 1", "Spieler 2", "Spieler 3"};
         Spinner dropdownmenu = popupdrawable.findViewById(R.id.spinner1);
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list, options);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list,view.usernames);
         dropdownmenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
 

@@ -29,7 +29,7 @@ public class MessageFormatter {
 
 
     public static String createUsernameRequestMessage() {
-        return ("REQUEST_USERNAMES");
+        return createMessage("REQUEST_USERNAMES");
     }
 
     private static String createMessage(String type, String... params) {

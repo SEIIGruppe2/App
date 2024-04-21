@@ -12,8 +12,11 @@ import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class CardDeckController extends BaseController {
 
@@ -65,7 +68,10 @@ public class CardDeckController extends BaseController {
             websocket.sendMessageToServer(message);
 
     }
-
+    public void getactiveusers(){
+        String message = MessageFormatter.createUsernameRequestMessage();
+        model.sendMessageToServer(message);
+    }
 
     @Override
     public void handleMessage(String message) {
@@ -79,7 +85,7 @@ public class CardDeckController extends BaseController {
                     updatehanddeck(jsonResponse);
                     break;
                 case "REQUEST_USERNAMES":
-                    //handleUserName(jsonResponse);
+                    handleUserName(jsonResponse);
                     break;
                 default:
                     break;
@@ -111,38 +117,33 @@ public class CardDeckController extends BaseController {
         }
 
     }
-    /*public void sendSwitchCardsPlayerMessage(String username, String givenCard, String receivedCard) {
-        String message = MessageFormatter.createSwitchCardsPlayerMessage(username, givenCard, receivedCard);
-        model.sendMessageToServer(message);
-    }
-
-    public void sendSwitchCardsDeckMessage(String card) {
-        String message = MessageFormatter.createSwitchCardsDeckMessage(card);
-        model.sendMessageToServer(message);
-    }
-
-    public void requestUsernames() {
-        String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
-    }
-
-
-
     private void handleUserName(JSONObject jsonResponse){
         try {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             ArrayList<String> usernamesList = new ArrayList<>();
             for (int i = 0; i < usernamesArray.length(); i++) {
                 usernamesList.add(usernamesArray.getString(i));
-            }
 
-            tradeCardsActivity.runOnUiThread(() -> {
-                tradeCardsView.updateUsernamesSpinner(usernamesList);
-            });
+            }
+            carddeckView.usernames = usernamesList;
+
+
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/CardDeckController");
         }
     }
+
+
+    /*public void requestUsernames() {
+        String message = MessageFormatter.createUsernameRequestMessage();
+        model.sendMessageToServer(message);
+    }
+
+
+
+
+
+
 
 
 

@@ -18,6 +18,9 @@ import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.DrawActivity;
 import com.example.munchkin.controller.CardDeckController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CarddeckView {
 
     LinearLayout parentlayout;
@@ -31,6 +34,8 @@ public class CarddeckView {
     private CarddeckActivity carddeckActivity;
 
     private CardDeckController cardDeckController;
+
+    public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
 
 
     public CarddeckView(CarddeckActivity carddeckActivity){
