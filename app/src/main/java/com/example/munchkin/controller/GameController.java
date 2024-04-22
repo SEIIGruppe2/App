@@ -35,7 +35,7 @@ public class GameController extends BaseController {
                     handlMonserAttackMessage(message);
                     break;
                 case "SWITCH_CARD_PLAYER_RESPONSE":
-                    handleswitchrequest(message);
+                    handleswitchrequest(jsonResponse);
                     break;
                 default:
                     break;
@@ -68,7 +68,7 @@ public class GameController extends BaseController {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
-    private void handleswitchrequest(String message){
+    private void handleswitchrequest(JSONObject message) throws JSONException {
         System.out.println("Tauschanfrage erhalten");
 
         gameView.tauschanfrageerhalten(message);

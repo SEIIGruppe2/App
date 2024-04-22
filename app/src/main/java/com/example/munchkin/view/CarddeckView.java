@@ -81,10 +81,6 @@ public class CarddeckView {
             });
         }
         String[] handcards = CardUtils.getresources(carddeckActivity.handkarten);
-
-
-
-
         fillcards(handcards);
 
 

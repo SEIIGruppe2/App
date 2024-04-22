@@ -19,6 +19,8 @@ import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 
+import org.json.JSONObject;
+
 public class MainGameActivity extends AppCompatActivity {
 
     private MainGameView mainGameView;
@@ -52,8 +54,12 @@ public class MainGameActivity extends AppCompatActivity {
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
     }
-    public void gehezuhandkarten(){
+    public void gehezuhandkarten(JSONObject messagefromserver){
+        Bundle b = new Bundle();
+        b.putString("key", messagefromserver.toString()); //Your id
+       //
         Intent handkarten = new Intent(this, CarddeckActivity.class);
+        handkarten.putExtras(b);
         CarddeckActivity.passivmode=1;
         startActivity(handkarten);
 

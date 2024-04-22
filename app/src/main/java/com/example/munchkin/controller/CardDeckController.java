@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
-    private PlayerHand playerHand;
+    public PlayerHand playerHand;
     private CarddeckView carddeckView;
 
 

@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.LoadingscreenActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,11 +149,20 @@ public class MainGameView {
     }
 
 
-    public void tauschanfrageerhalten(String message){
+    public void tauschanfrageerhalten(JSONObject message) throws JSONException {
+        //TODO: in cradeckactivity einfügen
+        int id = Integer.parseInt(message.getString("id"));
+        String name = message.getString("name");
+        int zone = Integer.parseInt(message.getString("zone"));
+        ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+        System.out.println(karte.getName());
+        String username = message.getString("switchedWith");
+        /*playerhand.addCard(karte);*/
 
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
         //hier versuchen mit post
-        popupdrawable.post(new Runnable() {
+
+        mainGameActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 int width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -162,10 +177,12 @@ public class MainGameView {
 
                 ok.setOnClickListener(v -> {
                     popuptauschanfrage.dismiss();
-                    mainGameActivity.gehezuhandkarten();
+                    mainGameActivity.gehezuhandkarten(message);
                 });
             }
         });
+
+
 
     }
 

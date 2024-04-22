@@ -41,6 +41,9 @@ import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,6 +62,9 @@ public class CarddeckActivity extends AppCompatActivity {
     public List<ActionCardDTO> handkarten;
     CarddeckView view;
 
+    String messagfromserver;
+    String usernametoswitchwith;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +79,8 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
         model.setMessageRouter(router);
-
         handkarten= spielerkarten.getCards();
+
 
 
         view =new CarddeckView(this);
@@ -82,7 +88,22 @@ public class CarddeckActivity extends AppCompatActivity {
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
         router.registerController("REQUEST_USERNAMES",controller);
+        if(passivmode==1){
+            Bundle b = getIntent().getExtras();
+            messagfromserver = b.getString("key");
+            try {
+                JSONObject message = new JSONObject(messagfromserver);
+                int id = Integer.parseInt(message.getString("id"));
+                String name = message.getString("name");
+                int zone = Integer.parseInt(message.getString("zone"));
+                ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+                usernametoswitchwith = message.getString("switchedWith");
+                controller.playerHand.addCard(karte);
 
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -153,22 +174,19 @@ public class CarddeckActivity extends AppCompatActivity {
         LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
         TextView gettag = (TextView)  getkardname.getChildAt(2);
         String id = (String) gettag.getTag();
-        System.out.println("Tag der gewählten Karte" +id);
-        sendmessage("Testuser",id);
+        sendmessage(usernametoswitchwith,id);
+
+
         zurueck();
 
         //username von absender, idauslesen
 
     }
 
-
-
     public void tauschen(){
 
 
         controller.getactiveusers();
-
-
 
         LinearLayout getkartenname = (LinearLayout) selectedCard.getChildAt(0);
         ImageView testgetcardname = (ImageView) getkartenname.getChildAt(1);
@@ -218,15 +236,13 @@ public class CarddeckActivity extends AppCompatActivity {
             TextView gettag = (TextView)  getkardname.getChildAt(2);
             String id = (String) gettag.getTag();
             sendmessage(username, id);
-            //popuptauschen.dismiss();
-            //AB hier neues popup
             Handler handler = new Handler();
             tauschen.setVisibility(View.GONE);
             zurueck.setVisibility(View.GONE);
             LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
             parentlayout.removeView(parentlayout.getChildAt(1));
             TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
-
+            tauschentext.setText("Anfrage wurde gesendet");
             kartenname.setText("");
             kartenbeschreibung.setText("");
             kartenbild.setImageResource(getResources().getIdentifier("loadingimage","drawable",getPackageName()));
