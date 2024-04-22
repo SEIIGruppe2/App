@@ -265,4 +265,13 @@ public class CarddeckView {
         kartenbeschreibung.setTextSize(textsizekartenbeschreibung);
     }
 
+    public void updatescreen() {
+        carddeckActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                carddeckActivity.updatepopupwindow();
+                System.out.println("Test Antwort Nachricht von SwitchPlayer erhalten");
+            }
+        });
+    }
 }

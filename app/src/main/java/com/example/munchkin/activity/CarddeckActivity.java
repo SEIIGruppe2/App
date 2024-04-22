@@ -65,6 +65,12 @@ public class CarddeckActivity extends AppCompatActivity {
     String messagfromserver;
     String usernametoswitchwith;
 
+    PopupWindow popuptauschen;
+    TextView kartenname;
+
+    ImageView kartenbild;
+    TextView kartenbeschreibung;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +93,7 @@ public class CarddeckActivity extends AppCompatActivity {
         controller = new CardDeckController(model,view);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
+        router.registerController("SWITCH_CARD_PLAYER_RESPONSE",controller);
         router.registerController("REQUEST_USERNAMES",controller);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
@@ -182,7 +189,8 @@ public class CarddeckActivity extends AppCompatActivity {
         //username von absender, idauslesen
 
     }
-
+    View popupdrawable;
+    TextView tauschentext;
     public void tauschen(){
 
 
@@ -191,19 +199,17 @@ public class CarddeckActivity extends AppCompatActivity {
         LinearLayout getkartenname = (LinearLayout) selectedCard.getChildAt(0);
         ImageView testgetcardname = (ImageView) getkartenname.getChildAt(1);
         String ressource = (String) testgetcardname.getTag();
-
-        View popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
-
-        PopupWindow popuptauschen = new PopupWindow(popupdrawable,1750,1200,true);
+        popupdrawable = getLayoutInflater().inflate(R.layout.popouttauschen, null);
+        popuptauschen = new PopupWindow(popupdrawable,1750,1200,true);
         popuptauschen.setOutsideTouchable(false);
         popuptauschen.setAnimationStyle(R.anim.popup);
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschendurchfuehren);
         Button zurueck = popupdrawable.findViewById(R.id.buttonzurueck2);
-        TextView kartenname = popupdrawable.findViewById(R.id.kartennamepopup);
-        TextView kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
-        ImageView kartenbild = popupdrawable.findViewById(R.id.kartenbildpopup);
+        kartenname = popupdrawable.findViewById(R.id.kartennamepopup);
+        kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
+        kartenbild = popupdrawable.findViewById(R.id.kartenbildpopup);
         String kartenname2 = ressource+"1";
         int resIDkartenname = getResources().getIdentifier(kartenname2,"string",getPackageName());
         kartenname.setText(resIDkartenname);
@@ -241,7 +247,7 @@ public class CarddeckActivity extends AppCompatActivity {
             zurueck.setVisibility(View.GONE);
             LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
             parentlayout.removeView(parentlayout.getChildAt(1));
-            TextView tauschentext = popupdrawable.findViewById(R.id.tauschentext);
+            tauschentext = popupdrawable.findViewById(R.id.tauschentext);
             tauschentext.setText("Anfrage wurde gesendet");
             kartenname.setText("");
             kartenbeschreibung.setText("");
@@ -295,6 +301,43 @@ public class CarddeckActivity extends AppCompatActivity {
             popuptauschen.dismiss();
         });
     }
+
+    public void updatepopupwindow(){
+
+        LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
+        Button neuerbutton = new Button(CarddeckActivity.this);
+        LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        tauschentext.setText("Du hast folgende Karte erhalten");
+        String[] handcards = CardUtils.getresources(handkarten);
+        String neuekarte = handcards[handcards.length-1];
+        String neuerkartenname= neuekarte+"1";
+        kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
+
+        String neuekartenbeschreibung = neuekarte+"2";
+        kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
+
+        kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
+
+        neuerbutton.setLayoutParams(layoutParamskarteninhalt);
+        neuerbutton.setText("ok");
+        neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
+        neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CarddeckActivity.this, R.color.yellow));
+        buttoncontainer.addView(neuerbutton);
+        Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
+        neuerbutton.setTypeface(typeface);
+        neuerbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popuptauschen.dismiss();
+                view.updatenachtauschen();
+            }
+        });
+
+    }
+
+
     private void dimmwindow(PopupWindow popup){
         View container = (View) popup.getContentView().getParent();
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);

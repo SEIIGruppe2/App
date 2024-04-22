@@ -52,19 +52,11 @@ public class CardDeckController extends BaseController {
             websocket.sendMessageToServer(message);
         }
         else{
-            if(CarddeckActivity.passivmode==1){
-                //wenn ich passivespielerbin dann karte unter cardgotten
-                //username ist der von dem ich die karte erhalten habe
+
                 String message = MessageFormatter.createSwitchCardsPlayerMessage(username, "null", id);
                 websocket.sendMessageToServer(message);
-            }else {
-                System.out.println("+++++username"+username);
-
-                //wenn ich activespieler bin dann karte unter cardgiven
-                String message = MessageFormatter.createSwitchCardsPlayerMessage(username, id, "null");
-                websocket.sendMessageToServer(message);
             }
-        }
+
 
     }
 
@@ -94,6 +86,8 @@ public class CardDeckController extends BaseController {
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
                 case "SWITCH_CARD_PLAYER_RESPONSE":
+                    updatehanddeck(jsonResponse);
+                    break;
                 case "SWITCH_CARD_DECK_RESPONSE":
                     updatehanddeck(jsonResponse);
                     break;
@@ -110,6 +104,7 @@ public class CardDeckController extends BaseController {
 
     private void updatehanddeck(JSONObject jsonResponse) {
 
+        System.out.println("Update Handdeck checked");
 
         try{
 
@@ -119,6 +114,7 @@ public class CardDeckController extends BaseController {
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
             System.out.println(karte.getName());
             playerHand.addCard(karte);
+            carddeckView.updatescreen();
 
         }
         catch (JSONException e) {
