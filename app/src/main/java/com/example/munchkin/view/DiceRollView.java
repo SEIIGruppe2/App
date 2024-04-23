@@ -1,5 +1,6 @@
 package com.example.munchkin.view;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.R;
+import com.example.munchkin.activity.GameActivity;
 
 public class DiceRollView extends AppCompatActivity implements ShakeDetectorView.OnShakeListener {
 
@@ -85,10 +87,29 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
         textView.setText(String.valueOf(randomNumber + 1));
 
         btnRoll.setEnabled(true);
+
+        sendResultToGameView(randomNumber); //Vielleicht anpassen auf +1
     }
 
     @Override
     public void onShake() {
         rollDice();
     }
+
+
+    private void sendResultToGameView(int diceResult) {
+        String zone = convertDiceResultToZone(diceResult);
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("diceResult", zone);
+        startActivity(intent);
+    }
+
+    private String convertDiceResultToZone(int diceResult) {
+        // Mapping der Würfelzahl zur Zone (als String)
+        return "Zone" + diceResult;
+    }
+
+
+
+
 }

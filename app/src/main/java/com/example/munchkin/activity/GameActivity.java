@@ -1,34 +1,48 @@
 package com.example.munchkin.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
+import com.example.munchkin.controller.SpawnMonsterController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.networking.WebSocketMessageHandler;
+import com.example.munchkin.view.GameView;
 
 public class GameActivity extends AppCompatActivity {
 
     private GameController gameController;
+    private SpawnMonsterController spawnMonsterController;
+    private GameView gameView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testlayer_for_game_board); // Make sure to use the correct layout file
+        setContentView(R.layout.activity_main_game); // Make sure to use the correct layout file
+
+        String zone = getIntent().getStringExtra("diceResult");
 
         WebSocketClientModel model = new WebSocketClientModel();
-        //gameController = new GameController(model);
-        MessageRouter router = new MessageRouter();
-        /*
 
+        gameView = new GameView(this);
+        //gameController = new GameController(model, gameView);
+        spawnMonsterController = new SpawnMonsterController(model,gameView);
+        MessageRouter router = new MessageRouter();
+
+
+
+
+
+
+
+
+
+        /*
         Button buttonPlayerAttack = findViewById(R.id.buttonPlayerAttack);
         Button buttonMonsterAttack = findViewById(R.id.buttonMonsterAttack);
 
@@ -43,17 +57,20 @@ public class GameActivity extends AppCompatActivity {
             String monsterId = "someMonsterId";
             gameController.sendMonsterAttackMessage(monsterId);
         });
-
-
-
          */
+
+
         router.registerController("PLAYER_ATTACK", gameController);
         router.registerController("MONSTER_ATTACK", gameController);
+        router.registerController("SPAWN_MONSTER", spawnMonsterController);
 
 
         model.setMessageRouter(router);
+
+        if (zone != null) {
+            spawnMonsterController.sendMonsterSpawnMessage(zone);
+        }
+
     }
-
-
 
 }
