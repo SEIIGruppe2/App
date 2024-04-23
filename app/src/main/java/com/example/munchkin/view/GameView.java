@@ -18,8 +18,8 @@ public class GameView {
     public GameView(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
         this.monsterButtons = new Button[] {
-                gameActivity.findViewById(R.id.b00),
-                gameActivity.findViewById(R.id.b01),
+                gameActivity.findViewById(R.id.button_forest1_spawn1),
+                gameActivity.findViewById(R.id.button_forest1_spawn2),
 
         };
     }
