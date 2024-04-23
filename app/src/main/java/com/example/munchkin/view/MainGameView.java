@@ -69,12 +69,13 @@ public class MainGameView {
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*updateListActions();
-                updateListTrophies();*/
-                //Testzwecke
-                //tauschanfrageerhalten();
+                gehezukarten();
             }
         });
+    }
+
+    private void gehezukarten(){
+        mainGameActivity.gehezukarten();
     }
 
     private void spawnMonster() {

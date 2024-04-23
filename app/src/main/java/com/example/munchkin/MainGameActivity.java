@@ -64,4 +64,9 @@ public class MainGameActivity extends AppCompatActivity {
         startActivity(handkarten);
 
     }
+
+    public void gehezukarten(){
+        Intent intent = new Intent(this, CarddeckActivity.class);
+        startActivity(intent);
+    }
 }
