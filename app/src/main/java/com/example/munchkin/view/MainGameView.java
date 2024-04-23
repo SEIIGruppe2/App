@@ -166,6 +166,21 @@ public class MainGameView {
 
      */
 
+    public void updateMonsters(List<List<MonsterDTO>> monsterRings) {
+        // Angenommen, wir haben ein Array von Button Arrays, jedes repräsentiert einen Ring
+        //Button[][] ringButtons = ...; // Muss initialisiert werden mit den tatsächlichen UI-Buttons
+
+        for (int ring = 0; ring < monsterRings.size(); ring++) {
+            List<MonsterDTO> ringMonsters = monsterRings.get(ring);
+            for (int pos = 0; pos < ringMonsters.size(); pos++) {
+                MonsterDTO monster = ringMonsters.get(pos);
+             //   Button button = ringButtons[ring][pos];
+                //  button.setBackground(R.drawable.dice_4); // Update das Button-Bild
+            }
+        }
+    }
+
+
 
     private int rollDice() {
         return 1;
