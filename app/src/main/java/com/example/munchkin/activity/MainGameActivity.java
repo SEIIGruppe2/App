@@ -21,6 +21,10 @@ import com.example.munchkin.view.ZoomDetectorView;
 
 import org.json.JSONObject;
 
+import com.example.munchkin.R;
+import com.example.munchkin.view.MainGameView;
+import com.example.munchkin.view.ZoomDetectorView;
+
 public class MainGameActivity extends AppCompatActivity {
 
     private MainGameView mainGameView;
