@@ -94,6 +94,24 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
         diceResults.add(randomNumber + 1);
         rollCount++;
 
+        switch (randomNumber + 1) {
+            case 1:
+                diceImage.setImageResource(R.drawable.dice_1);
+                break;
+            case 2:
+                diceImage.setImageResource(R.drawable.dice_2);
+                break;
+            case 3:
+                diceImage.setImageResource(R.drawable.dice_3);
+                break;
+            case 4:
+                diceImage.setImageResource(R.drawable.dice_4);
+                break;
+            default:
+                diceImage.setImageResource(R.drawable.yellowborder);
+                break;
+        }
+
         if (rollCount == 3) {
             Intent returnIntent = new Intent();
             returnIntent.putIntegerArrayListExtra("diceResults", diceResults);
