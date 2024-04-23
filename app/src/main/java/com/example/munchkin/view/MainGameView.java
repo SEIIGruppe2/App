@@ -1,23 +1,16 @@
 package com.example.munchkin.view;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.example.munchkin.DTO.ActionCardDTO;
-import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
-import com.example.munchkin.activity.CarddeckActivity;
-import com.example.munchkin.activity.LoadingscreenActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

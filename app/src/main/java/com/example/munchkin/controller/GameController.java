@@ -1,15 +1,9 @@
 package com.example.munchkin.controller;
 
-import android.os.Handler;
-
-import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
 import com.example.munchkin.view.MainGameView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
