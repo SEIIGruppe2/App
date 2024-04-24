@@ -115,19 +115,11 @@ public class MainGameView {
     }
 
 
-
     public void addtoList(ActionCardDTO karte){
         mainGameActivity.addcardtolist(karte);
     }
 
 
-    public void displayMonster(MonsterDTO monster, int position) {
-        if (position >= 0 && position < monsterButtons.length) {
-            Button button = monsterButtons[position];
-            button.setVisibility(View.VISIBLE);
-            button.setBackground(mainGameActivity.getDrawable(R.drawable.munchkin2));
-        }
-    }
 
 
     public void displayCurrentPlayer(Player currentPlayer) {
@@ -211,24 +203,6 @@ public class MainGameView {
         // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.VISIBLE;
     }
-
-
-
-    public void updateMonsters(List<List<MonsterDTO>> monsterRings) {
-        // Angenommen, wir haben ein Array von Button Arrays, jedes repräsentiert einen Ring
-        //Button[][] ringButtons = ...; // Muss initialisiert werden mit den tatsächlichen UI-Buttons
-
-        for (int ring = 0; ring < monsterRings.size(); ring++) {
-            List<MonsterDTO> ringMonsters = monsterRings.get(ring);
-            for (int pos = 0; pos < ringMonsters.size(); pos++) {
-                MonsterDTO monster = ringMonsters.get(pos);
-                //   Button button = ringButtons[ring][pos];
-                //  button.setBackground(R.drawable.dice_4); // Update das Button-Bild
-            }
-        }
-    }
-
-
 
 
     private boolean isButtonEmpty(Button button) {

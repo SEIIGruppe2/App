@@ -49,15 +49,14 @@ public class SpawnMonsterController extends BaseController {
     private void handleSpawnMonsterMessage(JSONObject message ){
 
         try {
-            String monsterName = message.getString("name");
-            int monsterZone = message.getInt("zone");
             int monsterId = message.getInt("id");
+            int monsterZone = message.getInt("zone");
             int ring = message.getInt("ring");
-            int lifePoints = message.getInt("lifePoints");
+            String monsterName = message.getString("name");
+            int lifePoints = message.getInt("lifepoints");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
 
-            maingameView.displayMonster(monster, monsterZone);
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");
         }

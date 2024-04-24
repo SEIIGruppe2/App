@@ -128,7 +128,7 @@ public class GameController extends BaseController implements DiceRollListener {
     public void onDiceRolled(int[] results) {
 
         for (int result : results) {
-            spawnMonsterController.sendMonsterSpawnMessage("Zone" + result);
+            spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
         }
 
     }

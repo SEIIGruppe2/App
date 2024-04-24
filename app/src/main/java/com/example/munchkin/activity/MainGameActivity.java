@@ -64,6 +64,7 @@ public class MainGameActivity extends AppCompatActivity {
         scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
 
+
         setupControllers();
         setupDiceRollLauncher();
         requestRoll();
@@ -117,7 +118,6 @@ public class MainGameActivity extends AppCompatActivity {
     public void addcardtolist(ActionCardDTO karte){
         handkarten.addCard(karte);
         System.out.println("---- add to list"+handkarten.getCards().size());
-
     }
 
     public void transitionToCardDeckscreen() {
@@ -125,13 +125,14 @@ public class MainGameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private void processDiceResults() {
         for (int zone : diceResults) {
             spawnMonsterController.sendMonsterSpawnMessage("Zone" + zone);
         }
         diceResults.clear();
     }
+
+
 
     private void requestRoll() {
         Intent intent = new Intent(this, DiceRollView.class);
