@@ -46,6 +46,9 @@ public class CardDeckController extends BaseController {
                 case "REQUEST_USERNAMES":
                     handleUserName(jsonResponse);
                     break;
+                case "REQUEST_NAMES":
+                    handleUserName(jsonResponse);
+                    break;
                 default:
                     break;
             }
