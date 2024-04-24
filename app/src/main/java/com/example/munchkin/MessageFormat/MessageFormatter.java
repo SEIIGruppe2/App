@@ -32,6 +32,11 @@ public class MessageFormatter {
         return createMessage("REQUEST_USERNAMES");
     }
 
+    public static String createSpawnMonsterMessage(String zone) {
+        return createMessage("SPAWN_MONSTER", "zone", zone);
+    }
+
+
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {

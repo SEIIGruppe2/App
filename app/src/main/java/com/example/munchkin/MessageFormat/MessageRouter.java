@@ -31,7 +31,6 @@ public class MessageRouter {
             String messageType = jsonMessage.getString("type");
             messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
             BaseController controller = messageTypeToControllerMap.get(messageType);
-            System.out.println("Route message to" + messageType);
 
 
             if (controller != null) {

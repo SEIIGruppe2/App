@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.munchkin.MainGameActivity;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.MainActivity;

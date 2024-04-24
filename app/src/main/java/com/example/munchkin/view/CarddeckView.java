@@ -270,7 +270,7 @@ public class CarddeckView {
             @Override
             public void run() {
                 carddeckActivity.updatepopupwindow();
-                System.out.println("Test Antwort Nachricht von SwitchPlayer erhalten");
+
             }
         });
     }

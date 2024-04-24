@@ -1,12 +1,15 @@
 package com.example.munchkin.controller;
 
-import android.os.Handler;
-
-import com.example.munchkin.MainGameActivity;
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
 import com.example.munchkin.view.MainGameView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,11 +32,12 @@ public class GameController extends BaseController {
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
                 case "PLAYER_ATTACK":
-                    handlePlayerAttackMessage(message);
+                    handlePlayerAttackMessage(jsonResponse);
                     break;
                 case "MONSTER_ATTACK":
-                    handlMonserAttackMessage(message);
+                    handlMonserAttackMessage(jsonResponse);
                     break;
+
                 case "SWITCH_CARD_PLAYER_RESPONSE":
                     handleswitchrequest(jsonResponse);
                     break;
@@ -42,8 +46,9 @@ public class GameController extends BaseController {
 
 
             }
-        }catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei handleMessage/CardDeckController");
+        }
+         catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
     }
 
@@ -60,11 +65,11 @@ public class GameController extends BaseController {
 
 
     // Methode zum Verarbeiten der empfangenen Nachrichten vom Server
-    private void handlePlayerAttackMessage(String message) {
+    private void handlePlayerAttackMessage(JSONObject message) {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Spieler
     }
 
-    private void handlMonserAttackMessage(String message) {
+    private void handlMonserAttackMessage(JSONObject message) {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
