@@ -38,7 +38,7 @@
             android:name=".view.DiceRollView"
             android:screenOrientation="landscape"></activity>
 
-        <activity android:name=".MainGameActivity"
+        <activity android:name=".activity.MainGameActivity"
             android:screenOrientation="landscape"/>
     </application>
 
