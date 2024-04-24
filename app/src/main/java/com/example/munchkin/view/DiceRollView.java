@@ -83,7 +83,7 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
     }
 
     private void updateUI(int randomNumber) {
-        diceImage.setImageResource(R.drawable.dice_1 + randomNumber);
+        //diceImage.setImageResource(R.drawable.dice_1 + randomNumber);
         textView.setText(String.valueOf(randomNumber + 1));
 
         btnRoll.setEnabled(true);
