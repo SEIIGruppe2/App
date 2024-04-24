@@ -1,4 +1,4 @@
-package com.example.munchkin;
+package com.example.munchkin.activity;
 
 import android.os.Bundle;
 
@@ -7,10 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.R;
 import com.example.munchkin.controller.DrawCardController;
 import com.example.munchkin.view.MainGameView;
 import android.content.Intent;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.widget.Button;
 
 
@@ -25,16 +28,19 @@ import com.example.munchkin.controller.GameController;
 import com.example.munchkin.controller.SpawnMonsterController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DiceRollView;
+import com.example.munchkin.view.ZoomDetectorView;
 
 import java.util.ArrayList;
 
 
 public class MainGameActivity extends AppCompatActivity {
 
+    private ZoomDetectorView zoomDetectorView;
+    private ScaleGestureDetector scaleGestureDetector;
 
     private GameController gameController;
     private SpawnMonsterController spawnMonsterController;
-    private MainGameView maingameView;
+    private MainGameView mainGameView;
 
     private ArrayList<Integer> diceResults = new ArrayList<>();
 
@@ -51,6 +57,13 @@ public class MainGameActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_game);
 
+
+        mainGameView = new MainGameView(this);
+        View mainView = findViewById(R.id.game);
+        zoomDetectorView = new ZoomDetectorView(this, mainView);
+        scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
+
+
         setupControllers();
         setupDiceRollLauncher();
         requestRoll();
@@ -66,12 +79,19 @@ public class MainGameActivity extends AppCompatActivity {
         endRoundButton.setOnClickListener(v -> gameController.endTurn());
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        scaleGestureDetector.onTouchEvent(event);
+        zoomDetectorView.onTouchEvent(event);
+        return true;
+    }
+
     private void setupControllers() {
         WebSocketClientModel model = new WebSocketClientModel();
-        maingameView = new MainGameView(this);
-        spawnMonsterController = new SpawnMonsterController(model, maingameView);
-        gameController = new GameController(model, maingameView,spawnMonsterController);
-        drawCardController = new DrawCardController(model,maingameView);
+        mainGameView = new MainGameView(this);
+        spawnMonsterController = new SpawnMonsterController(model, mainGameView);
+        gameController = new GameController(model, mainGameView,spawnMonsterController);
+        drawCardController = new DrawCardController(model,mainGameView);
 
 
         this.handkarten=new PlayerHand();
