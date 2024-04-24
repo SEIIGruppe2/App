@@ -35,7 +35,6 @@
         </activity>
         <activity android:name=".activity.ConnectToServerActivity" />
 
-
         <activity android:name=".activity.MainGameActivity"
             android:screenOrientation="landscape"/>
     </application>

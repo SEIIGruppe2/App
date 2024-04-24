@@ -25,6 +25,9 @@ import com.example.munchkin.view.ZoomDetectorView;
 import org.json.JSONObject;
 
 
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.munchkin.R;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.ZoomDetectorView;
