@@ -2,7 +2,11 @@ package com.example.munchkin.controller;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
+import com.example.munchkin.game.GameRound;
+import com.example.munchkin.interfaces.DiceRollCallback;
 import com.example.munchkin.interfaces.DiceRollListener;
+import com.example.munchkin.interfaces.GameEventHandler;
+import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 
@@ -15,12 +19,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class GameController extends BaseController implements DiceRollListener {
+public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
     private Queue<Player> playerQueue; // Warteschlange für die Spieler
     private Player currentPlayer;
     private int roundCounter = 1;
     private MainGameView maingameView;
+    private GameRound gameRound;
 
     private SpawnMonsterController spawnMonsterController;
 
@@ -31,6 +36,7 @@ public class GameController extends BaseController implements DiceRollListener {
         this.maingameView = maingameView;
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
+
     }
 
 
@@ -60,11 +66,11 @@ public class GameController extends BaseController implements DiceRollListener {
 
 
     public void startRound() {
-        currentPlayer = playerQueue.poll();
-        playerQueue.offer(currentPlayer);
+        currentPlayer = playerQueue.poll();  // Use poll to rotate the current player to the end of the queue
         maingameView.displayCurrentPlayer(currentPlayer);
-        maingameView.updateRoundView(roundCounter);
-        roundCounter++;
+        maingameView.updateRoundView(roundCounter++);
+        gameRound = new GameRound(currentPlayer, this);
+        gameRound.start();
     }
 
 
@@ -72,11 +78,10 @@ public class GameController extends BaseController implements DiceRollListener {
     public void endTurn() {
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
-        maingameView.displayCurrentPlayer(currentPlayer);
-
         if (playerQueue.peek() == currentPlayer) {
             roundCounter++;
         }
+        maingameView.displayCurrentPlayer(currentPlayer);
         startRound();
     }
 
@@ -134,4 +139,11 @@ public class GameController extends BaseController implements DiceRollListener {
     }
 
 
+    @Override
+    public void requestDiceRoll(DiceRollCallback callback) {
+        DiceRollModel diceRollModel = new DiceRollModel();
+        diceRollModel.rollDice(result -> {
+            callback.onDiceRolled(new int[]{result}); // Assuming single dice result for simplicity
+        });
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.widget.Button;
+
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
@@ -56,6 +58,8 @@ public class SpawnMonsterController extends BaseController {
             int lifePoints = message.getInt("lifepoints");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
+
+            maingameView.spawnMonster(monster.getZone());
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");

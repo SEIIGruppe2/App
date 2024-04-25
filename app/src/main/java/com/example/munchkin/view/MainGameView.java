@@ -91,7 +91,7 @@ public class MainGameView {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spawnMonster();
+
             }
         });
 
@@ -146,12 +146,10 @@ public class MainGameView {
     }
 
 
-    private void spawnMonster() {
-        // Roll a dice (assuming the dice roll logic is implemented elsewhere)
-        int diceRoll = rollDice();
+    public void spawnMonster(int monsterzone) {
 
         // Check which zone to spawn the monster in based on the dice roll
-        switch (diceRoll) {
+        switch (monsterzone) {
             case 1:
                 spawnMonsterInZone(Zone1Monster);
                 break;
@@ -181,10 +179,6 @@ public class MainGameView {
         // If all buttons in the zone are occupied, do nothing
     }
     //END: Spawn Monsters
-
-    private int rollDice() {
-        return 1;
-    }
 
 
     private void removeVisibleMonster() {
