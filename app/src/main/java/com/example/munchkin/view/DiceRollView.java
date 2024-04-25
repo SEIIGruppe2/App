@@ -31,7 +31,7 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
 
         diceImage = findViewById(R.id.dice_image);
         btnRoll = findViewById(R.id.btn_roll);
-        textView = findViewById(R.id.text_view);
+        textView = findViewById(R.id.textViewDice);
 
         diceRollModel = new com.example.munchkin.model.DiceRollModel();
 
