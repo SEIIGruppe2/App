@@ -43,7 +43,6 @@ public class CardDeckController extends BaseController {
 
         if(username.equals("Kartenstapel")) {
             String message = MessageFormatter.createSwitchCardsDeckMessage(id);
-            System.out.println(message);
             websocket.sendMessageToServer(message);
         }
         else{
