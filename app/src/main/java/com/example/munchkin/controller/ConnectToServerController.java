@@ -52,6 +52,10 @@ public class ConnectToServerController extends BaseController {
                 case "REGISTER_USERNAME":
                     handleRegisterUsernameMessage(jsonResponse);
                     break;
+                case "LOBBY_ASSIGNED":
+                    handleLobbyAssignedMessage(jsonResponse);
+                    break;
+
                 default:
                     break;
             }
@@ -80,5 +84,14 @@ public class ConnectToServerController extends BaseController {
         }
 
     }
+    private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
 
+        try {
+            String type = jsonResponse.getString("type");
+
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei der Verarbeitung der Lobby-Zuweisungsnachricht", e);
+        }
+
+    }
 }
