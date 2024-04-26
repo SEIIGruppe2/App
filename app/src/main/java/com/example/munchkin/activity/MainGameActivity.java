@@ -51,18 +51,12 @@ public class MainGameActivity extends AppCompatActivity {
     private PlayerHand handkarten;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_game);
-
-
-        mainGameView = new MainGameView(this);
-        View mainView = findViewById(R.id.game);
-        zoomDetectorView = new ZoomDetectorView(this, mainView);
-        scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
-
 
 
         setupControllers();
@@ -89,7 +83,13 @@ public class MainGameActivity extends AppCompatActivity {
 
     private void setupControllers() {
         WebSocketClientModel model = new WebSocketClientModel();
+
         mainGameView = new MainGameView(this);
+        View mainView = findViewById(R.id.game);
+        zoomDetectorView = new ZoomDetectorView(this, mainView);
+        scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
+
+
         spawnMonsterController = new SpawnMonsterController(model, mainGameView);
         gameController = new GameController(model, mainGameView,spawnMonsterController);
         drawCardController = new DrawCardController(model,mainGameView);

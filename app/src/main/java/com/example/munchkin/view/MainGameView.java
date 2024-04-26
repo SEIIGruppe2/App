@@ -148,22 +148,23 @@ public class MainGameView {
 
     public void spawnMonster(int monsterzone) {
 
-        // Check which zone to spawn the monster in based on the dice roll
-        switch (monsterzone) {
-            case 1:
-                spawnMonsterInZone(Zone1Monster);
-                break;
-            case 2:
-                spawnMonsterInZone(Zone2Monster);
-                break;
-            case 3:
-                spawnMonsterInZone(Zone3Monster);
-                break;
-            case 4:
-                spawnMonsterInZone(Zone4Monster);
-                break;
-            // Handle other cases if needed
-        }
+        mainGameActivity.runOnUiThread(() -> {
+            switch (monsterzone) {
+                case 1:
+                    spawnMonsterInZone(Zone1Monster);
+                    break;
+                case 2:
+                    spawnMonsterInZone(Zone2Monster);
+                    break;
+                case 3:
+                    spawnMonsterInZone(Zone3Monster);
+                    break;
+                case 4:
+                    spawnMonsterInZone(Zone4Monster);
+                    break;
+
+            }
+        });
     }
 
     // Method to spawn monster in a specific zone

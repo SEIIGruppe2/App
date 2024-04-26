@@ -36,7 +36,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         this.maingameView = maingameView;
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
-
     }
 
 
@@ -133,7 +132,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void onDiceRolled(int[] results) {
 
         for (int result : results) {
-            spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
+             spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
         }
 
     }
