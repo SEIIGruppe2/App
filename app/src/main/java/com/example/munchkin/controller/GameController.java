@@ -26,9 +26,9 @@ public class GameController extends BaseController implements DiceRollListener, 
     private int roundCounter = 1;
     private MainGameView maingameView;
     private GameRound gameRound;
-
+    private boolean diceRolledThisRound = false;
     private SpawnMonsterController spawnMonsterController;
-
+    private byte REQUIRED_PLAYER_COUNT = 4;
 
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController) {
@@ -65,11 +65,14 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void startRound() {
-        currentPlayer = playerQueue.poll();  // Use poll to rotate the current player to the end of the queue
+        currentPlayer = playerQueue.poll();
+        if (!diceRolledThisRound) {
+            gameRound = new GameRound(currentPlayer, this);
+            gameRound.start();
+            diceRolledThisRound = true;
+        }
         maingameView.displayCurrentPlayer(currentPlayer);
         maingameView.updateRoundView(roundCounter++);
-        gameRound = new GameRound(currentPlayer, this);
-        gameRound.start();
     }
 
 
@@ -78,13 +81,17 @@ public class GameController extends BaseController implements DiceRollListener, 
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
         if (playerQueue.peek() == currentPlayer) {
-            roundCounter++;
+            endRound();
         }
         maingameView.displayCurrentPlayer(currentPlayer);
         startRound();
     }
 
-
+    public void endRound() {
+        diceRolledThisRound = false;
+        roundCounter++;
+        maingameView.updateRoundView(roundCounter);
+    }
 
 
     public void requestUsernames() {
@@ -123,10 +130,18 @@ public class GameController extends BaseController implements DiceRollListener, 
                 Player player = new Player(username);
                 playerQueue.add(player);
             }
+            if (playerQueue.size() == REQUIRED_PLAYER_COUNT) {
+                startRound();
+            }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/GameController");
         }
     }
+
+
+
+
+
 
     @Override
     public void onDiceRolled(int[] results) {
@@ -136,13 +151,11 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
 
     }
-
-
     @Override
     public void requestDiceRoll(DiceRollCallback callback) {
         DiceRollModel diceRollModel = new DiceRollModel();
         diceRollModel.rollDice(result -> {
-            callback.onDiceRolled(new int[]{result}); // Assuming single dice result for simplicity
+            callback.onDiceRolled(new int[]{result});
         });
     }
 }

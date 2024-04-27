@@ -70,8 +70,8 @@ public class MainGameActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button endRoundButton = findViewById(R.id.buttonEndRound);
-        endRoundButton.setOnClickListener(v -> gameController.endTurn());
+        Button endTurnButton = findViewById(R.id.buttonEndRound);
+        endTurnButton.setOnClickListener(v -> gameController.endTurn());
     }
 
     @Override
