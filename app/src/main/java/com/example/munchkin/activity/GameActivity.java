@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity {
         String zone = getIntent().getStringExtra("diceResult");
 
         WebSocketClientModel model = new WebSocketClientModel();
-        gameController = new GameController(model);
+        //gameController = new GameController(model);
         gameView = new GameView(this);
         spawnMonsterController = new SpawnMonsterController(model,gameView);
         MessageRouter router = new MessageRouter();

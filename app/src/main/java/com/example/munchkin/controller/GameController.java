@@ -1,7 +1,18 @@
 package com.example.munchkin.controller;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.MainGameView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,8 +20,12 @@ import org.json.JSONObject;
 
 public class GameController extends BaseController {
 
-    public GameController(WebSocketClientModel model) {
+    MainGameView gameView;
+    private MainGameActivity mainGameActivity;
+
+    public GameController(WebSocketClientModel model, MainGameView gameView) {
         super(model);
+        this.gameView=gameView;
     }
 
     @Override
@@ -25,10 +40,17 @@ public class GameController extends BaseController {
                 case "MONSTER_ATTACK":
                     handlMonserAttackMessage(jsonResponse);
                     break;
+
+                case "SWITCH_CARD_PLAYER_RESPONSE":
+                    handleswitchrequest(jsonResponse);
+                    break;
                 default:
                     break;
+
+
             }
-        } catch (JSONException e) {
+        }
+         catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
     }
@@ -54,6 +76,12 @@ public class GameController extends BaseController {
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
+    private void handleswitchrequest(JSONObject message) throws JSONException {
+        System.out.println("Tauschanfrage erhalten");
+
+        gameView.tauschanfrageerhalten(message);
+
+    }
 
 
 }

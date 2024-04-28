@@ -11,8 +11,6 @@
 
 
 
-
-
     <ImageView
         android:id="@+id/dice_image"
         android:layout_width="256dp"
@@ -68,3 +66,4 @@
         app:layout_constraintVertical_bias="0.971" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

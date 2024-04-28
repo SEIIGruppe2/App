@@ -1,12 +1,21 @@
 package com.example.munchkin.view;
 
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+
+
+import com.example.munchkin.DTO.ActionCardDTO;
 
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +86,7 @@ public class MainGameView {
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateListActions();
-                updateListTrophies();
+                gehezukarten();
             }
         });
 
@@ -94,6 +102,12 @@ public class MainGameView {
     //START: Spawn Monsters
     private int rollDice() {
         return 1; // For testing, replace with actual dice rolling logic
+
+    }
+
+    private void gehezukarten(){
+        mainGameActivity.gehezukarten();
+
     }
 
     private void spawnMonster() {
@@ -186,4 +200,44 @@ public class MainGameView {
         ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
     }
+
+
+    public void tauschanfrageerhalten(JSONObject message) throws JSONException {
+        //TODO: in cradeckactivity einfügen
+        int id = Integer.parseInt(message.getString("id"));
+        String name = message.getString("name");
+        int zone = Integer.parseInt(message.getString("zone"));
+        ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+        System.out.println(karte.getName());
+        String username = message.getString("switchedWith");
+        /*playerhand.addCard(karte);*/
+
+        View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+        //hier versuchen mit post
+
+        mainGameActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
+                popuptauschanfrage.setOutsideTouchable(false);
+                popuptauschanfrage.setElevation(10);
+                popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+
+                mainGameActivity.dimmwindow(popuptauschanfrage);
+                Button ok = popupdrawable.findViewById(R.id.ok);
+
+                ok.setOnClickListener(v -> {
+                    popuptauschanfrage.dismiss();
+                    mainGameActivity.gehezuhandkarten(message);
+                });
+            }
+        });
+
+
+
+    }
+
+
 }
