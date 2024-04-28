@@ -2,6 +2,7 @@
 <!-- Root layout using ConstraintLayout which allows complex layouts with flat view hierarchy -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dice_background"
@@ -9,40 +10,60 @@
     android:padding="16dp">
 
 
-<ImageView
-android:id="@+id/dice_image"
-android:layout_width="256dp"
-android:layout_height="255dp"
-android:src="@drawable/dice_1"
-    app:layout_constraintBottom_toTopOf="@id/btn_roll"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_chainStyle="packed" />
 
+    <ImageView
+        android:id="@+id/dice_image"
+        android:layout_width="256dp"
+        android:layout_height="255dp"
+        android:src="@drawable/dice_1"
+        app:layout_constraintBottom_toTopOf="@id/btn_roll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 
     <!-- Button for rolling the dice -->
-<Button
-android:id="@+id/btn_roll"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Roll"
-app:layout_constraintTop_toBottomOf="@id/dice_image"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent" />
-
+    <Button
+        android:id="@+id/btn_roll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rippleeffect"
+        android:fontFamily="@font/chewyregular"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/button_roll"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:backgroundTint="#FFE500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.894" />
 
 
     <!-- TextView for displaying the result or status message -->
-<TextView
-android:id="@+id/text_view"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:textAppearance="?android:textAppearanceLarge"
-app:layout_constraintTop_toBottomOf="@id/btn_roll"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent" />
+    <TextView
+        android:id="@+id/textViewDice"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:fontFamily="@font/chewyregular"
+        android:text="Result"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.971" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
