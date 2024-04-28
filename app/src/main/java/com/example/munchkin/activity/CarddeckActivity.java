@@ -90,7 +90,7 @@ public class CarddeckActivity extends AppCompatActivity {
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE",controller);
-        router.registerController("REQUEST_USERNAMES",controller);
+        router.registerController("REQUEST_USERNAMES_SWITCH",controller);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
             messagfromserver = b.getString("key");

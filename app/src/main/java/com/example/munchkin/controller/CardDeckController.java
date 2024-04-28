@@ -68,7 +68,7 @@ public class CardDeckController extends BaseController {
 
     }
     public void getactiveusers(){
-        String message = MessageFormatter.createUsernameRequestMessage();
+        String message = MessageFormatter.createUsernameforswitchRequestMessage();
         model.sendMessageToServer(message);
     }
 
@@ -85,7 +85,7 @@ public class CardDeckController extends BaseController {
                 case "SWITCH_CARD_DECK_RESPONSE":
                     updatehanddeck(jsonResponse);
                     break;
-                case "REQUEST_USERNAMES":
+                case "REQUEST_USERNAMES_SWITCH":
                     handleUserName(jsonResponse);
                     break;
                 default:

@@ -32,6 +32,10 @@ public class MessageFormatter {
         return createMessage("REQUEST_USERNAMES");
     }
 
+    public static String createUsernameforswitchRequestMessage() {
+        return createMessage("REQUEST_USERNAMES_SWITCH");
+    }
+
     public static String createSpawnMonsterMessage(String zone) {
         return createMessage("SPAWN_MONSTER", "zone", zone);
     }
