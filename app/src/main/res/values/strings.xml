@@ -78,5 +78,7 @@
     <string name="braunerheld1">Brauner\nHeld</string>
     <string name="braunerheld2">Füge einem Monster im braunen Ring 1 Punkt Schaden zu</string>
 
+    <string name="button_roll">Würfeln</string>
+
 
 </resources>
