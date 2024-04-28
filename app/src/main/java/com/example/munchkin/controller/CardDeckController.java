@@ -133,10 +133,7 @@ public class CardDeckController extends BaseController {
     }
 
 
-    /*public void requestUsernames() {
-        String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
-    }
+
 
 
 
