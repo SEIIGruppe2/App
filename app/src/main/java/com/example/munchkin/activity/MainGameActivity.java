@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Button;
 
 
 import androidx.activity.result.ActivityResultLauncher;

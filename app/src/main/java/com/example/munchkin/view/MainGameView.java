@@ -1,6 +1,5 @@
 package com.example.munchkin.view;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ArrayAdapter;

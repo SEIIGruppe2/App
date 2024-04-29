@@ -17,14 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DrawableUtils.CardUtils;
-import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.activity.TradeCardsActivity;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,10 +32,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.munchkin.R;
-import com.example.munchkin.controller.ConnectToServerController;
-import com.example.munchkin.controller.DrawCardController;
-import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
 
 import java.util.List;
 

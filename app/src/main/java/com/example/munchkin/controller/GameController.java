@@ -12,7 +12,6 @@ import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
