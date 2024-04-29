@@ -23,16 +23,10 @@ public class GameRound {
     public GameRound(Player currentPlayer, GameEventHandler gameEventHandler) {
         this.currentPlayer = currentPlayer;
         this.gameEventHandler = gameEventHandler;
-        this.monsterRings = new ArrayList<>();
         diceResults = new int[3];
-        initializeRings();
+
     }
 
-    private void initializeRings() {
-        for (int i = 0; i < 4; i++) {
-            monsterRings.add(new ArrayList<>());
-        }
-    }
 
 
     public void start() {
@@ -41,24 +35,7 @@ public class GameRound {
 
 
     private void handleDiceResults(int[] results) {
-        this.diceResults = results;
-        if (!isFirstRound) {
-            moveMonstersInward();
-        }
-        placeMonsters(results);
-        isFirstRound = false;
-        // Weiter Logik nach dem Würfeln
-    }
 
-
-    private void placeMonsters(int[] results) {
-        List<MonsterDTO> newMonsters = new ArrayList<>();
-        for (int result : results) {
-            if (result >= 0 && result < 12) {
-                newMonsters.add(new MonsterDTO()); // Erstellen und Hinzufügen neuer Monster
-            }
-        }
-        monsterRings.get(0).addAll(newMonsters);
     }
 
 
