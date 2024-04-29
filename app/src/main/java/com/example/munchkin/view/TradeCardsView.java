@@ -109,7 +109,7 @@ public class TradeCardsView {
         if (selectedCardForTrade != null) {
             // Assuming your CardDeckController has a method to handle trading a card
 
-            cardDeckController.tradeCardDeck(selectedCardForTrade);
+            //cardDeckController.tradeCardDeck(selectedCardForTrade);
             selectedCardForTrade = null;
         } else {
             throw new IllegalArgumentException("Trade fehlgeschlagen");
@@ -122,7 +122,7 @@ public class TradeCardsView {
             int id = selectedCardForTrade.getId();
             String idAsString = String.valueOf(id);
 
-            cardDeckController.sendSwitchCardsPlayerMessage(targetPlayerUsername, idAsString, "null");
+            //cardDeckController.sendSwitchCardsPlayerMessage(targetPlayerUsername, idAsString, "null");
             selectedCardForTrade = null;
         } else {
             throw new IllegalArgumentException("Trade fehlgeschlagen");

@@ -1,6 +1,29 @@
 package com.example.munchkin.activity;
 
+
+import android.content.Context;
+import android.content.Intent;
+
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.View;
+
+import android.view.WindowManager;
+import android.widget.PopupWindow;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.R;
+import com.example.munchkin.controller.GameController;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.MainGameView;
+import com.example.munchkin.view.ZoomDetectorView;
+
+import org.json.JSONObject;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +81,8 @@ public class MainGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_game);
 
 
+
+
         setupControllers();
         setupDiceRollLauncher();
         requestRoll();
@@ -104,6 +129,8 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("SPAWN_MONSTER", spawnMonsterController);
         router.registerController("REQUEST_USERNAMES", gameController);
         router.registerController("DRAW_CARD", drawCardController);
+        router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+
         model.setMessageRouter(router);
 
         gameController.requestUsernames();
@@ -133,6 +160,32 @@ public class MainGameActivity extends AppCompatActivity {
 
 
 
+    public void dimmwindow(PopupWindow popup){
+        View container = (View) popup.getContentView().getParent();
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        // add flag
+        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.3f;
+        wm.updateViewLayout(container, p);
+    }
+    public void gehezuhandkarten(JSONObject messagefromserver){
+        Bundle b = new Bundle();
+        b.putString("key", messagefromserver.toString()); //Your id
+        //
+        Intent handkarten = new Intent(this, CarddeckActivity.class);
+        handkarten.putExtras(b);
+        CarddeckActivity.passivmode=1;
+        startActivity(handkarten);
+
+    }
+
+    public void gehezukarten(){
+        Intent intent = new Intent(this, CarddeckActivity.class);
+        startActivity(intent);
+    }
+
+
     private void requestRoll() {
         Intent intent = new Intent(this, DiceRollView.class);
         diceRollLauncher.launch(intent);
@@ -152,6 +205,4 @@ public class MainGameActivity extends AppCompatActivity {
                 }
         );
     }
-
-
 }
