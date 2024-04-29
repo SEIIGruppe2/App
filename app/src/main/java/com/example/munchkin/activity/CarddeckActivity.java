@@ -240,7 +240,8 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
     private void zurueck(){
-        Intent intent = new Intent(this, LoadingscreenActivity.class);
+        Intent intent = new Intent(this, MainGameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
