@@ -131,8 +131,7 @@
         app:layout_constraintVertical_bias="0.955" />
 
 
-
-
+    <!--START: Buttons only for testing-->
     <Button
         android:id="@+id/Damage"
         android:layout_width="wrap_content"
@@ -140,11 +139,12 @@
         android:text="Damage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
-    <!--START: Buttons only for testing-->
+        app:layout_constraintVertical_bias="0.644" />
+
+
     <Button
         android:id="@+id/Startround"
         android:layout_width="wrap_content"
@@ -169,7 +169,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.823" />
     <!--END: Buttons only for testing-->
-
 
     <ListView
         android:id="@+id/listActions"

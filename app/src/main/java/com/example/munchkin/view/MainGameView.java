@@ -1,5 +1,6 @@
 package com.example.munchkin.view;
 
+
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -108,7 +109,7 @@ public class MainGameView {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.endTurn();
+               gameController.endTurn();
             }
         });
 
@@ -132,12 +133,12 @@ public class MainGameView {
 
 
 
-        //F端r tests
+        //Für tests
 
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.startRound();  // Startet die Runde manuell f端r Testzwecke
+                gameController.startRound();  // Startet die Runde manuell für Testzwecke
             }
         });
 
@@ -146,7 +147,7 @@ public class MainGameView {
         endRund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.endRound();  // Endet die Runde manuell f端r Testzwecke
+                gameController.endRound();  // Endet die Runde manuell für Testzwecke
             }
         });
 
@@ -235,7 +236,7 @@ public class MainGameView {
     public void moveMonstersInward() {
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
-            for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zur端ck zum ersten Button des ersten Rings (Forest)
+            for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
                 for (int j = 0; j < 3; j++) {
                     if (i + j - 3 >= 0 && i + j < zone.size()) {
                         Button outer = zone.get(i + j - 3);
