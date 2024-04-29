@@ -12,14 +12,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.munchkin.MessageFormat.MessageRouter;
+
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.TradeCardsView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class TradeCardsActivity extends AppCompatActivity {
 

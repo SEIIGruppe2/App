@@ -3,7 +3,6 @@ package com.example.munchkin.controller;
 import android.util.Log;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
-import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.Player.Player;
 import com.example.munchkin.game.GameRound;
 import com.example.munchkin.interfaces.DiceRollCallback;
@@ -12,23 +11,11 @@ import com.example.munchkin.interfaces.GameEventHandler;
 import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.example.munchkin.view.MainGameView;
-
 import java.util.LinkedList;
 import java.util.Queue;
-
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {

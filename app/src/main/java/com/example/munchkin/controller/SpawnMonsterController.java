@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
-
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -3,55 +3,31 @@ package com.example.munchkin.activity;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.ZoomDetectorView;
-
 import org.json.JSONObject;
-
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.R;
 import com.example.munchkin.controller.DrawCardController;
-import com.example.munchkin.view.MainGameView;
-import android.content.Intent;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.View;
-
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.example.munchkin.MessageFormat.MessageRouter;
-import com.example.munchkin.controller.GameController;
 import com.example.munchkin.controller.SpawnMonsterController;
-import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.DiceRollView;
-import com.example.munchkin.view.ZoomDetectorView;
-
 import java.util.ArrayList;
 
 
@@ -96,8 +72,6 @@ public class MainGameActivity extends AppCompatActivity {
 
         //Button endTurnButton = findViewById(R.id.buttonEndRound);
         //endTurnButton.setOnClickListener(v -> gameController.endTurn());
-
-
 
     }
 

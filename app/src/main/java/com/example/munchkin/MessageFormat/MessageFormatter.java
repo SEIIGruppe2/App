@@ -1,6 +1,5 @@
 package com.example.munchkin.MessageFormat;
 
-import android.util.Log;
 
 public class MessageFormatter {
 
