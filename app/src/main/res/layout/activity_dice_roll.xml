@@ -48,23 +48,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.894" />
 
-
-    <!-- TextView for displaying the result or status message -->
-    <TextView
-        android:id="@+id/textViewDice"
-        android:layout_width="120dp"
-        android:layout_height="25dp"
-        android:fontFamily="@font/chewyregular"
-        android:text="Result"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.971" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
