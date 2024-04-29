@@ -70,8 +70,11 @@ public class MainGameActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button endTurnButton = findViewById(R.id.buttonEndRound);
-        endTurnButton.setOnClickListener(v -> gameController.endTurn());
+        //Button endTurnButton = findViewById(R.id.buttonEndRound);
+        //endTurnButton.setOnClickListener(v -> gameController.endTurn());
+
+
+
     }
 
     @Override
@@ -83,31 +86,28 @@ public class MainGameActivity extends AppCompatActivity {
 
     private void setupControllers() {
         WebSocketClientModel model = new WebSocketClientModel();
-
-        mainGameView = new MainGameView(this);
         View mainView = findViewById(R.id.game);
         zoomDetectorView = new ZoomDetectorView(this, mainView);
         scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
-
+        mainGameView = new MainGameView(this);
         spawnMonsterController = new SpawnMonsterController(model, mainGameView);
-        gameController = new GameController(model, mainGameView,spawnMonsterController);
-        drawCardController = new DrawCardController(model,mainGameView);
+        gameController = new GameController(model, mainGameView, spawnMonsterController);
+        drawCardController = new DrawCardController(model, mainGameView);
 
+        mainGameView.setGameController(gameController);
 
-        this.handkarten=new PlayerHand();
+        this.handkarten = new PlayerHand();
 
         MessageRouter router = new MessageRouter();
         router.registerController("PLAYER_ATTACK", gameController);
         router.registerController("MONSTER_ATTACK", gameController);
         router.registerController("SPAWN_MONSTER", spawnMonsterController);
         router.registerController("REQUEST_USERNAMES", gameController);
-        router.registerController("DRAW_CARD",drawCardController);
+        router.registerController("DRAW_CARD", drawCardController);
         model.setMessageRouter(router);
 
-
         gameController.requestUsernames();
-
     }
 
 

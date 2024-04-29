@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
 import com.example.munchkin.game.GameRound;
@@ -21,7 +23,7 @@ import org.json.JSONObject;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
-    private Queue<Player> playerQueue; // Warteschlange für die Spieler
+    private Queue<Player> playerQueue;
     private Player currentPlayer;
     private int roundCounter = 1;
     private MainGameView maingameView;
@@ -29,6 +31,8 @@ public class GameController extends BaseController implements DiceRollListener, 
     private boolean diceRolledThisRound = false;
     private SpawnMonsterController spawnMonsterController;
     private byte REQUIRED_PLAYER_COUNT = 4;
+
+    private boolean isFirstRound = true;
 
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController) {
@@ -65,14 +69,23 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void startRound() {
-        currentPlayer = playerQueue.poll();
-        if (!diceRolledThisRound) {
-            gameRound = new GameRound(currentPlayer, this);
-            gameRound.start();
-            diceRolledThisRound = true;
+        Log.d("GameController", "Current player: " +" startRoundAnfang");
+        if (!playerQueue.isEmpty()) {
+            currentPlayer = playerQueue.poll();
+            if (!diceRolledThisRound) {
+                gameRound = new GameRound(currentPlayer, this);
+                gameRound.start();
+                diceRolledThisRound = true;
+            }
+            if (!isFirstRound) {
+                maingameView.moveMonstersInward();
+            }
+            maingameView.displayCurrentPlayer(currentPlayer);
+            maingameView.updateRoundView(roundCounter);
+            isFirstRound = false;
+        } else {
+            Log.e("GameController", "Player queue is empty, cannot start round");
         }
-        maingameView.displayCurrentPlayer(currentPlayer);
-        maingameView.updateRoundView(roundCounter++);
     }
 
 
@@ -140,14 +153,11 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
 
-
-
-
     @Override
     public void onDiceRolled(int[] results) {
 
         for (int result : results) {
-             spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
+            spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
         }
 
     }

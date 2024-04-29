@@ -1,5 +1,7 @@
 package com.example.munchkin.view;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,11 +16,12 @@ import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainGameView {
     private MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, damage;
+    private Button buttonEndRound, buttonCards, damage,startGame, endRund;
     private List<Button> Zone1Monster = new ArrayList<>();
     private List<Button> Zone2Monster = new ArrayList<>();
     private List<Button> Zone3Monster = new ArrayList<>();
@@ -27,6 +30,8 @@ public class MainGameView {
     private GameController gameController;
 
     private Button[] monsterButtons;
+
+    private List<ArrayList<MonsterDTO>> monsterZones;
 
     private Button[] allPlayerButtons;
 
@@ -39,7 +44,13 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
         this.damage = mainGameActivity.findViewById(R.id.Damage);
+        //Testbuttons
+        this.startGame = mainGameActivity.findViewById(R.id.Startround);
+        this.endRund = mainGameActivity.findViewById(R.id.Endround);
+        //Ende Testbuttons
 
+        this.monsterZones = new ArrayList<ArrayList<MonsterDTO>>();
+        initializeMonsterZones();
 
         this.mainGameActivity = mainGameActivity;
         allPlayerButtons = new Button[]{
@@ -47,6 +58,9 @@ public class MainGameView {
                 mainGameActivity.findViewById(R.id.buttonCards)
                 // Button entfernen damit der Spieler nichts machen kann
         };
+
+        buttonEndRound.setTag("EndRound");
+        buttonCards.setTag("Cards");
 
         // Add all spawn buttons to the list
         addButtonsToZoneList(Zone1Monster,
@@ -80,6 +94,10 @@ public class MainGameView {
     }
 
 
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
     private void addButtonsToZoneList(List<Button> zoneList, int... buttonIds) {
         for (int id : buttonIds) {
             zoneList.add(mainGameActivity.findViewById(id));
@@ -91,7 +109,7 @@ public class MainGameView {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                gameController.endTurn();
             }
         });
 
@@ -112,6 +130,27 @@ public class MainGameView {
                 removeVisibleMonster();
             }
         });
+
+
+
+        //F端r tests
+
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameController.startRound();  // Startet die Runde manuell f端r Testzwecke
+            }
+        });
+
+
+
+        endRund.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameController.endRound();  // Endet die Runde manuell f端r Testzwecke
+            }
+        });
+
     }
 
 
@@ -123,18 +162,18 @@ public class MainGameView {
 
 
     public void displayCurrentPlayer(Player currentPlayer) {
-        // Beispieltextfeld oder Label in der UI, das den Namen des aktuellen Spielers anzeigt
         TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + currentPlayer.getName());
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer.getName() : "Unbekannt"));
 
-        // Optional: UI-Elemente für andere Spieler deaktivieren oder visuell ändern
         for (Button button : allPlayerButtons) {
-            if (!button.getTag().equals(currentPlayer.getName())) {
-                button.setEnabled(false);
-                button.setAlpha(0.5f);
-            } else {
+            if (button != null && button.getTag() != null && currentPlayer != null) {
                 button.setEnabled(true);
                 button.setAlpha(1.0f);
+            } else {
+                if (button != null) {
+                    button.setEnabled(false);
+                    button.setAlpha(0.5f);
+                }
             }
         }
     }
@@ -194,9 +233,30 @@ public class MainGameView {
     }
 
 
+    public void moveMonstersInward() {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        for (List<Button> zone : zones) {
+            for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zur端ck zum ersten Button des ersten Rings (Forest)
+                for (int j = 0; j < 3; j++) {
+                    if (i + j - 3 >= 0 && i + j < zone.size()) {
+                        Button outer = zone.get(i + j - 3);
+                        Button inner = zone.get(i + j);
+                        if (isButtonFull(outer)) {
+                            Drawable background = outer.getBackground(); // Sichern des Hintergrundes
+                            inner.setBackground(background);
+                            inner.setVisibility(View.VISIBLE);
+                            outer.setVisibility(View.GONE);
+                            outer.setBackground(null);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private boolean isButtonFull(Button button) {
         // Check if the button background is not set (assuming empty buttons have no background)
-        return button.getVisibility() == View.VISIBLE;
+        return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
     }
 
 
@@ -232,4 +292,12 @@ public class MainGameView {
         ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
     }
+
+    private void initializeMonsterZones() {
+        for (int i = 0; i < 4; i++) {
+            monsterZones.add(new ArrayList<MonsterDTO>());
+        }
+    }
+
+
 }
