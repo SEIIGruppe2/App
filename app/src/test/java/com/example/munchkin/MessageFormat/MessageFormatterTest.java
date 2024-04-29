@@ -34,7 +34,7 @@ public class MessageFormatterTest {
     @Test
     public void testCreateSwitchCardsPlayerMessage() {
         String result = MessageFormatter.createSwitchCardsPlayerMessage("Alice", "Sword", "Shield");
-        assertEquals("{\"type\":\"SWITCH_CARDS_PLAYER\",\"switchedWith\":\"Alice\",\"cardGiven\":\"Sword\",\"cardGotten\":\"Shield\"}", result);
+        assertEquals("{\"type\":\"SWITCH_CARD_PLAYER\",\"switchedWith\":\"Alice\",\"cardGiven\":\"Sword\",\"cardGivenP\":\"Shield\"}", result);
     }
 
 
