@@ -133,36 +133,6 @@ public class CardDeckController extends BaseController {
     }
 
 
-    /*public void requestUsernames() {
-        String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
-    }
-
-
-
-
-
-
-
-
-
-
-
-    private void updateCardsListWithNewCard(ActionCardDTO newCard) {
-        playerHand.addCard(newCard);
-
-        tradeCardsView.displayPlayerCards(playerHand.getCards());
-        tradeCardsView.setupCardSelection();
-    }
-
-    public void tradeCardDeck(ActionCardDTO card) {
-
-        int id = card.getId();
-        String idAsString = Integer.toString(id);
-
-        sendSwitchCardsDeckMessage(idAsString);
-    }*/
-
 
 
 }

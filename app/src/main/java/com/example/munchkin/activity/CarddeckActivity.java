@@ -178,11 +178,7 @@ public class CarddeckActivity extends AppCompatActivity {
         TextView gettag = (TextView)  getkardname.getChildAt(2);
         String id = (String) gettag.getTag();
         sendmessage(usernametoswitchwith,id);
-
-
         zurueck();
-
-        //username von absender, idauslesen
 
     }
     View popupdrawable;
@@ -248,49 +244,8 @@ public class CarddeckActivity extends AppCompatActivity {
             kartenname.setText("");
             kartenbeschreibung.setText("");
             kartenbild.setImageResource(getResources().getIdentifier("loadingimage","drawable",getPackageName()));
-            // Post a delayed Runnable to the Handler
-            /*handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
-                    Button neuerbutton = new Button(CarddeckActivity.this);
-                    LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                    tauschentext.setText("Du hast folgende Karte erhalten");
-                    String[] handcards = CardUtils.getresources(handkarten);
-                    String neuekarte = handcards[handcards.length-1];
-                    String neuerkartenname= neuekarte+"1";
-                    getResources().getIdentifier(kartenname2,"string",getPackageName());
-                    kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
-
-                    String neuekartenbeschreibung = neuekarte+"2";
-                    kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
-
-                    kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
-
-                    neuerbutton.setLayoutParams(layoutParamskarteninhalt);
-                    neuerbutton.setText("ok");
-                    neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
-                    neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CarddeckActivity.this, R.color.yellow));
-                    buttoncontainer.addView(neuerbutton);
-                    Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
-                    neuerbutton.setTypeface(typeface);
-                    neuerbutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            popuptauschen.dismiss();
-                            view.updatenachtauschen();
-                        }
-                    });
-
-                }
-            }, 3000);*/
 
 
-
-           //hier ist zuende
         });
 
         zurueck.setOnClickListener(v -> {
