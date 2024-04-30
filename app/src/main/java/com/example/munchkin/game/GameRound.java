@@ -34,13 +34,4 @@ public class GameRound {
 
     }
 
-
-
-    private void moveMonstersInward() {
-        for (int i = monsterRings.size() - 1; i > 0; i--) {
-            monsterRings.get(i).addAll(monsterRings.get(i - 1));
-            monsterRings.get(i - 1).clear();
-        }
-    }
-
 }
