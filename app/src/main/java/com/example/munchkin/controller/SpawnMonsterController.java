@@ -1,11 +1,11 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
-
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.GameView;
-
+import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,12 +13,13 @@ public class SpawnMonsterController extends BaseController {
 
 
     private WebSocketClientModel model;
-    private GameView gameView;
+    private MainGameView maingameView;
 
-    public SpawnMonsterController(WebSocketClientModel model,GameView gameView) {
+
+    public SpawnMonsterController(WebSocketClientModel model, MainGameView maingameView) {
         super(model);
         this.model = model;
-        this.gameView = gameView;
+        this.maingameView = maingameView;
     }
 
 
@@ -47,21 +48,24 @@ public class SpawnMonsterController extends BaseController {
 
 
     private void handleSpawnMonsterMessage(JSONObject message ){
-
+        Log.d("SpawnMonster", "Handling spawn monster message: " + message);
         try {
-            String monsterName = message.getString("name");
-            int monsterZone = message.getInt("zone");
-            int monsterId = message.getInt("id");
-            int ring = message.getInt("ring");
-            int lifePoints = message.getInt("lifePoints");
+            JSONObject monsterJson = message.getJSONObject("monster");
+            int monsterId = monsterJson.getInt("id");
+            int monsterZone = monsterJson.getInt("zone");
+            int ring = monsterJson.getInt("ring");
+            String monsterName = monsterJson.getString("name");
+            int lifePoints = monsterJson.getInt("lifepoints");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
+            Log.d("SpawnMonster", "Received Monster - ID: " + monsterId + ", Zone: " + monsterZone + ", Ring: " + ring + ", Name: " + monsterName + ", Life Points: " + lifePoints);
 
-            gameView.displayMonster(monster, monsterZone);
+            maingameView.spawnMonster(monster.getZone());
+
         } catch (JSONException e) {
+            Log.e("SpawnMonster", "Error parsing monster data", e);
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");
         }
-
     }
 
 

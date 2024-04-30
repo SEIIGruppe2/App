@@ -54,7 +54,10 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public CardView selectedCard;
 
+    Button spielen;
+    Button tauschen;
     PlayerHand spielerkarten;
+
     public List<ActionCardDTO> handkarten;
     CarddeckView view;
 
@@ -145,6 +148,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public void zurueck(){
         Intent intent = new Intent(this, MainGameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -14,15 +13,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.R;
-import com.example.munchkin.activity.GameActivity;
+import com.example.munchkin.controller.GameController;
+import com.example.munchkin.model.DiceRollModel;
+import java.util.ArrayList;
 
 public class DiceRollView extends AppCompatActivity implements ShakeDetectorView.OnShakeListener {
 
     private ImageView diceImage;
     private Button btnRoll;
     private TextView textView;
-    private com.example.munchkin.model.DiceRollModel diceRollModel;
+
+    private DiceRollModel diceRollModel;
     private ShakeDetectorView shakeDetectorView;
+    private ArrayList<Integer> diceResults = new ArrayList<>();
+    private int rollCount = 0;
+    private GameController gameController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +37,17 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
 
         diceImage = findViewById(R.id.dice_image);
         btnRoll = findViewById(R.id.btn_roll);
-        textView = findViewById(R.id.textViewDice);
 
-        diceRollModel = new com.example.munchkin.model.DiceRollModel();
+        diceRollModel = new DiceRollModel();
 
-        btnRoll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rollDice();
-            }
-        });
 
         shakeDetectorView = new ShakeDetectorView(this);
+        btnRoll.setOnClickListener(v -> rollDice());
+    }
+
+
+    public void setGameController(GameController controller) {
+        this.gameController = controller;
     }
 
     @Override
@@ -64,6 +69,7 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
 
 
     private void rollDice() {
+        if (rollCount < 3) {
         btnRoll.setEnabled(false);
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
@@ -77,37 +83,52 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
                     public void run() {
                         updateUI(randomNumber);
                     }
-                });
-            }
-        });
+                 });
+                }
+            });
+        }
     }
 
     private void updateUI(int randomNumber) {
-        diceImage.setImageResource(R.drawable.dice_1 + randomNumber);
-        textView.setText(String.valueOf(randomNumber + 1));
+        diceResults.add(randomNumber + 1);
+        rollCount++;
 
-        btnRoll.setEnabled(true);
+        switch (randomNumber + 1) {
+            case 1:
+                diceImage.setImageResource(R.drawable.dice_1);
+                break;
+            case 2:
+                diceImage.setImageResource(R.drawable.dice_2);
+                break;
+            case 3:
+                diceImage.setImageResource(R.drawable.dice_3);
+                break;
+            case 4:
+                diceImage.setImageResource(R.drawable.dice_4);
+                break;
+            default:
+                diceImage.setImageResource(R.drawable.yellowborder);
+                break;
+        }
 
-        sendResultToGameView(randomNumber); //Vielleicht anpassen auf +1
+        if (rollCount == 3) {
+            Intent returnIntent = new Intent();
+            returnIntent.putIntegerArrayListExtra("diceResults", diceResults);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        } else {
+            btnRoll.postDelayed(() -> btnRoll.setEnabled(true), 1000);
+        }
+
     }
+
+
 
     @Override
     public void onShake() {
         rollDice();
     }
 
-
-    private void sendResultToGameView(int diceResult) {
-        String zone = convertDiceResultToZone(diceResult);
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra("diceResult", zone);
-        startActivity(intent);
-    }
-
-    private String convertDiceResultToZone(int diceResult) {
-        // Mapping der Würfelzahl zur Zone (als String)
-        return "Zone" + diceResult;
-    }
 
 
 

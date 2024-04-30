@@ -1,5 +1,6 @@
 package com.example.munchkin.MessageFormat;
 
+
 public class MessageFormatter {
 
     public static String createPlayerAttackMessage(String monsterId, String cardTypePlayed) {

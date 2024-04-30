@@ -4,26 +4,13 @@
     <value>
       <entry key="app">
         <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Copy_of_Pixel_8_Pro_API_TiramisuPrivacySandbox.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-23T17:58:12.316691Z" />
-          <multipleDevicesSelectedInDropDown value="true" />
           <targetsSelectedWithDialog>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Copy_of_Pixel_8_Pro_API_TiramisuPrivacySandbox.avd" />
+                  <value value="C:\Users\manuel\.android\avd\Pixel_7_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
@@ -32,7 +19,7 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Pixel_7a_API_TiramisuPrivacySandbox.avd" />
+                  <value value="C:\Users\manuel\.android\avd\Pixel_3a_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>

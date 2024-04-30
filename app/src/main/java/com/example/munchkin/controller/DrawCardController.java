@@ -3,7 +3,7 @@ package com.example.munchkin.controller;
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.DrawView;
+import com.example.munchkin.view.MainGameView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,14 +11,14 @@ import org.json.JSONObject;
 public class DrawCardController extends BaseController{
 
     private WebSocketClientModel websocket;
-    private DrawView view;
+    private  MainGameView MainGameview;
 
 
 
-    public DrawCardController(WebSocketClientModel model, DrawView view) {
+    public DrawCardController(WebSocketClientModel model,  MainGameView MainGameview) {
         super(model);
         this.websocket = model;
-        this.view = view;
+        this.MainGameview = MainGameview;
 
 
     }
@@ -30,8 +30,6 @@ public class DrawCardController extends BaseController{
         System.out.println(message);
         websocket.sendMessageToServer(message);
     }
-
-
 
 
 
@@ -66,7 +64,7 @@ public class DrawCardController extends BaseController{
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-            view.addtoList(karte);
+            MainGameview.addtoList(karte);
 
 
         }
