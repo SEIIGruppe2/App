@@ -4,10 +4,10 @@ package com.example.munchkin.DTO;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ActionCardDTOTest {
+class ActionCardDTOTest {
 
     @Test
-    public void testActionCardDTOConstructorAndAccessors() {
+    protected void testActionCardDTOConstructorAndAccessors() {
         ActionCardDTO actionCard = new ActionCardDTO("Red Knight", 2, 69);
 
         assertEquals("Red Knight", actionCard.getName());
@@ -17,7 +17,7 @@ public class ActionCardDTOTest {
 
 
     @Test
-    public void testNoArgConstructor() {
+    protected void testNoArgConstructor() {
         ActionCardDTO actionCard = new ActionCardDTO();
         assertNotNull(actionCard);
     }
