@@ -1,6 +1,6 @@
 package com.example.munchkin.view;
 
-import android.app.Activity;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.munchkin.DTO.ActionCardDTO;
-import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.TradeCardsActivity;

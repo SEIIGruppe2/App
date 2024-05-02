@@ -15,7 +15,6 @@ import androidx.core.content.res.ResourcesCompat;
 import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
-import com.example.munchkin.activity.DrawActivity;
 import com.example.munchkin.controller.CardDeckController;
 
 import java.util.ArrayList;

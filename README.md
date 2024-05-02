@@ -1,5 +1,57 @@
 # APP
-# Test
+
+# Munchkin Panic - App
+
+## Spielbeschreibung
+Munchkin Panic ist ein Tower Defense-Spiel für vier Spieler, das sowohl kooperative als auch 
+kompetitive Elemente enthält. Alle Spieler arbeiten zusammen, um eine Burg vor anrückenden Monstern
+zu schützen. Sollte die Burg zerstört werden, verlieren alle Spieler. Wenn die Monster erfolgreich 
+abgewehrt werden, gewinnt der Spieler mit den meisten getöteten Monstern (Monster-Punkten).
+
+### Spielmechanik
+Das Spielfeld ist in vier Zonen (oben, rechts, unten, links) und 
+vier Ringe (Wald, Bogenschütze, König, Schwertkämpfer) unterteilt. Zu Beginn jeder Runde würfelt
+ein Spieler dreimal, um die Zonen zu bestimmen, in denen neue Monster erscheinen. Während die
+anderen Spieler die Hauptansicht sehen, steuert der würfelnde Spieler die Monsterplatzierungen.
+
+### Monster und Kämpfe
+- Jedes Monster erscheint am äußersten Ring, dem Wald, und bewegt sich jede Runde einen Ring 
+weiter nach innen. Wenn ein Monster die Burg erreicht, fügt es der Burg Schaden zu und stirbt 
+anschließend selbst. Die Burg hat insgesamt 10 Lebenspunkte.
+- Jedes Monster verfügt über 1 bis 3 Lebenspunkte. Die Art des Monsters und seine Lebenspunkte 
+werden zufällig bestimmt, wenn es am Spielfeld erscheint. Die Spieler müssen strategisch 
+handeln, um die Monster erfolgreich zu bekämpfen.
+
+### Kampfkarten
+Die Spieler setzen Kampfkarten ein, um die Monster anzugreifen. Jede Zone auf dem Spielfeld ist 
+einer anderen Farbe zugeordnet:
+- Rot
+- Grün
+- Blau
+- Braun
+
+Die Kampfkarten sind ebenfalls diesen Farben zugeordnet und spezifisch für die Ringe ausgerichtet:
+
+- **Roter Ritter**: Kann nur in der roten Zone im Ritter-Ring verwendet werden.
+- **Grüner Bogenschütze**: Wirkt ausschließlich in der grünen Zone im Bogenschützen-Ring.
+- **Gilt auch für alle anderen Karten**
+- **Ausnahme: Held**: Der Held hat zwar eine Farbe und kann somit auch nur in dieser Zone 
+eingesetzt werden, kann dafür aber in jedem Ring in dieser Zone benutzt werden. 
+
+Jede Karte fügt dem Monster 1 Schadenspunkt zu. Diese spezifischen Zuordnungen erfordern, dass die
+Spieler taktisch überlegen, welche Karten sie wo und wann einsetzen, um die Monster effektiv zu 
+bekämpfen und die Burg zu schützen.
+
+### Ziel des Spiels
+Das Spielziel ist es, die Burg vor den Monstern zu schützen, indem die Spieler sie erfolgreich 
+besiegen und gleichzeitig durch strategischen Einsatz ihrer Karten interagieren. Das Spiel endet 
+entweder, wenn die Burg zerstört wird oder alle Monster erfolgreich abgewehrt wurden. Der Sieger
+ist der Spieler, der die meisten Monster besiegt hat.
+
+
+## Technische Details
+
+
 ## WebSocket
 
 In dieser Anwendung wird eine WebSocket-Verbindung verwendet, um mit einem Server zu kommunizieren. 

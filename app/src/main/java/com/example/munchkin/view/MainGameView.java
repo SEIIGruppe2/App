@@ -1,32 +1,47 @@
 package com.example.munchkin.view;
 
+
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.PopupWindow;
 
 
-import com.example.munchkin.DTO.ActionCardDTO;
 
+import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.DTO.MonsterDTO;
+import com.example.munchkin.Player.Player;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.controller.GameController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainGameView {
     private MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, damage;
+    private Button buttonEndRound, buttonCards, damage,startGame, endRund;
     private List<Button> Zone1Monster = new ArrayList<>();
     private List<Button> Zone2Monster = new ArrayList<>();
     private List<Button> Zone3Monster = new ArrayList<>();
     private List<Button> Zone4Monster = new ArrayList<>();
+
+    private GameController gameController;
+
+    private Button[] monsterButtons;
+
+    private List<ArrayList<MonsterDTO>> monsterZones;
+
+    private Button[] allPlayerButtons;
 
     // ListViews
     private ListView listActions;
@@ -37,6 +52,23 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
         this.damage = mainGameActivity.findViewById(R.id.Damage);
+        //Testbuttons
+        this.startGame = mainGameActivity.findViewById(R.id.Startround);
+        this.endRund = mainGameActivity.findViewById(R.id.Endround);
+        //Ende Testbuttons
+
+        this.monsterZones = new ArrayList<ArrayList<MonsterDTO>>();
+        initializeMonsterZones();
+
+        this.mainGameActivity = mainGameActivity;
+        allPlayerButtons = new Button[]{
+                mainGameActivity.findViewById(R.id.buttonEndRound),
+                mainGameActivity.findViewById(R.id.buttonCards)
+                // Button entfernen damit der Spieler nichts machen kann
+        };
+
+        buttonEndRound.setTag("EndRound");
+        buttonCards.setTag("Cards");
 
         // Add all spawn buttons to the list
         addButtonsToZoneList(Zone1Monster,
@@ -69,6 +101,11 @@ public class MainGameView {
         setUI();
     }
 
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
     private void addButtonsToZoneList(List<Button> zoneList, int... buttonIds) {
         for (int id : buttonIds) {
             zoneList.add(mainGameActivity.findViewById(id));
@@ -76,19 +113,25 @@ public class MainGameView {
     }
 
     public void setUI() {
+
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spawnMonster();
+               gameController.endTurn();
             }
         });
 
         buttonCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gehezukarten();
+                mainGameActivity.sendMessage();
+                mainGameActivity.transitionToCardDeckscreen();
+                updateListActions();
+                updateListTrophies();
+                mainGameActivity.gehezukarten();
             }
         });
+
 
         damage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,40 +139,80 @@ public class MainGameView {
                 removeVisibleMonster();
             }
         });
+
+
+
+        //Für tests
+
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameController.startRound();  // Startet die Runde manuell für Testzwecke
+            }
+        });
+
+
+
+        endRund.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameController.endRound();  // Endet die Runde manuell für Testzwecke
+            }
+        });
+
     }
 
 
-    //START: Spawn Monsters
-    private int rollDice() {
-        return 1; // For testing, replace with actual dice rolling logic
-
+    public void addtoList(ActionCardDTO karte){
+        mainGameActivity.addcardtolist(karte);
     }
 
-    private void gehezukarten(){
-        mainGameActivity.gehezukarten();
 
-    }
 
-    private void spawnMonster() {
-        // Roll a dice (assuming the dice roll logic is implemented elsewhere)
-        int diceRoll = rollDice();
 
-        // Check which zone to spawn the monster in based on the dice roll
-        switch (diceRoll) {
-            case 1:
-                spawnMonsterInZone(Zone1Monster);
-                break;
-            case 2:
-                spawnMonsterInZone(Zone2Monster);
-                break;
-            case 3:
-                spawnMonsterInZone(Zone3Monster);
-                break;
-            case 4:
-                spawnMonsterInZone(Zone4Monster);
-                break;
-            // Handle other cases if needed
+    public void displayCurrentPlayer(Player currentPlayer) {
+        TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer.getName() : "Unbekannt"));
+
+        for (Button button : allPlayerButtons) {
+            if (button != null && button.getTag() != null && currentPlayer != null) {
+                button.setEnabled(true);
+                button.setAlpha(1.0f);
+            } else {
+                if (button != null) {
+                    button.setEnabled(false);
+                    button.setAlpha(0.5f);
+                }
+            }
         }
+    }
+
+
+    public void updateRoundView(int round) {
+        TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
+        roundView.setText("Runde: " + round);
+    }
+
+
+    public void spawnMonster(int monsterzone) {
+
+        mainGameActivity.runOnUiThread(() -> {
+            switch (monsterzone) {
+                case 1:
+                    spawnMonsterInZone(Zone1Monster);
+                    break;
+                case 2:
+                    spawnMonsterInZone(Zone2Monster);
+                    break;
+                case 3:
+                    spawnMonsterInZone(Zone3Monster);
+                    break;
+                case 4:
+                    spawnMonsterInZone(Zone4Monster);
+                    break;
+
+            }
+        });
     }
 
     // Method to spawn monster in a specific zone
@@ -158,7 +241,33 @@ public class MainGameView {
             button.setVisibility(View.GONE);
         }
     }
-    //END: Remove Monsters
+
+
+    public void moveMonstersInward() {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        for (List<Button> zone : zones) {
+            for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
+                for (int j = 0; j < 3; j++) {
+                    if (i + j - 3 >= 0 && i + j < zone.size()) {
+                        Button outer = zone.get(i + j - 3);
+                        Button inner = zone.get(i + j);
+                        if (isButtonFull(outer)) {
+                            Drawable background = outer.getBackground(); // Sichern des Hintergrundes
+                            inner.setBackground(background);
+                            inner.setVisibility(View.VISIBLE);
+                            outer.setVisibility(View.GONE);
+                            outer.setBackground(null);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isButtonFull(Button button) {
+        // Check if the button background is not set (assuming empty buttons have no background)
+        return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
+    }
 
 
     private boolean isButtonEmpty(Button button) {
@@ -166,13 +275,6 @@ public class MainGameView {
         return button.getVisibility() == View.GONE;
     }
 
-    private boolean isButtonFull(Button button) {
-        // Check if the button background is not set (assuming empty buttons have no background)
-        return button.getVisibility() == View.VISIBLE;
-    }
-
-
-    //List Views
     private void updateListActions() {
         List<String> actionsList = new ArrayList<>();
         actionsList.add("Action 1");
@@ -199,6 +301,12 @@ public class MainGameView {
 
         ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
+    }
+
+    private void initializeMonsterZones() {
+        for (int i = 0; i < 4; i++) {
+            monsterZones.add(new ArrayList<MonsterDTO>());
+        }
     }
 
 
@@ -238,6 +346,5 @@ public class MainGameView {
 
 
     }
-
 
 }

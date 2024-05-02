@@ -15,9 +15,11 @@
         android:theme="@style/Theme.Munchkin"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.DrawActivity"
-            android:exported="false" />
+        <activity android:writePermission="com.example.app.WRITE_PERMISSION"
+        android:readPermission="com.example.app.READ_PERMISSION"
+        android:name=".activity.MainGameActivity"
+            android:screenOrientation="landscape"
+            android:exported="true" />
         <activity
             android:name=".activity.LoadingscreenActivity"
             android:exported="false" />
@@ -34,9 +36,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ConnectToServerActivity" />
-
-        <activity android:name=".activity.MainGameActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".view.DiceRollView"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

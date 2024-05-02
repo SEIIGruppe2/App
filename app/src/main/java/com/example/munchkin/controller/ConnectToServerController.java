@@ -3,12 +3,9 @@ package com.example.munchkin.controller;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 
 public class ConnectToServerController extends BaseController {
@@ -52,6 +49,10 @@ public class ConnectToServerController extends BaseController {
                 case "REGISTER_USERNAME":
                     handleRegisterUsernameMessage(jsonResponse);
                     break;
+                case "LOBBY_ASSIGNED":
+                    handleLobbyAssignedMessage(jsonResponse);
+                    break;
+
                 default:
                     break;
             }
@@ -80,5 +81,14 @@ public class ConnectToServerController extends BaseController {
         }
 
     }
+    private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
 
+        try {
+            String type = jsonResponse.getString("type");
+
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei der Verarbeitung der Lobby-Zuweisungsnachricht", e);
+        }
+
+    }
 }

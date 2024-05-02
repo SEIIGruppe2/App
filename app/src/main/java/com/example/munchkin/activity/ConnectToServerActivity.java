@@ -2,13 +2,8 @@ package com.example.munchkin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
-
-import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;

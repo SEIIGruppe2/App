@@ -44,7 +44,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
         test.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingscreenActivity.this, DrawActivity.class);
+                Intent intent = new Intent(LoadingscreenActivity.this, MainGameActivity.class);
                 startActivity(intent);
                 finish();
             }

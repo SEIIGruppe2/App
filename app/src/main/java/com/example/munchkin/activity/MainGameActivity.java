@@ -3,42 +3,51 @@ package com.example.munchkin.activity;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.ZoomDetectorView;
-
 import org.json.JSONObject;
+import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.controller.DrawCardController;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import com.example.munchkin.controller.SpawnMonsterController;
+import com.example.munchkin.view.DiceRollView;
+import java.util.ArrayList;
 
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.munchkin.R;
-import com.example.munchkin.view.MainGameView;
-import com.example.munchkin.view.ZoomDetectorView;
 
 public class MainGameActivity extends AppCompatActivity {
 
-    private MainGameView mainGameView;
     private ZoomDetectorView zoomDetectorView;
     private ScaleGestureDetector scaleGestureDetector;
 
     private GameController gameController;
+    private SpawnMonsterController spawnMonsterController;
+    private MainGameView mainGameView;
+
+    private ArrayList<Integer> diceResults = new ArrayList<>();
+
+    private ActivityResultLauncher<Intent> diceRollLauncher;
+
+    private DrawCardController drawCardController;
+
+    private PlayerHand handkarten;
+
 
 
     @Override
@@ -47,23 +56,22 @@ public class MainGameActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_game);
 
-        mainGameView = new MainGameView(this);
-        View mainView = findViewById(R.id.game);
-        zoomDetectorView = new ZoomDetectorView(this, mainView);
-        scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
 
-        WebSocketClientModel model = new WebSocketClientModel();
 
-        MessageRouter router = new MessageRouter();
-
-        gameController = new GameController(model,mainGameView);
-        router.registerController("PLAYER_ATTACK", gameController);
-        router.registerController("MONSTER_ATTACK", gameController);
-        router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+        setupControllers();
+        setupDiceRollLauncher();
+        requestRoll();
 
 
-        model.setMessageRouter(router);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        //Button endTurnButton = findViewById(R.id.buttonEndRound);
+        //endTurnButton.setOnClickListener(v -> gameController.endTurn());
 
     }
 
@@ -74,7 +82,55 @@ public class MainGameActivity extends AppCompatActivity {
         return true;
     }
 
+    private void setupControllers() {
+        WebSocketClientModel model = new WebSocketClientModel();
+        View mainView = findViewById(R.id.game);
+        zoomDetectorView = new ZoomDetectorView(this, mainView);
+        scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
+        mainGameView = new MainGameView(this);
+        spawnMonsterController = new SpawnMonsterController(model, mainGameView);
+        gameController = new GameController(model, mainGameView, spawnMonsterController);
+        drawCardController = new DrawCardController(model, mainGameView);
+
+        mainGameView.setGameController(gameController);
+
+        this.handkarten = new PlayerHand();
+
+        MessageRouter router = new MessageRouter();
+        router.registerController("PLAYER_ATTACK", gameController);
+        router.registerController("MONSTER_ATTACK", gameController);
+        router.registerController("SPAWN_MONSTER", spawnMonsterController);
+        router.registerController("REQUEST_USERNAMES", gameController);
+        router.registerController("DRAW_CARD", drawCardController);
+        router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+
+        model.setMessageRouter(router);
+
+        gameController.requestUsernames();
+    }
+
+
+    public void sendMessage() {
+        drawCardController.drawMeassage();
+    }
+
+    public void addcardtolist(ActionCardDTO karte){
+        handkarten.addCard(karte);
+        System.out.println("---- add to list"+handkarten.getCards().size());
+    }
+
+    public void transitionToCardDeckscreen() {
+        Intent intent = new Intent(MainGameActivity.this, CarddeckActivity.class);
+        startActivity(intent);
+    }
+
+    private void processDiceResults() {
+        for (int zone : diceResults) {
+            spawnMonsterController.sendMonsterSpawnMessage("Zone" + zone);
+        }
+        diceResults.clear();
+    }
 
 
 
@@ -104,4 +160,23 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
 
+    private void requestRoll() {
+        Intent intent = new Intent(this, DiceRollView.class);
+        diceRollLauncher.launch(intent);
+    }
+
+    private void setupDiceRollLauncher() {
+        diceRollLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        ArrayList<Integer> newResults = result.getData().getIntegerArrayListExtra("diceResults");
+                        if (newResults != null) {
+                            diceResults.addAll(newResults);
+                            gameController.onDiceRolled(newResults.stream().mapToInt(i->i).toArray());
+                        }
+                    }
+                }
+        );
+    }
 }
