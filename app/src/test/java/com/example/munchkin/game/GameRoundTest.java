@@ -12,7 +12,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
-public class GameRoundTest {
+class GameRoundTest {
 
     @Mock
     private Player mockPlayer;
@@ -24,20 +24,20 @@ public class GameRoundTest {
     private GameRound gameRound;
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         MockitoAnnotations.initMocks(this);
         gameRound = new GameRound(mockPlayer, mockEventHandler);
     }
 
 
     @Test
-    public void testConstructor() {
+    protected void testConstructor() {
 
 
     }
 
     @Test
-    public void testStartMethod() {
+    protected void testStartMethod() {
         gameRound.start();
         verify(mockEventHandler, times(1)).requestDiceRoll(any());
 

@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PlayerTest {
+class PlayerTest {
 
     @Test
-    public void testDefaultConstructor() {
+    protected void testDefaultConstructor() {
 
         Player player = new Player();
         assertNull(player.getName(), "Name should be null for default constructor");
@@ -16,7 +16,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testParameterizedConstructor() {
+    protected void testParameterizedConstructor() {
 
         String testName = "Username";
         Player player = new Player(testName);
