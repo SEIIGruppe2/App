@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import static org.mockito.Mockito.*;
 
-public class DiceRollModelTest {
+class DiceRollModelTest {
 
     private DiceRollModel diceRollModel;
 
@@ -17,13 +17,13 @@ public class DiceRollModelTest {
     private DiceRollModel.DiceRollCallback mockCallback;
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         MockitoAnnotations.initMocks(this);
         diceRollModel = new DiceRollModel();
     }
 
     @Test
-    public void testRollDice() throws InterruptedException {
+    protected void testRollDice() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
 
         diceRollModel.rollDice(new DiceRollModel.DiceRollCallback() {
@@ -39,7 +39,7 @@ public class DiceRollModelTest {
     }
 
     @Test
-    public void testRollDiceMultipleTimes() throws InterruptedException {
+    protected void testRollDiceMultipleTimes() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(5);
 
         for (int i = 0; i < 5; i++) {
@@ -57,7 +57,7 @@ public class DiceRollModelTest {
     }
 
     @Test
-    public void testRollDiceCallbackInvocation() {
+    protected void testRollDiceCallbackInvocation() {
         diceRollModel.rollDice(mockCallback);
         verify(mockCallback, timeout(2000)).onDiceRolled(anyInt());
     }
