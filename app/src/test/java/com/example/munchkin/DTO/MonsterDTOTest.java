@@ -4,10 +4,10 @@ package com.example.munchkin.DTO;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MonsterDTOTest {
+class MonsterDTOTest {
 
     @Test
-    public void testMonsterDTOFunctions() {
+    protected void testMonsterDTOFunctions() {
         MonsterDTO monster = new MonsterDTO("Goblin", 4, 2, 1, 1);
         assertEquals("Goblin", monster.getName());
         assertEquals(4, monster.getZone());
@@ -23,7 +23,7 @@ public class MonsterDTOTest {
     }
 
     @Test
-    public void testDefaultConstructor() {
+    protected void testDefaultConstructor() {
         MonsterDTO monster = new MonsterDTO();
         assertNull(monster.getName());
         assertEquals(0, monster.getZone());
