@@ -32,7 +32,7 @@ public class TradeCardsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tauschen_test_layer);
 
-        MessageRouter router = new MessageRouter();
+        /*MessageRouter router = new MessageRouter();
         cardDeckController = new CardDeckController(model, tradeCardsView);
 
         // Now that cardDeckController is initialized, we can create tradeCardsView
@@ -100,7 +100,7 @@ public class TradeCardsActivity extends AppCompatActivity {
 
     private List<String> getCardNames() {
 
-        return new ArrayList<>();
+        return new ArrayList<>();*/
     }
 
 
