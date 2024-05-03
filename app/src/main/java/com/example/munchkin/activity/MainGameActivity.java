@@ -61,7 +61,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         setupControllers();
         setupDiceRollLauncher();
-        requestRoll();
+        //requestRoll();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -90,7 +90,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         mainGameView = new MainGameView(this);
         spawnMonsterController = new SpawnMonsterController(model, mainGameView);
-        gameController = new GameController(model, mainGameView, spawnMonsterController);
+        gameController = new GameController(model, mainGameView, spawnMonsterController,this);
         drawCardController = new DrawCardController(model, mainGameView);
 
         mainGameView.setGameController(gameController);
@@ -104,10 +104,10 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("REQUEST_USERNAMES", gameController);
         router.registerController("DRAW_CARD", drawCardController);
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+        router.registerController("REQUEST_ROLL", gameController);
+        router.registerController("ROUND_COUNTER", gameController);
 
         model.setMessageRouter(router);
-
-        gameController.requestUsernames();
     }
 
 
