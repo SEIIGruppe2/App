@@ -15,6 +15,7 @@ import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.ZoomDetectorView;
 import org.json.JSONObject;
@@ -49,6 +50,8 @@ public class MainGameActivity extends AppCompatActivity {
     private PlayerHand handkarten;
 
 
+    private ConnectToServerActivity connectToServerActivity;
+    private ConnectToServerView connectToServerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,6 @@ public class MainGameActivity extends AppCompatActivity {
 
         setupControllers();
         setupDiceRollLauncher();
-        //requestRoll();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -87,6 +89,7 @@ public class MainGameActivity extends AppCompatActivity {
         View mainView = findViewById(R.id.game);
         zoomDetectorView = new ZoomDetectorView(this, mainView);
         scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
+
 
         mainGameView = new MainGameView(this);
         spawnMonsterController = new SpawnMonsterController(model, mainGameView);
@@ -160,7 +163,7 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
 
-    private void requestRoll() {
+    public void requestRoll() {
         Intent intent = new Intent(this, DiceRollView.class);
         diceRollLauncher.launch(intent);
     }
