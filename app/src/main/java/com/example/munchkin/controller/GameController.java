@@ -13,6 +13,7 @@ import com.example.munchkin.interfaces.DiceRollListener;
 import com.example.munchkin.interfaces.GameEventHandler;
 import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.DiceRollView;
 import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;
@@ -37,13 +38,18 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private MainGameActivity mainGameActivity;
 
+
+
+
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
         this.maingameView = maingameView;
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
+
         requestUsernames();
+
     }
 
 
@@ -94,7 +100,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         currentPlayer = playerQueue.poll();
         maingameView.displayCurrentPlayer(currentPlayer);
         maingameView.updateRoundView(roundCounter);
-        isFirstRound = false;
+
     }
 
 
@@ -111,8 +117,8 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     public void endRound() {
+        isFirstRound = false;
         diceRolledThisRound = false;
-        roundCounter++;
         maingameView.updateRoundView(roundCounter);
     }
 
@@ -163,13 +169,8 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     private void handleRequestRoll(JSONObject jsonResponse){
-        Log.d("GameController", "RollPlayer0");
+        Log.d("GameController", jsonResponse.toString());
         try {
-            if (playerQueue.isEmpty()) {
-                Log.d("GameController", "Spielerwarteschlange ist leer. RequestRoll");
-                return;
-            }
-            currentPlayer = playerQueue.poll();
             if (currentPlayer == null) {
                 Log.d("GameController", "Kein Spieler in der Warteschlange verfügbar.");
                 return;
@@ -177,7 +178,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("GameController", "RollPlayer1: " + (currentPlayer != null ? currentPlayer.getName() : "null"));
             String usernameToRoll = jsonResponse.getString("username");
             Log.d("GameController", "RollPlayer2: " + usernameToRoll);
-            if (usernameToRoll.equals(currentPlayer.getName())) {
+            if (currentPlayer.getName().equals(usernameToRoll)) {
                 Log.d("GameController", "InDiceRolLView mit  " + usernameToRoll);
                 performeRoll();
             } else {
@@ -210,9 +211,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private void performeRoll() {
         if (!diceRolledThisRound) {
-            navigateToDiceRollView();
-            Log.d("GameController", "Bevor Start Round" );
-            Log.d("GameController", "Nach Start Round" );
+            mainGameActivity.requestRoll();
             diceRolledThisRound = true;
         }
         if (!isFirstRound) {
@@ -220,10 +219,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
-    public void navigateToDiceRollView() {
-        Intent intent = new Intent(mainGameActivity, DiceRollView.class);
-        mainGameActivity.startActivity(intent);
-    }
 
 
     private void handleUserName(JSONObject jsonResponse){
@@ -235,6 +230,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                 Player player = new Player(username);
                 Log.d("GameController", "Player" + player.getName() );
                 playerQueue.add(player);
+
             }
             if (playerQueue.size() == REQUIRED_PLAYER_COUNT) {
                 sendRequestRoundMessage();
