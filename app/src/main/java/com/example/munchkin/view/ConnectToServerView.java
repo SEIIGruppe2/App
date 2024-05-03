@@ -16,6 +16,8 @@ public class ConnectToServerView {
 
     private EditText editTextUsername;
 
+    private String username;
+
     public ConnectToServerView(ConnectToServerActivity connectToServerActivity) {
         this.connectToServerActivity = connectToServerActivity;
         this.textViewServerResponse = connectToServerActivity.findViewById(R.id.textViewResponse);
@@ -26,7 +28,7 @@ public class ConnectToServerView {
     private void setupUI() {
         Button buttonSendMsg = connectToServerActivity.findViewById(R.id.buttonConnect);
         buttonSendMsg.setOnClickListener(v -> {
-            String username = editTextUsername.getText().toString();
+            username = editTextUsername.getText().toString();
             connectToServerActivity.sendMessage(username);
             connectToServerActivity.transitionToLoadingScreen(username);
         });
@@ -48,6 +50,9 @@ public class ConnectToServerView {
 
 
 
+    public String getUsername(){
+        return username;
+    }
 
 
 
