@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
@@ -52,6 +54,9 @@ public class ConnectToServerController extends BaseController {
                 case "LOBBY_ASSIGNED":
                     handleLobbyAssignedMessage(jsonResponse);
                     break;
+                case "WAITING_FOR_PLAYERS":
+                    handleWaitingForPlayersMessage(jsonResponse);
+                    break;
 
                 default:
                     break;
@@ -91,4 +96,17 @@ public class ConnectToServerController extends BaseController {
         }
 
     }
+
+    private void handleWaitingForPlayersMessage(JSONObject jsonResponse) {
+        try {
+            String type = jsonResponse.getString("type");
+            String content = jsonResponse.getString("content");
+            Log.d(type, content);
+
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei der Verarbeitung der Lobby-Zuweisungsnachricht", e);
+        }
+
+    }
+
 }

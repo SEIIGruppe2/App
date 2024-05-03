@@ -30,6 +30,8 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
         router.registerController("REGISTER_USERNAME",controller);
+        router.registerController("LOBBY_ASSIGNED",controller);
+        router.registerController("WAITING_FOR_PLAYERS",controller);
 
         model.setMessageRouter(router);
     }
