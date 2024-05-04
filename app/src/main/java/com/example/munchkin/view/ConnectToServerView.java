@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
-
+import com.example.munchkin.game.AppState;
 
 
 public class ConnectToServerView {
@@ -31,7 +31,10 @@ public class ConnectToServerView {
             username = editTextUsername.getText().toString();
             connectToServerActivity.sendMessage(username);
             connectToServerActivity.transitionToLoadingScreen(username);
+            AppState.getInstance().setCurrentUser(username);
         });
+
+
 
 
         Button buttonReconnect = connectToServerActivity.findViewById(R.id.buttonReconnect);

@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.LinkedList;
 import java.util.Queue;
 import org.json.JSONArray;
+import com.example.munchkin.game.AppState;
 
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
@@ -38,7 +39,9 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private MainGameActivity mainGameActivity;
 
+    private String clientplayerUsername = AppState.getInstance().getCurrentUser();
 
+    private Player clientplayer;
 
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
@@ -177,8 +180,8 @@ public class GameController extends BaseController implements DiceRollListener, 
             }
             Log.d("GameController", "RollPlayer1: " + (currentPlayer != null ? currentPlayer.getName() : "null"));
             String usernameToRoll = jsonResponse.getString("username");
-            Log.d("GameController", "RollPlayer2: " + usernameToRoll);
-            if (currentPlayer.getName().equals(usernameToRoll)) {
+            Log.d("GameController", "RollPlayer2: " + clientplayerUsername);
+            if (clientplayerUsername.equals(usernameToRoll)) {
                 Log.d("GameController", "InDiceRolLView mit  " + usernameToRoll);
                 performeRoll();
             } else {
@@ -230,6 +233,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                 Player player = new Player(username);
                 Log.d("GameController", "Player" + player.getName() );
                 playerQueue.add(player);
+                if(username.equals(clientplayerUsername)){
+                    clientplayer = player;
+                }
 
             }
             if (playerQueue.size() == REQUIRED_PLAYER_COUNT) {
