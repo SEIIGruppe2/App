@@ -4,6 +4,7 @@ import com.example.munchkin.Player.Player;
 import com.example.munchkin.interfaces.GameEventHandler;
 import org.junit.jupiter.api.BeforeEach;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,19 +22,28 @@ public class GameRoundTest {
     private GameEventHandler mockEventHandler;
 
     private GameRound gameRound;
-
+    private AutoCloseable closeable;
 
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
         gameRound = new GameRound(mockPlayer, mockEventHandler);
     }
+
+
+    @AfterEach
+    public void tearDown() throws Exception {
+        closeable.close();
+    }
+
 
     @Test
     public void testConstructor() {
 
+
     }
+
 
     @Test
     public void testStartMethod() {
@@ -42,7 +52,10 @@ public class GameRoundTest {
     }
 
 
+
+
+
+
+
 }
-
-
 
