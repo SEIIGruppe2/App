@@ -1,4 +1,4 @@
-package com.example.munchkin.view.animations;
+package com.example.munchkin.view;
 
 import android.content.Context;
 import android.view.GestureDetector;
