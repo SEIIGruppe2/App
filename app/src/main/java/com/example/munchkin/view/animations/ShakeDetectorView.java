@@ -1,4 +1,4 @@
-package com.example.munchkin.view;
+package com.example.munchkin.view.animations;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

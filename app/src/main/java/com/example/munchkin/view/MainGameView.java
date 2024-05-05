@@ -136,7 +136,7 @@ public class MainGameView {
         damage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeVisibleMonster();
+                spawnMonster(1);
             }
         });
 
