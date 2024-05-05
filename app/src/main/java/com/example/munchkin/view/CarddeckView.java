@@ -51,9 +51,9 @@ public class CarddeckView {
     private void setupUI(){
 
         parentlayout= carddeckActivity.findViewById(R.id.containerforcards);
-
+        zurueck = carddeckActivity.findViewById(R.id.buttonzurueck1);
         zugbeenden = carddeckActivity.findViewById(R.id.buttonzugbeenden);
-
+        tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
         if(CarddeckActivity.passivmode==1){
             zugbeenden.setVisibility(View.GONE);
         }
@@ -63,15 +63,23 @@ public class CarddeckView {
             });
         }
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
+        spielen.setOnClickListener(v -> {
+
+           carddeckActivity.monsterAttack();
+           zurueck.setVisibility(View.GONE);
+           zugbeenden.setVisibility(View.GONE);
+           tauschen.setVisibility(View.GONE);
+           spielen.setVisibility(View.GONE);
+        });
 
 
-        tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
+
         tauschen.setOnClickListener(v -> {
 
             carddeckActivity.tauschen();
         });
 
-        zurueck = carddeckActivity.findViewById(R.id.buttonzurueck1);
+
         if(CarddeckActivity.passivmode==1){
             zurueck.setVisibility(View.GONE);
         }

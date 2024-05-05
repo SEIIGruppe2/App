@@ -311,6 +311,15 @@ public class CarddeckActivity extends AppCompatActivity {
         }
     }
 
+    public void monsterAttack(){
+        CardView currentcard = selectedCard;
+        LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+        TextView gettag = (TextView)  getkardname.getChildAt(2);
+        String id = (String) gettag.getTag();
+        controller.monsterAttackRequest(id);
+
+    }
+
 
     }
 

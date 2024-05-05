@@ -40,6 +40,10 @@ public class MessageFormatter {
         return createMessage("SPAWN_MONSTER", "zone", zone);
     }
 
+    public static String createAttackMonsterRequestMessage(String card){
+        return createMessage("MONSTER_ATTACK_REQUEST", "card", card);
+    }
+
 
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");

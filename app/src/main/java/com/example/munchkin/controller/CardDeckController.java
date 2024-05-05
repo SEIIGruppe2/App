@@ -106,7 +106,6 @@ public class CardDeckController extends BaseController {
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-            System.out.println(karte.getName());
             playerHand.addCard(karte);
             carddeckView.updatescreen();
 
@@ -132,33 +131,22 @@ public class CardDeckController extends BaseController {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void updateCardsListWithNewCard(ActionCardDTO newCard) {
-        playerHand.addCard(newCard);
-
-        tradeCardsView.displayPlayerCards(playerHand.getCards());
-        tradeCardsView.setupCardSelection();
+    public void monsterAttackRequest(String card){
+        String message = MessageFormatter.createAttackMonsterRequestMessage(card);
+        websocket.sendMessageToServer(message);
     }
 
-    public void tradeCardDeck(ActionCardDTO card) {
 
-        int id = card.getId();
-        String idAsString = Integer.toString(id);
 
-        sendSwitchCardsDeckMessage(idAsString);
-    }*/
+
+
+
+
+
+
+
+
+
 
 
 
