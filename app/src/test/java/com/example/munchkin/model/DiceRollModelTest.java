@@ -1,65 +1,50 @@
 package com.example.munchkin.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class DiceRollModelTest {
 
-    private DiceRollModel diceRollModel;
-
-    @Mock
-    private DiceRollModel.DiceRollCallback mockCallback;
-
-    @BeforeEach
-    protected void setUp() {
-        MockitoAnnotations.initMocks(this);
-        diceRollModel = new DiceRollModel();
-    }
-
     @Test
-    protected void testRollDice() throws InterruptedException {
+    void testRollDice() throws InterruptedException {
+        // Create a mock of DiceRollCallback
+        DiceRollModel.DiceRollCallback mockCallback = mock(DiceRollModel.DiceRollCallback.class);
+
+        // Instantiate the model
+        DiceRollModel model = new DiceRollModel();
+
+        // Latch for synchronizing the test thread and the dice roll thread
         CountDownLatch latch = new CountDownLatch(1);
 
-        diceRollModel.rollDice(new DiceRollModel.DiceRollCallback() {
+        // ArgumentCaptor to capture the random number passed to the callback
+        ArgumentCaptor<Integer> argumentCaptor = ArgumentCaptor.forClass(Integer.class);
+
+        // Perform the test
+        model.rollDice(new DiceRollModel.DiceRollCallback() {
             @Override
             public void onDiceRolled(int randomNumber) {
-                verify(mockCallback).onDiceRolled(randomNumber);
-
+                mockCallback.onDiceRolled(randomNumber);
                 latch.countDown();
             }
         });
 
-        latch.await(2, TimeUnit.SECONDS);
+        // Wait for the thread to finish
+        boolean await = latch.await(2, TimeUnit.SECONDS);
+
+        // Verify that the callback was called
+        verify(mockCallback, times(1)).onDiceRolled(argumentCaptor.capture());
+
+        // Assert that the captured random number is within the expected range
+        assertTrue(argumentCaptor.getValue() >= 0 && argumentCaptor.getValue() < 4, "Random number should be between 0 and 3");
+
+        // Check if the thread finished properly
+        assertTrue(await, "Dice roll thread did not complete in time");
     }
-
-    @Test
-    protected void testRollDiceMultipleTimes() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(5);
-
-        for (int i = 0; i < 5; i++) {
-            diceRollModel.rollDice(new DiceRollModel.DiceRollCallback() {
-                @Override
-                public void onDiceRolled(int randomNumber) {
-                    verify(mockCallback).onDiceRolled(randomNumber);
-
-                    latch.countDown();
-                }
-            });
-        }
-
-        latch.await(5, TimeUnit.SECONDS);
-    }
-
-    @Test
-    protected void testRollDiceCallbackInvocation() {
-        diceRollModel.rollDice(mockCallback);
-        verify(mockCallback, timeout(2000)).onDiceRolled(anyInt());
-    }
-
 }
