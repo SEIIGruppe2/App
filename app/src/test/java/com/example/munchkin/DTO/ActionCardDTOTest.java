@@ -1,6 +1,5 @@
 package com.example.munchkin.DTO;
 
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +13,6 @@ class ActionCardDTOTest {
         assertEquals(2, actionCard.getZone());
         assertEquals(69, actionCard.getId());
     }
-
 
     @Test
     protected void testNoArgConstructor() {

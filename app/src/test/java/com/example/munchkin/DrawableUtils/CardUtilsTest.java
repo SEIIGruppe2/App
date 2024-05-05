@@ -1,16 +1,14 @@
 package com.example.munchkin.DrawableUtils;
 
 import com.example.munchkin.DTO.ActionCardDTO;
-
 import org.junit.jupiter.api.Test;
-
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardUtilsTest {
+
     @Test
     protected void testGetResources() {
         List<ActionCardDTO> cards = Arrays.asList(
@@ -48,5 +46,4 @@ class CardUtilsTest {
 
         assertEquals("blauer", CardUtils.getzone(4));
     }
-
 }

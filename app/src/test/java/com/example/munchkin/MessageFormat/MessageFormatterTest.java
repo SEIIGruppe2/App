@@ -1,12 +1,9 @@
 package com.example.munchkin.MessageFormat;
 
-
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MessageFormatterTest {
-
 
     @Test
     protected void testCreatePlayerAttackMessage() {
@@ -14,15 +11,11 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"PLAYER_ATTACK\",\"monsterid\":\"123\",\"cardTypePlayed\":\"Fireball\"}", result);
     }
 
-
-
     @Test
     protected void testCreateMonsterAttackMessage() {
         String result = MessageFormatter.createMonsterAttackMessage("456");
         assertEquals("{\"type\":\"MONSTER_ATTACK\",\"monsterid\":\"456\"}", result);
     }
-
-
 
     @Test
     protected void testCreateSwitchCardsDeckMessage() {
@@ -30,14 +23,11 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"SWITCH_CARD_DECK\",\"cardid\":\"789\"}", result);
     }
 
-
     @Test
     protected void testCreateSwitchCardsPlayerMessage() {
         String result = MessageFormatter.createSwitchCardsPlayerMessage("Alice", "Sword", "Shield");
         assertEquals("{\"type\":\"SWITCH_CARD_PLAYER\",\"switchedWith\":\"Alice\",\"cardGiven\":\"Sword\",\"cardGivenP\":\"Shield\"}", result);
     }
-
-
 
     @Test
     protected void testCreateDrawCardMessage() {
@@ -45,14 +35,11 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"DRAW_CARD\"}", result);
     }
 
-
-
     @Test
     protected void testRegisterUserMessage() {
         String result = MessageFormatter.registerUserMessage("Bob");
         assertEquals("{\"type\":\"REGISTER_USERNAME\",\"username\":\"Bob\"}", result);
     }
-
 
     @Test
     protected void testCreateUsernameRequestMessage() {
@@ -60,14 +47,9 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"REQUEST_USERNAMES\"}", result);
     }
 
-
-
     @Test
     protected void testCreateSpawnMonsterMessage() {
         String result = MessageFormatter.createSpawnMonsterMessage("North");
         assertEquals("{\"type\":\"SPAWN_MONSTER\",\"zone\":\"North\"}", result);
     }
-
 }
-
-

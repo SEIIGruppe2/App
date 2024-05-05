@@ -1,12 +1,9 @@
 package com.example.munchkin.DTO;
 
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TowerDTOTest {
-
-
 
     @Test
     protected void testTowerDTOConstructionAndAccessors() {
@@ -17,11 +14,9 @@ class TowerDTOTest {
         assertEquals(5, tower.getLifePoints());
     }
 
-
     @Test
     protected void testDefaultConstructor() {
         TowerDTO tower = new TowerDTO();
         assertEquals(0, tower.getLifePoints());
     }
 }
-

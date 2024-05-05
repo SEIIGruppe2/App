@@ -1,8 +1,6 @@
 package com.example.munchkin.Player;
 
 import com.example.munchkin.DTO.ActionCardDTO;
-
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 class PlayerHandTest {
+
     private PlayerHand playerHand;
     private ActionCardDTO card1, card2;
-
 
     @BeforeEach
     protected void setUp() {
@@ -23,7 +21,6 @@ class PlayerHandTest {
         playerHand.addCard(card2);
     }
 
-
     @Test
     protected void testAddCard() {
         ActionCardDTO newCard = new ActionCardDTO();
@@ -31,13 +28,11 @@ class PlayerHandTest {
         assertTrue(playerHand.getCards().contains(newCard));
     }
 
-
     @Test
     protected void testRemoveCard() {
         playerHand.removeCard(card1);
         assertFalse(playerHand.getCards().contains(card1));
     }
-
 
     @Test
     protected void testGetCards() {
@@ -45,5 +40,3 @@ class PlayerHandTest {
         assertEquals(2, cards.size());
     }
 }
-
-
