@@ -45,7 +45,9 @@ public class MessageFormatter {
         return createMessage("ROUND_COUNTER");
     }
 
-
+    public static String createEndTurnMessage() {
+        return createMessage("END_TURN");
+    }
 
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");

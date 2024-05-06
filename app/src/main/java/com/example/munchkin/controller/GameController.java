@@ -55,8 +55,6 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     }
 
-
-
     @Override
     public void handleMessage(String message) {
         try {
@@ -85,6 +83,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                     handleRoundCounter(jsonResponse);
                     break;
 
+                case "CURRENT_PLAYER":
+                    handleCurrentPlayer(jsonResponse);
+                    break;
                 default:
                     break;
 
@@ -100,7 +101,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void startRound() {
         Log.d("GameController", "Current player: " +" startRoundAnfang");
         sendPlayerRollDiceMessage();
-        currentPlayer = playerQueue.poll();
+        currentPlayer = playerQueue.peek();
         maingameView.displayCurrentPlayer(currentPlayer);
         maingameView.updateRoundView(roundCounter);
 
@@ -110,24 +111,29 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void endTurn() {
-        currentPlayer = playerQueue.poll();
-        playerQueue.offer(currentPlayer);
-        if (playerQueue.peek() == currentPlayer) {
-            endRound();
-        }
-        maingameView.displayCurrentPlayer(currentPlayer);
-        startRound();
+        sendEndTurnMessage(); // Sendet Nachricht an den Server, dass der Zug beendet wurde
+        currentPlayer = playerQueue.poll(); // Entfernt den aktuellen Spieler aus der Queue
+        playerQueue.offer(currentPlayer); // Fügt ihn am Ende der Queue wieder hinzu
     }
+
+
 
     public void endRound() {
         isFirstRound = false;
         diceRolledThisRound = false;
         maingameView.updateRoundView(roundCounter);
+        startRound();
     }
 
 
     public void requestUsernames() {
         String message = MessageFormatter.createUsernameRequestMessage();
+        model.sendMessageToServer(message);
+    }
+
+
+    public void sendEndTurnMessage() {
+        String message = MessageFormatter.createEndTurnMessage();
         model.sendMessageToServer(message);
     }
 
@@ -244,6 +250,19 @@ public class GameController extends BaseController implements DiceRollListener, 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/GameController");
         }
+    }
+
+
+    private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
+        String currentUsername = jsonResponse.getString("username");
+
+        for (Player player : playerQueue) {
+            if (player.getName().equals(currentUsername)) {
+                currentPlayer = player;
+                break;
+            }
+        }
+        maingameView.displayCurrentPlayer(currentPlayer);
     }
 
 

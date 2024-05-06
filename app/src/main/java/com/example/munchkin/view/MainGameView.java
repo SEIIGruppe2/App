@@ -188,6 +188,7 @@ public class MainGameView {
     }
 
 
+
     public void updateRoundView(int round) {
         TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
         roundView.setText("Runde: " + round);
