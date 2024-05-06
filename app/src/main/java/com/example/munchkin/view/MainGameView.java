@@ -311,7 +311,7 @@ public class MainGameView {
 
 
     public void tauschanfrageerhalten(JSONObject message) throws JSONException {
-        //TODO: in cradeckactivity einfügen
+
         int id = Integer.parseInt(message.getString("id"));
         String name = message.getString("name");
         int zone = Integer.parseInt(message.getString("zone"));
@@ -321,7 +321,6 @@ public class MainGameView {
         /*playerhand.addCard(karte);*/
 
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
-        //hier versuchen mit post
 
         mainGameActivity.runOnUiThread(new Runnable() {
             @Override

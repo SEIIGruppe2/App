@@ -92,7 +92,7 @@ public class ConnectToServerController extends BaseController {
             String type = jsonResponse.getString("type");
 
         } catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei der Verarbeitung der Lobby-Zuweisungsnachricht", e);
+            throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
         }
 
     }
@@ -104,7 +104,7 @@ public class ConnectToServerController extends BaseController {
             Log.d(type, content);
 
         } catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei der Verarbeitung der Lobby-Zuweisungsnachricht", e);
+            throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
         }
 
     }
