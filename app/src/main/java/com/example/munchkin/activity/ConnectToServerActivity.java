@@ -51,7 +51,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
     public void transitionToLoadingScreen(String username) {
         //TODO: change to LobbyActivity activity
-        Intent intent = new Intent(ConnectToServerActivity.this, LoadingscreenActivity.class);
+        Intent intent = new Intent(ConnectToServerActivity.this, LobbyActivity.class);
         startActivity(intent);
     }
 
