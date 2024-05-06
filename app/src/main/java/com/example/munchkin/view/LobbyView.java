@@ -1,5 +1,6 @@
 package com.example.munchkin.view;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import com.example.munchkin.controller.LobbyController;
 public class LobbyView {
 
     LobbyActivity lobbyActivity;
-    TextView[] textViewArray = new TextView[4];
+    public TextView[] textViewArray = new TextView[4];
     public LobbyView( LobbyActivity lobbyActivity){
         this.lobbyActivity= lobbyActivity;
 
@@ -32,16 +33,27 @@ public class LobbyView {
 
     }
     public void updateUserList(int arraylength){
-        for(int i=0; i< LobbyController.usernames.length;i++){
-            if(LobbyController.usernames[i].length()>0){
-            textViewArray[i].setText("Spieler "+String.valueOf(i+1)+": "+LobbyController.usernames[i]);
-        }else{
-                textViewArray[i].setText("Spieler "+String.valueOf(i+1)+": ");
+        System.out.println("Updateuserlist");
+
+
+        lobbyActivity.runOnUiThread((new Runnable() {
+            @Override
+            public void run() {
+
+                for(int i=0; i< 4;i++) {
+                    if (!(LobbyController.usernames[i] ==null)) {
+                        textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": " + LobbyController.usernames[i]);
+
+                    } else {
+                        textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": ");
+                    }
+                }
+                if(arraylength==4){
+                    Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
+                    spielStarten.setVisibility(View.VISIBLE);
+                }
             }
-        }
-        if(arraylength==4){
-            Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
-            spielStarten.setVisibility(View.GONE);
-        }
+        }));
+
     }
 }

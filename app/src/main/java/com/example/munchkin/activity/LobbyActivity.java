@@ -2,6 +2,8 @@ package com.example.munchkin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import com.example.munchkin.view.LobbyView;
 
 public class LobbyActivity extends AppCompatActivity {
     LobbyController controller;
+    LobbyView view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class LobbyActivity extends AppCompatActivity {
 
         MessageRouter router = new MessageRouter();
 
-        LobbyView view = new LobbyView(this);
+        view = new LobbyView(this);
         WebSocketClientModel model = new WebSocketClientModel();
         controller = new LobbyController(model, view);
 
@@ -51,6 +54,12 @@ public class LobbyActivity extends AppCompatActivity {
 
     private void requesUsernames(){
         controller.requestUsernames();
+    }
+
+    public void updateevrything(int arraylength){
+
+
+
     }
 
 

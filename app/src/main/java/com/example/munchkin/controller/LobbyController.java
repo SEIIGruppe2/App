@@ -52,11 +52,14 @@ public class LobbyController extends BaseController{
             JSONArray usernamesArray = jsonObject.getJSONArray("usernames");
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
+                //TODO change
                 usernames[i]=username;
 
             }
-
             view.updateUserList(usernamesArray.length());
+
+
+
         }catch(JSONException e){
                 throw new RuntimeException(e);
             }
