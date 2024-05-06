@@ -18,7 +18,10 @@ import com.example.munchkin.view.DiceRollView;
 import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import org.json.JSONArray;
 import com.example.munchkin.game.AppState;
@@ -43,6 +46,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private Player clientplayer;
 
+    private List<String> playerusernames;
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
@@ -50,6 +54,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
+        playerusernames = new ArrayList<>();
 
         requestUsernames();
 
@@ -84,6 +89,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                     break;
 
                 case "CURRENT_PLAYER":
+                    Log.d("CurrentPlayer", "im handler");
                     handleCurrentPlayer(jsonResponse);
                     break;
                 default:
@@ -102,7 +108,8 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("GameController", "Current player: " +" startRoundAnfang");
         sendPlayerRollDiceMessage();
         currentPlayer = playerQueue.peek();
-        maingameView.displayCurrentPlayer(currentPlayer);
+        String currentPlayerName = currentPlayer.getName();
+        maingameView.displayCurrentPlayer(currentPlayerName);
         maingameView.updateRoundView(roundCounter);
 
     }
@@ -111,6 +118,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void endTurn() {
+        Log.d("EndTurn", "AnfangEnd Turn");
         sendEndTurnMessage(); // Sendet Nachricht an den Server, dass der Zug beendet wurde
         currentPlayer = playerQueue.poll(); // Entfernt den aktuellen Spieler aus der Queue
         playerQueue.offer(currentPlayer); // Fügt ihn am Ende der Queue wieder hinzu
@@ -236,6 +244,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
+                playerusernames.add(i,username);
                 Player player = new Player(username);
                 Log.d("GameController", "Player" + player.getName() );
                 playerQueue.add(player);
@@ -252,18 +261,38 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
-
     private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
-        String currentUsername = jsonResponse.getString("username");
 
-        for (Player player : playerQueue) {
-            if (player.getName().equals(currentUsername)) {
-                currentPlayer = player;
-                break;
+        Log.d("handleCurrentPlayer", "Anfang");
+        try {
+            requestUsernames();
+            String currentPlayerIndex = jsonResponse.getString("index");
+            int currentPlayerIndexInt = Integer.parseInt(currentPlayerIndex);
+
+            if (currentPlayerIndexInt >= playerusernames.size()) {
+                Log.d("handleCurrentPlayer", "Index außerhalb des Bereichs: " + currentPlayerIndexInt);
+                return;
             }
+
+            String currentPlayerUsername = playerusernames.get(currentPlayerIndexInt);
+            Log.d("handleCurrentPlayer", "Aktueller Spieler: " + currentPlayerUsername);
+
+
+            if (currentPlayerUsername.equals(clientplayerUsername)) {
+                Log.d("handleCurrentPlayer", "Aktueller Client ist am Zug");
+                maingameView.displayCurrentPlayer(currentPlayerUsername);
+            } else {
+                Log.d("handleCurrentPlayer", "Ein anderer Spieler ist am Zug");
+                maingameView.disablePlayerAction(currentPlayerUsername);
+            }
+        } catch (Exception e) {
+            Log.e("handleCurrentPlayer", "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
         }
-        maingameView.displayCurrentPlayer(currentPlayer);
     }
+
+
+
+
 
 
     @Override

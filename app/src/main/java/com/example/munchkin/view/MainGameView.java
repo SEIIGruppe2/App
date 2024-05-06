@@ -170,9 +170,9 @@ public class MainGameView {
 
 
 
-    public void displayCurrentPlayer(Player currentPlayer) {
+    public void displayCurrentPlayer(String currentPlayer) {
         TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer.getName() : "Unbekannt"));
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
         for (Button button : allPlayerButtons) {
             if (button != null && button.getTag() != null && currentPlayer != null) {
@@ -186,6 +186,21 @@ public class MainGameView {
             }
         }
     }
+
+    public void disablePlayerAction(String currentPlayer) {
+        TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
+
+        for (Button button : allPlayerButtons) {
+                if (button != null) {
+                    button.setEnabled(false);
+                    button.setAlpha(0.5f);
+                }
+            }
+        }
+
+
+
 
 
 

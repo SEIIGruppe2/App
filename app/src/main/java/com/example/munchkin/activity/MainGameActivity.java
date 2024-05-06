@@ -109,7 +109,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
         router.registerController("REQUEST_ROLL", gameController);
         router.registerController("ROUND_COUNTER", gameController);
-
+        router.registerController("CURRENT_PLAYER", gameController);
         model.setMessageRouter(router);
     }
 
