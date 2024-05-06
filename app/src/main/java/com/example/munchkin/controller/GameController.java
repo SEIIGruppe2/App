@@ -109,6 +109,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         sendPlayerRollDiceMessage();
         currentPlayer = playerQueue.peek();
         String currentPlayerName = currentPlayer.getName();
+
         maingameView.displayCurrentPlayer(currentPlayerName);
         maingameView.updateRoundView(roundCounter);
 
@@ -118,10 +119,10 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void endTurn() {
-        Log.d("EndTurn", "AnfangEnd Turn");
-        sendEndTurnMessage(); // Sendet Nachricht an den Server, dass der Zug beendet wurde
-        currentPlayer = playerQueue.poll(); // Entfernt den aktuellen Spieler aus der Queue
-        playerQueue.offer(currentPlayer); // Fügt ihn am Ende der Queue wieder hinzu
+        Log.d("EndTurn", "End of turn for player: " + currentPlayer.getName());
+        sendEndTurnMessage();
+        currentPlayer = playerQueue.poll();
+        playerQueue.offer(currentPlayer);
     }
 
 
@@ -130,6 +131,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         isFirstRound = false;
         diceRolledThisRound = false;
         maingameView.updateRoundView(roundCounter);
+        maingameView.moveMonstersInward();
         startRound();
     }
 
@@ -278,12 +280,14 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("handleCurrentPlayer", "Aktueller Spieler: " + currentPlayerUsername);
 
 
+            maingameView.displayCurrentPlayer(currentPlayerUsername);
+
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 Log.d("handleCurrentPlayer", "Aktueller Client ist am Zug");
-                maingameView.displayCurrentPlayer(currentPlayerUsername);
+                maingameView.enablePlayerAction();
             } else {
                 Log.d("handleCurrentPlayer", "Ein anderer Spieler ist am Zug");
-                maingameView.disablePlayerAction(currentPlayerUsername);
+                maingameView.disablePlayerAction();
             }
         } catch (Exception e) {
             Log.e("handleCurrentPlayer", "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);

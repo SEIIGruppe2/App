@@ -48,6 +48,7 @@ public class MainGameView {
     private ListView listTrophies;
 
     public MainGameView(MainGameActivity mainGameActivity) {
+
         this.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
@@ -168,36 +169,29 @@ public class MainGameView {
     }
 
 
-
-
     public void displayCurrentPlayer(String currentPlayer) {
         TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
         currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
+
+    }
+
+    public void enablePlayerAction() {
         for (Button button : allPlayerButtons) {
-            if (button != null && button.getTag() != null && currentPlayer != null) {
-                button.setEnabled(true);
-                button.setAlpha(1.0f);
-            } else {
-                if (button != null) {
-                    button.setEnabled(false);
-                    button.setAlpha(0.5f);
-                }
-            }
+            button.setEnabled(true);
+            button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
         }
     }
 
-    public void disablePlayerAction(String currentPlayer) {
-        TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
+    public void disablePlayerAction() {
         for (Button button : allPlayerButtons) {
-                if (button != null) {
-                    button.setEnabled(false);
-                    button.setAlpha(0.5f);
-                }
+            if (button != null) {
+                button.setEnabled(false);
+                button.setAlpha(0.5f);
             }
         }
+    }
 
 
 
