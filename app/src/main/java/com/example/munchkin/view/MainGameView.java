@@ -19,6 +19,7 @@ import com.example.munchkin.Player.Player;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
+import com.example.munchkin.view.animations.ButtonRotateView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,12 +135,15 @@ public class MainGameView {
         });
 
 
+        //START: Testing animation when monster takes hit
         damage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeVisibleMonster();
+                //spawnMonster(1);
+                ButtonRotateView.rotateButton(damage);
             }
         });
+        //End: Testing animation when monster takes hit
 
 
 
@@ -148,7 +152,7 @@ public class MainGameView {
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.startRound();  // Startet die Runde manuell für Testzwecke
+                gameController.startRound(); //gameController.startRound();  // Startet die Runde manuell für Testzwecke
             }
         });
 
@@ -231,7 +235,7 @@ public class MainGameView {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
                 button.setBackground(null); // Clear existing background
-                button.setBackgroundResource(R.drawable.munchkin2); // Set monster image
+                button.setBackgroundResource(R.drawable.monster_bullrog); // Set monster image
                 return; // Monster spawned, exit method
             }
         }

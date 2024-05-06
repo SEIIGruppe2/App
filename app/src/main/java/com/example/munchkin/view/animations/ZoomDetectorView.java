@@ -1,4 +1,4 @@
-package com.example.munchkin.view;
+package com.example.munchkin.view.animations;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -6,11 +6,13 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 
+
 /**
  * This class implements pinch-to-zoom functionality and panning (moving with finger) for the view.
  * For usage instructions and details about the implemented features, please refer to the Zoom Functionality Guide in the project documentation.
  * Documentation: [ZoomFunctionalityGuide](docs/ZoomFunctionalityGuide.md)
  */
+
 
 public class ZoomDetectorView extends ScaleGestureDetector.SimpleOnScaleGestureListener implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
