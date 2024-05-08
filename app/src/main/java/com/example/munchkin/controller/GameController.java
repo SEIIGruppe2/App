@@ -46,7 +46,8 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private Player clientplayer;
 
-    private List<String> playerusernames;
+    private static List<String> playerusernames;
+    private int turnCount = 0;
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
@@ -57,7 +58,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         playerusernames = new ArrayList<>();
 
         requestUsernames();
-
     }
 
     @Override
@@ -108,30 +108,46 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("GameController", "Current player: " +" startRoundAnfang");
         sendPlayerRollDiceMessage();
         currentPlayer = playerQueue.peek();
-        String currentPlayerName = currentPlayer.getName();
-
-        maingameView.displayCurrentPlayer(currentPlayerName);
-        maingameView.updateRoundView(roundCounter);
-
+        maingameView.displayCurrentPlayer(currentPlayer.getName());
+        if (currentPlayer.getName().equals(clientplayerUsername)) {
+            maingameView.enablePlayerAction();
+        } else {
+            maingameView.disablePlayerAction();
+        }
     }
 
 
 
 
     public void endTurn() {
-        Log.d("EndTurn", "End of turn for player: " + currentPlayer.getName());
+        Log.d("GameController", "End of turn for: " + currentPlayer.getName());
         sendEndTurnMessage();
+        // Move the current player to the end of the queue
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
+
+        if ((turnCount+1) == 4) {
+            endRound();
+            Log.d("TurnCount", "EndRound");
+        }
+        else {
+            transitionToNextPlayer();
+        }
+
+        if (currentPlayer.getName().equals(clientplayerUsername)) {
+            maingameView.disablePlayerAction();
+        }
     }
 
 
 
+
     public void endRound() {
+        Log.d("GameController", "Ending round " + roundCounter);
         isFirstRound = false;
         diceRolledThisRound = false;
-        maingameView.updateRoundView(roundCounter);
-        maingameView.moveMonstersInward();
+        sendRequestRoundMessage();
+        transitionToNextPlayer();
         startRound();
     }
 
@@ -187,6 +203,17 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
+    private void transitionToNextPlayer() {
+        currentPlayer = playerQueue.peek();
+        maingameView.displayCurrentPlayer(currentPlayer.getName());
+        if (currentPlayer.getName().equals(clientplayerUsername)) {
+            maingameView.enablePlayerAction();
+        } else {
+            maingameView.disablePlayerAction();
+        }
+    }
+
+
     private void handleRequestRoll(JSONObject jsonResponse){
         Log.d("GameController", jsonResponse.toString());
         try {
@@ -214,8 +241,12 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("GameController", "In HandleCounter");
             String roundString = jsonResponse.getString("round");
             int roundNumber = Integer.parseInt(roundString);
+
             roundCounter = roundNumber;
             maingameView.updateRoundView(roundCounter);
+            maingameView.moveMonstersInward();
+
+
             Log.d("GameController", "Vor Start Round");
             startRound();
             Log.d("GameController", "Nach Start Round");
@@ -246,6 +277,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
+                Log.d("User", "User"  + username);
                 playerusernames.add(i,username);
                 Player player = new Player(username);
                 Log.d("GameController", "Player" + player.getName() );
@@ -267,9 +299,14 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         Log.d("handleCurrentPlayer", "Anfang");
         try {
-            requestUsernames();
             String currentPlayerIndex = jsonResponse.getString("index");
             int currentPlayerIndexInt = Integer.parseInt(currentPlayerIndex);
+
+
+
+            turnCount = jsonResponse.getInt("turnCount");
+            Log.d("TurnCount", "tun" + turnCount);
+
 
             if (currentPlayerIndexInt >= playerusernames.size()) {
                 Log.d("handleCurrentPlayer", "Index außerhalb des Bereichs: " + currentPlayerIndexInt);
@@ -280,14 +317,14 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("handleCurrentPlayer", "Aktueller Spieler: " + currentPlayerUsername);
 
 
-            maingameView.displayCurrentPlayer(currentPlayerUsername);
+            mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
 
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 Log.d("handleCurrentPlayer", "Aktueller Client ist am Zug");
-                maingameView.enablePlayerAction();
+                mainGameActivity.runOnUiThread(() -> maingameView.enablePlayerAction());
             } else {
                 Log.d("handleCurrentPlayer", "Ein anderer Spieler ist am Zug");
-                maingameView.disablePlayerAction();
+                mainGameActivity.runOnUiThread(() -> maingameView.disablePlayerAction());
             }
         } catch (Exception e) {
             Log.e("handleCurrentPlayer", "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
