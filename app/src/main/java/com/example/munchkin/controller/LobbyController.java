@@ -56,6 +56,9 @@ public class LobbyController extends BaseController{
                 usernames[i]=username;
 
             }
+            if(usernamesArray.length()==4){
+                GameController.setUsernames(jsonObject);
+            }
             view.updateUserList(usernamesArray.length());
 
 

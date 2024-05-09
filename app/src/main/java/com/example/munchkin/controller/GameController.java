@@ -1,6 +1,8 @@
 package com.example.munchkin.controller;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
@@ -29,7 +31,7 @@ import com.example.munchkin.game.AppState;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
-    private Queue<Player> playerQueue;
+    private static Queue<Player> playerQueue;
     private Player currentPlayer;
     private int roundCounter = 1;
     private MainGameView maingameView;
@@ -42,9 +44,9 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private MainGameActivity mainGameActivity;
 
-    private String clientplayerUsername = AppState.getInstance().getCurrentUser();
+    private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
 
-    private Player clientplayer;
+    private static Player clientplayer;
 
     private static List<String> playerusernames;
     private int turnCount = 0;
@@ -52,12 +54,11 @@ public class GameController extends BaseController implements DiceRollListener, 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
         this.maingameView = maingameView;
-        playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
-        playerusernames = new ArrayList<>();
 
-        requestUsernames();
+        startRound();
+
     }
 
     @Override
@@ -72,9 +73,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                 case "MONSTER_ATTACK":
                     handlMonserAttackMessage(jsonResponse);
                     break;
-                case "REQUEST_USERNAMES":
+                /*case "REQUEST_USERNAMES":
                     handleUserName(jsonResponse);
-                    break;
+                    break;*/
 
                 case "SWITCH_CARD_PLAYER_RESPONSE":
                     handleswitchrequest(jsonResponse);
@@ -106,14 +107,25 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public void startRound() {
         Log.d("GameController", "Current player: " +" startRoundAnfang");
-        sendPlayerRollDiceMessage();
+
         currentPlayer = playerQueue.peek();
         maingameView.displayCurrentPlayer(currentPlayer.getName());
         if (currentPlayer.getName().equals(clientplayerUsername)) {
             maingameView.enablePlayerAction();
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sendRequestRoundMessage();
+                }
+            }, 300);
+
+            sendPlayerRollDiceMessage();
         } else {
             maingameView.disablePlayerAction();
         }
+
+
     }
 
 
@@ -121,17 +133,17 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public void endTurn() {
         Log.d("GameController", "End of turn for: " + currentPlayer.getName());
+        //beendet den zug und schickt an alle den nächsten spieler
         sendEndTurnMessage();
         // Move the current player to the end of the queue
-        currentPlayer = playerQueue.poll();
-        playerQueue.offer(currentPlayer);
+
 
         if ((turnCount+1) == 4) {
             endRound();
             Log.d("TurnCount", "EndRound");
         }
         else {
-            transitionToNextPlayer();
+
         }
 
         if (currentPlayer.getName().equals(clientplayerUsername)) {
@@ -246,10 +258,6 @@ public class GameController extends BaseController implements DiceRollListener, 
             maingameView.updateRoundView(roundCounter);
             maingameView.moveMonstersInward();
 
-
-            Log.d("GameController", "Vor Start Round");
-            startRound();
-            Log.d("GameController", "Nach Start Round");
         } catch (JSONException e) {
             Log.e("GameController", "Fehler bei der Verarbeitung der Rundennummer", e);
         } catch (NumberFormatException e) {
@@ -269,8 +277,30 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
+    public static void setUsernames(JSONObject jsonResponse){
+        playerusernames = new ArrayList<>();
+        playerQueue = new LinkedList<>();
+        try {
+            JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
+            for (int i = 0; i < usernamesArray.length(); i++) {
+                String username = usernamesArray.getString(i);
+                playerusernames.add(i, username);
+                Player player = new Player(username);
+                playerQueue.add(player);
+                if (username.equals(clientplayerUsername)) {
+                    //TODO: clientplayer wird nie verwendet?
+                    clientplayer = player;
+                }
+            }
 
 
+            } catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
+        }
+    }
+
+        //TODO: evtl. Methode entfernen
+/*
     private void handleUserName(JSONObject jsonResponse){
         Log.d("GameController", jsonResponse.toString() );
         try {
@@ -278,6 +308,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
                 Log.d("User", "User"  + username);
+
                 playerusernames.add(i,username);
                 Player player = new Player(username);
                 Log.d("GameController", "Player" + player.getName() );
@@ -293,11 +324,13 @@ public class GameController extends BaseController implements DiceRollListener, 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/GameController");
         }
-    }
+    }*/
 
     private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
 
         Log.d("handleCurrentPlayer", "Anfang");
+        currentPlayer = playerQueue.poll();
+        playerQueue.offer(currentPlayer);
         try {
             String currentPlayerIndex = jsonResponse.getString("index");
             int currentPlayerIndexInt = Integer.parseInt(currentPlayerIndex);
@@ -322,13 +355,16 @@ public class GameController extends BaseController implements DiceRollListener, 
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 Log.d("handleCurrentPlayer", "Aktueller Client ist am Zug");
                 mainGameActivity.runOnUiThread(() -> maingameView.enablePlayerAction());
+                sendPlayerRollDiceMessage();
             } else {
                 Log.d("handleCurrentPlayer", "Ein anderer Spieler ist am Zug");
                 mainGameActivity.runOnUiThread(() -> maingameView.disablePlayerAction());
             }
+
         } catch (Exception e) {
             Log.e("handleCurrentPlayer", "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
         }
+
     }
 
 
