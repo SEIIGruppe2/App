@@ -17,7 +17,7 @@ import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
-import com.example.munchkin.view.ZoomDetectorView;
+import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.Player.PlayerHand;
@@ -109,7 +109,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
         router.registerController("REQUEST_ROLL", gameController);
         router.registerController("ROUND_COUNTER", gameController);
-
+        router.registerController("CURRENT_PLAYER", gameController);
         model.setMessageRouter(router);
     }
 

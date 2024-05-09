@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.DiceRollModel;
+import com.example.munchkin.view.animations.ShakeDetectorView;
+
 import java.util.ArrayList;
 
 public class DiceRollView extends AppCompatActivity implements ShakeDetectorView.OnShakeListener {

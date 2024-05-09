@@ -19,6 +19,7 @@ import com.example.munchkin.Player.Player;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
+import com.example.munchkin.view.animations.ButtonRotateView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +49,7 @@ public class MainGameView {
     private ListView listTrophies;
 
     public MainGameView(MainGameActivity mainGameActivity) {
+
         this.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
@@ -114,6 +116,8 @@ public class MainGameView {
 
     public void setUI() {
 
+        mainGameActivity.runOnUiThread(this::disablePlayerAction);
+
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,12 +137,15 @@ public class MainGameView {
         });
 
 
+        //START: Testing animation when monster takes hit
         damage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeVisibleMonster();
+                //spawnMonster(1);
+                ButtonRotateView.rotateButton(damage);
             }
         });
+        //End: Testing animation when monster takes hit
 
 
 
@@ -147,7 +154,7 @@ public class MainGameView {
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.startRound();  // Startet die Runde manuell für Testzwecke
+                gameController.startRound(); //gameController.startRound();  // Startet die Runde manuell für Testzwecke
             }
         });
 
@@ -168,29 +175,41 @@ public class MainGameView {
     }
 
 
+    public void displayCurrentPlayer(String currentPlayer) {
 
-
-    public void displayCurrentPlayer(Player currentPlayer) {
+        mainGameActivity.runOnUiThread(() -> {
         TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer.getName() : "Unbekannt"));
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
+        });
+    }
+
+    public void enablePlayerAction() {
+        mainGameActivity.runOnUiThread(() -> {
         for (Button button : allPlayerButtons) {
-            if (button != null && button.getTag() != null && currentPlayer != null) {
-                button.setEnabled(true);
-                button.setAlpha(1.0f);
-            } else {
-                if (button != null) {
-                    button.setEnabled(false);
-                    button.setAlpha(0.5f);
-                }
-            }
+            button.setEnabled(true);
+            button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
         }
+        });
     }
 
 
+    public void disablePlayerAction() {
+        mainGameActivity.runOnUiThread(() -> {
+            for (Button button : allPlayerButtons) {
+                button.setEnabled(false);
+                button.setAlpha(0.5f); // Half opaque
+            }
+        });
+    }
+
+
+
     public void updateRoundView(int round) {
-        TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
-        roundView.setText("Runde: " + round);
+        mainGameActivity.runOnUiThread(() -> {
+            TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
+            roundView.setText("Runde: " + round);
+        });
     }
 
 
@@ -217,15 +236,19 @@ public class MainGameView {
 
     // Method to spawn monster in a specific zone
     private void spawnMonsterInZone(List<Button> zoneButtons) {
+
+        mainGameActivity.runOnUiThread(() -> {
         for (Button button : zoneButtons) {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
                 button.setBackground(null); // Clear existing background
-                button.setBackgroundResource(R.drawable.munchkin2); // Set monster image
+                button.setBackgroundResource(R.drawable.monster_bullrog); // Set monster image
                 return; // Monster spawned, exit method
             }
         }
         // If all buttons in the zone are occupied, do nothing
+
+        });
     }
     //END: Spawn Monsters
 
@@ -236,14 +259,24 @@ public class MainGameView {
     }
 
     private void removeVisibleMonsterById(int buttonId) {
+
+        mainGameActivity.runOnUiThread(() -> {
+
         Button button = mainGameActivity.findViewById(buttonId);
         if (isButtonFull(button)) {
             button.setVisibility(View.GONE);
         }
+
+
+        });
     }
 
 
     public void moveMonstersInward() {
+
+        mainGameActivity.runOnUiThread(() -> {
+
+
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
             for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
@@ -262,9 +295,13 @@ public class MainGameView {
                 }
             }
         }
+
+
+        });
     }
 
     private boolean isButtonFull(Button button) {
+
         // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
     }
