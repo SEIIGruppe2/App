@@ -122,7 +122,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void endTurn() {
         Log.d("GameController", "End of turn for: " + currentPlayer.getName());
         sendEndTurnMessage();
-        // Move the current player to the end of the queue
+
         currentPlayer = playerQueue.poll();
         playerQueue.offer(currentPlayer);
 
@@ -133,7 +133,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         else {
             transitionToNextPlayer();
         }
-
         if (currentPlayer.getName().equals(clientplayerUsername)) {
             maingameView.disablePlayerAction();
         }
@@ -148,7 +147,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         diceRolledThisRound = false;
         sendRequestRoundMessage();
         transitionToNextPlayer();
-        startRound();
     }
 
 
@@ -221,11 +219,11 @@ public class GameController extends BaseController implements DiceRollListener, 
                 Log.d("GameController", "Kein Spieler in der Warteschlange verfügbar.");
                 return;
             }
-            Log.d("GameController", "RollPlayer1: " + (currentPlayer != null ? currentPlayer.getName() : "null"));
             String usernameToRoll = jsonResponse.getString("username");
-            Log.d("GameController", "RollPlayer2: " + clientplayerUsername);
+            Log.d("GameController", "Angeforderter Spieler zum Würfeln: " + usernameToRoll);
+            Log.d("GameController", "Aktueller Client-Benutzername: " + clientplayerUsername);
             if (clientplayerUsername.equals(usernameToRoll)) {
-                Log.d("GameController", "InDiceRolLView mit  " + usernameToRoll);
+                Log.d("GameController", "Client ist dran zu würfeln.");
                 performeRoll();
             } else {
                 Log.d("GameController", "Benutzername stimmt nicht überein.");
@@ -264,9 +262,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             mainGameActivity.requestRoll();
             diceRolledThisRound = true;
         }
-        if (!isFirstRound) {
-            maingameView.moveMonstersInward();
-        }
+
     }
 
 
