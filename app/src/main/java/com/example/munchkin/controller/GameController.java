@@ -134,7 +134,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private void handleMonsterAttackMessage(JSONObject message) {
-
+        System.out.println("Monster Attacke erhalten");
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
