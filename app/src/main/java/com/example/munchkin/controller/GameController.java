@@ -51,7 +51,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                     handlePlayerAttackMessage(jsonResponse);
                     break;
                 case "MONSTER_ATTACK":
-                    handlMonserAttackMessage(jsonResponse);
+                    handleMonsterAttackMessage(jsonResponse);
                     break;
                 case "REQUEST_USERNAMES":
                     handleUserName(jsonResponse);
@@ -133,7 +133,8 @@ public class GameController extends BaseController implements DiceRollListener, 
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Spieler
     }
 
-    private void handlMonserAttackMessage(JSONObject message) {
+    private void handleMonsterAttackMessage(JSONObject message) {
+
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
     }
 
