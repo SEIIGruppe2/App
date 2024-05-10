@@ -13,8 +13,8 @@ class MessageFormatterTest {
 
     @Test
     protected void testCreateMonsterAttackMessage() {
-        String result = MessageFormatter.createMonsterAttackMessage("456");
-        assertEquals("{\"type\":\"MONSTER_ATTACK\",\"monsterid\":\"456\"}", result);
+        String result = MessageFormatter.createMonsterAttackMessage("1", "1");
+        assertEquals("{\"type\":\"MONSTER_ATTACK\",\"monsterid\":\"1\",\"towerid\":\"1\"}", result);
     }
 
     @Test

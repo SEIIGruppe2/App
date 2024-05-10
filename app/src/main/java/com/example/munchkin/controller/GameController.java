@@ -121,8 +121,8 @@ public class GameController extends BaseController implements DiceRollListener, 
         model.sendMessageToServer(message);
     }
 
-    public void sendMonsterAttackMessage(String monsterId) {
-        String message = MessageFormatter.createMonsterAttackMessage(monsterId);
+    public void sendMonsterAttackMessage(String monsterId, String towerId) {
+        String message = MessageFormatter.createMonsterAttackMessage(monsterId, towerId);
         model.sendMessageToServer(message);
     }
 
