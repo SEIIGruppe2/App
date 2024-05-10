@@ -140,6 +140,7 @@ public class MainGameView {
             public void onClick(View v) {
                 //spawnMonster(1);
                 ButtonRotateView.rotateButton(damage);
+                gameController.sendMonsterAttackMessage("1","1");
             }
         });
         //End: Testing animation when monster takes hit
