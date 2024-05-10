@@ -163,7 +163,7 @@ public class MainGameView {
         endRund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.endRound();  // Endet die Runde manuell für Testzwecke
+                //gameController.endRound();  // Endet die Runde manuell für Testzwecke
             }
         });
 
@@ -187,7 +187,7 @@ public class MainGameView {
     public void enablePlayerAction() {
         mainGameActivity.runOnUiThread(() -> {
         for (Button button : allPlayerButtons) {
-            button.setEnabled(true);
+            button.setVisibility(View.VISIBLE);
             button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
         }
         });
@@ -197,7 +197,7 @@ public class MainGameView {
     public void disablePlayerAction() {
         mainGameActivity.runOnUiThread(() -> {
             for (Button button : allPlayerButtons) {
-                button.setEnabled(false);
+                button.setVisibility(View.GONE);
                 button.setAlpha(0.5f); // Half opaque
             }
         });

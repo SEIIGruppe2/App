@@ -45,8 +45,8 @@ public class MessageFormatter {
         return createMessage("ROUND_COUNTER");
     }
 
-    public static String createEndTurnMessage() {
-        return createMessage("END_TURN");
+    public static String createEndTurnMessage(String currentturn) {
+        return createMessage("END_TURN", "turn",currentturn);
     }
 
     private static String createMessage(String type, String... params) {
