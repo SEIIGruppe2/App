@@ -49,7 +49,8 @@ public class LobbyView {
                     }
                 }
                 if(arraylength==4){
-                    lobbyActivity.goToMainGame();
+                    Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
+                    spielStarten.setVisibility(View.VISIBLE);
                 }
             }
         }));
