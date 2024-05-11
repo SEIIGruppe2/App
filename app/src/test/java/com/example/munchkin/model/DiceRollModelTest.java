@@ -1,65 +1,38 @@
 package com.example.munchkin.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.ArgumentCaptor;
+import org.mockito.MockedStatic;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-public class DiceRollModelTest {
+import com.example.munchkin.interfaces.DiceRollCallback;
 
-    private DiceRollModel diceRollModel;
-
-    @Mock
-    private DiceRollModel.DiceRollCallback mockCallback;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        diceRollModel = new DiceRollModel();
-    }
+class DiceRollModelTest {
 
     @Test
-    public void testRollDice() throws InterruptedException {
+    protected void testRollDice() throws InterruptedException {
+        DiceRollModel.DiceRollCallback mockCallback = mock(DiceRollModel.DiceRollCallback.class);
+        DiceRollModel model = new DiceRollModel();
         CountDownLatch latch = new CountDownLatch(1);
+        ArgumentCaptor<Integer> argumentCaptor = ArgumentCaptor.forClass(Integer.class);
 
-        diceRollModel.rollDice(new DiceRollModel.DiceRollCallback() {
+        model.rollDice(new DiceRollModel.DiceRollCallback() {
             @Override
             public void onDiceRolled(int randomNumber) {
-                verify(mockCallback).onDiceRolled(randomNumber);
-
+                mockCallback.onDiceRolled(randomNumber);
                 latch.countDown();
             }
         });
+        boolean await = latch.await(2, TimeUnit.SECONDS);
 
-        latch.await(2, TimeUnit.SECONDS);
+        verify(mockCallback, times(1)).onDiceRolled(argumentCaptor.capture());
+        assertTrue(argumentCaptor.getValue() >= 0 && argumentCaptor.getValue() < 4);
+        assertTrue(await);
     }
-
-    @Test
-    public void testRollDiceMultipleTimes() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(5);
-
-        for (int i = 0; i < 5; i++) {
-            diceRollModel.rollDice(new DiceRollModel.DiceRollCallback() {
-                @Override
-                public void onDiceRolled(int randomNumber) {
-                    verify(mockCallback).onDiceRolled(randomNumber);
-
-                    latch.countDown();
-                }
-            });
-        }
-
-        latch.await(5, TimeUnit.SECONDS);
-    }
-
-    @Test
-    public void testRollDiceCallbackInvocation() {
-        diceRollModel.rollDice(mockCallback);
-        verify(mockCallback, timeout(2000)).onDiceRolled(anyInt());
-    }
-
 }

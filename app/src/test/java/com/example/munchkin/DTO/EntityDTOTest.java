@@ -1,13 +1,12 @@
 package com.example.munchkin.DTO;
 
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EntityDTOTest {
+class EntityDTOTest {
 
     @Test
-    public void testEntityDTOAttributes() {
+    protected void testEntityDTOAttributes() {
         EntityDTO entity = new EntityDTO("Entity", 3, 420);
         assertEquals("Entity", entity.getName());
         assertEquals(3, entity.getZone());
@@ -24,7 +23,7 @@ public class EntityDTOTest {
     }
 
     @Test
-    public void testDefaultConstructor() {
+    protected void testDefaultConstructor() {
         EntityDTO entity = new EntityDTO();
         assertNull(entity.getName());
         assertEquals(0, entity.getZone());
