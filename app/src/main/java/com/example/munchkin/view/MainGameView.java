@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -213,21 +214,21 @@ public class MainGameView {
     }
 
 
-    public void spawnMonster(int monsterzone) {
+    public void spawnMonster(int monsterzone, String monstername) {
 
         mainGameActivity.runOnUiThread(() -> {
             switch (monsterzone) {
                 case 1:
-                    spawnMonsterInZone(Zone1Monster);
+                    spawnMonsterInZone(Zone1Monster,monstername);
                     break;
                 case 2:
-                    spawnMonsterInZone(Zone2Monster);
+                    spawnMonsterInZone(Zone2Monster,monstername);
                     break;
                 case 3:
-                    spawnMonsterInZone(Zone3Monster);
+                    spawnMonsterInZone(Zone3Monster,monstername);
                     break;
                 case 4:
-                    spawnMonsterInZone(Zone4Monster);
+                    spawnMonsterInZone(Zone4Monster,monstername);
                     break;
 
             }
@@ -235,15 +236,28 @@ public class MainGameView {
     }
 
     // Method to spawn monster in a specific zone
-    private void spawnMonsterInZone(List<Button> zoneButtons) {
+    private void spawnMonsterInZone(List<Button> zoneButtons, String monstername) {
 
         mainGameActivity.runOnUiThread(() -> {
         for (Button button : zoneButtons) {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
                 button.setBackground(null); // Clear existing background
-                button.setBackgroundResource(R.drawable.monster_bullrog); // Set monster image
-                return; // Monster spawned, exit method
+
+                switch (monstername){
+                    case "Schleim":
+                        button.setBackgroundResource(R.drawable.monster_slime);
+                        break;
+                    case "Sphinx":
+                        button.setBackgroundResource(R.drawable.monster_sphinx);
+                        break;
+                    case "Bullrog":
+                        button.setBackgroundResource(R.drawable.monster_bullrog);
+                        break;
+                    default:
+                        Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                }
+                return;
             }
         }
         // If all buttons in the zone are occupied, do nothing
@@ -275,7 +289,6 @@ public class MainGameView {
     public void moveMonstersInward() {
 
         mainGameActivity.runOnUiThread(() -> {
-
 
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
