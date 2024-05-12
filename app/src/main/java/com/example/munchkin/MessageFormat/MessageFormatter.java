@@ -37,6 +37,17 @@ public class MessageFormatter {
         return createMessage("SPAWN_MONSTER", "zone", zone);
     }
 
+    public static String createPlayerRollDiceMessage() {
+        return createMessage("PLAYER_ROLL_DICE");
+    }
+
+    public static String createRequestRoundMessage() {
+        return createMessage("ROUND_COUNTER");
+    }
+
+    public static String createEndTurnMessage(String currentturn) {
+        return createMessage("END_TURN", "turn",currentturn);
+    }
 
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");

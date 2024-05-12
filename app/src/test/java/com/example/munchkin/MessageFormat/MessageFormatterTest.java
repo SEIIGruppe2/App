@@ -52,4 +52,25 @@ class MessageFormatterTest {
         String result = MessageFormatter.createSpawnMonsterMessage("North");
         assertEquals("{\"type\":\"SPAWN_MONSTER\",\"zone\":\"North\"}", result);
     }
+
+    @Test
+    protected void testCreatePlayerRollDiceMessage() {
+        String result = MessageFormatter.createPlayerRollDiceMessage();
+        assertEquals("{\"type\":\"PLAYER_ROLL_DICE\"}", result);
+    }
+
+    @Test
+    protected void testCreateRequestRoundMessage() {
+        String result = MessageFormatter.createRequestRoundMessage();
+        assertEquals("{\"type\":\"ROUND_COUNTER\"}", result);
+    }
+
+    @Test
+    protected void createEndTurnMessage() {
+        String currentturn = "Player1";
+        String result = MessageFormatter.createEndTurnMessage(currentturn);
+        assertEquals("{\"type\":\"END_TURN\",\"turn\":\"Player1\"}", result);
+    }
+
+
 }

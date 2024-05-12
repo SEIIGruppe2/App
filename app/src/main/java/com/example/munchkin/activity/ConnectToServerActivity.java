@@ -30,8 +30,14 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
         router.registerController("REGISTER_USERNAME",controller);
+        router.registerController("LOBBY_ASSIGNED",controller);
+        router.registerController("WAITING_FOR_PLAYERS",controller);
 
         model.setMessageRouter(router);
+    }
+
+    public void connectToServer(){
+        //controller.setupController();
     }
 
 
@@ -48,7 +54,8 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
     public void transitionToLoadingScreen(String username) {
-        Intent intent = new Intent(ConnectToServerActivity.this, LoadingscreenActivity.class);
+        //TODO: change to LobbyActivity activity
+        Intent intent = new Intent(ConnectToServerActivity.this, LobbyActivity.class);
         startActivity(intent);
     }
 

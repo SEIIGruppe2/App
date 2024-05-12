@@ -53,6 +53,7 @@ public class MainGameView {
     private TowerDTO tower;
 
     public MainGameView(MainGameActivity mainGameActivity) {
+
         this.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
@@ -122,6 +123,8 @@ public class MainGameView {
 
     public void setUI() {
 
+        mainGameActivity.runOnUiThread(this::disablePlayerAction);
+
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +171,7 @@ public class MainGameView {
         endRund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameController.endRound();  // Endet die Runde manuell für Testzwecke
+                //gameController.endRound();  // Endet die Runde manuell für Testzwecke
             }
         });
 
@@ -180,29 +183,41 @@ public class MainGameView {
     }
 
 
+    public void displayCurrentPlayer(String currentPlayer) {
 
-
-    public void displayCurrentPlayer(Player currentPlayer) {
+        mainGameActivity.runOnUiThread(() -> {
         TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer.getName() : "Unbekannt"));
+        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
+        });
+    }
+
+    public void enablePlayerAction() {
+        mainGameActivity.runOnUiThread(() -> {
         for (Button button : allPlayerButtons) {
-            if (button != null && button.getTag() != null && currentPlayer != null) {
-                button.setEnabled(true);
-                button.setAlpha(1.0f);
-            } else {
-                if (button != null) {
-                    button.setEnabled(false);
-                    button.setAlpha(0.5f);
-                }
-            }
+            button.setVisibility(View.VISIBLE);
+            button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
         }
+        });
     }
 
 
+    public void disablePlayerAction() {
+        mainGameActivity.runOnUiThread(() -> {
+            for (Button button : allPlayerButtons) {
+                button.setVisibility(View.GONE);
+                button.setAlpha(0.5f); // Half opaque
+            }
+        });
+    }
+
+
+
     public void updateRoundView(int round) {
-        TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
-        roundView.setText("Runde: " + round);
+        mainGameActivity.runOnUiThread(() -> {
+            TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
+            roundView.setText("Runde: " + round);
+        });
     }
 
 
@@ -226,22 +241,41 @@ public class MainGameView {
                 default:
 
                     break;
+
             }
         });
     }
 
 
     private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
+        mainGameActivity.runOnUiThread(() -> {
         for (Button button : zoneButtons) {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
-                button.setBackgroundResource(R.drawable.monster_bullrog);
                 button.setTag(monster);
                 monsterManager.registerMonster(monster, button.getId());
+
+                button.setBackground(null); // Clear existing background
+
+                switch (monster.getName()){
+                    case "Schleim":
+                        button.setBackgroundResource(R.drawable.monster_slime);
+                        break;
+                    case "Sphinx":
+                        button.setBackgroundResource(R.drawable.monster_sphinx);
+                        break;
+                    case "Bullrog":
+                        button.setBackgroundResource(R.drawable.monster_bullrog);
+                        break;
+                    default:
+                        Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                }
                 return;
             }
         }
+        // If all buttons in the zone are occupied, do nothing
 
+        });
     }
     //END: SpawnMonster
 
@@ -340,15 +374,24 @@ public class MainGameView {
     }
 
     private void removeVisibleMonsterById(int buttonId) {
+
+        mainGameActivity.runOnUiThread(() -> {
+
         Button button = mainGameActivity.findViewById(buttonId);
         if (isButtonFull(button)) {
             button.setVisibility(View.GONE);
         }
+
+
+        });
     }
     //END: Remove Monsters
 
 
     public void moveMonstersInward() {
+
+        mainGameActivity.runOnUiThread(() -> {
+
         Log.d("MoveMonsters", "Starting to move monsters inward.");
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
@@ -372,9 +415,13 @@ public class MainGameView {
                 }
             }
         }
+
+
+        });
     }
 
     private boolean isButtonFull(Button button) {
+
         // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
     }
@@ -421,7 +468,7 @@ public class MainGameView {
 
 
     public void tauschanfrageerhalten(JSONObject message) throws JSONException {
-        //TODO: in cradeckactivity einfügen
+
         int id = Integer.parseInt(message.getString("id"));
         String name = message.getString("name");
         int zone = Integer.parseInt(message.getString("zone"));
