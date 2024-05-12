@@ -28,7 +28,6 @@ public class GameRound {
 
 
     public void start() {
-        Log.d("GameRound", "BevorRequestRoll" );
         gameEventHandler.requestDiceRoll(this::handleDiceResults);
     }
 
