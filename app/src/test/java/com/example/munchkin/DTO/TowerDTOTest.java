@@ -7,7 +7,7 @@ class TowerDTOTest {
 
     @Test
     protected void testTowerDTOConstructionAndAccessors() {
-        TowerDTO tower = new TowerDTO(1);
+        TowerDTO tower = new TowerDTO(1,0);
         assertEquals(1, tower.getLifePoints());
 
         tower.setLifePoints(5);
