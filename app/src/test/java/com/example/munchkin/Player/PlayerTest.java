@@ -18,4 +18,17 @@ class PlayerTest {
         Player player = new Player(testName);
         assertEquals(testName, player.getName(), "Name should match the one set in the constructor");
     }
+
+
+    @Test
+    protected void testSetNameMethod() {
+        Player player = new Player();
+        player.setName("Player1");
+        assertEquals("Player1", player.getName());
+    }
+
+
+
+
+
 }

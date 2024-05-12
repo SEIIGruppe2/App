@@ -15,6 +15,7 @@ import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
@@ -49,6 +50,8 @@ public class MainGameActivity extends AppCompatActivity {
     private PlayerHand handkarten;
 
 
+    private ConnectToServerActivity connectToServerActivity;
+    private ConnectToServerView connectToServerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,6 @@ public class MainGameActivity extends AppCompatActivity {
 
         setupControllers();
         setupDiceRollLauncher();
-        requestRoll();
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -88,9 +90,10 @@ public class MainGameActivity extends AppCompatActivity {
         zoomDetectorView = new ZoomDetectorView(this, mainView);
         scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
+
         mainGameView = new MainGameView(this);
         spawnMonsterController = new SpawnMonsterController(model, mainGameView);
-        gameController = new GameController(model, mainGameView, spawnMonsterController);
+        gameController = new GameController(model, mainGameView, spawnMonsterController,this);
         drawCardController = new DrawCardController(model, mainGameView);
 
         mainGameView.setGameController(gameController);
@@ -104,10 +107,10 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("REQUEST_USERNAMES", gameController);
         router.registerController("DRAW_CARD", drawCardController);
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
-
+        router.registerController("REQUEST_ROLL", gameController);
+        router.registerController("ROUND_COUNTER", gameController);
+        router.registerController("CURRENT_PLAYER", gameController);
         model.setMessageRouter(router);
-
-        gameController.requestUsernames();
     }
 
 
@@ -160,7 +163,7 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
 
-    private void requestRoll() {
+    public void requestRoll() {
         Intent intent = new Intent(this, DiceRollView.class);
         diceRollLauncher.launch(intent);
     }

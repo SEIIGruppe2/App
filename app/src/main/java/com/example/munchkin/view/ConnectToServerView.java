@@ -1,12 +1,15 @@
 package com.example.munchkin.view;
 
+import android.content.DialogInterface;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
-
+import com.example.munchkin.controller.ConnectToServerController;
+import com.example.munchkin.game.AppState;
 
 
 public class ConnectToServerView {
@@ -15,6 +18,8 @@ public class ConnectToServerView {
     private TextView textViewServerResponse;
 
     private EditText editTextUsername;
+
+    private String username;
 
     public ConnectToServerView(ConnectToServerActivity connectToServerActivity) {
         this.connectToServerActivity = connectToServerActivity;
@@ -26,10 +31,20 @@ public class ConnectToServerView {
     private void setupUI() {
         Button buttonSendMsg = connectToServerActivity.findViewById(R.id.buttonConnect);
         buttonSendMsg.setOnClickListener(v -> {
-            String username = editTextUsername.getText().toString();
+            username = editTextUsername.getText().toString();
             connectToServerActivity.sendMessage(username);
             connectToServerActivity.transitionToLoadingScreen(username);
+            AppState.getInstance().setCurrentUser(username);
         });
+
+        editTextUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectToServerActivity.connectToServer();
+            }
+        });
+
+
 
 
         Button buttonReconnect = connectToServerActivity.findViewById(R.id.buttonReconnect);
@@ -48,6 +63,9 @@ public class ConnectToServerView {
 
 
 
+    public String getUsername(){
+        return username;
+    }
 
 
 

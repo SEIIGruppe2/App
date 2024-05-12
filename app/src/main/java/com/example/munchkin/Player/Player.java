@@ -2,7 +2,6 @@ package com.example.munchkin.Player;
 
 public class Player {
 
-
     private String name;
 
     public Player() {
@@ -17,4 +16,8 @@ public class Player {
         return name;
     }
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

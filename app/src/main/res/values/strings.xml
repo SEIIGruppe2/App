@@ -80,5 +80,8 @@
 
     <string name="button_roll">Würfeln</string>
 
+    <string name="lobby">Warten auf weitere Spieler...</string>
+
+
 
 </resources>
