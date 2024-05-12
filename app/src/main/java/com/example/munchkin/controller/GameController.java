@@ -82,7 +82,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                 diceRolledThisRound = true;
             }
             if (!isFirstRound) {
-                maingameView.doDamageToTower();
+                if(maingameView.isMonsterInAttackZone()) {
+                    maingameView.doDamageToTower();
+                }
                 maingameView.moveMonstersInward();
             }
             maingameView.displayCurrentPlayer(currentPlayer);
