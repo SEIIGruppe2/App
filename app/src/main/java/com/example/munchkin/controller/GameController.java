@@ -243,13 +243,9 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     private void performeRoll() {
-        if (!diceRolledThisRound) {
+        Log.d("PerformeRoll", "Würfel methode wird ausgelöst " );
+
             mainGameActivity.requestRoll();
-            diceRolledThisRound = true;
-        }
-        if (!isFirstRound) {
-            maingameView.moveMonstersInward();
-        }
     }
 
     public static void setUsernames(JSONObject jsonResponse){
