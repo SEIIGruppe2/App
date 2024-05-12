@@ -82,6 +82,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                 diceRolledThisRound = true;
             }
             if (!isFirstRound) {
+                maingameView.doDamageToTower();
                 maingameView.moveMonstersInward();
             }
             maingameView.displayCurrentPlayer(currentPlayer);
@@ -134,8 +135,22 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private void handleMonsterAttackMessage(JSONObject message) {
-        System.out.println("Monster Attacke erhalten");
-        // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
+        Log.d("MonsterAttack", "Handling monster attack message: " + message);
+        try {
+            String monsterId = message.getString("monsterId");
+            //String towerId = message.getString("towerId");
+            int monsterHp = message.getInt("monsterHp");
+            int towerHp = message.getInt("towerHp");
+            Log.d("GameController", "Tower HP received: " + towerHp);
+            maingameView.modifyTowerLifePoints(towerHp);
+            Log.d("GameController", "UI should now be updated."); //not rly for other players RIP
+            String attackStatus = message.getString("attackStatus");
+
+            // Delegate UI updates to MainGameView
+            //maingameView.updateMonsterAttack(monsterId, monsterHp, attackStatus);
+        } catch (JSONException e) {
+            Log.e("GameController", "Error parsing monster attack message", e);
+        }
     }
 
     private void handleswitchrequest(JSONObject message) throws JSONException {

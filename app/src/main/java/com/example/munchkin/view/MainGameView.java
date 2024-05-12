@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DTO.MonsterDTO;
+import com.example.munchkin.DTO.TowerDTO;
 import com.example.munchkin.Player.Player;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
@@ -47,6 +48,8 @@ public class MainGameView {
     // ListViews
     private ListView listActions;
     private ListView listTrophies;
+    private Button towerButton;
+    private TowerDTO tower;
 
     public MainGameView(MainGameActivity mainGameActivity) {
         this.mainGameActivity = mainGameActivity;
@@ -96,6 +99,9 @@ public class MainGameView {
                 R.id.button_knight4_spawn1, R.id.button_knight4_spawn2, R.id.button_knight4_spawn3,
                 R.id.button_swordsman4_spawn1, R.id.button_swordsman4_spawn2, R.id.button_swordsman4_spawn3);
 
+        towerButton = mainGameActivity.findViewById(R.id.tower); // Assume the button ID is 'tower'
+        initializeTower();
+
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
 
@@ -139,8 +145,8 @@ public class MainGameView {
             @Override
             public void onClick(View v) {
                 //spawnMonster(1);
-                ButtonRotateView.rotateButton(damage);
-                gameController.sendMonsterAttackMessage("1","1");
+                //ButtonRotateView.rotateButton(damage);
+                //gameController.sendMonsterAttackMessage("1","1");
             }
         });
         //End: Testing animation when monster takes hit
@@ -199,40 +205,98 @@ public class MainGameView {
     }
 
 
-    public void spawnMonster(int monsterzone) {
-
+    public void spawnMonster(MonsterDTO monster) {
+        int monsterZone = monster.getZone();
         mainGameActivity.runOnUiThread(() -> {
-            switch (monsterzone) {
+            switch (monsterZone) {
                 case 1:
-                    spawnMonsterInZone(Zone1Monster);
+                    spawnMonsterInZone(Zone1Monster, monster);
                     break;
                 case 2:
-                    spawnMonsterInZone(Zone2Monster);
+                    spawnMonsterInZone(Zone2Monster, monster);
                     break;
                 case 3:
-                    spawnMonsterInZone(Zone3Monster);
+                    spawnMonsterInZone(Zone3Monster, monster);
                     break;
                 case 4:
-                    spawnMonsterInZone(Zone4Monster);
+                    spawnMonsterInZone(Zone4Monster, monster);
                     break;
-
+                default:
+                    // Handle unknown zones if necessary
+                    break;
             }
         });
     }
 
     // Method to spawn monster in a specific zone
-    private void spawnMonsterInZone(List<Button> zoneButtons) {
+    private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
         for (Button button : zoneButtons) {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
-                button.setBackground(null); // Clear existing background
-                button.setBackgroundResource(R.drawable.monster_bullrog); // Set monster image
+                button.setBackgroundResource(R.drawable.monster_bullrog); // Set your monster icon
+                button.setTag(monster); // Attach the monster metadata
                 return; // Monster spawned, exit method
             }
         }
         // If all buttons in the zone are occupied, do nothing
     }
+
     //END: Spawn Monsters
+
+
+    //START: Do damage on tower
+    public void doDamageToTower() {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        for (List<Button> zone : zones) {
+            for (Button button : zone) {
+                if (isButtonFull(button)) {
+                    MonsterDTO monster = (MonsterDTO) button.getTag();
+                    if (monster != null) {
+                        // Apply damage to this specific monster
+                        int newLifePoints = monster.getLifePoints() - 1; // Example damage value
+                        monster.setLifePoints(newLifePoints);
+
+                        // Update monster appearance or UI if needed
+                        if (newLifePoints <= 0) {
+                            button.setVisibility(View.GONE); // Remove the button if the monster is dead
+                        } else {
+                            ButtonRotateView.rotateButton(button); // Example animation
+                        }
+
+                        // Send a message to the server about the updated monster
+                        gameController.sendMonsterAttackMessage(String.valueOf(monster.getId()), "0");
+                    }
+                }
+            }
+        }
+    }
+
+    //END: Do damage on tower
+
+
+    //START: TowerImpl
+    private void initializeTower() {
+        tower = new TowerDTO(10, 0); // Initialize with 10 life points
+        towerButton.setTag(tower); // Attach TowerDTO to the button
+        updateTowerDisplay(); // Display initial life points
+    }
+
+    public void updateTowerDisplay() {
+        TowerDTO tower = (TowerDTO) towerButton.getTag();
+        towerButton.setText("Tower HP: " + tower.getLifePoints()); // Update button text to show life points
+    }
+
+    public void modifyTowerLifePoints(int lifeChange) {
+        mainGameActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TowerDTO tower = (TowerDTO) towerButton.getTag();
+                tower.setLifePoints(lifeChange);
+                updateTowerDisplay(); // Update display after changing life points
+            }
+        });
+    }
+    //END: TowerImpl
 
 
     //START: Remove Monsters
@@ -246,6 +310,7 @@ public class MainGameView {
             button.setVisibility(View.GONE);
         }
     }
+    //END: Remove Monsters
 
 
     public void moveMonstersInward() {
