@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -205,6 +206,7 @@ public class MainGameView {
     }
 
 
+    //START: SpawnMonster
     public void spawnMonster(MonsterDTO monster) {
         int monsterZone = monster.getZone();
         mainGameActivity.runOnUiThread(() -> {
@@ -222,68 +224,77 @@ public class MainGameView {
                     spawnMonsterInZone(Zone4Monster, monster);
                     break;
                 default:
-                    // Handle unknown zones if necessary
+
                     break;
             }
         });
     }
 
-    // Method to spawn monster in a specific zone
+
     private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
         for (Button button : zoneButtons) {
             if (isButtonEmpty(button)) {
                 button.setVisibility(View.VISIBLE);
-                button.setBackgroundResource(R.drawable.monster_bullrog); // Set your monster icon
-                button.setTag(monster); // Attach the monster metadata
-                return; // Monster spawned, exit method
+                button.setBackgroundResource(R.drawable.monster_bullrog);
+                button.setTag(monster);
+                monsterManager.registerMonster(monster, button.getId());
+                return;
             }
         }
-        // If all buttons in the zone are occupied, do nothing
+
     }
+    //END: SpawnMonster
 
-    //END: Spawn Monsters
 
+    //START: DoDamageToTower
+    MonsterManager monsterManager = new MonsterManager();
 
-    //START: Do damage on tower
     public void doDamageToTower() {
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
-        for (List<Button> zone : zones) {
-            for (Button button : zone) {
-                if (isButtonFull(button)) {
-                    MonsterDTO monster = (MonsterDTO) button.getTag();
-                    if (monster != null) {
-                        // Apply damage to this specific monster
-                        int newLifePoints = monster.getLifePoints() - 1; // Example damage value
-                        monster.setLifePoints(newLifePoints);
+        final String TAG = "GameDebug";
+        Log.d(TAG, "Initial active monster count: " + monsterManager.countActiveMonsters());
 
-                        // Update monster appearance or UI if needed
+        mainGameActivity.runOnUiThread(() -> {
+            // List of zones containing swordsman buttons
+            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+            for (List<Button> zone : zones) {
+                for (Button button : zone) {
+
+                    if (isButtonSwordsman(button) && button.getVisibility() == View.VISIBLE && button.getTag() instanceof MonsterDTO) {
+                        MonsterDTO monster = (MonsterDTO) button.getTag();
+                        int newLifePoints = monster.getLifePoints() - 1;
+
+                        monsterManager.updateMonster(button.getId(), newLifePoints);
+
                         if (newLifePoints <= 0) {
-                            button.setVisibility(View.GONE); // Remove the button if the monster is dead
+                            button.setVisibility(View.GONE);
+                            button.setTag(null); // Clear tag when monster is dead
+                            Log.d(TAG, "Monster ID: " + monster.getId() + " is dead and removed.");
                         } else {
-                            ButtonRotateView.rotateButton(button); // Example animation
+                            ButtonRotateView.rotateButton(button);
                         }
 
-                        // Send a message to the server about the updated monster
+                        // Notify the server about the attack
                         gameController.sendMonsterAttackMessage(String.valueOf(monster.getId()), "0");
+                        Log.d(TAG, "Sending attack message for Monster ID: " + monster.getId());
                     }
                 }
             }
-        }
+            Log.d(TAG, "Final active monster count: " + monsterManager.countActiveMonsters());
+        });
     }
-
-    //END: Do damage on tower
+    //END: DoDamageToTower
 
 
     //START: TowerImpl
     private void initializeTower() {
-        tower = new TowerDTO(10, 0); // Initialize with 10 life points
-        towerButton.setTag(tower); // Attach TowerDTO to the button
-        updateTowerDisplay(); // Display initial life points
+        tower = new TowerDTO(10, 0);
+        towerButton.setTag(tower);
+        updateTowerDisplay();
     }
 
     public void updateTowerDisplay() {
         TowerDTO tower = (TowerDTO) towerButton.getTag();
-        towerButton.setText("Tower HP: " + tower.getLifePoints()); // Update button text to show life points
+        towerButton.setText("Tower HP: " + tower.getLifePoints());
     }
 
     public void modifyTowerLifePoints(int lifeChange) {
@@ -292,7 +303,7 @@ public class MainGameView {
             public void run() {
                 TowerDTO tower = (TowerDTO) towerButton.getTag();
                 tower.setLifePoints(lifeChange);
-                updateTowerDisplay(); // Update display after changing life points
+                updateTowerDisplay();
             }
         });
     }
