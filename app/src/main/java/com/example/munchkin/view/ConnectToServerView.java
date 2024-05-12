@@ -1,11 +1,14 @@
 package com.example.munchkin.view;
 
+import android.content.DialogInterface;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.game.AppState;
 
 
@@ -32,6 +35,13 @@ public class ConnectToServerView {
             connectToServerActivity.sendMessage(username);
             connectToServerActivity.transitionToLoadingScreen(username);
             AppState.getInstance().setCurrentUser(username);
+        });
+
+        editTextUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectToServerActivity.connectToServer();
+            }
         });
 
 

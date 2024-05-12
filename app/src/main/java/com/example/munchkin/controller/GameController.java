@@ -119,6 +119,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("GameController", "End of turn for: test " );
 
         maingameView.disablePlayerAction();
+        diceRolledThisRound=false;
 
         Log.d("GameController", "End of turn for: test2 "+roundCounter);
         sendEndTurnMessage(roundCounter);
@@ -244,8 +245,10 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private void performeRoll() {
         Log.d("PerformeRoll", "Würfel methode wird ausgelöst " );
-
-            mainGameActivity.requestRoll();
+            if(!diceRolledThisRound) {
+                mainGameActivity.requestRoll();
+                diceRolledThisRound=true;
+            }
     }
 
     public static void setUsernames(JSONObject jsonResponse){

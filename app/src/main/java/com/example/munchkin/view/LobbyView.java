@@ -49,6 +49,8 @@ public class LobbyView {
                     }
                 }
                 if(arraylength==4){
+                    TextView lobbytextiew = lobbyActivity.findViewById(R.id.lobbyTextView);
+                    lobbytextiew.setVisibility(View.GONE);
                     Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
                     spielStarten.setVisibility(View.VISIBLE);
                 }

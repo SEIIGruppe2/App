@@ -36,6 +36,10 @@ public class ConnectToServerActivity extends AppCompatActivity {
         model.setMessageRouter(router);
     }
 
+    public void connectToServer(){
+        //controller.setupController();
+    }
+
 
     public void sendMessage(String username) {
 

@@ -21,6 +21,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/lobbyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chewyregular"
+            android:shadowColor="@color/black"
+            android:shadowDx="8"
+            android:shadowDy="8"
+            android:shadowRadius="4"
+            android:text="@string/lobby"
+            android:textColor="#FFE500"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
             android:id="@+id/Player1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

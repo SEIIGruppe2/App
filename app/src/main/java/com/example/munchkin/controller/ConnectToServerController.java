@@ -23,7 +23,7 @@ public class ConnectToServerController extends BaseController {
         setupController();
     }
 
-    private void setupController() {
+   public void setupController() {
         model.connectToServer(this::messageReceivedFromServer);
     }
 
