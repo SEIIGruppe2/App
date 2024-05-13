@@ -88,6 +88,9 @@ public class CardDeckController extends BaseController {
                 case "REQUEST_USERNAMES":
                     handleUserName(jsonResponse);
                     break;
+                case "SHOW_MONSTERS":
+                    handleShowMonsters(jsonResponse);
+                    break;
                 default:
                     break;
             }
@@ -163,7 +166,14 @@ public class CardDeckController extends BaseController {
         sendSwitchCardsDeckMessage(idAsString);
     }*/
 
+    public void showMonsterMessage(String id){
+        String message = MessageFormatter.createShowMonsterMessage(id);
+        websocket.sendMessageToServer(message);
+    }
 
+    private void handleShowMonsters(JSONObject jsonObject){
+
+    }
 
 }
 

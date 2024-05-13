@@ -49,6 +49,10 @@ public class MessageFormatter {
         return createMessage("END_TURN", "turn",currentturn);
     }
 
+    public static String createShowMonsterMessage(String id){
+        return createMessage("SHOW_MONSTERS", "cardid",id);
+    }
+
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {

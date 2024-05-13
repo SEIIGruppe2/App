@@ -62,6 +62,10 @@ public class CarddeckView {
             });
         }
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
+        spielen.setOnClickListener(v -> {
+
+            carddeckActivity.playCard();
+        });
 
 
         tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
