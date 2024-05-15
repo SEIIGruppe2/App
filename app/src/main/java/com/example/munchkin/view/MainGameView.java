@@ -378,6 +378,7 @@ public class MainGameView {
     private void initializeTower() {
         tower = new TowerDTO(10, 0);
         towerButton.setTag(tower);
+        towerButton.setBackgroundResource(R.drawable.tower);
         updateTowerDisplay();
     }
 

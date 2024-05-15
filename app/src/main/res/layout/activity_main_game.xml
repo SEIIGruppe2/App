@@ -914,9 +914,12 @@
 
     <Button
         android:id="@+id/tower"
-        android:layout_width="96dp"
+        android:layout_width="90dp"
         android:layout_height="90dp"
-        android:text="Button"
+        android:background="@color/transparent"
+        android:foreground="@color/transparent"
+        android:visibility="visible"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="@+id/board"
         app:layout_constraintEnd_toEndOf="@+id/board"
         app:layout_constraintStart_toStartOf="parent"
