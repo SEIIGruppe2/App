@@ -131,44 +131,6 @@
         app:layout_constraintVertical_bias="0.955" />
 
 
-    <!--START: Buttons only for testing-->
-    <Button
-        android:id="@+id/Damage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Damage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.644" />
-
-
-    <Button
-        android:id="@+id/Startround"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.719" />
-
-    <Button
-        android:id="@+id/Endround"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Endround"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
-    <!--END: Buttons only for testing-->
 
     <ListView
         android:id="@+id/listActions"

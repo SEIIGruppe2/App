@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class MainGameView {
     private MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, damage,startGame, endRund;
+    private Button buttonEndRound, buttonCards;
     private List<Button> Zone1Monster = new ArrayList<>();
     private List<Button> Zone2Monster = new ArrayList<>();
     private List<Button> Zone3Monster = new ArrayList<>();
@@ -60,11 +60,7 @@ public class MainGameView {
         this.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
-        this.damage = mainGameActivity.findViewById(R.id.Damage);
-        //Testbuttons
-        this.startGame = mainGameActivity.findViewById(R.id.Startround);
-        this.endRund = mainGameActivity.findViewById(R.id.Endround);
-        //Ende Testbuttons
+
 
         this.monsterZones = new ArrayList<ArrayList<MonsterDTO>>();
         initializeMonsterZones();
@@ -146,39 +142,6 @@ public class MainGameView {
                 mainGameActivity.gehezukarten();
             }
         });
-
-
-        //START: Testing animation when monster takes hit
-        damage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //spawnMonster(1);
-                //ButtonRotateView.rotateButton(damage);
-                //gameController.sendMonsterAttackMessage("1","1");
-            }
-        });
-        //End: Testing animation when monster takes hit
-
-
-
-        //Für tests
-
-        startGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gameController.startRound(); //gameController.startRound();  // Startet die Runde manuell für Testzwecke
-            }
-        });
-
-
-
-        endRund.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //gameController.endRound();  // Endet die Runde manuell für Testzwecke
-            }
-        });
-
     }
 
 
