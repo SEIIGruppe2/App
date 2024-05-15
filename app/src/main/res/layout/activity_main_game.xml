@@ -920,9 +920,19 @@
         android:foreground="@color/transparent"
         android:visibility="visible"
         app:backgroundTint="@null"
+        android:fontFamily="@font/chewyregular"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:textColor="#FFE500"
+        android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/board"
         app:layout_constraintEnd_toEndOf="@+id/board"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

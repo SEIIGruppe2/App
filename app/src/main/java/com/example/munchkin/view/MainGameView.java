@@ -384,7 +384,7 @@ public class MainGameView {
 
     public void updateTowerDisplay() {
         TowerDTO tower = (TowerDTO) towerButton.getTag();
-        towerButton.setText("Tower HP: " + tower.getLifePoints());
+        towerButton.setText("HP: " + tower.getLifePoints());
     }
 
     public void modifyTowerLifePoints(int lifeChange) {
