@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MonsterManager {
-    private Map<Integer, MonsterDTO> activeMonsters = new HashMap<>();
+    Map<Integer, MonsterDTO> activeMonsters = new HashMap<>();
 
     public void registerMonster(MonsterDTO monster, int buttonId) {
         activeMonsters.put(buttonId, monster);
@@ -20,6 +20,9 @@ public class MonsterManager {
                 activeMonsters.remove(buttonId);  // Remove monster if dead
             }
         }
+    }
+    public void removeMonster(String monsterId) {
+        activeMonsters.remove(monsterId);
     }
 
     public int countActiveMonsters() {

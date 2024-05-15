@@ -389,37 +389,70 @@ public class MainGameView {
 
 
     public void moveMonstersInward() {
+        mainGameActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+                for (List<Button> zone : zones) {
+                    for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
+                        for (int j = 0; j < 3; j++) {
+                            if (i + j - 3 >= 0 && i + j < zone.size()) {
+                                Button outer = zone.get(i + j - 3);
+                                if (outer.getVisibility() == View.VISIBLE && outer.getTag() instanceof MonsterDTO) {
+                                    MonsterDTO monster = (MonsterDTO) outer.getTag();
+                                    boolean moved = false; //Vielleicht später notwendig für "Verschieben"-Animation
+                                    for (int k = 0; k < 3; k++) { // Notfalllösung: Ausweichen. Schaut gleich aus wie j-loop aber bei mir geht j-for irgendwie nit?
+                                        if (i + j + k < zone.size()) {
+                                            Button inner = zone.get(i + j + k);
+                                            if (isButtonEmpty(inner)) { //Musste ich mit isButtonEmpty austauschen, da Monster ersetzt wurden, die am Leben waren
+                                                Drawable background = outer.getBackground(); // Sichern des Hintergrundes
+                                                outer.setVisibility(View.GONE);
+                                                outer.setBackground(null);
+                                                outer.setTag(null);
 
-        mainGameActivity.runOnUiThread(() -> {
-
-        Log.d("MoveMonsters", "Starting to move monsters inward.");
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
-        for (List<Button> zone : zones) {
-            for (int i = zone.size() - 1; i >= 3; i--) {
-                Button outer = zone.get(i - 3);
-                Button inner = zone.get(i);
-                if (outer.getVisibility() == View.VISIBLE && outer.getTag() instanceof MonsterDTO) {
-                    MonsterDTO monster = (MonsterDTO) outer.getTag();
-                    if (isButtonEmpty(inner)) {
-                        inner.setTag(monster);
-                        inner.setVisibility(View.VISIBLE);
-                        Drawable background = outer.getBackground();
-                        inner.setBackground(background);
-
-                        outer.setVisibility(View.GONE);
-                        outer.setTag(null);
-                        outer.setBackground(null);
-
-                        Log.d("MoveMonsters", "Moved monster from " + (i - 3) + " to " + i);
+                                                inner.setBackground(background);
+                                                inner.setVisibility(View.VISIBLE);
+                                                inner.setTag(monster);
+                                                moved = true;
+                                                break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-        }
-
-
         });
     }
-
+    /* OG-moveMonstersInward METHOD FÜR TESTZWECKE
+        public void moveMonstersInward() {
+            mainGameActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+                    for (List<Button> zone : zones) {
+                        for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
+                            for (int j = 0; j < 3; j++) {
+                                if (i + j - 3 >= 0 && i + j < zone.size()) {
+                                    Button outer = zone.get(i + j - 3);
+                                    Button inner = zone.get(i + j);
+                                    if (isButtonFull(outer)) {
+                                        Drawable background = outer.getBackground(); // Sichern des Hintergrundes
+                                        inner.setBackground(background);
+                                        inner.setVisibility(View.VISIBLE);
+                                        outer.setVisibility(View.GONE);
+                                        outer.setBackground(null);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        */
     private boolean isButtonFull(Button button) {
 
         // Check if the button background is not set (assuming empty buttons have no background)
