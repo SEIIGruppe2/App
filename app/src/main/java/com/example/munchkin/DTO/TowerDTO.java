@@ -2,15 +2,16 @@ package com.example.munchkin.DTO;
 
 public class TowerDTO {
     private int lifePoints;
-
+    protected int idTower;
 
 
     public TowerDTO() {
 
     }
 
-    public TowerDTO(int lifePoints) {
+    public TowerDTO(int lifePoints, int idTower) {
         this.lifePoints = lifePoints;
+        this.idTower = idTower;
     }
 
     public int getLifePoints() {
