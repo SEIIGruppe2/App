@@ -22,7 +22,7 @@ public class MonsterManager {
         }
     }
     public void removeMonster(String monsterId) {
-        activeMonsters.remove(monsterId);
+        activeMonsters.remove(Integer.parseInt(monsterId));
     }
 
     public int countActiveMonsters() {

@@ -33,7 +33,7 @@ public class ButtonRotateView {
                 Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.333f);
         rotateAnimation.setDuration(1000);
-        rotateAnimation.setStartOffset(300 * 4); // Wait for the shake to complete
+        rotateAnimation.setStartOffset((long) 300 * 4); // Wait for the shake to complete
 
         // Update the current rotation state
         currentRotation = nextRotation % 360;
