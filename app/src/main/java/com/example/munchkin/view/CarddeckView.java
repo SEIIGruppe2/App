@@ -103,6 +103,7 @@ public class CarddeckView {
 
 
     public void fillcards(String[] handcards){
+        System.out.println("fillcards ausgefhü"+handcards.length);
         for(int i=0; i<handcards.length; i++){
 
             String filler = handcards[i];

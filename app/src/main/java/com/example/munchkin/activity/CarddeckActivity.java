@@ -88,6 +88,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
 
+
         view =new CarddeckView(this);
         controller = new CardDeckController(model,view);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);

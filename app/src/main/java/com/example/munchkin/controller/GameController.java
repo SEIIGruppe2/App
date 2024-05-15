@@ -78,7 +78,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                     handleUserName(jsonResponse);
                     break;*/
 
-                case "SWITCH_CARD_PLAYER_RESPONSE":
+                case "SWITCH_CARD_PLAYER_RESPONSE1":
                     handleswitchrequest(jsonResponse);
                     break;
 

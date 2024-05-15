@@ -47,7 +47,7 @@ public class CardDeckController extends BaseController {
         }
         else{
 
-                String message = MessageFormatter.createSwitchCardsPlayerMessage(username, "null", id);
+                String message = MessageFormatter.createSwitchCardsPlayerMessage(username, id, "null");
                 websocket.sendMessageToServer(message);
             }
 
