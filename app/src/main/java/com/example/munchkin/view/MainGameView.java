@@ -28,7 +28,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainGameView {
     private MainGameActivity mainGameActivity;
@@ -37,7 +39,7 @@ public class MainGameView {
     private List<Button> Zone2Monster = new ArrayList<>();
     private List<Button> Zone3Monster = new ArrayList<>();
     private List<Button> Zone4Monster = new ArrayList<>();
-
+    MonsterManager monsterManager = new MonsterManager();
     private GameController gameController;
 
     private Button[] monsterButtons;
@@ -51,6 +53,7 @@ public class MainGameView {
     private ListView listTrophies;
     private Button towerButton;
     private TowerDTO tower;
+    private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
 
     public MainGameView(MainGameActivity mainGameActivity) {
 
@@ -103,6 +106,7 @@ public class MainGameView {
 
         towerButton = mainGameActivity.findViewById(R.id.tower); // Assume the button ID is 'tower'
         initializeTower();
+        setupRotate(Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster));
 
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
@@ -128,7 +132,7 @@ public class MainGameView {
         buttonEndRound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               gameController.endTurn();
+                gameController.endTurn();
             }
         });
 
@@ -186,18 +190,18 @@ public class MainGameView {
     public void displayCurrentPlayer(String currentPlayer) {
 
         mainGameActivity.runOnUiThread(() -> {
-        TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-        currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
+            TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
+            currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
 
         });
     }
 
     public void enablePlayerAction() {
         mainGameActivity.runOnUiThread(() -> {
-        for (Button button : allPlayerButtons) {
-            button.setVisibility(View.VISIBLE);
-            button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
-        }
+            for (Button button : allPlayerButtons) {
+                button.setVisibility(View.VISIBLE);
+                button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
+            }
         });
     }
 
@@ -249,40 +253,37 @@ public class MainGameView {
 
     private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
         mainGameActivity.runOnUiThread(() -> {
-        for (Button button : zoneButtons) {
-            if (isButtonEmpty(button)) {
-                button.setVisibility(View.VISIBLE);
-                button.setTag(monster);
-                monsterManager.registerMonster(monster, button.getId());
+            for (Button button : zoneButtons) {
+                if (isButtonEmpty(button)) {
+                    button.setVisibility(View.VISIBLE);
+                    button.setTag(monster);
+                    monsterManager.registerMonster(monster, button.getId());
 
-                button.setBackground(null); // Clear existing background
+                    button.setBackground(null); // Clear existing background
 
-                switch (monster.getName()){
-                    case "Schleim":
-                        button.setBackgroundResource(R.drawable.monster_slime);
-                        break;
-                    case "Sphinx":
-                        button.setBackgroundResource(R.drawable.monster_sphinx);
-                        break;
-                    case "Bullrog":
-                        button.setBackgroundResource(R.drawable.monster_bullrog);
-                        break;
-                    default:
-                        Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                    switch (monster.getName()){
+                        case "Schleim":
+                            button.setBackgroundResource(R.drawable.monster_slime);
+                            break;
+                        case "Sphinx":
+                            button.setBackgroundResource(R.drawable.monster_sphinx);
+                            break;
+                        case "Bullrog":
+                            button.setBackgroundResource(R.drawable.monster_bullrog);
+                            break;
+                        default:
+                            Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                    }
+                    return;
                 }
-                return;
             }
-        }
-        // If all buttons in the zone are occupied, do nothing
+            // If all buttons in the zone are occupied, do nothing
 
         });
     }
     //END: SpawnMonster
 
-
     //START: DoDamageToTower
-    MonsterManager monsterManager = new MonsterManager();
-
     public void doDamageToTower() {
         final String TAG = "GameDebug";
         Log.d(TAG, "Initial active monster count: " + monsterManager.countActiveMonsters());
@@ -292,21 +293,8 @@ public class MainGameView {
             List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
             for (List<Button> zone : zones) {
                 for (Button button : zone) {
-
                     if (isButtonSwordsman(button) && button.getVisibility() == View.VISIBLE && button.getTag() instanceof MonsterDTO) {
                         MonsterDTO monster = (MonsterDTO) button.getTag();
-                        int newLifePoints = monster.getLifePoints() - 1;
-
-                        monsterManager.updateMonster(button.getId(), newLifePoints);
-
-                        if (newLifePoints <= 0) {
-                            button.setVisibility(View.GONE);
-                            button.setTag(null); // Clear tag when monster is dead
-                            Log.d(TAG, "Monster ID: " + monster.getId() + " is dead and removed.");
-                        } else {
-                            ButtonRotateView.rotateButton(button);
-                        }
-
                         // Notify the server about the attack
                         gameController.sendMonsterAttackMessage(String.valueOf(monster.getId()), "0");
                         Log.d(TAG, "Sending attack message for Monster ID: " + monster.getId());
@@ -317,6 +305,49 @@ public class MainGameView {
         });
     }
     //END: DoDamageToTower
+
+    public void setupRotate(List<List<Button>> zones) {
+        for (List<Button> zone : zones) {
+            for (Button button : zone) {
+                buttonRotateViews.put(button, new ButtonRotateView());
+            }
+        }
+    }
+
+    public void updateMonsterHealth(String monsterId, int newLifePoints) {
+        mainGameActivity.runOnUiThread(() -> {
+            for (List<Button> zone : Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster)) {
+                for (Button button : zone) {
+                    MonsterDTO monster = (MonsterDTO) button.getTag();
+                    if (monster != null && String.valueOf(monster.getId()).equals(monsterId)) {
+                        ButtonRotateView rotateView = buttonRotateViews.get(button);
+                        if (newLifePoints <= 0) {
+                            button.setVisibility(View.GONE);
+                            button.setTag(null);
+                            button.setBackground(null);
+
+                            if (rotateView != null) {
+                                rotateView.resetRotation();
+                            }
+                            monsterManager.removeMonster(monsterId);
+                            Log.d("MainGameView", "Monster " + monsterId + " is dead and removed.");
+                        } else {
+                            monster.setLifePoints(newLifePoints);
+                            monsterManager.updateMonster(monster.getId(), newLifePoints);
+                            if (rotateView != null) {
+                                rotateView.rotateButton(button);
+                            }
+                            Log.d("MainGameView", "Updated Monster " + monsterId + " HP to " + newLifePoints);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+
+
     public boolean isMonsterInAttackZone() {
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
@@ -377,10 +408,10 @@ public class MainGameView {
 
         mainGameActivity.runOnUiThread(() -> {
 
-        Button button = mainGameActivity.findViewById(buttonId);
-        if (isButtonFull(button)) {
-            button.setVisibility(View.GONE);
-        }
+            Button button = mainGameActivity.findViewById(buttonId);
+            if (isButtonFull(button)) {
+                button.setVisibility(View.GONE);
+            }
 
 
         });
