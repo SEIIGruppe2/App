@@ -101,7 +101,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             }
         }
-         catch (JSONException e) {
+        catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
     }
@@ -187,12 +187,13 @@ public class GameController extends BaseController implements DiceRollListener, 
             int monsterHp = message.getInt("monsterHp");
             int towerHp = message.getInt("towerHp");
             Log.d("GameController", "Tower HP received: " + towerHp);
+            // Update tower HP
             maingameView.modifyTowerLifePoints(towerHp);
-            Log.d("GameController", "UI should now be updated."); //not rly for other players RIP
+            Log.d("GameController", "UI should now be updated.");
             String attackStatus = message.getString("attackStatus");
-
-            // Delegate UI updates to MainGameView
-            //maingameView.updateMonsterAttack(monsterId, monsterHp, attackStatus);
+            // Update monster HP
+            maingameView.updateMonsterHealth(monsterId, monsterHp);
+            //maingameView.moveMonstersInward();
         } catch (JSONException e) {
             Log.e("GameController", "Error parsing monster attack message", e);
         }
@@ -261,10 +262,10 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private void performeRoll() {
         Log.d("PerformeRoll", "Würfel methode wird ausgelöst " );
-            if(!diceRolledThisRound) {
-                mainGameActivity.requestRoll();
-                diceRolledThisRound=true;
-            }
+        if(!diceRolledThisRound) {
+            mainGameActivity.requestRoll();
+            diceRolledThisRound=true;
+        }
     }
 
     public static void setUsernames(JSONObject jsonResponse){
@@ -284,12 +285,12 @@ public class GameController extends BaseController implements DiceRollListener, 
             }
 
 
-            } catch (JSONException e) {
+        } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
         }
     }
 
-        //TODO: evtl. Methode entfernen
+    //TODO: evtl. Methode entfernen
 /*
     private void handleUserName(JSONObject jsonResponse){
         Log.d("GameController", jsonResponse.toString() );
@@ -331,7 +332,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
             maingameView.updateRoundView(Integer.parseInt(roundCounter));
-            if(maingameView.isMonsterInAttackZone()) {
+            if(currentPlayerUsername.equals(clientplayerUsername) && maingameView.isMonsterInAttackZone()) {
                 maingameView.doDamageToTower();
             }
             maingameView.moveMonstersInward();
