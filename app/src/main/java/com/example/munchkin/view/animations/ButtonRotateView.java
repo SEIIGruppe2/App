@@ -2,82 +2,53 @@ package com.example.munchkin.view.animations;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
-
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-
 import java.security.SecureRandom;
 
 public class ButtonRotateView {
 
-    private static float currentRotation = 0;
-
+    private float currentRotation = 0; // This tracks the intended rotation in degrees.
     private static final SecureRandom random = new SecureRandom();
 
-
-    public static void rotateButton(Button button) {
+    public void rotateButton(Button button) {
         float width = button.getWidth();
         float height = button.getHeight();
 
+        // Create the shake animation
+        TranslateAnimation shake = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_SELF, -0.1f + random.nextFloat() * 0.2f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0.1f + random.nextFloat() * 0.2f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 0f
+        );
+        shake.setDuration(300);
+        shake.setRepeatCount(3);
+        shake.setRepeatMode(Animation.REVERSE);
 
-        float pivotX = width * 0.5f;
-        float pivotY = height * (1 / 3.0f);
-
-
-        TranslateAnimation shake1 = new TranslateAnimation(-10, 10, 0, 0);
-        shake1.setDuration(300);
-        shake1.setRepeatCount(3);
-        shake1.setRepeatMode(Animation.REVERSE);
-
-
-        TranslateAnimation shake2 = new TranslateAnimation(-20, 20, 0, 0);
-        shake2.setDuration(200);
-        shake2.setRepeatCount(2);
-        shake2.setRepeatMode(Animation.REVERSE);
-
-
-        TranslateAnimation shake3 = new TranslateAnimation(-5, 5, 0, 0);
-        shake3.setDuration(400);
-        shake3.setRepeatCount(5);
-        shake3.setRepeatMode(Animation.REVERSE);
-
-
-        TranslateAnimation selectedShake;
-        int shakeChoice = random.nextInt(3);
-        if (shakeChoice == 0) {
-            selectedShake = shake1;
-        } else if (shakeChoice == 1) {
-            selectedShake = shake2;
-        } else {
-            selectedShake = shake3;
-        }
-
-
-        RotateAnimation rotateAnimation = new RotateAnimation(currentRotation, currentRotation + 120,
-                Animation.RELATIVE_TO_SELF, pivotX / width,
-                Animation.RELATIVE_TO_SELF, pivotY / height);
-        currentRotation += 120;
+        // Create the rotation animation
+        float nextRotation = currentRotation + 120;
+        RotateAnimation rotateAnimation = new RotateAnimation(currentRotation, nextRotation,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.333f);
         rotateAnimation.setDuration(1000);
-        rotateAnimation.setFillAfter(true);
-        rotateAnimation.setStartOffset(selectedShake.getDuration() * (selectedShake.getRepeatCount() + 1));
+        rotateAnimation.setStartOffset(300 * 4); // Wait for the shake to complete
 
+        // Update the current rotation state
+        currentRotation = nextRotation % 360;
 
+        // Combine both animations into an animation set
         AnimationSet animationSet = new AnimationSet(true);
-        animationSet.addAnimation(selectedShake);
+        animationSet.addAnimation(shake);
         animationSet.addAnimation(rotateAnimation);
-        animationSet.setFillAfter(true);
+        animationSet.setFillAfter(true); // Ensures the button remains in the state post-animation
 
-
-
+        // Start the combined animation
         button.startAnimation(animationSet);
     }
 
-
-
-
-
+    public void resetRotation() {
+        currentRotation = 0;
+    }
 }
-
-
-
