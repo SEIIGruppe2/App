@@ -7,8 +7,8 @@ public class MessageFormatter {
         return createMessage("PLAYER_ATTACK", "monsterid", monsterId, "cardTypePlayed", cardTypePlayed);
     }
 
-    public static String createMonsterAttackMessage(String monsterId) {
-        return createMessage("MONSTER_ATTACK", "monsterid", monsterId);
+    public static String createMonsterAttackMessage(String monsterId, String towerId) {
+        return createMessage("MONSTER_ATTACK", "monsterid", monsterId, "towerid", towerId);
     }
 
     public static String createSwitchCardsDeckMessage(String card) {

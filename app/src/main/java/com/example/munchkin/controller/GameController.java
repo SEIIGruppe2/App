@@ -54,6 +54,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
         this.maingameView = maingameView;
+        playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
 
@@ -72,7 +73,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                     handlePlayerAttackMessage(jsonResponse);
                     break;
                 case "MONSTER_ATTACK":
-                    handlMonserAttackMessage(jsonResponse);
+                    handleMonsterAttackMessage(jsonResponse);
                     break;
                 /*case "REQUEST_USERNAMES":
                     handleUserName(jsonResponse);
@@ -100,7 +101,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             }
         }
-         catch (JSONException e) {
+        catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
     }
@@ -162,8 +163,8 @@ public class GameController extends BaseController implements DiceRollListener, 
         model.sendMessageToServer(message);
     }
 
-    public void sendMonsterAttackMessage(String monsterId) {
-        String message = MessageFormatter.createMonsterAttackMessage(monsterId);
+    public void sendMonsterAttackMessage(String monsterId, String towerId) {
+        String message = MessageFormatter.createMonsterAttackMessage(monsterId, towerId);
         model.sendMessageToServer(message);
     }
 
@@ -178,8 +179,24 @@ public class GameController extends BaseController implements DiceRollListener, 
         // Implementiere die Logik zum Verarbeiten der Nachrichten für den Spieler
     }
 
-    private void handlMonserAttackMessage(JSONObject message) {
-        // Implementiere die Logik zum Verarbeiten der Nachrichten für den Kartenstapel
+    private void handleMonsterAttackMessage(JSONObject message) {
+        Log.d("MonsterAttack", "Handling monster attack message: " + message);
+        try {
+            String monsterId = message.getString("monsterId");
+            //String towerId = message.getString("towerId");
+            int monsterHp = message.getInt("monsterHp");
+            int towerHp = message.getInt("towerHp");
+            Log.d("GameController", "Tower HP received: " + towerHp);
+            // Update tower HP
+            maingameView.modifyTowerLifePoints(towerHp);
+            Log.d("GameController", "UI should now be updated.");
+            String attackStatus = message.getString("attackStatus");
+            // Update monster HP
+            maingameView.updateMonsterHealth(monsterId, monsterHp);
+            //maingameView.moveMonstersInward();
+        } catch (JSONException e) {
+            Log.e("GameController", "Error parsing monster attack message", e);
+        }
     }
 
     private void handleswitchrequest(JSONObject message) throws JSONException {
@@ -245,10 +262,10 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     private void performeRoll() {
         Log.d("PerformeRoll", "Würfel methode wird ausgelöst " );
-            if(!diceRolledThisRound) {
-                mainGameActivity.requestRoll();
-                diceRolledThisRound=true;
-            }
+        if(!diceRolledThisRound) {
+            mainGameActivity.requestRoll();
+            diceRolledThisRound=true;
+        }
     }
 
     public static void setUsernames(JSONObject jsonResponse){
@@ -268,12 +285,12 @@ public class GameController extends BaseController implements DiceRollListener, 
             }
 
 
-            } catch (JSONException e) {
+        } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
         }
     }
 
-        //TODO: evtl. Methode entfernen
+    //TODO: evtl. Methode entfernen
 /*
     private void handleUserName(JSONObject jsonResponse){
         Log.d("GameController", jsonResponse.toString() );
@@ -315,6 +332,9 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
             maingameView.updateRoundView(Integer.parseInt(roundCounter));
+            if(currentPlayerUsername.equals(clientplayerUsername) && maingameView.isMonsterInAttackZone()) {
+                maingameView.doDamageToTower();
+            }
             maingameView.moveMonstersInward();
 
             if (currentPlayerUsername.equals(clientplayerUsername)) {

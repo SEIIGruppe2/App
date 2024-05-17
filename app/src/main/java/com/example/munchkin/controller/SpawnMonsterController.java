@@ -60,7 +60,7 @@ public class SpawnMonsterController extends BaseController {
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
             Log.d("SpawnMonster", "Received Monster - ID: " + monsterId + ", Zone: " + monsterZone + ", Ring: " + ring + ", Name: " + monsterName + ", Life Points: " + lifePoints);
 
-            maingameView.spawnMonster(monster.getZone(),monster.getName());
+            maingameView.spawnMonster(monster);
 
         } catch (JSONException e) {
             Log.e("SpawnMonster", "Error parsing monster data", e);
