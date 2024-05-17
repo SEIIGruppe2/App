@@ -19,12 +19,14 @@ public class MessageRouter {
         messageTypeToControllerMap.put(messageType, controller);
 
 
+
     }
 
     public static void routeMessage(String message) {
         try {
             JSONObject jsonMessage = new JSONObject(message);
             String messageType = jsonMessage.getString("type");
+            System.out.println("Type+"+messageType);
             messageTypeToControllerMap.forEach((key, value) -> System.out.println(key + " -> " + value));
             BaseController controller = messageTypeToControllerMap.get(messageType);
 

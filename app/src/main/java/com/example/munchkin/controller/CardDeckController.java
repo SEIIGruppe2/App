@@ -5,6 +5,7 @@ import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
@@ -68,7 +69,7 @@ public class CardDeckController extends BaseController {
 
     }
     public void getactiveusers(){
-        String message = MessageFormatter.createUsernameRequestMessage();
+        String message = MessageFormatter.createUsernameForSwitchRequestMessage();
         model.sendMessageToServer(message);
     }
 
@@ -85,7 +86,7 @@ public class CardDeckController extends BaseController {
                 case "SWITCH_CARD_DECK_RESPONSE":
                     updatehanddeck(jsonResponse);
                     break;
-                case "REQUEST_USERNAMES":
+                case "REQUEST_USERNAMES_SWITCH":
                     handleUserName(jsonResponse);
                     break;
                 case "SHOW_MONSTERS":
@@ -101,7 +102,7 @@ public class CardDeckController extends BaseController {
 
     private void updatehanddeck(JSONObject jsonResponse) {
 
-        System.out.println("Update Handdeck checked");
+
 
         try{
 
@@ -124,7 +125,8 @@ public class CardDeckController extends BaseController {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             ArrayList<String> usernamesList = new ArrayList<>();
             for (int i = 0; i < usernamesArray.length(); i++) {
-                usernamesList.add(usernamesArray.getString(i));
+
+                    usernamesList.add(usernamesArray.getString(i));
 
             }
             carddeckView.usernames = usernamesList;
@@ -172,6 +174,20 @@ public class CardDeckController extends BaseController {
     }
 
     private void handleShowMonsters(JSONObject jsonObject){
+
+        try{
+
+            JSONArray monsterIdArray = jsonObject.getJSONArray("monstersid");
+            ArrayList<String>  monsterList = new ArrayList<>();
+            for (int i = 0; i < monsterIdArray.length(); i++) {
+                monsterList.add(monsterIdArray.getString(i));
+
+                System.out.println("handleshowmoonster"+monsterIdArray.getString(i));
+            }
+        }
+        catch (JSONException e) {
+        throw new IllegalArgumentException("Fehler bei handleShowMonsters/Cardddeckcontroller");
+    }
     //TODO: zeige die monster abhängig von der id an
     }
 

@@ -78,23 +78,23 @@ public class CarddeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carddeck);
 
         spielerkarten = new PlayerHand();
-        MessageRouter router = new MessageRouter();
+
         WebSocketClientModel model = new WebSocketClientModel();
 
 
 
-        model.setMessageRouter(router);
+
         handkarten= spielerkarten.getCards();
-
-
 
         view =new CarddeckView(this);
         controller = new CardDeckController(model,view);
+        MessageRouter router = new MessageRouter();
+        router.registerController("SHOW_MONSTERS",controller);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE",controller);
-        router.registerController("REQUEST_USERNAMES",controller);
-        router.registerController("SHOW_MONSTERS",controller);
+        router.registerController("REQUEST_USERNAMES_SWITCH",controller);
+        model.setMessageRouter(router);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
             messagfromserver = b.getString("key");
