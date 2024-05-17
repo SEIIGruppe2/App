@@ -49,6 +49,10 @@ public class MainGameActivity extends AppCompatActivity {
 
     private PlayerHand handkarten;
 
+    public static int monsterattack=0;
+
+    public static ArrayList<String>  monsterList = new ArrayList<>();
+
 
     private ConnectToServerActivity connectToServerActivity;
     private ConnectToServerView connectToServerView;
@@ -64,6 +68,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         setupControllers();
         setupDiceRollLauncher();
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -111,7 +116,10 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("ROUND_COUNTER", gameController);
         router.registerController("CURRENT_PLAYER", gameController);
         model.setMessageRouter(router);
+
     }
+
+
 
 
     public void sendMessage() {

@@ -12,6 +12,7 @@
     <string name="button_connect">Spiel suchen</string>
     <string name="button_reconnect">Verbindung wiederherstellen</string>
 
+    <string name="button_stop">Abbrechen</string>
     <string name="button_end_round">Zug beenden</string>
     <string name="button_cards">Karten</string>
     <string name="text_view_trophies">Trophäen:</string>
@@ -81,6 +82,8 @@
     <string name="button_roll">Würfeln</string>
 
     <string name="lobby">Warten auf weitere Spieler...</string>
+
+    <string name="showMonsters">Wähle eines der Monster welches angezeigt wird um es anzugreifen</string>
 
 
 

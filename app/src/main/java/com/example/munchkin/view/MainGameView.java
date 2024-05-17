@@ -33,13 +33,13 @@ import java.util.List;
 import java.util.Map;
 
 public class MainGameView {
-    private MainGameActivity mainGameActivity;
+    private static MainGameActivity mainGameActivity;
     private Button buttonEndRound, buttonCards;
-    private List<Button> Zone1Monster = new ArrayList<>();
-    private List<Button> Zone2Monster = new ArrayList<>();
-    private List<Button> Zone3Monster = new ArrayList<>();
-    private List<Button> Zone4Monster = new ArrayList<>();
-    MonsterManager monsterManager = new MonsterManager();
+    private static List<Button> Zone1Monster = new ArrayList<>();
+    private static List<Button> Zone2Monster = new ArrayList<>();
+    private static List<Button> Zone3Monster = new ArrayList<>();
+    private static List<Button> Zone4Monster = new ArrayList<>();
+    static MonsterManager monsterManager = new MonsterManager();
     private GameController gameController;
 
     private Button[] monsterButtons;
@@ -122,6 +122,8 @@ public class MainGameView {
     }
 
     public void setUI() {
+
+
 
         mainGameActivity.runOnUiThread(this::disablePlayerAction);
 
@@ -493,6 +495,102 @@ public class MainGameView {
             monsterZones.add(new ArrayList<MonsterDTO>());
         }
     }
+    public static void showMonster(){
+       disableforMonsters();
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        for (List<Button> zone : zones) {
+
+            for(Button b:zone){
+
+                    if (b.getTag()!=null) {
+                        MonsterDTO monster = (MonsterDTO) b.getTag();
+                        int tagFromMonster = monster.getId();
+
+
+                        if(checkifitsinlist(tagFromMonster)) {
+
+                            b.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    //überprüfen wieviele lifepoints
+                                    // angriff an server senden um lifepoints zu aktualisieren
+                                    monsterManager.removeMonster(String.valueOf(tagFromMonster));
+                                    b.setTag(null);
+                                    b.setBackgroundResource(0);
+                                    b.setVisibility(View.GONE);
+                                    MainGameActivity.monsterattack=0;
+                                    //an den server senden
+                                    //hier muss das monster aus der liste entfernt werden der tag und button sollte null werden vsibility soll gone sein
+                                    showallMonsters();
+                                }
+                            });
+                        }else{
+                            b.setBackgroundResource(0);
+                    }}
+
+                    //hier sollten alle anderen buttons etwas grau werden
+
+                }
+            }
+        }
+
+
+        private static void disableforMonsters(){
+            mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.GONE);
+            mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.GONE);
+            mainGameActivity.findViewById(R.id.stop).setVisibility(View.VISIBLE);
+            mainGameActivity.findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    showallMonsters();
+                    MainGameActivity.monsterList=new ArrayList<>();
+                    //mainGameActivity.transitionToCardDeckscreen();
+
+                }
+            });
+
+        }
+        private static boolean checkifitsinlist(int id){
+            System.out.println("checkifits");
+         for(String m:MainGameActivity.monsterList){
+             System.out.println(m);
+             if(id == Integer.parseInt(m)){
+                 return true;
+             }
+         }
+         return false;
+
+        }
+
+        public static void showallMonsters() {
+            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+            for (List<Button> zone : zones) {
+
+                for (Button b : zone) {
+                    if(b.getTag()!=null){
+                        MonsterDTO currentM=monsterManager.activeMonsters.get(b.getId());
+                        switch (currentM.getName()){
+                            case "Schleim":
+                                b.setBackgroundResource(R.drawable.monster_slime);
+                                break;
+                            case "Sphinx":
+                                b.setBackgroundResource(R.drawable.monster_sphinx);
+                                break;
+                            case "Bullrog":
+                                b.setBackgroundResource(R.drawable.monster_bullrog);
+                                break;
+                            default:
+                                Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                        }
+
+                    }
+                }
+            }
+        }
+
 
 
     public void tauschanfrageerhalten(JSONObject message) throws JSONException {
@@ -530,6 +628,11 @@ public class MainGameView {
 
 
 
+
+
     }
+
+
+
 
 }

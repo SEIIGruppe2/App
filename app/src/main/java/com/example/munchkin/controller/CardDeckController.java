@@ -5,6 +5,7 @@ import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
@@ -143,16 +144,6 @@ public class CardDeckController extends BaseController {
         model.sendMessageToServer(message);
     }
 
-
-
-
-
-
-
-
-
-
-
     private void updateCardsListWithNewCard(ActionCardDTO newCard) {
         playerHand.addCard(newCard);
 
@@ -184,6 +175,8 @@ public class CardDeckController extends BaseController {
 
                 System.out.println("handleshowmoonster"+monsterIdArray.getString(i));
             }
+            MainGameActivity.monsterList = monsterList;
+            carddeckView.startMonsterAttack();
         }
         catch (JSONException e) {
         throw new IllegalArgumentException("Fehler bei handleShowMonsters/Cardddeckcontroller");
