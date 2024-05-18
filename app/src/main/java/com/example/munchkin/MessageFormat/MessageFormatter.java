@@ -13,8 +13,8 @@ public class MessageFormatter {
         return createMessage("MONSTER_ATTACK", monster, monsterId, "towerid", towerId);
     }
 
-    public static String createSwitchCardsDeckMessage(String card) {
-        return createMessage("SWITCH_CARD_DECK", card, card);
+    public static String createSwitchCardsDeckMessage(String cardid) {
+        return createMessage("SWITCH_CARD_DECK", card, cardid);
     }
 
     public static String createSwitchCardsPlayerMessage(String switchedWith, String cardGiven, String cardGotten) {

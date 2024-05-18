@@ -19,7 +19,7 @@ import androidx.cardview.widget.CardView;
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.DTO.TowerDTO;
-import com.example.munchkin.Player.Player;
+
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
@@ -46,7 +46,6 @@ public class MainGameView {
     static MonsterManager monsterManager = new MonsterManager();
     private GameController gameController;
 
-    private Button[] monsterButtons;
 
     private List<ArrayList<MonsterDTO>> monsterZones;
 
