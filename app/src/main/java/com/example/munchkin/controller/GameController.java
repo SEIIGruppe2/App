@@ -27,12 +27,15 @@ import java.util.List;
 import java.util.Queue;
 import org.json.JSONArray;
 import com.example.munchkin.game.AppState;
+import com.example.munchkin.view.MonsterManager;
 
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
     private static Queue<Player> playerQueue;
     private Player currentPlayer;
+
+    public static String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
     private GameRound gameRound;
@@ -92,8 +95,10 @@ public class GameController extends BaseController implements DiceRollListener, 
                     break;
 
                 case "CURRENT_PLAYER":
-                    Log.d("CurrentPlayer", "im handler");
                     handleCurrentPlayer(jsonResponse);
+                    break;
+                case "CARD_ATTACK_MONSTER":
+                    handleCardAttackMonster(jsonResponse);
                     break;
                 default:
                     break;
@@ -104,6 +109,17 @@ public class GameController extends BaseController implements DiceRollListener, 
         catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
         }
+    }
+
+    public void handleCardAttackMonster(JSONObject jsonObject){
+        try{
+            String monsterId = jsonObject.getString("monsterid");
+            int lifepoints = jsonObject.getInt("lifepoints");
+            maingameView.updateMonsterList(monsterId, lifepoints);
+
+    } catch (JSONException e) {
+        Log.e("GameController", "Error parsing monster attack message", e);
+    }
     }
 
 
@@ -332,7 +348,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             Log.d("handleCurrentPlayer", "Aktueller Spieler: " + currentPlayerUsername);
-
+            currentPlayerp= currentPlayerUsername;
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
             maingameView.updateRoundView(Integer.parseInt(roundCounter));
@@ -376,6 +392,14 @@ public class GameController extends BaseController implements DiceRollListener, 
             callback.onDiceRolled(new int[]{result});
         });
         Log.d("GameRound", "Nach RequestRoll" );
+    }
+
+    public static boolean currentPlayer(){
+        System.out.println("currentPlayerp"+currentPlayerp + "clientplayer"+clientplayerUsername);
+        if(currentPlayerp.equals(clientplayerUsername)){
+            return  true;
+        }
+        return false;
     }
 
 

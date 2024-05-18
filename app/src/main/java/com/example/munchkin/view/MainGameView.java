@@ -517,18 +517,11 @@ public class MainGameView {
                                 @Override
                                 public void onClick(View v) {
 
-                                    //überprüfen wieviele lifepoints
-                                    // angriff an server senden um lifepoints zu aktualisieren
-                                    monsterManager.removeMonster(String.valueOf(tagFromMonster));
-                                    b.setTag(null);
-                                    b.setBackgroundResource(0);
-                                    b.setVisibility(View.GONE);
-                                    MainGameActivity.monsterattack=0;
+                                    mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
                                     mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
 
-
-                                    //hier muss das monster aus der liste entfernt werden der tag und button sollte null werden vsibility soll gone sein
-                                    showallMonsters();
+                                    //showallMonsters();
+                                    //enable buttons
                                 }
                             });
                         }else{
@@ -565,18 +558,25 @@ public class MainGameView {
                 public void onClick(View v) {
 
 
-                    //showallMonsters();
+                    showallMonsters();
                     MainGameActivity.monsterList=new ArrayList<>();
                     mainGameActivity.transitionToCardDeckscreen();
+                    enableforMonsters();
 
                 }
             });
 
         }
+
+    private static void enableforMonsters(){
+        mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.VISIBLE);
+        mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.VISIBLE);
+        mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
+
+    }
         private static boolean checkifitsinlist(int id){
-            System.out.println("checkifits");
+
          for(String m:MainGameActivity.monsterList){
-             System.out.println(m);
              if(id == Integer.parseInt(m)){
                  return true;
              }
@@ -587,11 +587,19 @@ public class MainGameView {
 
         public static void showallMonsters() {
             List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+            System.out.println("showall");
+                for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
+                    System.out.println(entry.getKey() + "/" + entry.getValue());
+                }
             for (List<Button> zone : zones) {
 
                 for (Button b : zone) {
                     if(b.getTag()!=null){
-                        MonsterDTO currentM=monsterManager.activeMonsters.get(b.getId());
+                        b.setOnClickListener(null);
+                        System.out.println(b.getTag());
+                        MonsterDTO currentM= (MonsterDTO) b.getTag();
+                        System.out.println("CurrentMonster id"+currentM.getId());
+                        System.out.println("CurrentMonster id"+currentM.getId());
                         switch (currentM.getName()){
                             case "Schleim":
                                 b.setBackgroundResource(R.drawable.monster_slime);
@@ -648,6 +656,45 @@ public class MainGameView {
 
 
 
+    }
+
+    public void updateMonsterList(String monsterId, int lifepoints){
+        mainGameActivity.runOnUiThread(() -> {
+        if(lifepoints>0) {
+            monsterManager.updateMonster(Integer.parseInt(monsterId), lifepoints);
+        }else{
+            monsterManager.removeMonster(monsterId);
+
+                updateMonstersView(monsterId);
+
+        }
+        updateGameView();
+        });
+    }
+    private void updateGameView(){
+        if(GameController.currentPlayer()){
+            enableforMonsters();
+            showallMonsters();
+        }
+    }
+    public void updateMonstersView(String monsterId) {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        for (List<Button> zone : zones) {
+
+            for (Button b : zone) {
+
+                if (b.getTag() != null) {
+                    MonsterDTO monster = (MonsterDTO) b.getTag();
+                    int tagFromMonster = monster.getId();
+                    if (tagFromMonster == Integer.parseInt(monsterId)) {
+                        b.setTag(null);
+                        b.setBackgroundResource(0);
+                        b.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+        }
     }
 
 
