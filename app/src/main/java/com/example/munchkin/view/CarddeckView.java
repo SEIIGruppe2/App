@@ -33,7 +33,7 @@ public class CarddeckView {
 
     Button zugbeenden;
 
-    private CarddeckActivity carddeckActivity;
+    private static CarddeckActivity carddeckActivity;
 
     private CardDeckController cardDeckController;
 
@@ -282,7 +282,7 @@ public class CarddeckView {
         });
     }
 
-    public void startMonsterAttack(){
+    public static void startMonsterAttack(){
 
         carddeckActivity.runOnUiThread(new Runnable() {
 

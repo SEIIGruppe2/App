@@ -18,7 +18,7 @@ public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
     public static PlayerHand playerHand;
-    private CarddeckView carddeckView;
+    private static CarddeckView carddeckView;
 
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
@@ -159,7 +159,7 @@ public class CardDeckController extends BaseController {
         websocket.sendMessageToServer(message);
     }
 
-    private void handleShowMonsters(JSONObject jsonObject){
+    private static void handleShowMonsters(JSONObject jsonObject){
 
         try{
 

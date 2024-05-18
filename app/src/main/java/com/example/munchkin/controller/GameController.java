@@ -110,13 +110,13 @@ public class GameController extends BaseController implements DiceRollListener, 
             maingameView.updateMonsterList(monsterId, lifepoints);
 
     } catch (JSONException e) {
-        Log.e("GameController", "Error parsing monster attack message", e);
+        Log.e("GameController1", "Error parsing monster attack message", e);
     }
     }
 
 
     public void startRound() {
-        Log.d("GameController", "Current player: " +" startRoundAnfang" + roundCounter);
+        Log.d("GameController2", "Current player: " +" startRoundAnfang" + roundCounter);
         sendEndTurnMessage(roundCounter);
 
     }
@@ -125,12 +125,12 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void endTurn() {
-        Log.d("GameController", "End of turn for: test " );
+        Log.d("GameController3", "End of turn for: test " );
 
         maingameView.disablePlayerAction();
         diceRolledThisRound=false;
 
-        Log.d("GameController", "End of turn for: test2 "+roundCounter);
+        Log.d("GameController4", "End of turn for: test2 "+roundCounter);
         sendEndTurnMessage(roundCounter);
 
     }
@@ -198,16 +198,16 @@ public class GameController extends BaseController implements DiceRollListener, 
             //String towerId = message.getString("towerId");
             int monsterHp = message.getInt("monsterHp");
             int towerHp = message.getInt("towerHp");
-            Log.d("GameController", "Tower HP received: " + towerHp);
+            Log.d("GameController5", "Tower HP received: " + towerHp);
             // Update tower HP
             maingameView.modifyTowerLifePoints(towerHp);
-            Log.d("GameController", "UI should now be updated.");
+            Log.d("GameController6", "UI should now be updated.");
             String attackStatus = message.getString("attackStatus");
             // Update monster HP
             maingameView.updateMonsterHealth(monsterId, monsterHp);
             //maingameView.moveMonstersInward();
         } catch (JSONException e) {
-            Log.e("GameController", "Error parsing monster attack message", e);
+            Log.e("GameController7", "Error parsing monster attack message", e);
         }
     }
 
