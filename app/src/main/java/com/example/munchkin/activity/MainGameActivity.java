@@ -111,7 +111,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("SPAWN_MONSTER", spawnMonsterController);
         router.registerController("REQUEST_USERNAMES", gameController);
         router.registerController("DRAW_CARD", drawCardController);
-        router.registerController("SWITCH_CARD_PLAYER_RESPONSE", gameController);
+        router.registerController("SWITCH_CARD_PLAYER_RESPONSE1", gameController);
         router.registerController("REQUEST_ROLL", gameController);
         router.registerController("ROUND_COUNTER", gameController);
         router.registerController("CURRENT_PLAYER", gameController);

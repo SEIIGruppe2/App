@@ -86,6 +86,9 @@ public class CarddeckActivity extends AppCompatActivity {
 
         handkarten= spielerkarten.getCards();
 
+
+
+
         view =new CarddeckView(this);
         controller = new CardDeckController(model,view);
         MessageRouter router = new MessageRouter();
