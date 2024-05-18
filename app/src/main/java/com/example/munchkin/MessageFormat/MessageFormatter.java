@@ -2,17 +2,19 @@ package com.example.munchkin.MessageFormat;
 
 
 public class MessageFormatter {
+    static String monster ="monsterid";
+    static String card = "cardid";
 
     public static String createPlayerAttackMessage(String monsterId, String cardTypePlayed) {
-        return createMessage("PLAYER_ATTACK", "monsterid", monsterId, "cardTypePlayed", cardTypePlayed);
+        return createMessage("PLAYER_ATTACK", monster, monsterId, "cardTypePlayed", cardTypePlayed);
     }
 
     public static String createMonsterAttackMessage(String monsterId, String towerId) {
-        return createMessage("MONSTER_ATTACK", "monsterid", monsterId, "towerid", towerId);
+        return createMessage("MONSTER_ATTACK", monster, monsterId, "towerid", towerId);
     }
 
     public static String createSwitchCardsDeckMessage(String card) {
-        return createMessage("SWITCH_CARD_DECK", "cardid", card);
+        return createMessage("SWITCH_CARD_DECK", card, card);
     }
 
     public static String createSwitchCardsPlayerMessage(String switchedWith, String cardGiven, String cardGotten) {
@@ -54,11 +56,11 @@ public class MessageFormatter {
     }
 
     public static String createShowMonsterMessage(String id){
-        return createMessage("SHOW_MONSTERS", "cardid",id);
+        return createMessage("SHOW_MONSTERS", card,id);
     }
 
     public static String createCardAttackMonsterMessage(String monsterId, String cardId) {
-        return createMessage("CARD_ATTACK_MONSTER", "monsterid", monsterId, "cardid", cardId);
+        return createMessage("CARD_ATTACK_MONSTER", monster, monsterId, card, cardId);
     }
 
     private static String createMessage(String type, String... params) {
