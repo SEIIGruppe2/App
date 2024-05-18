@@ -15,7 +15,6 @@ import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
