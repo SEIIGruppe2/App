@@ -72,5 +72,27 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"END_TURN\",\"turn\":\"Player1\"}", result);
     }
 
+    @Test
+    protected void createShowMonsterMessage() {
+        String cardid = "1";
+        String result = MessageFormatter.createShowMonsterMessage(cardid);
+        assertEquals("{\"type\":\"SHOW_MONSTERS\",\"cardid\":\"1\"}", result);
+    }
+
+    @Test
+    protected void createCardAttackMonsterMessage() {
+        String cardid = "1";
+        String monsterid = "2";
+        String result = MessageFormatter.createCardAttackMonsterMessage(monsterid,cardid);
+        assertEquals("{\"type\":\"CARD_ATTACK_MONSTER\",\"monsterid\":\"2\",\"cardid\":\"1\"}", result);
+    }
+
+    @Test
+    protected void testCreateUsernameForSwitchRequestMessage() {
+        String result = MessageFormatter.createUsernameForSwitchRequestMessage();
+        assertEquals("{\"type\":\"REQUEST_USERNAMES_SWITCH\"}", result);
+    }
+
+
 
 }
