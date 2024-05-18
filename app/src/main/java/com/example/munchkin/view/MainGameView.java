@@ -652,10 +652,6 @@ public class MainGameView {
             }
         });
 
-
-
-
-
     }
 
     public void updateMonsterList(String monsterId, int lifepoints){
