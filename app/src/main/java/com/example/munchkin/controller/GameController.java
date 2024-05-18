@@ -386,7 +386,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     public static boolean currentPlayer(){
-        System.out.println("currentPlayerp"+currentPlayerp + "clientplayer"+clientplayerUsername);
+
         if(currentPlayerp.equals(clientplayerUsername)){
             return  true;
         }

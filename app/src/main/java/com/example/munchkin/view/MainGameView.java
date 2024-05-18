@@ -519,8 +519,6 @@ public class MainGameView {
                                     mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
                                     mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
 
-                                    //showallMonsters();
-                                    //enable buttons
                                 }
                             });
                         }else{
@@ -586,7 +584,7 @@ public class MainGameView {
 
         public static void showallMonsters() {
             List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
-            System.out.println("showall");
+
                 for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
                     System.out.println(entry.getKey() + "/" + entry.getValue());
                 }
@@ -595,10 +593,9 @@ public class MainGameView {
                 for (Button b : zone) {
                     if(b.getTag()!=null){
                         b.setOnClickListener(null);
-                        System.out.println(b.getTag());
+
                         MonsterDTO currentM= (MonsterDTO) b.getTag();
-                        System.out.println("CurrentMonster id"+currentM.getId());
-                        System.out.println("CurrentMonster id"+currentM.getId());
+
                         switch (currentM.getName()){
                             case "Schleim":
                                 b.setBackgroundResource(R.drawable.monster_slime);
