@@ -8,18 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.PopupWindow;
 
 
+import androidx.cardview.widget.CardView;
 
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.DTO.TowerDTO;
 import com.example.munchkin.Player.Player;
+import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.view.animations.ButtonRotateView;
 
@@ -520,9 +524,9 @@ public class MainGameView {
                                     b.setBackgroundResource(0);
                                     b.setVisibility(View.GONE);
                                     MainGameActivity.monsterattack=0;
-                                    mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), "1");
-                                    //an den server senden
-                                    //Handkarte soll entfernt werden
+                                    mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
+
+
                                     //hier muss das monster aus der liste entfernt werden der tag und button sollte null werden vsibility soll gone sein
                                     showallMonsters();
                                 }
@@ -534,6 +538,21 @@ public class MainGameView {
 
                 }
             }
+        }
+
+        public static String removeCardFromHandcards(){
+            CardView currentcard = CarddeckActivity.selectedCard;
+            LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+            TextView gettag = (TextView)  getkardname.getChildAt(2);
+            String cardId = (String) gettag.getTag();
+            ActionCardDTO toremove = new ActionCardDTO();
+            for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
+                if(a.getId() == Integer.parseInt(cardId)){
+                    toremove=a;
+                }
+            }
+            CardDeckController.playerHand.removeCard(toremove);
+            return cardId;
         }
 
 

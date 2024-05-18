@@ -52,7 +52,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public static int passivmode;
 
-    public CardView selectedCard;
+    public static CardView selectedCard;
 
     Button spielen;
     Button tauschen;

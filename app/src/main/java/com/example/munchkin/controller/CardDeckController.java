@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
-    public PlayerHand playerHand;
+    public static PlayerHand playerHand;
     private CarddeckView carddeckView;
 
 
