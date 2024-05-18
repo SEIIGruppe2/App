@@ -520,7 +520,9 @@ public class MainGameView {
                                     b.setBackgroundResource(0);
                                     b.setVisibility(View.GONE);
                                     MainGameActivity.monsterattack=0;
+                                    mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), "1");
                                     //an den server senden
+                                    //Handkarte soll entfernt werden
                                     //hier muss das monster aus der liste entfernt werden der tag und button sollte null werden vsibility soll gone sein
                                     showallMonsters();
                                 }
@@ -529,7 +531,6 @@ public class MainGameView {
                             b.setBackgroundResource(0);
                     }}
 
-                    //hier sollten alle anderen buttons etwas grau werden
 
                 }
             }
@@ -545,9 +546,9 @@ public class MainGameView {
                 public void onClick(View v) {
 
 
-                    showallMonsters();
+                    //showallMonsters();
                     MainGameActivity.monsterList=new ArrayList<>();
-                    //mainGameActivity.transitionToCardDeckscreen();
+                    mainGameActivity.transitionToCardDeckscreen();
 
                 }
             });
@@ -601,10 +602,8 @@ public class MainGameView {
         ActionCardDTO karte = new ActionCardDTO(name, zone,id);
         System.out.println(karte.getName());
         String username = message.getString("switchedWith");
-        /*playerhand.addCard(karte);*/
-
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
-        //hier versuchen mit post
+
 
         mainGameActivity.runOnUiThread(new Runnable() {
             @Override

@@ -176,6 +176,9 @@ public class MainGameActivity extends AppCompatActivity {
         diceRollLauncher.launch(intent);
     }
 
+    public void sendCardAttackMonsterMessage(String monsterId, String cardID){
+        gameController.cardAttackMonsterMessage(monsterId,cardID);
+    }
     private void setupDiceRollLauncher() {
         diceRollLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

@@ -57,6 +57,10 @@ public class MessageFormatter {
         return createMessage("SHOW_MONSTERS", "cardid",id);
     }
 
+    public static String createCardAttackMonsterMessage(String monsterId, String cardId) {
+        return createMessage("CARD_ATTACK_MONSTER", "monsterid", monsterId, "cardid", cardId);
+    }
+
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {
