@@ -49,13 +49,9 @@ public class MainGameActivity extends AppCompatActivity {
 
     private PlayerHand handkarten;
 
-    public static int monsterattack=0;
 
     public static ArrayList<String>  monsterList = new ArrayList<>();
 
-
-    private ConnectToServerActivity connectToServerActivity;
-    private ConnectToServerView connectToServerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

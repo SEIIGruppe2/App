@@ -4,9 +4,7 @@ import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
-import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
@@ -22,9 +20,6 @@ public class CardDeckController extends BaseController {
     public static PlayerHand playerHand;
     private CarddeckView carddeckView;
 
-
-
-    private CarddeckActivity carddeckActivity;
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
         super(model);
@@ -181,7 +176,7 @@ public class CardDeckController extends BaseController {
         catch (JSONException e) {
         throw new IllegalArgumentException("Fehler bei handleShowMonsters/Cardddeckcontroller");
     }
-    //TODO: zeige die monster abhängig von der id an
+
     }
 
 

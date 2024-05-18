@@ -1,22 +1,18 @@
 package com.example.munchkin.controller;
 
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
-import com.example.munchkin.activity.CarddeckActivity;
+
 import com.example.munchkin.activity.MainGameActivity;
-import com.example.munchkin.game.GameRound;
+
 import com.example.munchkin.interfaces.DiceRollCallback;
 import com.example.munchkin.interfaces.DiceRollListener;
 import com.example.munchkin.interfaces.GameEventHandler;
 import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
-import com.example.munchkin.view.DiceRollView;
+
 import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +23,7 @@ import java.util.List;
 import java.util.Queue;
 import org.json.JSONArray;
 import com.example.munchkin.game.AppState;
-import com.example.munchkin.view.MonsterManager;
+
 
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
@@ -38,18 +34,14 @@ public class GameController extends BaseController implements DiceRollListener, 
     public static String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
-    private GameRound gameRound;
+
     private boolean diceRolledThisRound = false;
     private SpawnMonsterController spawnMonsterController;
-    private byte REQUIRED_PLAYER_COUNT = 4;
-
-    private boolean isFirstRound = true;
 
     private MainGameActivity mainGameActivity;
 
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
 
-    private static Player clientplayer;
 
     private static List<String> playerusernames;
     private int turnCount = 0;
@@ -299,8 +291,8 @@ public class GameController extends BaseController implements DiceRollListener, 
                 Player player = new Player(username);
                 playerQueue.add(player);
                 if (username.equals(clientplayerUsername)) {
-                    //TODO: clientplayer wird nie verwendet?
-                    clientplayer = player;
+
+
                 }
             }
 
@@ -310,7 +302,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
-    //TODO: evtl. Methode entfernen
 /*
     private void handleUserName(JSONObject jsonResponse){
         Log.d("GameController", jsonResponse.toString() );
