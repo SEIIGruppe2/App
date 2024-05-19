@@ -31,7 +31,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     private static Queue<Player> playerQueue;
     private Player currentPlayer;
 
-    public static String currentPlayerp;
+    public String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
 
@@ -385,12 +385,9 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("GameRound", "Nach RequestRoll" );
     }
 
-    public static boolean currentPlayer(){
+    public boolean currentPlayer(){
 
-        if(currentPlayerp.equals(clientplayerUsername)){
-            return  true;
-        }
-        return false;
+        return currentPlayerp != null && currentPlayerp.equals(clientplayerUsername);
     }
 
 

@@ -664,7 +664,7 @@ public class MainGameView {
         });
     }
     private void updateGameView(){
-        if(GameController.currentPlayer()){
+        if(gameController.currentPlayer()){
             enableforMonsters();
             showallMonsters();
         }
