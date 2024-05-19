@@ -33,7 +33,7 @@ public class CarddeckView {
 
     Button zugbeenden;
 
-    private static CarddeckActivity carddeckActivity;
+    private CarddeckActivity carddeckActivity;
 
     private CardDeckController cardDeckController;
 
@@ -42,12 +42,7 @@ public class CarddeckView {
 
     public CarddeckView(CarddeckActivity carddeckActivity){
         this.carddeckActivity=carddeckActivity;
-
-
-
             setupUI();
-
-
     }
 
     private void setupUI(){
@@ -208,7 +203,6 @@ public class CarddeckView {
 
     public void oncardclickpassive(CardView card){
 
-
         if (card == carddeckActivity.selectedCard) {
             changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
             carddeckActivity.selectedCard = null;
@@ -282,7 +276,7 @@ public class CarddeckView {
         });
     }
 
-    public static void startMonsterAttack(){
+    public void startMonsterAttack(){
 
         carddeckActivity.runOnUiThread(new Runnable() {
 
