@@ -29,22 +29,14 @@ import com.example.munchkin.game.AppState;
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
     private static Queue<Player> playerQueue;
-    private Player currentPlayer;
-
     public String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
-
     private boolean diceRolledThisRound = false;
     private SpawnMonsterController spawnMonsterController;
-
     private MainGameActivity mainGameActivity;
-
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
 
-
-    private static List<String> playerusernames;
-    private int turnCount = 0;
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
@@ -52,7 +44,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
-
 
         startRound();
 
@@ -64,28 +55,12 @@ public class GameController extends BaseController implements DiceRollListener, 
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
-                case "PLAYER_ATTACK":
-                    handlePlayerAttackMessage(jsonResponse);
-                    break;
                 case "MONSTER_ATTACK":
                     handleMonsterAttackMessage(jsonResponse);
                     break;
-                /*case "REQUEST_USERNAMES":
-                    handleUserName(jsonResponse);
-                    break;*/
-
                 case "SWITCH_CARD_PLAYER_RESPONSE1":
                     handleswitchrequest(jsonResponse);
                     break;
-
-                case "REQUEST_ROLL":
-                    //handleRequestRoll(jsonResponse);
-                    break;
-
-                case "ROUND_COUNTER":
-                    //handleRoundCounter(jsonResponse);
-                    break;
-
                 case "CURRENT_PLAYER":
                     handleCurrentPlayer(jsonResponse);
                     break;
@@ -123,7 +98,6 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
 
-
     public void endTurn() {
         Log.d("GameController3", "End of turn for: test " );
 
@@ -135,24 +109,6 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     }
 
-//TODO: Überprüfen ob es noch benötigt wird
-/*
-
-    public void endRound() {
-        Log.d("GameController", "Ending round " + roundCounter);
-        isFirstRound = false;
-        diceRolledThisRound = false;
-        sendRequestRoundMessage();
-        transitionToNextPlayer();
-        startRound();
-    }
-*/
-
-    public void requestUsernames() {
-        String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
-    }
-
 
     public void sendEndTurnMessage(String currentturn) {
         String message = MessageFormatter.createEndTurnMessage(currentturn);
@@ -160,36 +116,17 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
-    public void sendPlayerRollDiceMessage() {
-        String message = MessageFormatter.createPlayerRollDiceMessage();
-        model.sendMessageToServer(message);
-    }
-
-
-    public void sendPlayerAttackMessage(String monsterId, String cardTypePlayed) {
-        String message = MessageFormatter.createPlayerAttackMessage(monsterId, cardTypePlayed);
-        model.sendMessageToServer(message);
-    }
-
     public void sendMonsterAttackMessage(String monsterId, String towerId) {
         String message = MessageFormatter.createMonsterAttackMessage(monsterId, towerId);
         model.sendMessageToServer(message);
     }
 
-    public void sendRequestRoundMessage() {
-        String message = MessageFormatter.createRequestRoundMessage();
-        model.sendMessageToServer(message);
-    }
     public void cardAttackMonsterMessage(String monsterId, String cardId){
         String message = MessageFormatter.createCardAttackMonsterMessage(monsterId, cardId);
         model.sendMessageToServer(message);
     }
 
 
-    // Methode zum Verarbeiten der empfangenen Nachrichten vom Server
-    private void handlePlayerAttackMessage(JSONObject message) {
-        // Implementiere die Logik zum Verarbeiten der Nachrichten für den Spieler
-    }
 
     private void handleMonsterAttackMessage(JSONObject message) {
         Log.d("MonsterAttack", "Handling monster attack message: " + message);
@@ -212,64 +149,9 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private void handleswitchrequest(JSONObject message) throws JSONException {
-
-
         maingameView.tauschanfrageerhalten(message);
 
     }
-
-
-    private void transitionToNextPlayer() {
-        currentPlayer = playerQueue.peek();
-        maingameView.displayCurrentPlayer(currentPlayer.getName());
-        if (currentPlayer.getName().equals(clientplayerUsername)) {
-            maingameView.enablePlayerAction();
-        } else {
-            maingameView.disablePlayerAction();
-        }
-    }
-
-    //TODO: check ob noch gebraucht wird
-    /*
-    private void handleRequestRoll(JSONObject jsonResponse){
-        Log.d("GameController", jsonResponse.toString());
-        try {
-            if (currentPlayer == null) {
-                Log.d("GameController", "Kein Spieler in der Warteschlange verfügbar.");
-                return;
-            }
-            Log.d("GameController", "RollPlayer1: " + (currentPlayer != null ? currentPlayer.getName() : "null"));
-            String usernameToRoll = jsonResponse.getString("username");
-            Log.d("GameController", "RollPlayer2: " + clientplayerUsername);
-            if (clientplayerUsername.equals(usernameToRoll)) {
-                Log.d("GameController", "InDiceRolLView mit  " + usernameToRoll);
-                performeRoll();
-            } else {
-                Log.d("GameController", "Benutzername stimmt nicht überein.");
-            }
-        } catch (JSONException e) {
-            Log.e("GameController", "Fehler bei der Verarbeitung der Würfelanfrage", e);
-        }
-    }
-
-
-    private void handleRoundCounter(JSONObject jsonResponse){
-        try {
-            Log.d("GameController", "In HandleCounter");
-            String roundString = jsonResponse.getString("round");
-            int roundNumber = Integer.parseInt(roundString);
-
-            //roundCounter = roundNumber;
-            //maingameView.updateRoundView(roundCounter);
-            maingameView.moveMonstersInward();
-
-        } catch (JSONException e) {
-            Log.e("GameController", "Fehler bei der Verarbeitung der Rundennummer", e);
-        } catch (NumberFormatException e) {
-            Log.e("GameController", "Fehler beim Konvertieren der Rundennummer", e);
-        }
-    }
-*/
 
 
     private void performeRoll() {
@@ -281,7 +163,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     public static void setUsernames(JSONObject jsonResponse){
-        playerusernames = new ArrayList<>();
+        List<String> playerusernames = new ArrayList<>();
         playerQueue = new LinkedList<>();
         try {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
@@ -290,10 +172,6 @@ public class GameController extends BaseController implements DiceRollListener, 
                 playerusernames.add(i, username);
                 Player player = new Player(username);
                 playerQueue.add(player);
-                if (username.equals(clientplayerUsername)) {
-
-
-                }
             }
 
 
@@ -302,43 +180,20 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
-/*
-    private void handleUserName(JSONObject jsonResponse){
-        Log.d("GameController", jsonResponse.toString() );
-        try {
-            JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
-            for (int i = 0; i < usernamesArray.length(); i++) {
-                String username = usernamesArray.getString(i);
-                Log.d("User", "User"  + username);
-
-                playerusernames.add(i,username);
-                Player player = new Player(username);
-                Log.d("GameController", "Player" + player.getName() );
-                playerQueue.add(player);
-                if(username.equals(clientplayerUsername)){
-                    clientplayer = player;
-                }
-
-            }
-            if (playerQueue.size() == REQUIRED_PLAYER_COUNT) {
-                sendRequestRoundMessage();
-            }
-        } catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei handleUserName/GameController");
-        }
-    }*/
 
     private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
 
-        Log.d("handleCurrentPlayer", "Anfang");
+        String handleCurrentPlayerString = "handleCurrentPlayer";
+        Log.d(handleCurrentPlayerString, "Anfang");
 
         try {
 
             roundCounter = jsonResponse.getString("turnCount");
+            int turnCount = 0;
             Log.d("TurnCount", "tun" + turnCount);
 
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
-            Log.d("handleCurrentPlayer", "Aktueller Spieler: " + currentPlayerUsername);
+            Log.d(handleCurrentPlayerString, "Aktueller Spieler: " + currentPlayerUsername);
             currentPlayerp= currentPlayerUsername;
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
@@ -356,13 +211,10 @@ public class GameController extends BaseController implements DiceRollListener, 
             }
 
         } catch (Exception e) {
-            Log.e("handleCurrentPlayer", "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
+            Log.e(handleCurrentPlayerString, "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
         }
 
     }
-
-
-
 
 
 
@@ -379,9 +231,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void requestDiceRoll(DiceRollCallback callback) {
         Log.d("GameRound", "In RequestRoll" );
         DiceRollModel diceRollModel = new DiceRollModel();
-        diceRollModel.rollDice(result -> {
-            callback.onDiceRolled(new int[]{result});
-        });
+        diceRollModel.rollDice(result -> callback.onDiceRolled(new int[]{result}));
         Log.d("GameRound", "Nach RequestRoll" );
     }
 
