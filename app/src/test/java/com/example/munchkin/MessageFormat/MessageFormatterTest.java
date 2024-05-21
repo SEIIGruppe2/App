@@ -18,13 +18,13 @@ class MessageFormatterTest {
     }
 
     @Test
-    protected void testCreateSwitchCardsDeckMessage() {
+    void testCreateSwitchCardsDeckMessage() {
         String result = MessageFormatter.createSwitchCardsDeckMessage("789");
         assertEquals("{\"type\":\"SWITCH_CARD_DECK\",\"cardid\":\"789\"}", result);
     }
 
     @Test
-    protected void testCreateSwitchCardsPlayerMessage() {
+     void testCreateSwitchCardsPlayerMessage() {
         String result = MessageFormatter.createSwitchCardsPlayerMessage("Alice", "Sword", "Shield");
         assertEquals("{\"type\":\"SWITCH_CARD_PLAYER\",\"switchedWith\":\"Alice\",\"cardGiven\":\"Sword\",\"cardGivenP\":\"Shield\"}", result);
     }
@@ -71,6 +71,28 @@ class MessageFormatterTest {
         String result = MessageFormatter.createEndTurnMessage(currentturn);
         assertEquals("{\"type\":\"END_TURN\",\"turn\":\"Player1\"}", result);
     }
+
+    @Test
+     void createShowMonsterMessage() {
+        String cardid = "1";
+        String result = MessageFormatter.createShowMonsterMessage(cardid);
+        assertEquals("{\"type\":\"SHOW_MONSTERS\",\"cardid\":\"1\"}", result);
+    }
+
+    @Test
+    void createCardAttackMonsterMessage() {
+        String cardid = "1";
+        String monsterid = "2";
+        String result = MessageFormatter.createCardAttackMonsterMessage(monsterid,cardid);
+        assertEquals("{\"type\":\"CARD_ATTACK_MONSTER\",\"monsterid\":\"2\",\"cardid\":\"1\"}", result);
+    }
+
+    @Test
+    void testCreateUsernameForSwitchRequestMessage() {
+        String result = MessageFormatter.createUsernameForSwitchRequestMessage();
+        assertEquals("{\"type\":\"REQUEST_USERNAMES_SWITCH\"}", result);
+    }
+
 
 
 }

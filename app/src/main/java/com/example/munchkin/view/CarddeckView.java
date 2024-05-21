@@ -1,5 +1,6 @@
 package com.example.munchkin.view;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -15,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.controller.CardDeckController;
 
 import java.util.ArrayList;
@@ -39,12 +42,7 @@ public class CarddeckView {
 
     public CarddeckView(CarddeckActivity carddeckActivity){
         this.carddeckActivity=carddeckActivity;
-
-
-
             setupUI();
-
-
     }
 
     private void setupUI(){
@@ -62,6 +60,10 @@ public class CarddeckView {
             });
         }
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
+        spielen.setOnClickListener(v -> {
+
+            carddeckActivity.playCard();
+        });
 
 
         tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
@@ -201,7 +203,6 @@ public class CarddeckView {
 
     public void oncardclickpassive(CardView card){
 
-
         if (card == carddeckActivity.selectedCard) {
             changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
             carddeckActivity.selectedCard = null;
@@ -274,4 +275,44 @@ public class CarddeckView {
             }
         });
     }
-}
+
+    public void startMonsterAttack(){
+
+        carddeckActivity.runOnUiThread(new Runnable() {
+
+                View popupdrawable = carddeckActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+
+                    @Override
+                    public void run() {
+                        TextView textForPopUP=popupdrawable.findViewById(R.id.textpopup);
+                        textForPopUP.setText(R.string.showMonsters);
+                        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        PopupWindow popUpShowMonster = new PopupWindow(popupdrawable,width,height,true);
+                        popUpShowMonster.setOutsideTouchable(false);
+                        popUpShowMonster.setElevation(10);
+
+                        popUpShowMonster.showAtLocation(carddeckActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+
+
+
+                        Button ok = popupdrawable.findViewById(R.id.ok);
+
+                        ok.setOnClickListener(v -> {
+                            MainGameView.showMonster();
+                            Intent intent = new Intent(carddeckActivity, MainGameActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            carddeckActivity.startActivity(intent);
+
+                            popUpShowMonster.dismiss();
+
+                        });
+                    }
+                });
+
+
+
+            }
+
+    }
+

@@ -15,7 +15,6 @@ import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
@@ -50,8 +49,8 @@ public class MainGameActivity extends AppCompatActivity {
     private PlayerHand handkarten;
 
 
-    private ConnectToServerActivity connectToServerActivity;
-    private ConnectToServerView connectToServerView;
+    public static ArrayList<String>  monsterList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +63,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         setupControllers();
         setupDiceRollLauncher();
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -110,8 +110,12 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("REQUEST_ROLL", gameController);
         router.registerController("ROUND_COUNTER", gameController);
         router.registerController("CURRENT_PLAYER", gameController);
+        router.registerController("CARD_ATTACK_MONSTER", gameController);
         model.setMessageRouter(router);
+
     }
+
+
 
 
     public void sendMessage() {
@@ -168,6 +172,9 @@ public class MainGameActivity extends AppCompatActivity {
         diceRollLauncher.launch(intent);
     }
 
+    public void sendCardAttackMonsterMessage(String monsterId, String cardID){
+        gameController.cardAttackMonsterMessage(monsterId,cardID);
+    }
     private void setupDiceRollLauncher() {
         diceRollLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -182,4 +189,5 @@ public class MainGameActivity extends AppCompatActivity {
                 }
         );
     }
+
 }

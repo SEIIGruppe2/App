@@ -93,7 +93,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/board"
         app:layout_constraintVertical_bias="0.13" />
-
     <Button
         android:id="@+id/buttonEndRound"
         android:layout_width="wrap_content"
@@ -111,6 +110,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.955" />
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rippleeffect"
+        android:fontFamily="@font/chewyregular"
+        android:text="@string/button_stop"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:backgroundTint="#FFE500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/board"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.724" />
 
     <Button
         android:id="@+id/buttonCards"
@@ -894,6 +912,7 @@
         app:layout_constraintEnd_toEndOf="@+id/board"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 

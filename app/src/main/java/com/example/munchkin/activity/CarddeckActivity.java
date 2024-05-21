@@ -52,7 +52,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public static int passivmode;
 
-    public CardView selectedCard;
+    public static CardView selectedCard;
 
     Button spielen;
     Button tauschen;
@@ -78,12 +78,12 @@ public class CarddeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carddeck);
 
         spielerkarten = new PlayerHand();
-        MessageRouter router = new MessageRouter();
+
         WebSocketClientModel model = new WebSocketClientModel();
 
 
 
-        model.setMessageRouter(router);
+
         handkarten= spielerkarten.getCards();
 
 
@@ -91,10 +91,13 @@ public class CarddeckActivity extends AppCompatActivity {
 
         view =new CarddeckView(this);
         controller = new CardDeckController(model,view);
+        MessageRouter router = new MessageRouter();
+        router.registerController("SHOW_MONSTERS",controller);
         router.registerController("SWITCH_CARD_DECK_RESPONSE",controller);
         router.registerController("SWITCH_CARD_PLAYER",controller);
         router.registerController("SWITCH_CARD_PLAYER_RESPONSE",controller);
-        router.registerController("REQUEST_USERNAMES",controller);
+        router.registerController("REQUEST_USERNAMES_SWITCH",controller);
+        model.setMessageRouter(router);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
             messagfromserver = b.getString("key");
@@ -357,6 +360,16 @@ public class CarddeckActivity extends AppCompatActivity {
         else{
             controller.switchcardMeassage(username, id);
         }
+    }
+
+    public void playCard(){
+
+        CardView currentcard = selectedCard;
+        LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+        TextView gettag = (TextView)  getkardname.getChildAt(2);
+        String id = (String) gettag.getTag();
+        controller.showMonsterMessage(id);
+
     }
 
 

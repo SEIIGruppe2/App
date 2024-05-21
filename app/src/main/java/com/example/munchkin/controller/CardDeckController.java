@@ -4,7 +4,7 @@ import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;
-import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;
 
@@ -17,12 +17,9 @@ import java.util.ArrayList;
 public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
-    public PlayerHand playerHand;
-    private CarddeckView carddeckView;
+    public static PlayerHand playerHand;
+    private static CarddeckView carddeckView;
 
-
-
-    private CarddeckActivity carddeckActivity;
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
         super(model);
@@ -68,7 +65,7 @@ public class CardDeckController extends BaseController {
 
     }
     public void getactiveusers(){
-        String message = MessageFormatter.createUsernameRequestMessage();
+        String message = MessageFormatter.createUsernameForSwitchRequestMessage();
         model.sendMessageToServer(message);
     }
 
@@ -85,8 +82,11 @@ public class CardDeckController extends BaseController {
                 case "SWITCH_CARD_DECK_RESPONSE":
                     updatehanddeck(jsonResponse);
                     break;
-                case "REQUEST_USERNAMES":
+                case "REQUEST_USERNAMES_SWITCH":
                     handleUserName(jsonResponse);
+                    break;
+                case "SHOW_MONSTERS":
+                    handleShowMonsters(jsonResponse);
                     break;
                 default:
                     break;
@@ -98,7 +98,7 @@ public class CardDeckController extends BaseController {
 
     private void updatehanddeck(JSONObject jsonResponse) {
 
-        System.out.println("Update Handdeck checked");
+
 
         try{
 
@@ -121,7 +121,8 @@ public class CardDeckController extends BaseController {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             ArrayList<String> usernamesList = new ArrayList<>();
             for (int i = 0; i < usernamesArray.length(); i++) {
-                usernamesList.add(usernamesArray.getString(i));
+
+                    usernamesList.add(usernamesArray.getString(i));
 
             }
             carddeckView.usernames = usernamesList;
@@ -138,16 +139,6 @@ public class CardDeckController extends BaseController {
         model.sendMessageToServer(message);
     }
 
-
-
-
-
-
-
-
-
-
-
     private void updateCardsListWithNewCard(ActionCardDTO newCard) {
         playerHand.addCard(newCard);
 
@@ -163,6 +154,30 @@ public class CardDeckController extends BaseController {
         sendSwitchCardsDeckMessage(idAsString);
     }*/
 
+    public void showMonsterMessage(String id){
+        String message = MessageFormatter.createShowMonsterMessage(id);
+        websocket.sendMessageToServer(message);
+    }
+
+    private static void handleShowMonsters(JSONObject jsonObject){
+
+        try{
+
+            JSONArray monsterIdArray = jsonObject.getJSONArray("monstersid");
+            ArrayList<String>  monsterList = new ArrayList<>();
+            for (int i = 0; i < monsterIdArray.length(); i++) {
+                monsterList.add(monsterIdArray.getString(i));
+
+
+            }
+            MainGameActivity.monsterList = monsterList;
+            carddeckView.startMonsterAttack();
+        }
+        catch (JSONException e) {
+        throw new IllegalArgumentException("Fehler bei handleShowMonsters/Cardddeckcontroller");
+    }
+
+    }
 
 
 }

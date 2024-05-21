@@ -18,7 +18,7 @@ class CardUtilsTest {
                 new ActionCardDTO("Ritter", 3, 4),
                 new ActionCardDTO("Unknown", 4, 5)
         );
-        String[] expected = {"blauerbogenschuetze", "roterschwertkaempfer", "gruenerheld", "braunerritter", "blauerheld"};
+        String[] expected = {"roterbogenschuetze", "blauerschwertkaempfer", "gruenerheld", "braunerritter", "blauerheld"};
         assertArrayEquals(expected, CardUtils.getresources(cards));
     }
 
@@ -39,8 +39,8 @@ class CardUtilsTest {
 
     @Test
     protected void testGetZone() {
-        assertEquals("blauer", CardUtils.getzone(0));
-        assertEquals("roter", CardUtils.getzone(1));
+        assertEquals("roter", CardUtils.getzone(0));
+        assertEquals("blauer", CardUtils.getzone(1));
         assertEquals("gruener", CardUtils.getzone(2));
         assertEquals("brauner", CardUtils.getzone(3));
 
