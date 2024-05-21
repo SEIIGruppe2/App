@@ -39,7 +39,7 @@ public class ConnectToServerController extends BaseController {
 
 
     private void messageReceivedFromServer(String message) {
-
+            Log.d("MessageFromServer", message);
     }
 
     @Override
