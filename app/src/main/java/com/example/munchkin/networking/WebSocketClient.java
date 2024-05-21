@@ -15,12 +15,6 @@ import com.example.munchkin.model.WebSocketClientModel;
 
 public class WebSocketClient {
 
-    /**
-     * localhost from the Android emulator is reachable as 10.0.2.2
-     * https://developer.android.com/studio/run/emulator-networking
-     */
-
-    private final String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
 
     private WebSocket webSocket;
 
@@ -46,6 +40,7 @@ public class WebSocketClient {
             throw new IllegalArgumentException("messageHandler is required");
 
         OkHttpClient client = new OkHttpClient();
+        String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
         Request request = new Request.Builder()
                 .url(WEBSOCKET_URI)
                 .build();
@@ -86,11 +81,6 @@ public class WebSocketClient {
         } finally {
             super.finalize();
         }
-    }
-
-    // Simple method to demonstrate unit testing and test coverage with sonarcloud
-    public static String concatenateStrings(String first, String second) {
-        return first + " " + second;
     }
 
 
