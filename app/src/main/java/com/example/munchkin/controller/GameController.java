@@ -132,17 +132,12 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("MonsterAttack", "Handling monster attack message: " + message);
         try {
             String monsterId = message.getString("monsterId");
-            //String towerId = message.getString("towerId");
             int monsterHp = message.getInt("monsterHp");
             int towerHp = message.getInt("towerHp");
             Log.d("GameController5", "Tower HP received: " + towerHp);
-            // Update tower HP
             maingameView.modifyTowerLifePoints(towerHp);
             Log.d("GameController6", "UI should now be updated.");
-            String attackStatus = message.getString("attackStatus");
-            // Update monster HP
             maingameView.updateMonsterHealth(monsterId, monsterHp);
-            //maingameView.moveMonstersInward();
         } catch (JSONException e) {
             Log.e("GameController7", "Error parsing monster attack message", e);
         }
@@ -155,7 +150,6 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     private void performeRoll() {
-        Log.d("PerformeRoll", "Würfel methode wird ausgelöst " );
         if(!diceRolledThisRound) {
             mainGameActivity.requestRoll();
             diceRolledThisRound=true;
@@ -189,11 +183,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         try {
 
             roundCounter = jsonResponse.getString("turnCount");
-            int turnCount = 0;
-            Log.d("TurnCount", "tun" + turnCount);
-
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
-            Log.d(handleCurrentPlayerString, "Aktueller Spieler: " + currentPlayerUsername);
             currentPlayerp= currentPlayerUsername;
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
@@ -216,12 +206,8 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     }
 
-
-
     @Override
     public void onDiceRolled(int[] results) {
-
-        Log.d("GameRound", "Bevor SpawnMonster" );
         for (int result : results) {
             spawnMonsterController.sendMonsterSpawnMessage(Integer.toString(result));
         }
@@ -229,17 +215,13 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
     @Override
     public void requestDiceRoll(DiceRollCallback callback) {
-        Log.d("GameRound", "In RequestRoll" );
         DiceRollModel diceRollModel = new DiceRollModel();
         diceRollModel.rollDice(result -> callback.onDiceRolled(new int[]{result}));
-        Log.d("GameRound", "Nach RequestRoll" );
     }
 
     public boolean currentPlayer(){
-
         return currentPlayerp != null && currentPlayerp.equals(clientplayerUsername);
     }
-
 
 
 }
