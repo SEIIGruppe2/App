@@ -49,30 +49,17 @@ public class CarddeckActivity extends AppCompatActivity {
 
 
     private CardDeckController controller;
-
     public static int passivmode;
-
     public static CardView selectedCard;
-
-    private String defTypeString = "string";
-
-    private String defTypeDrawable = "drawable";
-
-    Button spielen;
-    Button tauschen;
-    PlayerHand spielerkarten;
-
+    private final String defTypeString = "string";
+    private final String defTypeDrawable = "drawable";
     public List<ActionCardDTO> handkarten;
-    CarddeckView view;
-
-    String messagfromserver;
-    String usernametoswitchwith;
-
-    PopupWindow popuptauschen;
-    TextView kartenname;
-
-    ImageView kartenbild;
-    TextView kartenbeschreibung;
+    private CarddeckView view;
+    private String usernametoswitchwith;
+    private PopupWindow popuptauschen;
+    private TextView kartenname;
+    private ImageView kartenbild;
+    private TextView kartenbeschreibung;
 
 
     @Override
@@ -81,7 +68,7 @@ public class CarddeckActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_carddeck);
 
-        spielerkarten = new PlayerHand();
+        PlayerHand spielerkarten = new PlayerHand();
 
         WebSocketClientModel model = new WebSocketClientModel();
 
@@ -104,7 +91,7 @@ public class CarddeckActivity extends AppCompatActivity {
         model.setMessageRouter(router);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
-            messagfromserver = b.getString("key");
+            String messagfromserver = b.getString("key");
             try {
                 JSONObject message = new JSONObject(messagfromserver);
                 int id = Integer.parseInt(message.getString("id"));
