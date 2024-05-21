@@ -54,6 +54,10 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public static CardView selectedCard;
 
+    private String defTypeString = "string";
+
+    private String defTypeDrawable = "drawable";
+
     Button spielen;
     Button tauschen;
     PlayerHand spielerkarten;
@@ -131,11 +135,11 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
     public int getstringressource(String tag){
-        return getResources().getIdentifier(tag,"string",getPackageName());
+        return getResources().getIdentifier(tag, defTypeString,getPackageName());
     }
 
     public int getimageressource(String tag){
-        return getResources().getIdentifier(tag,"drawable",getPackageName());
+        return getResources().getIdentifier(tag,defTypeDrawable,getPackageName());
 
     }
 
@@ -217,15 +221,15 @@ public class CarddeckActivity extends AppCompatActivity {
         kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
         kartenbild = popupdrawable.findViewById(R.id.kartenbildpopup);
         String kartenname2 = ressource+"1";
-        int resIDkartenname = getResources().getIdentifier(kartenname2,"string",getPackageName());
+        int resIDkartenname = getResources().getIdentifier(kartenname2,defTypeString,getPackageName());
         kartenname.setText(resIDkartenname);
 
         String kartenbeschreibung2 = ressource+"2";
-        int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,"string",getPackageName());
+        int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,defTypeString,getPackageName());
         kartenbeschreibung.setText(resIDkartennbeschreibung);
 
         String kartenbild2 = ressource;
-        int resIDkartenbild = getResources().getIdentifier(kartenbild2,"drawable",getPackageName());
+        int resIDkartenbild = getResources().getIdentifier(kartenbild2,defTypeDrawable,getPackageName());
         kartenbild.setImageResource(resIDkartenbild);
 
 
@@ -257,7 +261,7 @@ public class CarddeckActivity extends AppCompatActivity {
             tauschentext.setText("Anfrage wurde gesendet");
             kartenname.setText("");
             kartenbeschreibung.setText("");
-            kartenbild.setImageResource(getResources().getIdentifier("loadingimage","drawable",getPackageName()));
+            kartenbild.setImageResource(getResources().getIdentifier("loadingimage",defTypeDrawable,getPackageName()));
             // Post a delayed Runnable to the Handler
             /*handler.postDelayed(new Runnable() {
                 @Override
@@ -319,12 +323,12 @@ public class CarddeckActivity extends AppCompatActivity {
         String[] handcards = CardUtils.getresources(handkarten);
         String neuekarte = handcards[handcards.length-1];
         String neuerkartenname= neuekarte+"1";
-        kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
+        kartenname.setText(getResources().getIdentifier(neuerkartenname,defTypeString,getPackageName()));
 
         String neuekartenbeschreibung = neuekarte+"2";
-        kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
+        kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,defTypeString,getPackageName()));
 
-        kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
+        kartenbild.setImageResource(getResources().getIdentifier(neuekarte,defTypeDrawable,getPackageName()));
 
         neuerbutton.setLayoutParams(layoutParamskarteninhalt);
         neuerbutton.setText("ok");
