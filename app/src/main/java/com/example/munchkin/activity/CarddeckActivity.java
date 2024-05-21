@@ -91,15 +91,17 @@ public class CarddeckActivity extends AppCompatActivity {
         model.setMessageRouter(router);
         if(passivmode==1){
             Bundle b = getIntent().getExtras();
+            assert b != null;
             String messagfromserver = b.getString("key");
             try {
+                assert messagfromserver != null;
                 JSONObject message = new JSONObject(messagfromserver);
                 int id = Integer.parseInt(message.getString("id"));
                 String name = message.getString("name");
                 int zone = Integer.parseInt(message.getString("zone"));
                 ActionCardDTO karte = new ActionCardDTO(name, zone,id);
                 usernametoswitchwith = message.getString("switchedWith");
-                controller.playerHand.addCard(karte);
+                CardDeckController.playerHand.addCard(karte);
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -166,9 +168,7 @@ public class CarddeckActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoadingscreenActivity.class);
             startActivity(intent);
         });
-        nein.setOnClickListener(v -> {
-            popupzugzuende.dismiss();
-        });
+        nein.setOnClickListener(v -> popupzugzuende.dismiss());
     }
 
     public void passivetauschen(){
@@ -215,8 +215,7 @@ public class CarddeckActivity extends AppCompatActivity {
         int resIDkartennbeschreibung = getResources().getIdentifier(kartenbeschreibung2,defTypeString,getPackageName());
         kartenbeschreibung.setText(resIDkartennbeschreibung);
 
-        String kartenbild2 = ressource;
-        int resIDkartenbild = getResources().getIdentifier(kartenbild2,defTypeDrawable,getPackageName());
+        int resIDkartenbild = getResources().getIdentifier(ressource,defTypeDrawable,getPackageName());
         kartenbild.setImageResource(resIDkartenbild);
 
 
@@ -239,7 +238,6 @@ public class CarddeckActivity extends AppCompatActivity {
             TextView gettag = (TextView)  getkardname.getChildAt(2);
             String id = (String) gettag.getTag();
             sendmessage(username, id);
-            Handler handler = new Handler();
             tauschen.setVisibility(View.GONE);
             zurueck.setVisibility(View.GONE);
             LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
@@ -294,9 +292,7 @@ public class CarddeckActivity extends AppCompatActivity {
            //hier ist zuende
         });
 
-        zurueck.setOnClickListener(v -> {
-            popuptauschen.dismiss();
-        });
+        zurueck.setOnClickListener(v -> popuptauschen.dismiss());
     }
 
     public void updatepopupwindow(){
@@ -324,12 +320,9 @@ public class CarddeckActivity extends AppCompatActivity {
         buttoncontainer.addView(neuerbutton);
         Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
         neuerbutton.setTypeface(typeface);
-        neuerbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popuptauschen.dismiss();
-                view.updatenachtauschen();
-            }
+        neuerbutton.setOnClickListener(v -> {
+            popuptauschen.dismiss();
+            view.updatenachtauschen();
         });
 
     }
