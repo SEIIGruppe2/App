@@ -211,8 +211,8 @@ public class CarddeckActivity extends AppCompatActivity {
         popuptauschen = new PopupWindow(popupdrawable,1750,1200,true);
         popuptauschen.setOutsideTouchable(false);
         popuptauschen.setAnimationStyle(R.anim.popup);
-       popuptauschen.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        popuptauschen.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
+       popuptauschen.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popuptauschen.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popuptauschen);
         Button tauschen = popupdrawable.findViewById(R.id.buttontauschendurchfuehren);
