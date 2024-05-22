@@ -103,15 +103,20 @@ class MessageFormatterTest {
     @Test
     void testPrivateConstructor() {
         try {
-            Constructor<MessageFormatter> constructor = MessageFormatter.class.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            constructor.newInstance();
+            invokePrivateConstructor();
             fail("Expected UnsupportedOperationException to be thrown");
         } catch (InvocationTargetException e) {
             assertTrue(e.getCause() instanceof UnsupportedOperationException, "Expected cause to be UnsupportedOperationException");
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             fail("Unexpected exception type thrown: " + e);
         }
     }
+
+    private void invokePrivateConstructor() throws ReflectiveOperationException {
+        Constructor<MessageFormatter> constructor = MessageFormatter.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        constructor.newInstance();
+    }
 }
+
 
