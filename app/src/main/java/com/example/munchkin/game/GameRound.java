@@ -21,7 +21,6 @@ public class GameRound {
 
 
     private void handleDiceResults(int[] results) {
-        Log.d("HandleDiceResult", "inHandleResult");
     }
 
 }

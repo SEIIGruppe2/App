@@ -2,6 +2,13 @@ package com.example.munchkin.MessageFormat;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 
 class MessageFormatterTest {
 
@@ -93,6 +100,18 @@ class MessageFormatterTest {
         assertEquals("{\"type\":\"REQUEST_USERNAMES_SWITCH\"}", result);
     }
 
-
-
+    @Test
+    void testPrivateConstructor() {
+        try {
+            Constructor<MessageFormatter> constructor = MessageFormatter.class.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            constructor.newInstance();
+            fail("Expected UnsupportedOperationException to be thrown");
+        } catch (InvocationTargetException e) {
+            assertTrue(e.getCause() instanceof UnsupportedOperationException, "Expected cause to be UnsupportedOperationException");
+        } catch (Exception e) {
+            fail("Unexpected exception type thrown: " + e);
+        }
+    }
 }
+

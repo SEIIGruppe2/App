@@ -10,6 +10,8 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.lang.reflect.Method;
 
 public class GameRoundTest {
     @Mock
@@ -39,5 +41,6 @@ public class GameRoundTest {
         gameRound.start();
         verify(mockEventHandler, times(1)).requestDiceRoll(any());
     }
+
 }
 
