@@ -103,7 +103,7 @@ public class CarddeckActivity extends AppCompatActivity {
                 CardDeckController.playerHand.addCard(karte);
 
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -150,17 +150,17 @@ public class CarddeckActivity extends AppCompatActivity {
 
     public void zugbeenden(){
 
-        View popupdrawable = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);
+        View drawablePopUp = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);
 
         int width = ViewGroup.LayoutParams.WRAP_CONTENT;
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        PopupWindow popupzugzuende = new PopupWindow(popupdrawable,width,height,true);
+        PopupWindow popupzugzuende = new PopupWindow(drawablePopUp,width,height,true);
         popupzugzuende.setOutsideTouchable(false);
         popupzugzuende.setElevation(10);
         popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popupzugzuende);
-        Button ja = popupdrawable.findViewById(R.id.buttonja);
-        Button nein = popupdrawable.findViewById(R.id.nein);
+        Button ja = drawablePopUp.findViewById(R.id.buttonja);
+        Button nein = drawablePopUp.findViewById(R.id.nein);
 
 
         ja.setOnClickListener(v -> {
@@ -201,7 +201,7 @@ public class CarddeckActivity extends AppCompatActivity {
         popuptauschen.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         popuptauschen.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
         dimmwindow(popuptauschen);
-        Button tauschen = popupdrawable.findViewById(R.id.buttontauschendurchfuehren);
+        Button switchCards = popupdrawable.findViewById(R.id.buttontauschendurchfuehren);
         Button zurueck = popupdrawable.findViewById(R.id.buttonzurueck2);
         kartenname = popupdrawable.findViewById(R.id.kartennamepopup);
         kartenbeschreibung =  popupdrawable.findViewById(R.id.kartenbeschreibungpopup);
@@ -229,7 +229,7 @@ public class CarddeckActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.list);
 
 
-        tauschen.setOnClickListener(v -> {
+        switchCards.setOnClickListener(v -> {
 
             String username = dropdownmenu.getSelectedItem().toString();
             CardView currentcard = selectedCard;
@@ -237,7 +237,7 @@ public class CarddeckActivity extends AppCompatActivity {
             TextView gettag = (TextView)  getkardname.getChildAt(2);
             String id = (String) gettag.getTag();
             sendmessage(username, id);
-            tauschen.setVisibility(View.GONE);
+            switchCards.setVisibility(View.GONE);
             zurueck.setVisibility(View.GONE);
             LinearLayout parentlayout = popupdrawable.findViewById(R.id.parentlayoutpopup);
             parentlayout.removeView(parentlayout.getChildAt(1));
@@ -246,49 +246,7 @@ public class CarddeckActivity extends AppCompatActivity {
             kartenname.setText("");
             kartenbeschreibung.setText("");
             kartenbild.setImageResource(getResources().getIdentifier("loadingimage",defTypeDrawable,getPackageName()));
-            // Post a delayed Runnable to the Handler
-            /*handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
 
-                    LinearLayout buttoncontainer = popupdrawable.findViewById(R.id.buttoncontainer);
-                    Button neuerbutton = new Button(CarddeckActivity.this);
-                    LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-
-                    tauschentext.setText("Du hast folgende Karte erhalten");
-                    String[] handcards = CardUtils.getresources(handkarten);
-                    String neuekarte = handcards[handcards.length-1];
-                    String neuerkartenname= neuekarte+"1";
-                    getResources().getIdentifier(kartenname2,"string",getPackageName());
-                    kartenname.setText(getResources().getIdentifier(neuerkartenname,"string",getPackageName()));
-
-                    String neuekartenbeschreibung = neuekarte+"2";
-                    kartenbeschreibung.setText(getResources().getIdentifier(neuekartenbeschreibung,"string",getPackageName()));
-
-                    kartenbild.setImageResource(getResources().getIdentifier(neuekarte,"drawable",getPackageName()));
-
-                    neuerbutton.setLayoutParams(layoutParamskarteninhalt);
-                    neuerbutton.setText("ok");
-                    neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
-                    neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CarddeckActivity.this, R.color.yellow));
-                    buttoncontainer.addView(neuerbutton);
-                    Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
-                    neuerbutton.setTypeface(typeface);
-                    neuerbutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            popuptauschen.dismiss();
-                            view.updatenachtauschen();
-                        }
-                    });
-
-                }
-            }, 3000);*/
-
-
-
-           //hier ist zuende
         });
 
         zurueck.setOnClickListener(v -> popuptauschen.dismiss());
@@ -331,7 +289,6 @@ public class CarddeckActivity extends AppCompatActivity {
         View container = (View) popup.getContentView().getParent();
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
-        // add flag
         p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
