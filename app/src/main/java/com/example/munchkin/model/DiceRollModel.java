@@ -11,19 +11,16 @@ public class DiceRollModel {
     }
 
     public void rollDice(final DiceRollCallback callback) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-
-                final int randomNumber = secureRandom.nextInt(4);
-
-                callback.onDiceRolled(randomNumber);
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
+
+            final int randomNumber = secureRandom.nextInt(4);
+
+            callback.onDiceRolled(randomNumber);
         }).start();
     }
 }
