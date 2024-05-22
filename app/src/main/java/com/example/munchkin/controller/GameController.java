@@ -28,7 +28,6 @@ import com.example.munchkin.game.AppState;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
-    private static Queue<Player> playerQueue;
     public String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
@@ -41,7 +40,6 @@ public class GameController extends BaseController implements DiceRollListener, 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
         this.maingameView = maingameView;
-        playerQueue = new LinkedList<>();
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
 
@@ -158,7 +156,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public static void setUsernames(JSONObject jsonResponse){
         List<String> playerusernames = new ArrayList<>();
-        playerQueue = new LinkedList<>();
+        Queue<Player> playerQueue = new LinkedList<>();
         try {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             for (int i = 0; i < usernamesArray.length(); i++) {
