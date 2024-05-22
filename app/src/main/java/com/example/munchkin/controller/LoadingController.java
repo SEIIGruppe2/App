@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.model.WebSocketClientModel;
 
 import org.json.JSONException;
@@ -18,12 +20,8 @@ public class LoadingController extends BaseController {
         try {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
-            switch (messageType) {
-                case "LOBBY_ASSIGNED":
-                    handleLobbyAssignedMessage(jsonResponse);
-                    break;
-                default:
-                    break;
+            if (messageType.equals("LOBBY_ASSIGNED")) {
+                handleLobbyAssignedMessage(jsonResponse);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/LoadingController ");
@@ -33,11 +31,7 @@ public class LoadingController extends BaseController {
 
 
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
-
-
+        Log.d("Lobby wurde Assigned", jsonResponse.toString());
     }
-
-
-
 
 }

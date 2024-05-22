@@ -1,6 +1,6 @@
 package com.example.munchkin.controller;
 
-import android.util.Log;
+
 
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
@@ -28,12 +28,8 @@ public class SpawnMonsterController extends BaseController {
         try {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
-            switch (messageType) {
-                case "SPAWN_MONSTER":
-                    handleSpawnMonsterMessage(jsonResponse);
-                    break;
-                default:
-                    break;
+            if (messageType.equals("SPAWN_MONSTER")) {
+                handleSpawnMonsterMessage(jsonResponse);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/GameController");
@@ -48,7 +44,6 @@ public class SpawnMonsterController extends BaseController {
 
 
     private void handleSpawnMonsterMessage(JSONObject message ){
-        Log.d("SpawnMonster", "Handling spawn monster message: " + message);
         try {
             JSONObject monsterJson = message.getJSONObject("monster");
             int monsterId = monsterJson.getInt("id");
@@ -58,12 +53,9 @@ public class SpawnMonsterController extends BaseController {
             int lifePoints = monsterJson.getInt("lifepoints");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
-            Log.d("SpawnMonster", "Received Monster - ID: " + monsterId + ", Zone: " + monsterZone + ", Ring: " + ring + ", Name: " + monsterName + ", Life Points: " + lifePoints);
-
             maingameView.spawnMonster(monster);
 
         } catch (JSONException e) {
-            Log.e("SpawnMonster", "Error parsing monster data", e);
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");
         }
     }

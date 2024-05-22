@@ -27,7 +27,6 @@ public class DrawCardController extends BaseController{
 
     public void drawMeassage() {
         String message = MessageFormatter.createDrawCardMessage();
-        System.out.println(message);
         websocket.sendMessageToServer(message);
     }
 
@@ -41,12 +40,8 @@ public class DrawCardController extends BaseController{
         try {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
-            switch (messageType) {
-                case "DRAW_CARD":
-                    handledrawcard(jsonResponse);
-                    break;
-                default:
-                    break;
+            if (messageType.equals("DRAW_CARD")) {
+                handledrawcard(jsonResponse);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/DrawCardController");

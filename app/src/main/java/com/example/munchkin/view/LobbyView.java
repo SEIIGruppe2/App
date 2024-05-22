@@ -1,6 +1,6 @@
 package com.example.munchkin.view;
 
-import android.os.Handler;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,10 +21,7 @@ public class LobbyView {
     }
     public void setupUI(){
         Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
-        spielStarten.setOnClickListener(v -> {
-            lobbyActivity.goToMainGame();
-
-        });
+        spielStarten.setOnClickListener(v -> lobbyActivity.goToMainGame());
        spielStarten.setVisibility(View.GONE);
         textViewArray[0]=lobbyActivity.findViewById(R.id.Player1);
         textViewArray[1]=lobbyActivity.findViewById(R.id.Player2);
@@ -33,27 +30,23 @@ public class LobbyView {
 
     }
     public void updateUserList(int arraylength){
-        System.out.println("Updateuserlist");
 
 
-        lobbyActivity.runOnUiThread((new Runnable() {
-            @Override
-            public void run() {
+        lobbyActivity.runOnUiThread((() -> {
 
-                for(int i=0; i< 4;i++) {
-                    if (!(LobbyController.usernames[i] ==null)) {
-                        textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": " + LobbyController.usernames[i]);
+            for(int i=0; i< 4;i++) {
+                if (!(LobbyController.usernames[i] ==null)) {
+                    textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": " + LobbyController.usernames[i]);
 
-                    } else {
-                        textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": ");
-                    }
+                } else {
+                    textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": ");
                 }
-                if(arraylength==4){
-                    TextView lobbytextiew = lobbyActivity.findViewById(R.id.lobbyTextView);
-                    lobbytextiew.setVisibility(View.GONE);
-                    Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
-                    spielStarten.setVisibility(View.VISIBLE);
-                }
+            }
+            if(arraylength==4){
+                TextView lobbytextiew = lobbyActivity.findViewById(R.id.lobbyTextView);
+                lobbytextiew.setVisibility(View.GONE);
+                Button spielStarten= lobbyActivity.findViewById(R.id.buttonSpielStarten);
+                spielStarten.setVisibility(View.VISIBLE);
             }
         }));
 

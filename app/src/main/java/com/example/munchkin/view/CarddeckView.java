@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
-
 import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
-import com.example.munchkin.controller.CardDeckController;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,15 +25,9 @@ public class CarddeckView {
     LinearLayout parentlayout;
     Button spielen;
     Button tauschen;
-
     Button zurueck;
-
     Button zugbeenden;
-
     private CarddeckActivity carddeckActivity;
-
-    private CardDeckController cardDeckController;
-
     public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
 
 
@@ -55,31 +46,21 @@ public class CarddeckView {
             zugbeenden.setVisibility(View.GONE);
         }
         else {
-            zugbeenden.setOnClickListener(v -> {
-                carddeckActivity.zugbeenden();
-            });
+            zugbeenden.setOnClickListener(v -> carddeckActivity.zugbeenden());
         }
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
-        spielen.setOnClickListener(v -> {
-
-            carddeckActivity.playCard();
-        });
+        spielen.setOnClickListener(v -> carddeckActivity.playCard());
 
 
         tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
-        tauschen.setOnClickListener(v -> {
-
-            carddeckActivity.tauschen();
-        });
+        tauschen.setOnClickListener(v -> carddeckActivity.tauschen());
 
         zurueck = carddeckActivity.findViewById(R.id.buttonzurueck1);
         if(CarddeckActivity.passivmode==1){
             zurueck.setVisibility(View.GONE);
         }
         else {
-            zurueck.setOnClickListener(v -> {
-                carddeckActivity.zurueck();
-            });
+            zurueck.setOnClickListener(v -> carddeckActivity.zurueck());
         }
         String[] handcards = CardUtils.getresources(carddeckActivity.handkarten);
         fillcards(handcards);
@@ -89,29 +70,23 @@ public class CarddeckView {
     }
 
     public void updatenachtauschen(){
-
         String[] handcrads = CardUtils.getresources(carddeckActivity.handkarten);
         for(String a:handcrads){
-            System.out.println(a);
+            Log.d("updatenachTauschen", a);
         }
         parentlayout.removeAllViews();
-
-
        fillcards(handcrads);
-
-
     }
 
 
 
     public void fillcards(String[] handcards){
-
         for(int i=0; i<handcards.length; i++){
 
             String filler = handcards[i];
             CardView cards = new CardView(carddeckActivity);
             float dpValue = 125f;
-            float dpValue2 = 200f;// Change this value to your desired dp
+            float dpValue2 = 200f;
             float density = carddeckActivity.getdensity();
             int pixelValue1 = (int) (dpValue * density);
             int pixelValue2 = (int) (dpValue2 * density);
@@ -125,17 +100,16 @@ public class CarddeckView {
             float radius = 23f;
             int pixelValueradius = (int) (radius * density);
             cards.setRadius(pixelValueradius);
-            //karteninhalt
             LinearLayout karteninhalt = new LinearLayout(carddeckActivity);
-            LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
+            LinearLayout.LayoutParams layoutParamskarteninhalt = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             karteninhalt.setOrientation(LinearLayout.VERTICAL);
             karteninhalt.setLayoutParams(layoutParamskarteninhalt);
 
 
-            //kartenname
+
             TextView kartenname = new TextView(carddeckActivity);
-            LinearLayout.LayoutParams layoutParamskartenname = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
+            LinearLayout.LayoutParams layoutParamskartenname = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             float margin = 8f;
             int pixelValuemargin = (int) (margin * density);
@@ -157,7 +131,7 @@ public class CarddeckView {
             ImageView kartenbild = new ImageView(carddeckActivity);
             float dpvalueimage = 100f;
             int pixelValueimage = (int) (dpvalueimage * density);
-            LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
+            LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     pixelValueimage);
             kartenbild.setImageResource(carddeckActivity.getimageressource(filler));
             String id = String.valueOf(carddeckActivity.handkarten.get(i).getId());
@@ -166,7 +140,7 @@ public class CarddeckView {
             karteninhalt.addView(kartenbild);
 
             TextView kartenbeschreibung = new TextView(carddeckActivity);
-            LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, // Breite
+            LinearLayout.LayoutParams layoutParamskartenbeschreibung = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
             String kartenbeschreibung2 = filler+"2";
@@ -184,16 +158,13 @@ public class CarddeckView {
 
 
 
-            cards.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(carddeckActivity.passivmode == 1){
-                        oncardclickpassive(cards);
-                    }else{
-                        oncardclick(cards);
-                    }
-
+            cards.setOnClickListener((v -> {
+                if(CarddeckActivity.passivmode == 1){
+                    oncardclickpassive(cards);
+                }else{
+                    oncardclick(cards);
                 }
+
             }));
 
             parentlayout.addView(cards);
@@ -203,47 +174,43 @@ public class CarddeckView {
 
     public void oncardclickpassive(CardView card){
 
-        if (card == carddeckActivity.selectedCard) {
-            changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
-            carddeckActivity.selectedCard = null;
+        if (card == CarddeckActivity.selectedCard) {
+            changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
+            CarddeckActivity.selectedCard = null;
             card.setForeground(carddeckActivity.getcardforeground());
             tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
-            if (carddeckActivity.selectedCard != null) {
-                changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
-                carddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
+            if (CarddeckActivity.selectedCard != null) {
+                changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
+                CarddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
             }
             changecardview(card, 155f,250f,20,20,15);
             card.setForeground(carddeckActivity.getyellowborder());
-            carddeckActivity.selectedCard = card;
-            tauschen.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    carddeckActivity.passivetauschen();
-                }}));
-            tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
+            CarddeckActivity.selectedCard = card;
+            tauschen.setOnClickListener((v -> carddeckActivity.passivetauschen()));
+            tauschen.setVisibility(View.VISIBLE);
         }
     }
 
     public void oncardclick(CardView card){
 
 
-        if (card == carddeckActivity.selectedCard) {
-            changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
-            carddeckActivity.selectedCard = null;
+        if (card == CarddeckActivity.selectedCard) {
+            changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
+            CarddeckActivity.selectedCard = null;
             card.setForeground(carddeckActivity.getcardforeground());
             spielen.setVisibility(View.GONE);
             tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
-            if (carddeckActivity.selectedCard != null) {
-                changecardview(carddeckActivity.selectedCard, 125f,200f,16,16,12);
-                carddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
+            if (CarddeckActivity.selectedCard != null) {
+                changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
+                CarddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
             }
             changecardview(card, 155f,250f,20,20,15);
             card.setForeground(carddeckActivity.getyellowborder());
-            carddeckActivity.selectedCard = card;
+            CarddeckActivity.selectedCard = card;
             spielen.setVisibility(View.VISIBLE);
             tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
         }
@@ -267,13 +234,7 @@ public class CarddeckView {
     }
 
     public void updatescreen() {
-        carddeckActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                carddeckActivity.updatepopupwindow();
-
-            }
-        });
+        carddeckActivity.runOnUiThread(() -> carddeckActivity.updatepopupwindow());
     }
 
     public void startMonsterAttack(){

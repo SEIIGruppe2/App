@@ -5,7 +5,7 @@ import com.example.munchkin.model.WebSocketClientModel;
 public abstract class BaseController {
     protected WebSocketClientModel model;
 
-    public BaseController(WebSocketClientModel model) {
+    protected BaseController(WebSocketClientModel model) {
         this.model = model;
     }
 

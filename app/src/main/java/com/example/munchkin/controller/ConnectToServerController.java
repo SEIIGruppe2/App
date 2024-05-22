@@ -12,34 +12,34 @@ import org.json.JSONObject;
 
 public class ConnectToServerController extends BaseController {
 
-    private WebSocketClientModel model;
+    private WebSocketClientModel webSocketClientModel;
     private ConnectToServerView view;
 
 
     public ConnectToServerController(WebSocketClientModel model, ConnectToServerView view) {
         super(model);
-        this.model = model;
+        this.webSocketClientModel = model;
         this.view = view;
         setupController();
     }
 
    public void setupController() {
-        model.connectToServer(this::messageReceivedFromServer);
+        webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
 
     public void reconnectToServer() {
-        model.connectToServer(this::messageReceivedFromServer);
+        webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
 
     public void registerUserMessage(String username) {
         String message = MessageFormatter.registerUserMessage(username);
-        model.sendMessageToServer(message);
+        webSocketClientModel.sendMessageToServer(message);
     }
 
 
 
     private void messageReceivedFromServer(String message) {
-
+            Log.d("MessageFromServer", message);
     }
 
     @Override
@@ -90,6 +90,7 @@ public class ConnectToServerController extends BaseController {
 
         try {
             String type = jsonResponse.getString("type");
+            Log.d("TypeMessage LobbyAssigned", type);
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
