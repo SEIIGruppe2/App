@@ -24,7 +24,7 @@ class CardUtilsTest {
 
     @Test
     protected void testGetResourcesWithEmptyList() {
-        assertTrue(CardUtils.getresources(Collections.emptyList()).length == 0);
+        assertEquals(0, CardUtils.getresources(Collections.emptyList()).length);
     }
 
     @Test
