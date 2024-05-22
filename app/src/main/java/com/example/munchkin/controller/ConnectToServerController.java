@@ -90,6 +90,7 @@ public class ConnectToServerController extends BaseController {
 
         try {
             String type = jsonResponse.getString("type");
+            Log.d("TypeMessage LobbyAssigned", type);
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
