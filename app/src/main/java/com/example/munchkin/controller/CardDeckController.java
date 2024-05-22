@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.DTO.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
@@ -17,15 +19,14 @@ import java.util.ArrayList;
 public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
-    public static PlayerHand playerHand;
+    public static PlayerHand playerHand = new PlayerHand();
     private static CarddeckView carddeckView;
 
 
     public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
         super(model);
         websocket=model;
-        this.playerHand = new PlayerHand();
-        this.carddeckView = carddeckView;
+        CardDeckController.carddeckView = carddeckView;
     }
 
     public void switchcardMeassage(String username, String id) {
@@ -72,7 +73,7 @@ public class CardDeckController extends BaseController {
     @Override
     public void handleMessage(String message) {
         try {
-            System.out.println("Carddeckcontroller message received");
+            Log.d("handleMassage", "CardDeckController message received");
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
@@ -134,26 +135,6 @@ public class CardDeckController extends BaseController {
     }
 
 
-    /*public void requestUsernames() {
-        String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
-    }
-
-    private void updateCardsListWithNewCard(ActionCardDTO newCard) {
-        playerHand.addCard(newCard);
-
-        tradeCardsView.displayPlayerCards(playerHand.getCards());
-        tradeCardsView.setupCardSelection();
-    }
-
-    public void tradeCardDeck(ActionCardDTO card) {
-
-        int id = card.getId();
-        String idAsString = Integer.toString(id);
-
-        sendSwitchCardsDeckMessage(idAsString);
-    }*/
-
     public void showMonsterMessage(String id){
         String message = MessageFormatter.createShowMonsterMessage(id);
         websocket.sendMessageToServer(message);
@@ -178,7 +159,6 @@ public class CardDeckController extends BaseController {
     }
 
     }
-
 
 }
 
