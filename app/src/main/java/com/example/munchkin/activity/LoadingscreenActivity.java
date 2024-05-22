@@ -18,9 +18,6 @@ import com.example.munchkin.model.WebSocketClientModel;
 public class LoadingscreenActivity extends AppCompatActivity {
 
 
-    private LoadingController loadingController;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,23 +28,20 @@ public class LoadingscreenActivity extends AppCompatActivity {
 
         WebSocketClientModel model = new WebSocketClientModel();
 
-        loadingController = new LoadingController(model);
+        LoadingController loadingController = new LoadingController(model);
 
 
-        router.registerController("LOBBY_ASSIGNED",loadingController);
+        router.registerController("LOBBY_ASSIGNED", loadingController);
         model.setMessageRouter(router);
 
 
 
         //only for testreasons
         Handler test = new Handler();
-        test.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(LoadingscreenActivity.this, MainGameActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        test.postDelayed(() -> {
+            Intent intent = new Intent(LoadingscreenActivity.this, MainGameActivity.class);
+            startActivity(intent);
+            finish();
         },3000);
         //end of test
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
