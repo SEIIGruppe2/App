@@ -64,7 +64,7 @@ public class LobbyController extends BaseController{
 
 
         }catch(JSONException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
 
