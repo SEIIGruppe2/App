@@ -8,12 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.munchkin.R;
-import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.DiceRollModel;
 import com.example.munchkin.view.animations.ShakeDetectorView;
 
@@ -23,13 +19,10 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
 
     private ImageView diceImage;
     private Button btnRoll;
-    private TextView textView;
-
     private DiceRollModel diceRollModel;
     private ShakeDetectorView shakeDetectorView;
     private ArrayList<Integer> diceResults = new ArrayList<>();
     private int rollCount = 0;
-    private GameController gameController;
 
 
     @Override
@@ -47,10 +40,6 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
         btnRoll.setOnClickListener(v -> rollDice());
     }
 
-
-    public void setGameController(GameController controller) {
-        this.gameController = controller;
-    }
 
     @Override
     protected void onResume() {
@@ -77,17 +66,7 @@ public class DiceRollView extends AppCompatActivity implements ShakeDetectorView
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         diceImage.startAnimation(animation);
 
-        diceRollModel.rollDice(new com.example.munchkin.model.DiceRollModel.DiceRollCallback() {
-            @Override
-            public void onDiceRolled(final int randomNumber) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateUI(randomNumber);
-                    }
-                 });
-                }
-            });
+        diceRollModel.rollDice(randomNumber -> runOnUiThread(() -> updateUI(randomNumber)));
         }
     }
 
