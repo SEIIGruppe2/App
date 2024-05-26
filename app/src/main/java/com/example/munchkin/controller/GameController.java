@@ -32,6 +32,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     private static String roundCounter="0";
     private MainGameView maingameView;
     private boolean diceRolledThisRound = false;
+    public boolean cheatMode = false;
     private SpawnMonsterController spawnMonsterController;
     private MainGameActivity mainGameActivity;
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
@@ -82,9 +83,9 @@ public class GameController extends BaseController implements DiceRollListener, 
             int lifepoints = jsonObject.getInt("lifepoints");
             maingameView.updateMonsterList(monsterId, lifepoints);
 
-    } catch (JSONException e) {
-        Log.e("GameController1", "Error parsing monster attack message", e);
-    }
+        } catch (JSONException e) {
+            Log.e("GameController1", "Error parsing monster attack message", e);
+        }
     }
 
 
@@ -107,9 +108,19 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     }
 
+    public void cheatMode() {
+        cheatMode=!cheatMode;
+        sendCheatMessage(String.valueOf(cheatMode));
+    }
+
 
     public void sendEndTurnMessage(String currentturn) {
         String message = MessageFormatter.createEndTurnMessage(currentturn);
+        model.sendMessageToServer(message);
+    }
+
+    public void sendCheatMessage(String cheatMode) {
+        String message = MessageFormatter.createCheaterMessage(cheatMode);
         model.sendMessageToServer(message);
     }
 
@@ -179,7 +190,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d(handleCurrentPlayerString, "Anfang");
 
         try {
-
             roundCounter = jsonResponse.getString("turnCount");
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
