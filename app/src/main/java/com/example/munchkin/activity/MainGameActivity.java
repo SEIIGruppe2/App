@@ -103,6 +103,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("ROUND_COUNTER", gameController);
         router.registerController("CURRENT_PLAYER", gameController);
         router.registerController("CARD_ATTACK_MONSTER", gameController);
+        router.registerController("CHEAT_MODE", gameController);
         model.setMessageRouter(router);
 
     }
