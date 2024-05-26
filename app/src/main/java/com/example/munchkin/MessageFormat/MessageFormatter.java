@@ -18,6 +18,10 @@ public class MessageFormatter {
         return createMessage("MONSTER_ATTACK", monster, monsterId, "towerid", towerId);
     }
 
+    public static String createCheaterMessage(String cheatMode) {
+        return createMessage("CHEAT_MODE", "cheatMode", cheatMode);
+    }
+
     public static String createSwitchCardsDeckMessage(String cardid) {
         return createMessage("SWITCH_CARD_DECK", card, cardid);
     }
@@ -39,9 +43,9 @@ public class MessageFormatter {
     public static String createUsernameRequestMessage() {
         return createMessage("REQUEST_USERNAMES");
     }
-  public static String createUsernameForSwitchRequestMessage(){
-      return createMessage("REQUEST_USERNAMES_SWITCH");
-  }
+    public static String createUsernameForSwitchRequestMessage(){
+        return createMessage("REQUEST_USERNAMES_SWITCH");
+    }
 
 
     public static String createSpawnMonsterMessage(String zone) {
