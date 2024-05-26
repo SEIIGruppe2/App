@@ -65,6 +65,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                 case "CARD_ATTACK_MONSTER":
                     handleCardAttackMonster(jsonResponse);
                     break;
+                case "PLAYER_TROPHIES":
+                    handlePlayerTrophies(jsonResponse);
+                    break;
                 default:
                     break;
 
@@ -139,6 +142,22 @@ public class GameController extends BaseController implements DiceRollListener, 
         } catch (JSONException e) {
             Log.e("GameController7", "Error parsing monster attack message", e);
         }
+    }
+
+    private void handlePlayerTrophies(JSONObject jsonResponse) {
+        Log.d("YVONNE", "WIR SIND DRIN, JUNGS!");
+        try{
+            String playerName = jsonResponse.getString("playerName");
+            int points = jsonResponse.getInt("points");
+            maingameView.updateListTrophies(playerName, String.valueOf(points));
+        } catch (JSONException e) {
+            Log.e("GameController", "Error parsing monster attack message", e);
+        }
+    }
+
+    public void sendPlayerTrophiesRequest() {
+        String message = MessageFormatter.createPlayerTrophiesRequestMessage();
+        model.sendMessageToServer(message);
     }
 
     private void handleswitchrequest(JSONObject message) throws JSONException {
