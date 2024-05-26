@@ -18,6 +18,10 @@ public class MessageFormatter {
         return createMessage("MONSTER_ATTACK", monster, monsterId, "towerid", towerId);
     }
 
+    public static String createPlayerTrophiesRequestMessage(){
+        return createMessage("PLAYER_TROPHIES");
+    }
+
     public static String createSwitchCardsDeckMessage(String cardid) {
         return createMessage("SWITCH_CARD_DECK", card, cardid);
     }
