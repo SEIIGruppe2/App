@@ -46,6 +46,8 @@ public class MainGameView {
     private Button towerButton;
     private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
 
+    private List<String> trophiesList = new ArrayList<>();
+
     public MainGameView(MainGameActivity mainGameActivity) {
 
         MainGameView.mainGameActivity = mainGameActivity;
@@ -113,6 +115,7 @@ public class MainGameView {
 
     public void setUI() {
 
+        setUpListTrophies();
 
 
         mainGameActivity.runOnUiThread(this::disablePlayerAction);
@@ -122,8 +125,6 @@ public class MainGameView {
         buttonCards.setOnClickListener(v -> {
             mainGameActivity.sendMessage();
             mainGameActivity.transitionToCardDeckscreen();
-            updateListActions();
-            updateListTrophies();
             mainGameActivity.gehezukarten();
         });
     }
@@ -409,15 +410,13 @@ public class MainGameView {
         listActions.setAdapter(actionsAdapter);
     }
 
-    private void updateListTrophies() {
-        List<String> trophiesList = new ArrayList<>();
-        trophiesList.add("Benutzer 1: 3");
-        trophiesList.add("Benutzer 2: 5");
-        trophiesList.add("Benutzer 3: 1");
-        trophiesList.add("Benutzer 4: 2");
-
+    public void setUpListTrophies() {
         ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
+    }
+
+    public void updateListTrophies(String username, String trophies){
+        trophiesList.add(username + ": " + trophies);
     }
 
     private void initializeMonsterZones() {
@@ -443,7 +442,7 @@ public class MainGameView {
 
                                 mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
                                 mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
-
+                                mainGameActivity.sendPlayerTrophiesRequest();
                             });
                         }else{
                             b.setBackgroundResource(0);
