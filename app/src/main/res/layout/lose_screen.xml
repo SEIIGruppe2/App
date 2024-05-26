@@ -1,63 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lose_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:background="@drawable/background"
-    tools:context=".activity.LoseActivity">
+    android:paddingTop="32dp">
 
     <TextView
         android:id="@+id/textViewLose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:text="Oh nein! Du hast verloren!"
+        android:textSize="30dp"
+        android:textColor="#FFE500"
         android:fontFamily="@font/chewyregular"
+        android:textStyle="bold"
         android:shadowColor="@color/black"
         android:shadowDx="8"
         android:shadowDy="8"
-        android:shadowRadius="4"
-        android:text="Oh nein! Du hast verloren!"
-        android:textColor="#FFE500"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
+        android:shadowRadius="4" />
 
     <ImageView
         android:id="@+id/imageViewLose"
         android:layout_width="218dp"
         android:layout_height="195dp"
         android:background="@drawable/lose"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLose"
-        app:layout_constraintVertical_bias="0.2" />
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/homeButtonLose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rippleeffect"
-        android:fontFamily="@font/chewyregular"
         android:text="Zurück zum Hauptmenü"
-        android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:backgroundTint="#FFE500"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_to_bottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_to_endOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintStart_to_startOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLose"
-        app:layout_constraintTop_to_bottomOf="@+id/imageViewLose" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="@android:color/black"
+        android:backgroundTint="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        android:background="@drawable/rippleeffect"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
