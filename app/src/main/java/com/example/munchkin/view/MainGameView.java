@@ -617,6 +617,10 @@ public class MainGameView {
     }
 
 
+    public int getTowerHealth() {
+        TowerDTO tower = (TowerDTO) towerButton.getTag();
+        return tower.getLifePoints();
+    }
 
 
 }

@@ -176,4 +176,19 @@ public class MainGameActivity extends AppCompatActivity {
         );
     }
 
+    public void navigateToWinScreen(String winner) {
+        Intent winIntent = new Intent(this, WinActivity.class);
+        winIntent.putExtra("winnerName", winner);
+        startActivity(winIntent);
+        finish();
+    }
+
+
+
+    public void navigateToLoseScreen() {
+        Intent loseIntent = new Intent(this, LoseActivity.class);
+        startActivity(loseIntent);
+        finish();
+    }
+
 }

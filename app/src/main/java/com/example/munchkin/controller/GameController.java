@@ -102,6 +102,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         maingameView.disablePlayerAction();
         diceRolledThisRound=false;
+        checkEndCondition();
 
         Log.d("GameController4", "End of turn for: test2 "+roundCounter);
         sendEndTurnMessage(roundCounter);
@@ -136,6 +137,38 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
+    public void endGame(boolean hasWinner) {
+        if (hasWinner) {
+            String winner = findPlayerWithMostTrophies();
+            mainGameActivity.navigateToWinScreen(winner);
+        } else {
+            mainGameActivity.navigateToLoseScreen();
+        }
+    }
+
+
+    private String findPlayerWithMostTrophies() {
+        //TODO Mit richtiger Lsite verknüpfen
+       String winner = " ";
+       return winner;
+    }
+
+
+    public void checkEndCondition() {
+        int round = Integer.parseInt(roundCounter);
+        if (round >= 14) {
+            endGame(true);
+        } else {
+            checkTowerHealth();
+        }
+    }
+
+    public void checkTowerHealth() {
+        int towerHp = maingameView.getTowerHealth();
+        if (towerHp <= 0) {
+            endGame(false);
+        }
+    }
 
     private void handleMonsterAttackMessage(JSONObject message) {
         Log.d("MonsterAttack", "Handling monster attack message: " + message);
@@ -230,6 +263,5 @@ public class GameController extends BaseController implements DiceRollListener, 
     public boolean currentPlayer(){
         return currentPlayerp != null && currentPlayerp.equals(clientplayerUsername);
     }
-
 
 }
