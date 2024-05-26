@@ -5,7 +5,8 @@
     android:id="@+id/win_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".activity.WinActivity">
 
     <TextView
         android:id="@+id/textViewWin"
@@ -40,7 +41,7 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <Button
-        android:id="@+id/buttonWinBack"
+        android:id="@+id/homeButtonWin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
