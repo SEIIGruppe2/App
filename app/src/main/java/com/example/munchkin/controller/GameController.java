@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -36,6 +37,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     private SpawnMonsterController spawnMonsterController;
     private MainGameActivity mainGameActivity;
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
+    public static HashMap<String, Integer> usernamesWithPoints = new HashMap<>();
 
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
@@ -68,6 +70,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                     break;
                 case "END_GAME":
                     handleEndGameMessage(jsonResponse);
+                    break;
+                case "PLAYER_TROPHIES":
+                    handlePlayerTrophies(jsonResponse);
                     break;
                 default:
                     break;
@@ -198,8 +203,24 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("GameController6", "UI should now be updated.");
             maingameView.updateMonsterHealth(monsterId, monsterHp);
         } catch (JSONException e) {
+            Log.e("GameController7", "Error parsing monster attack message", e);
+        }
+    }
+
+    private void handlePlayerTrophies(JSONObject jsonResponse) {
+        Log.d("YVONNE", "WIR SIND DRIN, JUNGS!");
+        try{
+            String playerName = jsonResponse.getString("playerName");
+            int points = jsonResponse.getInt("points");
+            maingameView.updateListTrophies(playerName, points);
+        } catch (JSONException e) {
             Log.e("GameController", "Error parsing monster attack message", e);
         }
+    }
+
+    public void sendPlayerTrophiesRequest() {
+        String message = MessageFormatter.createPlayerTrophiesRequestMessage();
+        model.sendMessageToServer(message);
     }
 
     private void handleswitchrequest(JSONObject message) throws JSONException {
@@ -224,17 +245,14 @@ public class GameController extends BaseController implements DiceRollListener, 
                 playerusernames.add(i, username);
                 Player player = new Player(username);
                 playerQueue.add(player);
+                usernamesWithPoints.put(username, 0); // Initialize points to 0
             }
-
-
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
         }
     }
 
-
     private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
-
         String handleCurrentPlayerString = "handleCurrentPlayer";
         Log.d(handleCurrentPlayerString, "Anfang");
 

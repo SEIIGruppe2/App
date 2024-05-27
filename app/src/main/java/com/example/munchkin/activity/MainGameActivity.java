@@ -105,6 +105,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("CARD_ATTACK_MONSTER", gameController);
         router.registerController("CHEAT_MODE", gameController);
         router.registerController("END_GAME", gameController);
+        router.registerController("PLAYER_TROPHIES", gameController);
         model.setMessageRouter(router);
 
     }
@@ -162,6 +163,13 @@ public class MainGameActivity extends AppCompatActivity {
     public void sendCardAttackMonsterMessage(String monsterId, String cardID){
         gameController.cardAttackMonsterMessage(monsterId,cardID);
     }
+
+    public void sendPlayerTrophiesRequest(){
+        gameController.sendPlayerTrophiesRequest();
+    }
+
+
+
     private void setupDiceRollLauncher() {
         diceRollLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

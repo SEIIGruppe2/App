@@ -22,6 +22,10 @@ public class MessageFormatter {
         return createMessage("CHEAT_MODE", "cheatMode", cheatMode);
     }
 
+    public static String createPlayerTrophiesRequestMessage(){
+        return createMessage("PLAYER_TROPHIES");
+    }
+
     public static String createSwitchCardsDeckMessage(String cardid) {
         return createMessage("SWITCH_CARD_DECK", card, cardid);
     }
