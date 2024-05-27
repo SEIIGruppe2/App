@@ -1,6 +1,10 @@
 package com.example.munchkin.view;
 
 
+
+
+import static com.example.munchkin.controller.GameController.usernamesWithPoints;
+
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,8 +49,11 @@ public class MainGameView {
     private ListView listTrophies;
     private Button towerButton;
     private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
+    private HashMap<String, Integer> trophiesMap = new HashMap<>();
+
 
     private List<String> trophiesList = new ArrayList<>();
+    ArrayAdapter<String> trophiesAdapter;
 
     public MainGameView(MainGameActivity mainGameActivity) {
 
@@ -98,6 +105,12 @@ public class MainGameView {
 
         this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
+        if (this.listTrophies == null) {
+            Log.e("MainGameView", "listTrophies is null");
+            return;
+        }
+        this.trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
+        this.listTrophies.setAdapter(trophiesAdapter);
 
         setUI();
     }
@@ -112,12 +125,8 @@ public class MainGameView {
             zoneList.add(mainGameActivity.findViewById(id));
         }
     }
-
     public void setUI() {
-
-        setUpListTrophies();
-
-
+        initializeUsernamesWithPoints(usernamesWithPoints);
         mainGameActivity.runOnUiThread(this::disablePlayerAction);
 
         buttonEndRound.setOnClickListener(v -> gameController.endTurn());
@@ -410,80 +419,93 @@ public class MainGameView {
         listActions.setAdapter(actionsAdapter);
     }
 
-    public void setUpListTrophies() {
-        ArrayAdapter<String> trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
-        listTrophies.setAdapter(trophiesAdapter);
+    public void initializeUsernamesWithPoints(HashMap<String, Integer> usernamesWithPoints) {
+        for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
+            updateListTrophies(entry.getKey(), entry.getValue());
+        }
+    }
+    public void updateListTrophies(String username, int points) {
+        Log.d("MainGameView", "Updating list trophies for user: " + username + " with points: " + points);
+        mainGameActivity.runOnUiThread(() -> {
+            trophiesMap.put(username, points); // Update the points for the user
+            refreshTrophiesList(); // Refresh the list
+        });
     }
 
-    public void updateListTrophies(String username, String trophies){
-        trophiesList.add(username + ": " + trophies);
+    private void refreshTrophiesList() {
+        Log.d("MainGameView", "Refreshing trophies list");
+        trophiesList.clear(); // Clear the current list
+        for (Map.Entry<String, Integer> entry : trophiesMap.entrySet()) {
+            trophiesList.add(entry.getKey() + ": " + entry.getValue());
+        }
+        trophiesAdapter.notifyDataSetChanged(); // Notify the adapter about the data change
+        Log.d("MainGameView", "Trophies list updated");
     }
-
     private void initializeMonsterZones() {
         for (int i = 0; i < 4; i++) {
             monsterZones.add(new ArrayList<>());
         }
     }
     public static void showMonster(){
-       disableforMonsters();
+        disableforMonsters();
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
         for (List<Button> zone : zones) {
 
             for(Button b:zone){
 
-                    if (b.getTag()!=null) {
-                        MonsterDTO monster = (MonsterDTO) b.getTag();
-                        int tagFromMonster = monster.getId();
+                if (b.getTag()!=null) {
+                    MonsterDTO monster = (MonsterDTO) b.getTag();
+                    int tagFromMonster = monster.getId();
 
 
-                        if(checkifitsinlist(tagFromMonster)) {
+                    if(checkifitsinlist(tagFromMonster)) {
 
-                            b.setOnClickListener(v -> {
+                        b.setOnClickListener(v -> {
 
-                                mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
-                                mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
-                                mainGameActivity.sendPlayerTrophiesRequest();
-                            });
-                        }else{
-                            b.setBackgroundResource(0);
+                            mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
+                            mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
+                            mainGameActivity.sendPlayerTrophiesRequest();
+                        });
+                    }else{
+                        b.setBackgroundResource(0);
                     }}
 
 
-                }
             }
         }
+    }
 
-        public static String removeCardFromHandcards(){
-            CardView currentcard = CarddeckActivity.selectedCard;
-            LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
-            TextView gettag = (TextView)  getkardname.getChildAt(2);
-            String cardId = (String) gettag.getTag();
-            ActionCardDTO toremove = new ActionCardDTO();
-            for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
-                if(a.getId() == Integer.parseInt(cardId)){
-                    toremove=a;
-                }
+    public static String removeCardFromHandcards(){
+        CardView currentcard = CarddeckActivity.selectedCard;
+        LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
+        TextView gettag = (TextView)  getkardname.getChildAt(2);
+        String cardId = (String) gettag.getTag();
+        ActionCardDTO toremove = new ActionCardDTO();
+        for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
+            if(a.getId() == Integer.parseInt(cardId)){
+                toremove=a;
             }
-            CardDeckController.playerHand.removeCard(toremove);
-            return cardId;
         }
+        CardDeckController.playerHand.removeCard(toremove);
+        return cardId;
+    }
 
 
-        private static void disableforMonsters(){
-            mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.GONE);
-            mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.GONE);
-            mainGameActivity.findViewById(R.id.stop).setVisibility(View.VISIBLE);
-            mainGameActivity.findViewById(R.id.stop).setOnClickListener(v -> {
+    private static void disableforMonsters(){
+        mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.GONE);
+        mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.GONE);
+        mainGameActivity.findViewById(R.id.stop).setVisibility(View.VISIBLE);
+        mainGameActivity.findViewById(R.id.stop).setOnClickListener(v -> {
 
 
-                showallMonsters();
-                MainGameActivity.monsterList=new ArrayList<>();
-                mainGameActivity.transitionToCardDeckscreen();
-                enableforMonsters();
+            showallMonsters();
+            MainGameActivity.monsterList=new ArrayList<>();
+            mainGameActivity.transitionToCardDeckscreen();
+            enableforMonsters();
 
-            });
+        });
 
-        }
+    }
 
     private static void enableforMonsters(){
         mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.VISIBLE);
@@ -491,49 +513,49 @@ public class MainGameView {
         mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
 
     }
-        private static boolean checkifitsinlist(int id){
+    private static boolean checkifitsinlist(int id){
 
-         for(String m:MainGameActivity.monsterList){
-             if(id == Integer.parseInt(m)){
-                 return true;
-             }
-         }
-         return false;
-
+        for(String m:MainGameActivity.monsterList){
+            if(id == Integer.parseInt(m)){
+                return true;
+            }
         }
+        return false;
 
-        public static void showallMonsters() {
-            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+    }
 
-                for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
-                    Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
-                }
-            for (List<Button> zone : zones) {
+    public static void showallMonsters() {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
 
-                for (Button b : zone) {
-                    if(b.getTag()!=null){
-                        b.setOnClickListener(null);
+        for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
+            Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
+        }
+        for (List<Button> zone : zones) {
 
-                        MonsterDTO currentM= (MonsterDTO) b.getTag();
+            for (Button b : zone) {
+                if(b.getTag()!=null){
+                    b.setOnClickListener(null);
 
-                        switch (currentM.getName()){
-                            case "Schleim":
-                                b.setBackgroundResource(R.drawable.monster_slime);
-                                break;
-                            case "Sphinx":
-                                b.setBackgroundResource(R.drawable.monster_sphinx);
-                                break;
-                            case "Bullrog":
-                                b.setBackgroundResource(R.drawable.monster_bullrog);
-                                break;
-                            default:
-                                Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
-                        }
+                    MonsterDTO currentM= (MonsterDTO) b.getTag();
 
+                    switch (currentM.getName()){
+                        case "Schleim":
+                            b.setBackgroundResource(R.drawable.monster_slime);
+                            break;
+                        case "Sphinx":
+                            b.setBackgroundResource(R.drawable.monster_sphinx);
+                            break;
+                        case "Bullrog":
+                            b.setBackgroundResource(R.drawable.monster_bullrog);
+                            break;
+                        default:
+                            Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
                     }
+
                 }
             }
         }
+    }
 
 
 
@@ -568,15 +590,15 @@ public class MainGameView {
 
     public void updateMonsterList(String monsterId, int lifepoints){
         mainGameActivity.runOnUiThread(() -> {
-        if(lifepoints>0) {
-            monsterManager.updateMonster(Integer.parseInt(monsterId), lifepoints);
-        }else{
-            monsterManager.removeMonster(monsterId);
+            if(lifepoints>0) {
+                monsterManager.updateMonster(Integer.parseInt(monsterId), lifepoints);
+            }else{
+                monsterManager.removeMonster(monsterId);
 
                 updateMonstersView(monsterId);
 
-        }
-        updateGameView();
+            }
+            updateGameView();
         });
     }
     private void updateGameView(){
