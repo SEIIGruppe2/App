@@ -244,8 +244,6 @@ public class GameController extends BaseController implements DiceRollListener, 
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
 
-            checkEndCondition();
-
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
             maingameView.updateRoundView(Integer.parseInt(roundCounter));
             if(currentPlayerUsername.equals(clientplayerUsername) && maingameView.isMonsterInAttackZone()) {
