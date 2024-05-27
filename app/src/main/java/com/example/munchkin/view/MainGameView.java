@@ -106,7 +106,6 @@ public class MainGameView {
         initializeTower();
         setupRotate(Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster));
 
-        this.listActions = mainGameActivity.findViewById(R.id.listActions);
         this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
         if (this.listTrophies == null) {
             Log.e("MainGameView", "listTrophies is null");
