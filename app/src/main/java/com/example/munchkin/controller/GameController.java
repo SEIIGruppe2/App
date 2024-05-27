@@ -102,10 +102,10 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         maingameView.disablePlayerAction();
         diceRolledThisRound=false;
-        checkEndCondition();
 
         Log.d("GameController4", "End of turn for: test2 "+roundCounter);
         sendEndTurnMessage(roundCounter);
+
 
     }
 
@@ -137,6 +137,12 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
+    public void sendEndGameMessage(String hasWinner){
+        String message = MessageFormatter.createEndGameMessage(hasWinner);
+        model.sendMessageToServer(message);
+    }
+
+
     public void endGame(boolean hasWinner) {
         if (hasWinner) {
             String winner = findPlayerWithMostTrophies();
@@ -157,7 +163,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void checkEndCondition() {
         int round = Integer.parseInt(roundCounter);
         if (round >= 14) {
-            endGame(true);
+            sendEndGameMessage("true");
         } else {
             checkTowerHealth();
         }
@@ -166,7 +172,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void checkTowerHealth() {
         int towerHp = maingameView.getTowerHealth();
         if (towerHp <= 0) {
-            endGame(false);
+            sendEndGameMessage("false");
         }
     }
 
@@ -222,8 +228,10 @@ public class GameController extends BaseController implements DiceRollListener, 
         String handleCurrentPlayerString = "handleCurrentPlayer";
         Log.d(handleCurrentPlayerString, "Anfang");
 
+
         try {
             roundCounter = jsonResponse.getString("turnCount");
+            checkEndCondition();
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
 

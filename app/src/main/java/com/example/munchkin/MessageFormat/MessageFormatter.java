@@ -72,6 +72,11 @@ public class MessageFormatter {
         return createMessage("CARD_ATTACK_MONSTER", monster, monsterId, card, cardId);
     }
 
+    public static String createEndGameMessage(String hasWinner){
+        return createMessage("END_GAME", "hasWinner", hasWinner);
+    }
+
+
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");
         for (int i = 0; i < params.length; i += 2) {
