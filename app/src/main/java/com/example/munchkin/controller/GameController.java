@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -35,6 +36,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     private SpawnMonsterController spawnMonsterController;
     private MainGameActivity mainGameActivity;
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
+    public static HashMap<String, Integer> usernamesWithPoints = new HashMap<>();
 
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
@@ -85,9 +87,9 @@ public class GameController extends BaseController implements DiceRollListener, 
             int lifepoints = jsonObject.getInt("lifepoints");
             maingameView.updateMonsterList(monsterId, lifepoints);
 
-    } catch (JSONException e) {
-        Log.e("GameController1", "Error parsing monster attack message", e);
-    }
+        } catch (JSONException e) {
+            Log.e("GameController1", "Error parsing monster attack message", e);
+        }
     }
 
 
@@ -149,7 +151,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         try{
             String playerName = jsonResponse.getString("playerName");
             int points = jsonResponse.getInt("points");
-            maingameView.updateListTrophies(playerName, String.valueOf(points));
+            maingameView.updateListTrophies(playerName, points);
         } catch (JSONException e) {
             Log.e("GameController", "Error parsing monster attack message", e);
         }
@@ -183,17 +185,14 @@ public class GameController extends BaseController implements DiceRollListener, 
                 playerusernames.add(i, username);
                 Player player = new Player(username);
                 playerQueue.add(player);
+                usernamesWithPoints.put(username, 0); // Initialize points to 0
             }
-
-
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
         }
     }
 
-
     private void handleCurrentPlayer(JSONObject jsonResponse) throws JSONException {
-
         String handleCurrentPlayerString = "handleCurrentPlayer";
         Log.d(handleCurrentPlayerString, "Anfang");
 
