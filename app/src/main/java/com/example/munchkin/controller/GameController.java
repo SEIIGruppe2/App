@@ -66,6 +66,9 @@ public class GameController extends BaseController implements DiceRollListener, 
                 case "CARD_ATTACK_MONSTER":
                     handleCardAttackMonster(jsonResponse);
                     break;
+                case "END_GAME":
+                    handleEndGameMessage(jsonResponse);
+                    break;
                 default:
                     break;
 
@@ -106,7 +109,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         Log.d("GameController4", "End of turn for: test2 "+roundCounter);
         sendEndTurnMessage(roundCounter);
 
-
     }
 
     public void cheatMode() {
@@ -142,17 +144,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         model.sendMessageToServer(message);
     }
 
-
-    public void endGame(boolean hasWinner) {
-        if (hasWinner) {
-            String winner = findPlayerWithMostTrophies();
-            mainGameActivity.navigateToWinScreen(winner);
-        } else {
-            mainGameActivity.navigateToLoseScreen();
-        }
-    }
-
-
     private String findPlayerWithMostTrophies() {
         //TODO Mit richtiger Lsite verknüpfen
        String winner = " ";
@@ -176,6 +167,23 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
+    private void handleEndGameMessage(JSONObject message) {
+
+        try {
+            String hasWinner = message.getString("hasWinner");
+            if (hasWinner.equals("true")) {
+                String winner = findPlayerWithMostTrophies();
+                mainGameActivity.navigateToWinScreen(winner);
+            } else {
+                mainGameActivity.navigateToLoseScreen();
+            }
+        } catch (JSONException e) {
+            Log.e("GameController", "Error in ENDGAME-Handler", e);
+        }
+    }
+
+
+
     private void handleMonsterAttackMessage(JSONObject message) {
         Log.d("MonsterAttack", "Handling monster attack message: " + message);
         try {
@@ -184,10 +192,13 @@ public class GameController extends BaseController implements DiceRollListener, 
             int towerHp = message.getInt("towerHp");
             Log.d("GameController5", "Tower HP received: " + towerHp);
             maingameView.modifyTowerLifePoints(towerHp);
+
+            checkEndCondition();
+
             Log.d("GameController6", "UI should now be updated.");
             maingameView.updateMonsterHealth(monsterId, monsterHp);
         } catch (JSONException e) {
-            Log.e("GameController7", "Error parsing monster attack message", e);
+            Log.e("GameController", "Error parsing monster attack message", e);
         }
     }
 
@@ -195,7 +206,6 @@ public class GameController extends BaseController implements DiceRollListener, 
         maingameView.tauschanfrageerhalten(message);
 
     }
-
 
     private void performeRoll() {
         if(!diceRolledThisRound) {
@@ -231,9 +241,9 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         try {
             roundCounter = jsonResponse.getString("turnCount");
-            checkEndCondition();
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
+
 
             mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
             maingameView.updateRoundView(Integer.parseInt(roundCounter));
@@ -241,6 +251,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                 maingameView.doDamageToTower();
             }
             maingameView.moveMonstersInward();
+
 
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 maingameView.enablePlayerAction();
