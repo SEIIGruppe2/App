@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lose_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/background"
+    android:paddingTop="32dp">
+
+    <TextView
+        android:id="@+id/textViewLose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oh nein der Tower hat 0 HP! Alle Spieler haben verloren!"
+        android:textSize="30dp"
+        android:textColor="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="4" />
+
+    <ImageView
+        android:id="@+id/imageViewLose"
+        android:layout_width="218dp"
+        android:layout_height="195dp"
+        android:background="@drawable/lose"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/homeButtonAllLose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zurück zum Hauptmenü"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:backgroundTint="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        android:background="@drawable/rippleeffect"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
