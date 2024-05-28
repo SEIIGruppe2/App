@@ -12,7 +12,6 @@
         android:id="@+id/textViewLose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Oh nein! Du hast verloren!"
         android:textSize="30dp"
         android:textColor="#FFE500"
         android:fontFamily="@font/chewyregular"
