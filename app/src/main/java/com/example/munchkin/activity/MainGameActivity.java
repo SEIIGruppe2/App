@@ -192,11 +192,16 @@ public class MainGameActivity extends AppCompatActivity {
         finish();
     }
 
+    public void navigateToLoseScreen(String winner) {
+        Intent  loseIntent = new Intent(this, LoseActivity.class);
+        loseIntent.putExtra("winnerName", winner);
+        startActivity( loseIntent);
+        finish();
+    }
 
-
-    public void navigateToLoseScreen() {
-        Intent loseIntent = new Intent(this, LoseActivity.class);
-        startActivity(loseIntent);
+    public void navigateToAllLoseScreen() {
+        Intent allloseIntent = new Intent(this, AllLoseActivity.class);
+        startActivity(allloseIntent);
         finish();
     }
 
