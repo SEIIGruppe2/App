@@ -150,9 +150,20 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private String findPlayerWithMostTrophies() {
-        //TODO Mit richtiger Lsite verknüpfen
-       String winner = " ";
-       return winner;
+        int maxPoints = 0;
+        String winner = "";
+        List<String> trophiesList = maingameView.getTrophiesList();
+        for (String entry : trophiesList) {
+            String[] parts = entry.split(": ");
+            String username = parts[0];
+            int points = Integer.parseInt(parts[1]);
+
+            if (points > maxPoints) {
+                maxPoints = points;
+                winner = username;
+            }
+        }
+        return winner;
     }
 
 
@@ -178,9 +189,13 @@ public class GameController extends BaseController implements DiceRollListener, 
             String hasWinner = message.getString("hasWinner");
             if (hasWinner.equals("true")) {
                 String winner = findPlayerWithMostTrophies();
-                mainGameActivity.navigateToWinScreen(winner);
+                if(clientplayerUsername.equals(winner))
+                    mainGameActivity.navigateToWinScreen(winner);
+                else{
+                    mainGameActivity.navigateToLoseScreen(winner);
+                }
             } else {
-                mainGameActivity.navigateToLoseScreen();
+                mainGameActivity.navigateToAllLoseScreen();
             }
         } catch (JSONException e) {
             Log.e("GameController", "Error in ENDGAME-Handler", e);
