@@ -641,5 +641,10 @@ public class MainGameView {
         return tower.getLifePoints();
     }
 
+    public List<String> getTrophiesList() {
+        return new ArrayList<>(trophiesList);
+    }
+
+
 
 }
