@@ -176,6 +176,7 @@ public class MainGameView {
     public void spawnMonster(MonsterDTO monster) {
         int monsterZone = monster.getZone();
         mainGameActivity.runOnUiThread(() -> {
+            Log.d("SpawnMonster", "Spawnmonstermethode ausgeführt");
             switch (monsterZone) {
                 case 1:
                     spawnMonsterInZone(Zone1Monster, monster);
@@ -200,6 +201,7 @@ public class MainGameView {
 
     private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
         mainGameActivity.runOnUiThread(() -> {
+            Log.d("SpawnMonster", "Spawnmonsterinzone ausgeführt");
             for (Button button : zoneButtons) {
                 if (isButtonEmpty(button)) {
                     button.setVisibility(View.VISIBLE);
