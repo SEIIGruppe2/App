@@ -27,22 +27,22 @@ public class ConnectToServerController extends BaseController {
     }
 
    public void setupController() {
-        model.connectToServer(this::messageReceivedFromServer);
+        webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
 
     public void reconnectToServer() {
-        model.connectToServer(this::messageReceivedFromServer);
+        webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
 
     public void registerUserMessage(String username) {
         String message = MessageFormatter.registerUserMessage(username);
-        model.sendMessageToServer(message);
+        webSocketClientModel.sendMessageToServer(message);
     }
 
 
 
     private void messageReceivedFromServer(String message) {
-
+            Log.d("MessageFromServer", message);
     }
 
     @Override

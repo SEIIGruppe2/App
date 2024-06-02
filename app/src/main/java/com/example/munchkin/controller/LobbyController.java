@@ -13,16 +13,16 @@ import org.json.JSONObject;
 
 public class LobbyController extends BaseController{
 
-    private WebSocketClientModel model;
-    private LobbyView view;
+    private WebSocketClientModel clientModel;
+    private LobbyView lobbyView;
 
     public static String[] usernames;
 
     public LobbyController(WebSocketClientModel model, LobbyView lobbyView) {
         super(model);
-        this.model= model;
+        this.clientModel = model;
 
-        this.view=lobbyView;
+        this.lobbyView =lobbyView;
         usernames=new String[4];
 
     }
@@ -59,18 +59,18 @@ public class LobbyController extends BaseController{
             if(usernamesArray.length()==4){
                 GameController.setUsernames(jsonObject);
             }
-            view.updateUserList(usernamesArray.length());
+            lobbyView.updateUserList(usernamesArray.length());
 
 
 
         }catch(JSONException e){
-                throw new RuntimeException(e);
+                throw new IllegalArgumentException(e);
             }
         }
 
         public void requestUsernames(){
         String message = MessageFormatter.createUsernameRequestMessage();
-        model.sendMessageToServer(message);
+        clientModel.sendMessageToServer(message);
     }
 
 

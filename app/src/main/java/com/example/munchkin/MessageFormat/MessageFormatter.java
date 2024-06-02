@@ -5,6 +5,11 @@ public class MessageFormatter {
     static String monster ="monsterid";
     static String card = "cardid";
 
+
+    private MessageFormatter() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     public static String createPlayerAttackMessage(String monsterId, String cardTypePlayed) {
         return createMessage("PLAYER_ATTACK", monster, monsterId, "cardTypePlayed", cardTypePlayed);
     }

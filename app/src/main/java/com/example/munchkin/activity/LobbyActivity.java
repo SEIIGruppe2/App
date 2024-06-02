@@ -2,8 +2,7 @@ package com.example.munchkin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
-import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.controller.LobbyController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
 import com.example.munchkin.view.LobbyView;
 
 public class LobbyActivity extends AppCompatActivity {
@@ -54,12 +51,6 @@ public class LobbyActivity extends AppCompatActivity {
 
     private void requestUsernames(){
         controller.requestUsernames();
-    }
-
-    public void updateevrything(int arraylength){
-
-
-
     }
 
 

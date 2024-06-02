@@ -19,9 +19,6 @@ import com.example.munchkin.model.WebSocketClientModel;
 public class LoadingscreenActivity extends AppCompatActivity {
 
 
-    private LoadingController loadingController;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

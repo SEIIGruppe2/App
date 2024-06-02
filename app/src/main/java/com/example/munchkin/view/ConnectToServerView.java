@@ -1,14 +1,11 @@
 package com.example.munchkin.view;
 
-import android.content.DialogInterface;
-import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.R;
-import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.game.AppState;
 
 
@@ -50,12 +47,7 @@ public class ConnectToServerView {
     }
 
     public void updateServerResponse(String message) {
-        textViewServerResponse.post(new Runnable() {
-            @Override
-            public void run() {
-                textViewServerResponse.setText(message);
-            }
-        });
+        textViewServerResponse.post(() -> textViewServerResponse.setText(message));
     }
 
 

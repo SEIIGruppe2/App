@@ -37,8 +37,6 @@ public class MainGameActivity extends AppCompatActivity {
     private ScaleGestureDetector scaleGestureDetector;
 
     private GameController gameController;
-    private SpawnMonsterController spawnMonsterController;
-    private MainGameView mainGameView;
 
     private ArrayList<Integer> diceResults = new ArrayList<>();
 
@@ -60,10 +58,8 @@ public class MainGameActivity extends AppCompatActivity {
 
 
 
-
         setupControllers();
         setupDiceRollLauncher();
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game), (v, insets) -> {
@@ -71,10 +67,6 @@ public class MainGameActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        //Button endTurnButton = findViewById(R.id.buttonEndRound);
-        //endTurnButton.setOnClickListener(v -> gameController.endTurn());
-
     }
 
     @Override
@@ -91,8 +83,8 @@ public class MainGameActivity extends AppCompatActivity {
         scaleGestureDetector = new ScaleGestureDetector(this, zoomDetectorView);
 
 
-        mainGameView = new MainGameView(this);
-        spawnMonsterController = new SpawnMonsterController(model, mainGameView);
+        MainGameView mainGameView = new MainGameView(this);
+        SpawnMonsterController spawnMonsterController = new SpawnMonsterController(model, mainGameView);
         gameController = new GameController(model, mainGameView, spawnMonsterController,this);
         drawCardController = new DrawCardController(model, mainGameView);
 
@@ -132,13 +124,6 @@ public class MainGameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void processDiceResults() {
-        for (int zone : diceResults) {
-            spawnMonsterController.sendMonsterSpawnMessage("Zone" + zone);
-        }
-        diceResults.clear();
-    }
-
 
 
     public void dimmwindow(PopupWindow popup){
@@ -154,10 +139,10 @@ public class MainGameActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString("key", messagefromserver.toString()); //Your id
         //
-        Intent handkarten = new Intent(this, CarddeckActivity.class);
-        handkarten.putExtras(b);
+        Intent handcards = new Intent(this, CarddeckActivity.class);
+        handcards.putExtras(b);
         CarddeckActivity.passivmode=1;
-        startActivity(handkarten);
+        startActivity(handcards);
 
     }
 
