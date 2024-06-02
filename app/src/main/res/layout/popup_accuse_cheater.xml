@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="#572929"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin = "10dp"
+        android:background="@drawable/steinmauer"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/accuseTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/chewyregular"
+            android:shadowColor="@color/black"
+            android:shadowDx="8"
+            android:shadowDy="8"
+            android:shadowRadius="4"
+            android:textAlignment="center"
+            android:text="Wähle den vermeintlichen Cheater aus"
+            android:textColor="#FFE500"
+            android:textSize="30dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/parentPopUp"
+            android:gravity="center">
+
+            <Spinner
+                android:id="@+id/accuseSpinner"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500"
+                android:layout_marginRight="20dp"
+                />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/containerBtn"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/buttonAccuseCheater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/chewyregular"
+                android:text="@string/button_accuse_cheater" />
+
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rippleeffect"
+                android:backgroundTint="#FFE500"
+                android:fontFamily="@font/chewyregular"
+                android:text="@string/button_zurück" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
