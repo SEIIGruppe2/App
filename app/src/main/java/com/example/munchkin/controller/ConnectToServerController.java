@@ -6,7 +6,7 @@ import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,13 +14,13 @@ import org.json.JSONObject;
 
 public class ConnectToServerController extends BaseController {
 
-    private WebSocketClientModel model;
+    private WebSocketClientModel webSocketClientModel;
     private ConnectToServerActivity connectToServerActivity;
 
 
     public ConnectToServerController(WebSocketClientModel model, ConnectToServerActivity connectToServerActivity) {
         super(model);
-        this.model = model;
+        this.webSocketClientModel = model;
         this.connectToServerActivity=connectToServerActivity;
 
         //setupController();

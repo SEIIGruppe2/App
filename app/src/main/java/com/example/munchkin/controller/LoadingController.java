@@ -67,7 +67,7 @@ public class LoadingController extends BaseController {
     }
 
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
-        Log.d("Lobby wurde Assigned", jsonResponse.toString());
+        //Log.d("Lobby wurde Assigned", jsonResponse.toString());
     }
 
 }

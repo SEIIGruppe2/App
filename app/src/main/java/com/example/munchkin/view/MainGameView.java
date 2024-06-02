@@ -504,35 +504,6 @@ public class MainGameView {
         }
 
 
-                for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
-                    Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
-                }
-            for (List<Button> zone : zones) {
-
-                for (Button b : zone) {
-                    if(b.getTag()!=null){
-                        b.setOnClickListener(null);
-
-                        MonsterDTO currentM= (MonsterDTO) b.getTag();
-
-                        switch (currentM.getName()){
-                            case "Schleim":
-                                b.setBackgroundResource(R.drawable.monster_slime);
-                                break;
-                            case "Sphinx":
-                                b.setBackgroundResource(R.drawable.monster_sphinx);
-                                break;
-                            case "Bullrog":
-                                b.setBackgroundResource(R.drawable.monster_bullrog);
-                                break;
-                            default:
-                                Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
-                        }
-
-                    }
-                }
-            }
-        }
 
 
 

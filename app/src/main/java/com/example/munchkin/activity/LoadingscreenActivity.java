@@ -29,7 +29,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
 
         WebSocketClientModel model = new WebSocketClientModel();
 
-        loadingController = new LoadingController(model, this);
+        LoadingController loadingController = new LoadingController(model, this);
 
 
         router.registerController("REGISTER_USERNAME",loadingController);
