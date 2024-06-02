@@ -10,6 +10,10 @@ public class MessageFormatter {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
+    public static String createAccusationMessage(String cheaterName, String accusatorName) {
+        return createMessage("ACCUSATION_MSG", "cheaterName", cheaterName, "accusatorName", accusatorName);
+    }
+
     public static String createPlayerAttackMessage(String monsterId, String cardTypePlayed) {
         return createMessage("PLAYER_ATTACK", monster, monsterId, "cardTypePlayed", cardTypePlayed);
     }
