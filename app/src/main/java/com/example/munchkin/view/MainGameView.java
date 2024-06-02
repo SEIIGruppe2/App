@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.PopupWindow;
 import androidx.cardview.widget.CardView;
@@ -37,7 +38,7 @@ import java.util.Map;
 
 public class MainGameView {
     private static MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, buttonCheatMode;
+    private Button buttonEndRound, buttonCards, buttonCheatMode, buttonAccuseCheater;
     private static List<Button> Zone1Monster = new ArrayList<>();
     private static List<Button> Zone2Monster = new ArrayList<>();
     private static List<Button> Zone3Monster = new ArrayList<>();
@@ -62,6 +63,7 @@ public class MainGameView {
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
         this.buttonCheatMode = mainGameActivity.findViewById(R.id.buttonCheatMode);
+        this.buttonAccuseCheater = mainGameActivity.findViewById(R.id.buttonAccuseCheater);
 
 
         this.monsterZones = new ArrayList<>();
@@ -69,13 +71,16 @@ public class MainGameView {
 
         MainGameView.mainGameActivity = mainGameActivity;
         allPlayerButtons = new Button[]{
-                mainGameActivity.findViewById(R.id.buttonEndRound),
-                mainGameActivity.findViewById(R.id.buttonCards)
+                buttonEndRound,
+                buttonCards,
+                buttonCheatMode,
+                buttonAccuseCheater
         };
 
         buttonEndRound.setTag("EndRound");
         buttonCards.setTag("Cards");
         buttonCheatMode.setTag("Cheating");
+        buttonAccuseCheater.setTag("Accuse");
 
 
         addButtonsToZoneList(Zone1Monster,
@@ -132,6 +137,7 @@ public class MainGameView {
         mainGameActivity.runOnUiThread(this::disablePlayerAction);
 
         buttonEndRound.setOnClickListener(v -> gameController.endTurn());
+
         buttonCheatMode.setOnClickListener(v -> {gameController.cheatMode();
             if( gameController.cheatMode){
                 AnimationUtils.startBlinkingAnimation(buttonCheatMode);
@@ -140,6 +146,7 @@ public class MainGameView {
                 AnimationUtils.stopBlinkingAnimation(buttonCheatMode);
             }});
 
+        buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
         buttonCards.setOnClickListener(v -> {
             mainGameActivity.sendMessage();
@@ -294,7 +301,9 @@ public class MainGameView {
                             button.setBackground(null);
 
                             if (rotateView != null) {
-                                rotateView.resetRotation();
+                                rotateView.resetRotation240(); //Auf 240
+                                rotateView.rotateButton(button); //Normal rotieren den Button.
+                                rotateView.resetRotation(); //Auf Standardwert. Notwendinger fix.
                             }
                             monsterManager.removeMonster(monsterId);
                             Log.d("MainGameView", "Monster " + monsterId + " is dead and removed.");
@@ -386,6 +395,9 @@ public class MainGameView {
                                             inner.setBackground(background);
                                             inner.setVisibility(View.VISIBLE);
                                             inner.setTag(monster);
+
+                                            monsterManager.updateMonster(inner.getId(), monster.getLifePoints());
+                                            monsterManager.removeMonster(String.valueOf(outer.getId()));
                                             break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
                                         }
                                     }
@@ -645,6 +657,34 @@ public class MainGameView {
         return new ArrayList<>(trophiesList);
     }
 
+    private void showAccusePopup() {
+        View popupView = mainGameActivity.getLayoutInflater().inflate(R.layout.popup_accuse_cheater, null);
+
+        PopupWindow accusePopup = new PopupWindow(popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        Spinner spinnerPlayers = popupView.findViewById(R.id.accuseSpinner);
+        Button buttonAccuse = popupView.findViewById(R.id.buttonAccuseCheater);
+        Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
+
+        List<String> players = new ArrayList<>(usernamesWithPoints.keySet());
+        players.remove(gameController.currentPlayerp); //Aktiven Spieler aus der Liste entfernen
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mainGameActivity, android.R.layout.simple_spinner_item, players);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPlayers.setAdapter(adapter);
+
+        buttonAccuse.setOnClickListener(v -> {
+            String selectedPlayer = (String) spinnerPlayers.getSelectedItem();
+            gameController.sendAccusationMessage(selectedPlayer);
+            accusePopup.dismiss();
+        });
+
+        buttonCancel.setOnClickListener(v -> accusePopup.dismiss());
+
+        accusePopup.setOutsideTouchable(false);
+        accusePopup.setElevation(10);
+        accusePopup.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER, 0, 0);
+    }
 
 
 }
