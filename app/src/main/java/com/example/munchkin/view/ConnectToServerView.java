@@ -31,19 +31,16 @@ public class ConnectToServerView {
     private void setupUI() {
         Button buttonSendMsg = connectToServerActivity.findViewById(R.id.buttonConnect);
         buttonSendMsg.setOnClickListener(v -> {
+            buttonSendMsg.setVisibility(View.GONE);
             username = editTextUsername.getText().toString();
-            connectToServerActivity.sendMessage(username);
-            connectToServerActivity.transitionToLoadingScreen(username);
             AppState.getInstance().setCurrentUser(username);
-        });
+            if(ConnectToServerActivity.usernameaccepted){
+            connectToServerActivity.sendMessage();}else {
+                connectToServerActivity.transitionToLoadingScreen(username);
 
-        editTextUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectToServerActivity.connectToServer();
             }
-        });
 
+        });
 
 
 

@@ -582,38 +582,7 @@ public class MainGameView {
 
         }
 
-        public static void showallMonsters() {
-            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
 
-                for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
-                    System.out.println(entry.getKey() + "/" + entry.getValue());
-                }
-            for (List<Button> zone : zones) {
-
-                for (Button b : zone) {
-                    if(b.getTag()!=null){
-                        b.setOnClickListener(null);
-
-                        MonsterDTO currentM= (MonsterDTO) b.getTag();
-
-                        switch (currentM.getName()){
-                            case "Schleim":
-                                b.setBackgroundResource(R.drawable.monster_slime);
-                                break;
-                            case "Sphinx":
-                                b.setBackgroundResource(R.drawable.monster_sphinx);
-                                break;
-                            case "Bullrog":
-                                b.setBackgroundResource(R.drawable.monster_bullrog);
-                                break;
-                            default:
-                                Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
-                        }
-
-                    }
-                }
-            }
-        }
 
 
 
@@ -623,7 +592,6 @@ public class MainGameView {
         String name = message.getString("name");
         int zone = Integer.parseInt(message.getString("zone"));
         ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-        System.out.println(karte.getName());
         String username = message.getString("switchedWith");
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
 
@@ -649,7 +617,38 @@ public class MainGameView {
         });
 
     }
+    public static void showallMonsters() {
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
 
+        for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+        }
+        for (List<Button> zone : zones) {
+
+            for (Button b : zone) {
+                if(b.getTag()!=null){
+                    b.setOnClickListener(null);
+
+                    MonsterDTO currentM= (MonsterDTO) b.getTag();
+
+                    switch (currentM.getName()){
+                        case "Schleim":
+                            b.setBackgroundResource(R.drawable.monster_slime);
+                            break;
+                        case "Sphinx":
+                            b.setBackgroundResource(R.drawable.monster_sphinx);
+                            break;
+                        case "Bullrog":
+                            b.setBackgroundResource(R.drawable.monster_bullrog);
+                            break;
+                        default:
+                            Log.d("Error in spawnMonsterInZone", "Kein passendes Monster");
+                    }
+
+                }
+            }
+        }
+    }
     public void updateMonsterList(String monsterId, int lifepoints){
         mainGameActivity.runOnUiThread(() -> {
         if(lifepoints>0) {

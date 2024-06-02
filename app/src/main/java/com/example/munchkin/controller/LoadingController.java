@@ -1,5 +1,12 @@
 package com.example.munchkin.controller;
 
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.activity.ConnectToServerActivity;
+import com.example.munchkin.activity.LoadingscreenActivity;
+import com.example.munchkin.activity.LobbyActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 
 import org.json.JSONException;
@@ -7,9 +14,10 @@ import org.json.JSONObject;
 
 public class LoadingController extends BaseController {
 
-
-    public LoadingController(WebSocketClientModel model) {
+    LoadingscreenActivity loadingscreenActivity;
+    public LoadingController(WebSocketClientModel model, LoadingscreenActivity loadingscreenActivity) {
         super(model);
+        this.loadingscreenActivity=loadingscreenActivity;
     }
 
 
@@ -22,6 +30,8 @@ public class LoadingController extends BaseController {
                 case "LOBBY_ASSIGNED":
                     handleLobbyAssignedMessage(jsonResponse);
                     break;
+                case "REGISTER_USERNAME":
+                    handleRegisterUsernameMessage(jsonResponse);
                 default:
                     break;
             }
@@ -30,7 +40,31 @@ public class LoadingController extends BaseController {
         }
     }
 
+    public void registerUserMessage(String username) {
+        String message = MessageFormatter.registerUserMessage(username);
+        model.sendMessageToServer(message);
+    }
 
+    private void handleRegisterUsernameMessage(JSONObject jsonResponse) {
+
+        String accepted = "accepted";
+        try{
+            String serverResponse = jsonResponse.getString("response");
+
+            if(serverResponse.equals(accepted)){
+                ConnectToServerActivity.usernameaccepted=true;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());;
+            }
+            else {
+                ConnectToServerActivity.usernameaccepted=false;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());;
+            }
+        }
+        catch (JSONException e) {
+            throw new IllegalArgumentException("Fehler bei handleRegisterUsernameMessage/ConnectToServerController");
+        }
+
+    }
 
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
 

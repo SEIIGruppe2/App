@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.LoadingController;
+import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
 
 public class LoadingscreenActivity extends AppCompatActivity {
@@ -31,30 +32,34 @@ public class LoadingscreenActivity extends AppCompatActivity {
 
         WebSocketClientModel model = new WebSocketClientModel();
 
-        loadingController = new LoadingController(model);
+        loadingController = new LoadingController(model, this);
 
 
-        router.registerController("LOBBY_ASSIGNED",loadingController);
+        router.registerController("REGISTER_USERNAME",loadingController);
         model.setMessageRouter(router);
 
 
 
-        //only for testreasons
-        Handler test = new Handler();
-        test.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(LoadingscreenActivity.this, MainGameActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        },3000);
-        //end of test
+
+        loadingController.registerUserMessage(AppState.getInstance().getCurrentUser());
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
 
         });
+    }
+
+    public void startlobby(){
+
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void goBackToUsername(){
+        Intent intent = new Intent(this, ConnectToServerActivity.class);
+        startActivity(intent);
     }
 }

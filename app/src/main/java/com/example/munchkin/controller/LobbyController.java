@@ -68,8 +68,7 @@ public class LobbyController extends BaseController{
             }
         }
 
-
-            public void requestUsernames(){
+        public void requestUsernames(){
         String message = MessageFormatter.createUsernameRequestMessage();
         model.sendMessageToServer(message);
     }

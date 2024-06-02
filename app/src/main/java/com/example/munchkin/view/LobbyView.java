@@ -33,9 +33,6 @@ public class LobbyView {
 
     }
     public void updateUserList(int arraylength){
-        System.out.println("Updateuserlist");
-
-
         lobbyActivity.runOnUiThread((new Runnable() {
             @Override
             public void run() {

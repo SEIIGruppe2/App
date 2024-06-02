@@ -36,7 +36,7 @@ public class LobbyActivity extends AppCompatActivity {
 
 
         router.registerController("REQUEST_USERNAMES",controller);
-        requesUsernames();
+        requestUsernames();
 
 
         model.setMessageRouter(router);
@@ -52,7 +52,7 @@ public class LobbyActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void requesUsernames(){
+    private void requestUsernames(){
         controller.requestUsernames();
     }
 
