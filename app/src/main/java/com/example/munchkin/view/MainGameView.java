@@ -396,8 +396,6 @@ public class MainGameView {
                                             inner.setVisibility(View.VISIBLE);
                                             inner.setTag(monster);
 
-                                            monsterManager.updateMonster(inner.getId(), monster.getLifePoints());
-                                            monsterManager.removeMonster(String.valueOf(outer.getId()));
                                             break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
                                         }
                                     }
