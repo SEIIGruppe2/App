@@ -223,13 +223,13 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private void handlePlayerTrophies(JSONObject jsonResponse) {
-        Log.d("YVONNE", "WIR SIND DRIN, JUNGS!");
+        Log.d("Trophies", "Trophies should update now");
         try{
             String playerName = jsonResponse.getString("playerName");
             int points = jsonResponse.getInt("points");
             maingameView.updateListTrophies(playerName, points);
         } catch (JSONException e) {
-            Log.e("GameController", "Error parsing monster attack message", e);
+            Log.e("GameController", "Error parsing trophies message", e);
         }
     }
 
@@ -313,6 +313,12 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public boolean currentPlayer(){
         return currentPlayerp != null && currentPlayerp.equals(clientplayerUsername);
+    }
+
+    public void sendAccusationMessage(String cheaterName) {
+        String accusatorName = currentPlayerp;
+        String message = MessageFormatter.createAccusationMessage(cheaterName, accusatorName);
+        model.sendMessageToServer(message);
     }
 
 }
