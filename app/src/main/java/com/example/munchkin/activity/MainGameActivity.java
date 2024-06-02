@@ -106,6 +106,7 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("CHEAT_MODE", gameController);
         router.registerController("END_GAME", gameController);
         router.registerController("PLAYER_TROPHIES", gameController);
+        router.registerController("ACCUSATION_MSG", gameController);
         model.setMessageRouter(router);
 
     }
