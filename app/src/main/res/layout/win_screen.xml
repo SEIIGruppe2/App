@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/win_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/background"
+    android:paddingTop="32dp">
+
+    <TextView
+        android:id="@+id/textViewWin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        android:textStyle="bold"
+        android:shadowColor="@color/black"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="4" />
+
+    <ImageView
+        android:id="@+id/win_img"
+        android:layout_width="218dp"
+        android:layout_height="195dp"
+        android:background="@drawable/win_img"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/homeButtonWin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zurück zum Hauptmenü"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:backgroundTint="#FFE500"
+        android:fontFamily="@font/chewyregular"
+        android:background="@drawable/rippleeffect"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
