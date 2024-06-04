@@ -46,13 +46,13 @@ public class CardUtils {
     }
     public static String getzone(int zone){
         switch (zone) {
-            case 0:
-                return "roter";
             case 1:
-                return "blauer";
+                return "roter";
             case 2:
-                return "gruener";
+                return "blauer";
             case 3:
+                return "gruener";
+            case 4:
                 return "brauner";
             default:
                 return "blauer";
