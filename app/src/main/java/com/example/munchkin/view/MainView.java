@@ -57,7 +57,7 @@ public class MainView {
 
     private  void setupOptions(){
 
-        this.switchMusic = mainActivity.findViewById(R.id.music);
+        /*this.switchMusic = mainActivity.findViewById(R.id.music);
         Button backToMenu = mainActivity.findViewById(R.id.backMainMenu);
         backToMenu.setOnClickListener(v -> {
             mainActivity.setContentView(R.layout.activity_main);
@@ -79,6 +79,6 @@ public class MainView {
             }
 
         });
-
+*/
     }
 }

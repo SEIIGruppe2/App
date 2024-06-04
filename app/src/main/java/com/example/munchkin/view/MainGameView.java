@@ -568,16 +568,10 @@ public class MainGameView {
     }
 
     public void updateMonsterList(String monsterId, int lifepoints){
-        mainGameActivity.runOnUiThread(() -> {
-        if(lifepoints>0) {
-            monsterManager.updateMonster(Integer.parseInt(monsterId), lifepoints);
-        }else{
-            monsterManager.removeMonster(monsterId);
 
-                updateMonstersView(monsterId);
-
-        }
-        updateGameView();
+       mainGameActivity.runOnUiThread(() -> {
+           updateMonsterHealth(monsterId, lifepoints);
+           updateGameView();
         });
     }
     private void updateGameView(){

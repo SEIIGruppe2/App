@@ -148,7 +148,7 @@ public class CardDeckController extends BaseController {
             ArrayList<String>  monsterList = new ArrayList<>();
             for (int i = 0; i < monsterIdArray.length(); i++) {
                 monsterList.add(monsterIdArray.getString(i));
-
+                System.out.println("MOnster "+ monsterIdArray.getString(i));
 
             }
             MainGameActivity.monsterList = monsterList;

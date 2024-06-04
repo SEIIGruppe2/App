@@ -28,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Load the initial view
 
-        setContentView(R.layout.activity_main);
-        loadView(new Options());
+        setContentView(R.layout.activity_main); mainView = new MainView(this);
+        /*loadView(new Options());
 
         // Example of switching views on some action, like button click
         findViewById(R.id.buttonOptions).setOnClickListener(view -> {
             // Replace the current view with another view
             loadView(new Options());
         });
-        mainView = new MainView(this);
+
         mediaPlayer1 = MediaPlayer.create(this, R.raw.munchkinpanic);
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .setLegacyStreamType(AudioAttributes.USAGE_MEDIA)
                 .build();
-        mediaPlayer1.setAudioAttributes(audioAttributes);
+        mediaPlayer1.setAudioAttributes(audioAttributes);*/
 
 
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startOptions(){
-        setContentView(R.layout.options);
+        //setContentView(R.layout.options);
     }
 
     public void startmusic(){
