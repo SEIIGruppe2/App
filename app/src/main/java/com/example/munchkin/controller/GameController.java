@@ -87,7 +87,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public void handleCardAttackMonster(JSONObject jsonObject){
         try{
-            String monsterId = jsonObject.getString("monsterId");
+            String monsterId = jsonObject.getString("monsterid");
             int lifepoints = jsonObject.getInt("lifepoints");
             maingameView.updateMonsterList(monsterId, lifepoints);
 
