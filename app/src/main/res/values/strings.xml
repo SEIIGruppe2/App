@@ -5,6 +5,7 @@
     <string name="button_register">Anmelden</string>
     <string name="button_options">Optionen</string>
     <string name="button_exit">Beenden</string>
+    <string name="button_game_rules">Spielregeln</string>
 
     <string name="text_view_username">Geben Sie ihren Benutzernamen ein:</string>
     <string name="edit_text_username_hint">Benutzername</string>
@@ -27,6 +28,8 @@
     <string name="button_ok">Ok</string>
     <string name="button_tauschendeck">Decktausch</string>
     <string name="button_tauschenspieler">Spielertausch</string>
+    <string name="button_cheat_mode">Cheat-Modus</string>
+    <string name="button_accuse_cheater">Beschuldigen</string>
 
     <string name="popupzugbeenden">Bist du sicher, dass du den Zug beenden möchtest?</string>
 
@@ -84,7 +87,8 @@
     <string name="lobby">Warten auf weitere Spieler...</string>
 
     <string name="showMonsters">Wähle eines der Monster welches angezeigt wird um es anzugreifen</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

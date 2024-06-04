@@ -45,6 +45,12 @@ public class ButtonRotateView {
     }
 
     public void resetRotation() {
+
         currentRotation = 0;
+    }
+
+
+    public void resetRotation240() {
+        currentRotation = 240;
     }
 }

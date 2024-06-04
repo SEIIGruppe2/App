@@ -103,6 +103,10 @@ public class MainGameActivity extends AppCompatActivity {
         router.registerController("ROUND_COUNTER", gameController);
         router.registerController("CURRENT_PLAYER", gameController);
         router.registerController("CARD_ATTACK_MONSTER", gameController);
+        router.registerController("CHEAT_MODE", gameController);
+        router.registerController("END_GAME", gameController);
+        router.registerController("PLAYER_TROPHIES", gameController);
+        router.registerController("ACCUSATION_MSG", gameController);
         model.setMessageRouter(router);
 
     }
@@ -160,6 +164,13 @@ public class MainGameActivity extends AppCompatActivity {
     public void sendCardAttackMonsterMessage(String monsterId, String cardID){
         gameController.cardAttackMonsterMessage(monsterId,cardID);
     }
+
+    public void sendPlayerTrophiesRequest(){
+        gameController.sendPlayerTrophiesRequest();
+    }
+
+
+
     private void setupDiceRollLauncher() {
         diceRollLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -173,6 +184,26 @@ public class MainGameActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void navigateToWinScreen(String winner) {
+        Intent winIntent = new Intent(this, WinActivity.class);
+        winIntent.putExtra("winnerName", winner);
+        startActivity(winIntent);
+        finish();
+    }
+
+    public void navigateToLoseScreen(String winner) {
+        Intent  loseIntent = new Intent(this, LoseActivity.class);
+        loseIntent.putExtra("winnerName", winner);
+        startActivity( loseIntent);
+        finish();
+    }
+
+    public void navigateToAllLoseScreen() {
+        Intent allloseIntent = new Intent(this, AllLoseActivity.class);
+        startActivity(allloseIntent);
+        finish();
     }
 
 }

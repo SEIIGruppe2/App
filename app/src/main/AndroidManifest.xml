@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,9 @@
         android:theme="@style/Theme.Munchkin"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.Options"
+            android:exported="false" />
         <activity
             android:name=".activity.LobbyActivity"
             android:exported="false" />
@@ -29,6 +33,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.CarddeckActivity"
+            android:exported="false" />
+        <activity android:name=".activity.WinActivity"
+            android:exported="false" />
+        <activity android:name=".activity.LoseActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
