@@ -36,7 +36,7 @@
         android:fontFamily="@font/chewyregular"
         android:textSize="45sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        app:layout_constraintBottom_toTopOf="@+id/goBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <Button
-        android:id="@+id/buttonRegister"
+        android:id="@+id/goBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegister"
+        app:layout_constraintTop_toBottomOf="@+id/goBack"
         app:layout_constraintVertical_bias="0.5" />
 
     <Button

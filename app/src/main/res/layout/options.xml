@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".activity.MainActivity"
+    tools:context=".Options"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-5dp">
 
@@ -54,6 +54,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
         app:layout_constraintVertical_bias="0.129" />
+
+    <Button
+        android:id="@+id/goBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="356dp"
+        android:background="@drawable/rippleeffect"
+        android:fontFamily="@font/chewyregular"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/button_zurück"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:backgroundTint="#FFE500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

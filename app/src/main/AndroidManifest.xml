@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
@@ -17,7 +25,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.Options"
+            android:name=".activity.GameRules"
             android:exported="false" />
         <activity
             android:name=".activity.LobbyActivity"
@@ -34,9 +42,11 @@
         <activity
             android:name=".activity.CarddeckActivity"
             android:exported="false" />
-        <activity android:name=".activity.WinActivity"
+        <activity
+            android:name=".activity.WinActivity"
             android:exported="false" />
-        <activity android:name=".activity.LoseActivity"
+        <activity
+            android:name=".activity.LoseActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

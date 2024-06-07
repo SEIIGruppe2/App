@@ -1,14 +1,12 @@
 package com.example.munchkin.view;
 
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Switch;
 
 
+import com.example.munchkin.activity.GameRules;
 import com.example.munchkin.activity.MainGameActivity;
 
 import com.example.munchkin.activity.ConnectToServerActivity;
@@ -26,7 +24,7 @@ public class MainView {
 
     public MainView(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.buttonRegister = mainActivity.findViewById(R.id.buttonRegister);
+        this.buttonRegister = mainActivity.findViewById(R.id.goBack);
         this.buttonOptions = mainActivity.findViewById(R.id.buttonOptions);
         this.buttonExit = mainActivity.findViewById(R.id.buttonExit);
 
@@ -50,7 +48,7 @@ public class MainView {
         });
 
         buttonExit.setOnClickListener(v -> {
-            Intent intent = new Intent(mainActivity, MainGameActivity.class);
+            Intent intent = new Intent(mainActivity, GameRules.class);
             mainActivity.startActivity(intent);
         });
     }
