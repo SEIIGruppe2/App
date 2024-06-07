@@ -120,7 +120,6 @@ public class MainGameActivity extends AppCompatActivity {
 
     public void addcardtolist(ActionCardDTO karte){
         handkarten.addCard(karte);
-        System.out.println("---- add to list"+handkarten.getCards().size());
     }
 
     public void transitionToCardDeckscreen() {
