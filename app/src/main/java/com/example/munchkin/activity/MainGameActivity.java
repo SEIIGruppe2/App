@@ -186,23 +186,31 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
     public void navigateToWinScreen(String winner) {
+        runOnUiThread(() -> {
         Intent winIntent = new Intent(this, WinActivity.class);
         winIntent.putExtra("winnerName", winner);
         startActivity(winIntent);
         finish();
+        });
     }
 
     public void navigateToLoseScreen(String winner) {
+        runOnUiThread(() -> {
         Intent  loseIntent = new Intent(this, LoseActivity.class);
         loseIntent.putExtra("winnerName", winner);
         startActivity( loseIntent);
         finish();
+        });
     }
 
     public void navigateToAllLoseScreen() {
-        Intent allloseIntent = new Intent(this, AllLoseActivity.class);
-        startActivity(allloseIntent);
-        finish();
+        runOnUiThread(() -> {
+            Intent allloseIntent = new Intent(this, AllLoseActivity.class);
+            startActivity(allloseIntent);
+            finish();
+        });
+
     }
+
 
 }
