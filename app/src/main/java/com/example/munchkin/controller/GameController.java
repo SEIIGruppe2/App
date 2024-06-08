@@ -29,6 +29,7 @@ import com.example.munchkin.game.AppState;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
+    private static boolean endConditionCheckedThisRound = false;
     public String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
@@ -39,6 +40,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
     public static HashMap<String, Integer> usernamesWithPoints = new HashMap<>();
 
+    private static  List<String> playerusernames = new ArrayList<>();
 
     public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
         super(model);
@@ -134,7 +136,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void sendMonsterAttackMessage(String monsterId, String towerId) {
-        String message = MessageFormatter.createMonsterAttackMessage(monsterId, towerId);
+      String message = MessageFormatter.createMonsterAttackMessage(monsterId, towerId);
         model.sendMessageToServer(message);
     }
 
@@ -149,7 +151,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         model.sendMessageToServer(message);
     }
 
-    private String findPlayerWithMostTrophies() {
+   /* private String findPlayerWithMostTrophies() {
         int maxPoints = 0;
         String winner = "";
         List<String> trophiesList = maingameView.getTrophiesList();
@@ -166,19 +168,36 @@ public class GameController extends BaseController implements DiceRollListener, 
         return winner;
     }
 
+    */
 
-    public void checkEndCondition() {
+    public String findPlayerWithMostTrophies(){
+
+        String winner = " ";
+
+        for(int i = 0; i < usernamesWithPoints.size()-1; i++ ){
+
+            if(usernamesWithPoints.get(playerusernames.get(i)) > usernamesWithPoints.get(playerusernames.get(i+1))){
+                winner = playerusernames.get(i);
+            }
+            else{
+                winner = playerusernames.get(i+1);
+            }
+        }
+        return winner;
+    }
+
+
+    public void checkEndCondition(int towerhealth) {
         int round = Integer.parseInt(roundCounter);
         if (round >= 14) {
             sendEndGameMessage("true");
         } else {
-            checkTowerHealth();
+            checkTowerHealth(towerhealth);
         }
     }
 
-    public void checkTowerHealth() {
-        int towerHp = maingameView.getTowerHealth();
-        if (towerHp <= 0) {
+    public void checkTowerHealth(int towerhealth) {
+        if (towerhealth == 0) {
             sendEndGameMessage("false");
         }
     }
@@ -186,22 +205,24 @@ public class GameController extends BaseController implements DiceRollListener, 
     private void handleEndGameMessage(JSONObject message) {
 
         try {
+            Log.d("InEndGameMessage", message.toString());
             String hasWinner = message.getString("hasWinner");
             if (hasWinner.equals("true")) {
                 String winner = findPlayerWithMostTrophies();
                 if(clientplayerUsername.equals(winner))
                     mainGameActivity.navigateToWinScreen(winner);
                 else{
+                    Log.d("InLoseZweig", message.toString());
                     mainGameActivity.navigateToLoseScreen(winner);
                 }
             } else {
+                Log.d("InAllLoseZweig", message.toString());
                 mainGameActivity.navigateToAllLoseScreen();
             }
         } catch (JSONException e) {
             Log.e("GameController", "Error in ENDGAME-Handler", e);
         }
     }
-
 
 
     private void handleMonsterAttackMessage(JSONObject message) {
@@ -213,10 +234,16 @@ public class GameController extends BaseController implements DiceRollListener, 
             Log.d("GameController5", "Tower HP received: " + towerHp);
             maingameView.modifyTowerLifePoints(towerHp);
 
-            checkEndCondition();
+
 
             Log.d("GameController6", "UI should now be updated.");
             maingameView.updateMonsterHealth(monsterId, monsterHp);
+
+            if (!endConditionCheckedThisRound) {
+                checkEndCondition(towerHp);
+                endConditionCheckedThisRound = true;
+            }
+
         } catch (JSONException e) {
             Log.e("GameController7", "Error parsing monster attack message", e);
         }
@@ -251,7 +278,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     public static void setUsernames(JSONObject jsonResponse){
-        List<String> playerusernames = new ArrayList<>();
+
         Queue<Player> playerQueue = new LinkedList<>();
         try {
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
@@ -274,6 +301,8 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         try {
             roundCounter = jsonResponse.getString("turnCount");
+            endConditionCheckedThisRound = false;
+            Log.d("inHandleCurrentPlayer", "endConditionCheckedThisRound = false;");
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
 
