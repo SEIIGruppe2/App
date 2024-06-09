@@ -151,9 +151,10 @@ public class MainGameView {
         buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
         buttonCards.setOnClickListener(v -> {
-            mainGameActivity.sendMessage();
+            //TODO: Sendmessage wenn runde vom spieler startet
+
             mainGameActivity.transitionToCardDeckscreen();
-            mainGameActivity.gehezukarten();
+
         });
     }
 

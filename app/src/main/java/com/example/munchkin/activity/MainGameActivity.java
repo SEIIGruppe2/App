@@ -123,7 +123,8 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
     public void transitionToCardDeckscreen() {
-        Intent intent = new Intent(MainGameActivity.this, CarddeckActivity.class);
+        Intent intent = new Intent(this, CarddeckActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 

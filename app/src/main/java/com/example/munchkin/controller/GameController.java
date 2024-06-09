@@ -319,6 +319,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 maingameView.enablePlayerAction();
+                mainGameActivity.runOnUiThread(() -> mainGameActivity.sendMessage());
                 performeRoll();
             } else {
                 maingameView.disablePlayerAction();
