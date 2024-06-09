@@ -29,7 +29,7 @@ import com.example.munchkin.game.AppState;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
-    private static boolean endConditionCheckedThisRound = false;
+    private static boolean gameEndet = false;
     public String currentPlayerp;
     private static String roundCounter="0";
     private MainGameView maingameView;
@@ -188,17 +188,22 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void checkEndCondition(int towerhealth) {
+
         int round = Integer.parseInt(roundCounter);
-        if (round >= 14) {
-            sendEndGameMessage("true");
-        } else {
-            checkTowerHealth(towerhealth);
+        if(!gameEndet) {
+            if (round >= 14) {
+                sendEndGameMessage("true");
+                gameEndet = true;
+            } else {
+                checkTowerHealth(towerhealth);
+            }
         }
     }
 
     public void checkTowerHealth(int towerhealth) {
         if (towerhealth == 0) {
             sendEndGameMessage("false");
+            gameEndet = true;
         }
     }
 
@@ -236,13 +241,12 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
 
+
             Log.d("GameController6", "UI should now be updated.");
             maingameView.updateMonsterHealth(monsterId, monsterHp);
 
-            if (!endConditionCheckedThisRound) {
-                checkEndCondition(towerHp);
-                endConditionCheckedThisRound = true;
-            }
+
+            checkEndCondition(towerHp);
 
         } catch (JSONException e) {
             Log.e("GameController7", "Error parsing monster attack message", e);
@@ -301,7 +305,6 @@ public class GameController extends BaseController implements DiceRollListener, 
 
         try {
             roundCounter = jsonResponse.getString("turnCount");
-            endConditionCheckedThisRound = false;
             Log.d("inHandleCurrentPlayer", "endConditionCheckedThisRound = false;");
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayerp= currentPlayerUsername;
@@ -320,6 +323,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             } else {
                 maingameView.disablePlayerAction();
             }
+
 
         } catch (Exception e) {
             Log.e(handleCurrentPlayerString, "Fehler beim Verarbeiten der aktuellen Spielerdaten", e);
