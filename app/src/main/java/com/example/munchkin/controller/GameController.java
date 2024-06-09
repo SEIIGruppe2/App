@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.Player.Player;
 
+import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 
 import com.example.munchkin.interfaces.DiceRollCallback;
@@ -319,6 +320,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
             if (currentPlayerUsername.equals(clientplayerUsername)) {
                 maingameView.enablePlayerAction();
+                CarddeckActivity.switchdone= false;
                 mainGameActivity.runOnUiThread(() -> mainGameActivity.sendMessage());
                 performeRoll();
             } else {

@@ -212,7 +212,8 @@ public class CarddeckView {
             card.setForeground(carddeckActivity.getyellowborder());
             CarddeckActivity.selectedCard = card;
             spielen.setVisibility(View.VISIBLE);
-            tauschen.setVisibility(View.VISIBLE);// Setze die ausgewählte Karte
+            if(carddeckActivity.switchdone==false){
+            tauschen.setVisibility(View.VISIBLE);}// Setze die ausgewählte Karte
         }
     }
 

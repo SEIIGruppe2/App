@@ -60,6 +60,8 @@ public class CarddeckActivity extends AppCompatActivity {
     private ImageView kartenbild;
     private TextView kartenbeschreibung;
 
+    public static boolean switchdone=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,6 +280,10 @@ public class CarddeckActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
         neuerbutton.setTypeface(typeface);
         neuerbutton.setOnClickListener(v -> {
+
+            switchdone= true;
+            findViewById(R.id.buttontauschen).setVisibility(View.GONE);
+            findViewById(R.id.buttonspielen).setVisibility(View.GONE);
             popuptauschen.dismiss();
             view.updatenachtauschen();
         });
