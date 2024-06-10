@@ -204,6 +204,7 @@ public class MainGameView {
     public void spawnMonster(MonsterDTO monster) {
         int monsterZone = monster.getZone();
         mainGameActivity.runOnUiThread(() -> {
+            Log.d("SpawnMonster", "Spawnmonstermethode ausgeführt");
             switch (monsterZone) {
                 case 1:
                     spawnMonsterInZone(Zone1Monster, monster);
@@ -228,6 +229,7 @@ public class MainGameView {
 
     private void spawnMonsterInZone(List<Button> zoneButtons, MonsterDTO monster) {
         mainGameActivity.runOnUiThread(() -> {
+            Log.d("SpawnMonster", "Spawnmonsterinzone ausgeführt");
             for (Button button : zoneButtons) {
                 if (isButtonEmpty(button)) {
                     button.setVisibility(View.VISIBLE);
@@ -541,13 +543,43 @@ public class MainGameView {
         }
         return false;
 
-    }
 
+
+
+    public void tauschanfrageerhalten(JSONObject message) throws JSONException {
+
+        int id = Integer.parseInt(message.getString("id"));
+        String name = message.getString("name");
+        int zone = Integer.parseInt(message.getString("zone"));
+        ActionCardDTO karte = new ActionCardDTO(name, zone,id);
+        String username = message.getString("switchedWith");
+        Log.d("Karte in tauschenAnfrageErhalten",karte.getName());
+        View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+
+
+        mainGameActivity.runOnUiThread(() -> {
+            int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
+            popuptauschanfrage.setOutsideTouchable(false);
+            popuptauschanfrage.setElevation(10);
+            popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+
+            mainGameActivity.dimmwindow(popuptauschanfrage);
+            Button ok = popupdrawable.findViewById(R.id.ok);
+
+            ok.setOnClickListener(v -> {
+                popuptauschanfrage.dismiss();
+                mainGameActivity.gehezuhandkarten(message);
+            });
+        });
+
+    }
     public static void showallMonsters() {
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
 
         for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
-            Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
+            System.out.println(entry.getKey() + "/" + entry.getValue());
         }
         for (List<Button> zone : zones) {
 
@@ -575,38 +607,6 @@ public class MainGameView {
             }
         }
     }
-
-
-
-    public void tauschanfrageerhalten(JSONObject message) throws JSONException {
-
-        int id = Integer.parseInt(message.getString("id"));
-        String name = message.getString("name");
-        int zone = Integer.parseInt(message.getString("zone"));
-        ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-        Log.d("Karte in tauschenAnfrageErhalten",karte.getName());
-        View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
-
-
-        mainGameActivity.runOnUiThread(() -> {
-            int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
-            popuptauschanfrage.setOutsideTouchable(false);
-            popuptauschanfrage.setElevation(10);
-            popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
-
-            mainGameActivity.dimmwindow(popuptauschanfrage);
-            Button ok = popupdrawable.findViewById(R.id.ok);
-
-            ok.setOnClickListener(v -> {
-                popuptauschanfrage.dismiss();
-                mainGameActivity.gehezuhandkarten(message);
-            });
-        });
-
-    }
-
     public void updateMonsterList(String monsterId, int lifepoints){
 
         mainGameActivity.runOnUiThread(() -> {
