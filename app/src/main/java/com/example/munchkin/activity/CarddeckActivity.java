@@ -150,6 +150,7 @@ public class CarddeckActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //TODO: bei zugbeenden in maingame einbauen
     public void zugbeenden(){
 
         View drawablePopUp = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);

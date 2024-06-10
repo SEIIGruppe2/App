@@ -26,7 +26,7 @@ public class CarddeckView {
     Button spielen;
     Button tauschen;
     Button zurueck;
-    Button zugbeenden;
+
     private CarddeckActivity carddeckActivity;
     public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
 
@@ -40,14 +40,8 @@ public class CarddeckView {
 
         parentlayout= carddeckActivity.findViewById(R.id.containerforcards);
 
-        zugbeenden = carddeckActivity.findViewById(R.id.buttonzugbeenden);
 
-        if(CarddeckActivity.passivmode==1){
-            zugbeenden.setVisibility(View.GONE);
-        }
-        else {
-            zugbeenden.setOnClickListener(v -> carddeckActivity.zugbeenden());
-        }
+
         spielen= carddeckActivity.findViewById(R.id.buttonspielen);
         spielen.setOnClickListener(v -> carddeckActivity.playCard());
 
