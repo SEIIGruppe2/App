@@ -534,14 +534,15 @@ public class MainGameView {
         mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
 
     }
-    private static boolean checkifitsinlist(int id){
+    private static boolean checkifitsinlist(int id) {
 
-        for(String m:MainGameActivity.monsterList){
-            if(id == Integer.parseInt(m)){
+        for (String m : MainGameActivity.monsterList) {
+            if (id == Integer.parseInt(m)) {
                 return true;
             }
         }
         return false;
+    }
 
 
 
