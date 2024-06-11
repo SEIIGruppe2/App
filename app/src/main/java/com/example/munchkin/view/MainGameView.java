@@ -421,23 +421,6 @@ public class MainGameView {
         return button.getVisibility() == View.GONE;
     }
 
-    private void updateListActions() {
-        List<String> actionsList = new ArrayList<>();
-        actionsList.add("Action 1");
-        actionsList.add("Action 2");
-        actionsList.add("Action 3");
-        actionsList.add("Action 4");
-        actionsList.add("Action 5");
-        actionsList.add("Action 6");
-        actionsList.add("Action 7");
-        actionsList.add("Action 8");
-        actionsList.add("Action 9");
-        actionsList.add("Action 10");
-
-        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, actionsList);
-        listActions.setAdapter(actionsAdapter);
-    }
-
     public void initializeUsernamesWithPoints(HashMap<String, Integer> usernamesWithPoints) {
         for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
             updateListTrophies(entry.getKey(), entry.getValue());
