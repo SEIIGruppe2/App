@@ -4,19 +4,18 @@
     <value>
       <entry key="app">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
+          <multipleDevicesSelectedInDropDown value="true" />
+          <runningDeviceTargetsSelectedWithDialog>
             <Target>
               <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Copy_of_Copy_of_Pixel_8_Pro_API_TiramisuPrivacySandbox.avd" />
+                  <value value="C:\Users\admin\.android\avd\3Pixel_8x.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-05-06T13:09:35.058262500Z" />
-          <multipleDevicesSelectedInDropDown value="true" />
+          </runningDeviceTargetsSelectedWithDialog>
           <targetsSelectedWithDialog>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
@@ -41,7 +40,7 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Pixel_8_2.avd" />
+                  <value value="C:\Users\admin\.android\avd\Pixel_7a_API_TiramisuPrivacySandbox.avd" />
                 </Key>
               </deviceKey>
             </Target>
@@ -50,7 +49,7 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\admin\.android\avd\Copy_of_Copy_2_of_Pixel_7a_API_TiramisuPrivacySandbox.avd" />
+                  <value value="C:\Users\admin\.android\avd\3Pixel_8x.avd" />
                 </Key>
               </deviceKey>
             </Target>

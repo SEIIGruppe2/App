@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
@@ -37,7 +38,7 @@ public class MainView {
             Intent intent = new Intent(mainActivity, ConnectToServerActivity.class);
             mainActivity.startActivity(intent);
         });
-
+        buttonOptions.setVisibility(View.GONE);
         buttonOptions.setOnClickListener(v -> {
 
             mainActivity.startOptions();
