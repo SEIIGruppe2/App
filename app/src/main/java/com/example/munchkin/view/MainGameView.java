@@ -1,10 +1,5 @@
 package com.example.munchkin.view;
 
-
-
-
-
-
 import static com.example.munchkin.controller.GameController.usernamesWithPoints;
 
 import android.graphics.drawable.Drawable;
@@ -17,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.PopupWindow;
 import androidx.cardview.widget.CardView;
@@ -28,7 +24,6 @@ import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.controller.GameController;
-import com.example.munchkin.view.animations.AnimationUtils;
 import com.example.munchkin.view.animations.ButtonRotateView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +35,8 @@ import java.util.Map;
 
 public class MainGameView {
     private static MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, buttonCheatMode, buttonAccuseCheater;
+    private Button buttonEndRound, buttonCards, buttonAccuseCheater;
+    private Switch switchCheatMode;
     private static List<Button> Zone1Monster = new ArrayList<>();
     private static List<Button> Zone2Monster = new ArrayList<>();
     private static List<Button> Zone3Monster = new ArrayList<>();
@@ -64,7 +60,7 @@ public class MainGameView {
         MainGameView.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
-        this.buttonCheatMode = mainGameActivity.findViewById(R.id.buttonCheatMode);
+        this.switchCheatMode = mainGameActivity.findViewById(R.id.switchCheatMode);
         this.buttonAccuseCheater = mainGameActivity.findViewById(R.id.buttonAccuseCheater);
 
 
@@ -75,13 +71,13 @@ public class MainGameView {
         allPlayerButtons = new Button[]{
                 buttonEndRound,
                 buttonCards,
-                buttonCheatMode,
+                switchCheatMode,
                 buttonAccuseCheater
         };
 
         buttonEndRound.setTag("EndRound");
         buttonCards.setTag("Cards");
-        buttonCheatMode.setTag("Cheating");
+        switchCheatMode.setTag("Cheating");
         buttonAccuseCheater.setTag("Accuse");
 
 
@@ -140,13 +136,7 @@ public class MainGameView {
 
         buttonEndRound.setOnClickListener(v -> gameController.endTurn());
 
-        buttonCheatMode.setOnClickListener(v -> {gameController.cheatMode();
-            if( gameController.cheatMode){
-                AnimationUtils.startBlinkingAnimation(buttonCheatMode);
-            }
-            else{
-                AnimationUtils.stopBlinkingAnimation(buttonCheatMode);
-            }});
+        switchCheatMode.setOnClickListener(v -> gameController.cheatMode());
 
         buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
@@ -301,9 +291,7 @@ public class MainGameView {
                             button.setBackground(null);
 
                             if (rotateView != null) {
-                                rotateView.resetRotation240();
-                                rotateView.rotateButton(button);
-                                rotateView.resetRotation();
+                                rotateView.resetRotation(button); //Auf Standardwert. Notwendinger fix.
                             }
                             monsterManager.removeMonster(monsterId);
                             Log.d("MainGameView", "Monster " + monsterId + " is dead and removed.");
@@ -396,7 +384,21 @@ public class MainGameView {
                                             inner.setVisibility(View.VISIBLE);
                                             inner.setTag(monster);
 
-                                            break;
+                                            // Get the current rotation from the outer button and apply it to the inner button
+                                            ButtonRotateView outerRotateView = buttonRotateViews.get(outer);
+                                            if (outerRotateView != null) {
+                                                float currentRotation = outerRotateView.getCurrentRotation();
+                                                outerRotateView.resetRotation(outer); // Reset outer rotation
+
+                                                // Set the same rotation to the inner button
+                                                ButtonRotateView innerRotateView = buttonRotateViews.get(inner);
+                                                if (innerRotateView != null) {
+                                                    innerRotateView.setCurrentRotation(currentRotation);
+                                                    innerRotateView.applyCurrentRotation(inner);
+                                                }
+                                            }
+
+                                            break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
                                         }
                                     }
                                 }
@@ -415,23 +417,6 @@ public class MainGameView {
 
     private boolean isButtonEmpty(Button button) {
         return button.getVisibility() == View.GONE;
-    }
-
-    private void updateListActions() {
-        List<String> actionsList = new ArrayList<>();
-        actionsList.add("Action 1");
-        actionsList.add("Action 2");
-        actionsList.add("Action 3");
-        actionsList.add("Action 4");
-        actionsList.add("Action 5");
-        actionsList.add("Action 6");
-        actionsList.add("Action 7");
-        actionsList.add("Action 8");
-        actionsList.add("Action 9");
-        actionsList.add("Action 10");
-
-        ArrayAdapter<String> actionsAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, actionsList);
-        listActions.setAdapter(actionsAdapter);
     }
 
     public void initializeUsernamesWithPoints(HashMap<String, Integer> usernamesWithPoints) {
@@ -574,7 +559,7 @@ public class MainGameView {
         List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
 
         for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
+            Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
         }
         for (List<Button> zone : zones) {
 
