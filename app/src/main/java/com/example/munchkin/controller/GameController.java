@@ -108,7 +108,6 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
-
     public void endTurn() {
         Log.d("GameController3", "End of turn for: test " );
 
@@ -180,14 +179,26 @@ public class GameController extends BaseController implements DiceRollListener, 
     public String findPlayerWithMostTrophies() {
         String winner = "";
         int maxPoints = -1;
+        Log.d("findPlayerWithMostTrophies", "Current points: " + usernamesWithPoints.toString());
+
         for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
+            if (entry == null || entry.getValue() == null) {
+                Log.e("findPlayerWithMostTrophies", "Found null entry or value: " + entry);
+                continue;
+            }
+
+            Log.d("findPlayerWithMostTrophies", "Evaluating player: " + entry.getKey() + " with points: " + entry.getValue());
+
             if (entry.getValue() > maxPoints) {
                 maxPoints = entry.getValue();
                 winner = entry.getKey();
             }
         }
+
+        Log.d("findPlayerWithMostTrophies", "Winner: " + winner + " with points: " + maxPoints);
         return winner;
     }
+
 
 
     public void checkEndCondition(int towerhealth) {
@@ -198,8 +209,9 @@ public class GameController extends BaseController implements DiceRollListener, 
             checkTowerHealth(towerhealth);
         }
         else
-        {int round = Integer.parseInt(roundCounter);
-            if (round >= 14) {
+        {
+            int round = Integer.parseInt(roundCounter);
+            if (round >= 12) {
                 sendEndGameMessage("true");
             }
         }
@@ -262,7 +274,9 @@ public class GameController extends BaseController implements DiceRollListener, 
         try{
             String playerName = jsonResponse.getString("playerName");
             int points = jsonResponse.getInt("points");
+            usernamesWithPoints.put(playerName, points);
             maingameView.updateListTrophies(playerName, points);
+            Log.d("Player Points", playerName + points);
         } catch (JSONException e) {
             Log.e("GameController", "Error parsing trophies message", e);
         }
@@ -295,7 +309,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                 playerusernames.add(i, username);
                 Player player = new Player(username);
                 playerQueue.add(player);
-                usernamesWithPoints.put(username, 0); // Initialize points to 0
+                usernamesWithPoints.put(username, 0);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei setUsernames/GameController");
