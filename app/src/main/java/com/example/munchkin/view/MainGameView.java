@@ -302,9 +302,7 @@ public class MainGameView {
                             button.setBackground(null);
 
                             if (rotateView != null) {
-                                rotateView.resetRotation240(); //Auf 240
-                                rotateView.rotateButton(button); //Normal rotieren den Button.
-                                rotateView.resetRotation(); //Auf Standardwert. Notwendinger fix.
+                                rotateView.resetRotation(button); //Auf Standardwert. Notwendinger fix.
                             }
                             monsterManager.removeMonster(monsterId);
                             Log.d("MainGameView", "Monster " + monsterId + " is dead and removed.");
