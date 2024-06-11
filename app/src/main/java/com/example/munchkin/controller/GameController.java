@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import org.json.JSONArray;
 import com.example.munchkin.game.AppState;
@@ -147,10 +148,15 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
-    public void sendEndGameMessage(String hasWinner){
-        String message = MessageFormatter.createEndGameMessage(hasWinner);
-        model.sendMessageToServer(message);
+    public void sendEndGameMessage(String hasWinner) {
+        if (!gameEndet) {
+            gameEndet = true;
+            String message = MessageFormatter.createEndGameMessage(hasWinner);
+            model.sendMessageToServer(message);
+            Log.d("Nach send message an Server", message.toString());
+        }
     }
+
 
    /* private String findPlayerWithMostTrophies() {
         int maxPoints = 0;
@@ -171,17 +177,13 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     */
 
-    public String findPlayerWithMostTrophies(){
-
-        String winner = " ";
-
-        for(int i = 0; i < usernamesWithPoints.size()-1; i++ ){
-
-            if(usernamesWithPoints.get(playerusernames.get(i)) > usernamesWithPoints.get(playerusernames.get(i+1))){
-                winner = playerusernames.get(i);
-            }
-            else{
-                winner = playerusernames.get(i+1);
+    public String findPlayerWithMostTrophies() {
+        String winner = "";
+        int maxPoints = -1;
+        for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
+            if (entry.getValue() > maxPoints) {
+                maxPoints = entry.getValue();
+                winner = entry.getKey();
             }
         }
         return winner;
@@ -189,14 +191,16 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void checkEndCondition(int towerhealth) {
-
-        int round = Integer.parseInt(roundCounter);
-        if(!gameEndet) {
+        if (gameEndet) {
+            return;
+        }
+        if (towerhealth == 0) {
+            checkTowerHealth(towerhealth);
+        }
+        else
+        {int round = Integer.parseInt(roundCounter);
             if (round >= 14) {
                 sendEndGameMessage("true");
-                gameEndet = true;
-            } else {
-                checkTowerHealth(towerhealth);
             }
         }
     }
@@ -204,7 +208,6 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void checkTowerHealth(int towerhealth) {
         if (towerhealth == 0) {
             sendEndGameMessage("false");
-            gameEndet = true;
         }
     }
 
