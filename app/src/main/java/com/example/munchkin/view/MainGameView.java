@@ -1,10 +1,5 @@
 package com.example.munchkin.view;
 
-
-
-
-
-
 import static com.example.munchkin.controller.GameController.usernamesWithPoints;
 
 import android.graphics.drawable.Drawable;
@@ -17,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.PopupWindow;
 import androidx.cardview.widget.CardView;
@@ -28,7 +24,6 @@ import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.controller.GameController;
-import com.example.munchkin.view.animations.AnimationUtils;
 import com.example.munchkin.view.animations.ButtonRotateView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +35,8 @@ import java.util.Map;
 
 public class MainGameView {
     private static MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, buttonCheatMode, buttonAccuseCheater;
+    private Button buttonEndRound, buttonCards, buttonAccuseCheater;
+    private Switch switchCheatMode;
     private static List<Button> Zone1Monster = new ArrayList<>();
     private static List<Button> Zone2Monster = new ArrayList<>();
     private static List<Button> Zone3Monster = new ArrayList<>();
@@ -64,7 +60,7 @@ public class MainGameView {
         MainGameView.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
-        this.buttonCheatMode = mainGameActivity.findViewById(R.id.buttonCheatMode);
+        this.switchCheatMode = mainGameActivity.findViewById(R.id.switchCheatMode);
         this.buttonAccuseCheater = mainGameActivity.findViewById(R.id.buttonAccuseCheater);
 
 
@@ -75,13 +71,13 @@ public class MainGameView {
         allPlayerButtons = new Button[]{
                 buttonEndRound,
                 buttonCards,
-                buttonCheatMode,
+                switchCheatMode,
                 buttonAccuseCheater
         };
 
         buttonEndRound.setTag("EndRound");
         buttonCards.setTag("Cards");
-        buttonCheatMode.setTag("Cheating");
+        switchCheatMode.setTag("Cheating");
         buttonAccuseCheater.setTag("Accuse");
 
 
@@ -140,13 +136,7 @@ public class MainGameView {
 
         buttonEndRound.setOnClickListener(v -> gameController.endTurn());
 
-        buttonCheatMode.setOnClickListener(v -> {gameController.cheatMode();
-            if( gameController.cheatMode){
-                AnimationUtils.startBlinkingAnimation(buttonCheatMode);
-            }
-            else{
-                AnimationUtils.stopBlinkingAnimation(buttonCheatMode);
-            }});
+        switchCheatMode.setOnClickListener(v -> gameController.cheatMode());
 
         buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
