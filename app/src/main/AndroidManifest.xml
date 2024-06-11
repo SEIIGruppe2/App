@@ -50,6 +50,9 @@
             android:name=".activity.LoseActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.AllLoseActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
