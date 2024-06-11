@@ -1,7 +1,6 @@
 package com.example.munchkin.view;
 
 
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,35 +28,28 @@ public class ConnectToServerView {
     private void setupUI() {
         Button buttonSendMsg = connectToServerActivity.findViewById(R.id.buttonConnect);
         buttonSendMsg.setOnClickListener(v -> {
-            buttonSendMsg.setVisibility(View.GONE);
             username = editTextUsername.getText().toString();
-            AppState.getInstance().setCurrentUser(username);
-            if(ConnectToServerActivity.usernameaccepted){
-            connectToServerActivity.sendMessage();}else {
+            if(!username.isEmpty() && username.length() < 21) {
+                connectToServerActivity.sendMessage(username);
                 connectToServerActivity.transitionToLoadingScreen(username);
-
+                AppState.getInstance().setCurrentUser(username);
             }
-
+            else{
+                String txt = "Please enter a username! (< 20 Chars)";
+                textViewServerResponse.setText(txt);
+            }
         });
-
-
+        editTextUsername.setOnClickListener(v -> connectToServerActivity.connectToServer());
 
         Button buttonReconnect = connectToServerActivity.findViewById(R.id.buttonReconnect);
         buttonReconnect.setOnClickListener(v -> connectToServerActivity.reconnectToServer());
-
     }
 
     public void updateServerResponse(String message) {
         textViewServerResponse.post(() -> textViewServerResponse.setText(message));
     }
 
-
-
     public String getUsername(){
         return username;
     }
-
-
-
-
 }
