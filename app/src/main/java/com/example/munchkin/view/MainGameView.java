@@ -175,7 +175,7 @@ public class MainGameView {
         mainGameActivity.runOnUiThread(() -> {
             for (Button button : allPlayerButtons) {
                 button.setVisibility(View.VISIBLE);
-                button.setAlpha(1.0f);  // Enable and highlight buttons for the current player
+                button.setAlpha(1.0f);
             }
         });
     }
@@ -185,7 +185,7 @@ public class MainGameView {
         mainGameActivity.runOnUiThread(() -> {
             for (Button button : allPlayerButtons) {
                 button.setVisibility(View.GONE);
-                button.setAlpha(0.5f); // Half opaque
+                button.setAlpha(0.5f);
             }
         });
     }
@@ -200,7 +200,6 @@ public class MainGameView {
     }
 
 
-    //START: SpawnMonster
     public void spawnMonster(MonsterDTO monster) {
         int monsterZone = monster.getZone();
         mainGameActivity.runOnUiThread(() -> {
@@ -254,25 +253,23 @@ public class MainGameView {
                     return;
                 }
             }
-            // If all buttons in the zone are occupied, do nothing
+
 
         });
     }
-    //END: SpawnMonster
 
-    //START: DoDamageToTower
+
+
     public void doDamageToTower() {
         final String TAG = "GameDebug";
         Log.d(TAG, "Initial active monster count: " + monsterManager.countActiveMonsters());
 
         mainGameActivity.runOnUiThread(() -> {
-            // List of zones containing swordsman buttons
             List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
             for (List<Button> zone : zones) {
                 for (Button button : zone) {
                     if (isButtonSwordsman(button) && button.getVisibility() == View.VISIBLE && button.getTag() instanceof MonsterDTO) {
                         MonsterDTO monster = (MonsterDTO) button.getTag();
-                        // Notify the server about the attack
                         gameController.sendMonsterAttackMessage(String.valueOf(monster.getId()), "0");
                         Log.d(TAG, "Sending attack message for Monster ID: " + monster.getId());
                     }
@@ -281,7 +278,7 @@ public class MainGameView {
             Log.d(TAG, "Final active monster count: " + monsterManager.countActiveMonsters());
         });
     }
-    //END: DoDamageToTower
+
 
     public void setupRotate(List<List<Button>> zones) {
         for (List<Button> zone : zones) {
@@ -304,9 +301,9 @@ public class MainGameView {
                             button.setBackground(null);
 
                             if (rotateView != null) {
-                                rotateView.resetRotation240(); //Auf 240
-                                rotateView.rotateButton(button); //Normal rotieren den Button.
-                                rotateView.resetRotation(); //Auf Standardwert. Notwendinger fix.
+                                rotateView.resetRotation240();
+                                rotateView.rotateButton(button);
+                                rotateView.resetRotation();
                             }
                             monsterManager.removeMonster(monsterId);
                             Log.d("MainGameView", "Monster " + monsterId + " is dead and removed.");
@@ -332,7 +329,7 @@ public class MainGameView {
         for (List<Button> zone : zones) {
             for (Button button : zone) {
                 if (isButtonSwordsman(button) && isButtonFull(button)) {
-                    return true; // If any swordsman button is occupied, return true
+                    return true;
                 }
             }
         }
@@ -380,17 +377,17 @@ public class MainGameView {
         mainGameActivity.runOnUiThread(() -> {
             List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
             for (List<Button> zone : zones) {
-                for (int i = 9; i >= 3; i -= 3) { // Beginnend beim ersten Button des zweiten Rings (Archer), zurück zum ersten Button des ersten Rings (Forest)
+                for (int i = 9; i >= 3; i -= 3) {
                     for (int j = 0; j < 3; j++) {
                         if (i + j - 3 >= 0 && i + j < zone.size()) {
                             Button outer = zone.get(i + j - 3);
                             if (outer.getVisibility() == View.VISIBLE && outer.getTag() instanceof MonsterDTO) {
                                 MonsterDTO monster = (MonsterDTO) outer.getTag();
-                                for (int k = 0; k < 3; k++) { // Notfalllösung: Ausweichen. Schaut gleich aus wie j-loop aber bei mir geht j-for irgendwie nit?
+                                for (int k = 0; k < 3; k++) {
                                     if (i + j + k < zone.size()) {
                                         Button inner = zone.get(i + j + k);
-                                        if (isButtonEmpty(inner)) { //Musste ich mit isButtonEmpty austauschen, da Monster ersetzt wurden, die am Leben waren
-                                            Drawable background = outer.getBackground(); // Sichern des Hintergrundes
+                                        if (isButtonEmpty(inner)) {
+                                            Drawable background = outer.getBackground();
                                             outer.setVisibility(View.GONE);
                                             outer.setBackground(null);
                                             outer.setTag(null);
@@ -399,7 +396,7 @@ public class MainGameView {
                                             inner.setVisibility(View.VISIBLE);
                                             inner.setTag(monster);
 
-                                            break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
+                                            break;
                                         }
                                     }
                                 }
@@ -412,14 +409,11 @@ public class MainGameView {
     }
 
     private boolean isButtonFull(Button button) {
-
-        // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
     }
 
 
     private boolean isButtonEmpty(Button button) {
-        // Check if the button background is not set (assuming empty buttons have no background)
         return button.getVisibility() == View.GONE;
     }
 
@@ -448,8 +442,8 @@ public class MainGameView {
     public void updateListTrophies(String username, int points) {
         Log.d("MainGameView", "Updating list trophies for user: " + username + " with points: " + points);
         mainGameActivity.runOnUiThread(() -> {
-            trophiesMap.put(username, points); // Update the points for the user
-            refreshTrophiesList(); // Refresh the list
+            trophiesMap.put(username, points);
+            refreshTrophiesList();
         });
     }
 
@@ -459,7 +453,7 @@ public class MainGameView {
         for (Map.Entry<String, Integer> entry : trophiesMap.entrySet()) {
             trophiesList.add(entry.getKey() + ": " + entry.getValue());
         }
-        trophiesAdapter.notifyDataSetChanged(); // Notify the adapter about the data change
+        trophiesAdapter.notifyDataSetChanged();
         Log.d("MainGameView", "Trophies list updated");
     }
     private void initializeMonsterZones() {
@@ -663,7 +657,7 @@ public class MainGameView {
         Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
 
         List<String> players = new ArrayList<>(usernamesWithPoints.keySet());
-        players.remove(gameController.currentPlayerp); //Aktiven Spieler aus der Liste entfernen
+        players.remove(gameController.currentPlayerp);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mainGameActivity, android.R.layout.simple_spinner_item, players);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPlayers.setAdapter(adapter);
