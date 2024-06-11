@@ -397,6 +397,20 @@ public class MainGameView {
                                             inner.setVisibility(View.VISIBLE);
                                             inner.setTag(monster);
 
+                                            // Get the current rotation from the outer button and apply it to the inner button
+                                            ButtonRotateView outerRotateView = buttonRotateViews.get(outer);
+                                            if (outerRotateView != null) {
+                                                float currentRotation = outerRotateView.getCurrentRotation();
+                                                outerRotateView.resetRotation(outer); // Reset outer rotation
+
+                                                // Set the same rotation to the inner button
+                                                ButtonRotateView innerRotateView = buttonRotateViews.get(inner);
+                                                if (innerRotateView != null) {
+                                                    innerRotateView.setCurrentRotation(currentRotation);
+                                                    innerRotateView.applyCurrentRotation(inner);
+                                                }
+                                            }
+
                                             break; // Aufhören nachdem man sich bewegt hat. Nötig für k-for
                                         }
                                     }
