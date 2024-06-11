@@ -30,7 +30,7 @@ public class ConnectToServerView {
         buttonSendMsg.setOnClickListener(v -> {
             username = editTextUsername.getText().toString();
             if(!username.isEmpty() && username.length() < 21) {
-                connectToServerActivity.sendMessage(username);
+                connectToServerActivity.sendMessage();
                 connectToServerActivity.transitionToLoadingScreen(username);
                 AppState.getInstance().setCurrentUser(username);
             }
@@ -39,7 +39,6 @@ public class ConnectToServerView {
                 textViewServerResponse.setText(txt);
             }
         });
-        editTextUsername.setOnClickListener(v -> connectToServerActivity.connectToServer());
 
         Button buttonReconnect = connectToServerActivity.findViewById(R.id.buttonReconnect);
         buttonReconnect.setOnClickListener(v -> connectToServerActivity.reconnectToServer());
