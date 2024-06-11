@@ -157,25 +157,6 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
-   /* private String findPlayerWithMostTrophies() {
-        int maxPoints = 0;
-        String winner = "";
-        List<String> trophiesList = maingameView.getTrophiesList();
-        for (String entry : trophiesList) {
-            String[] parts = entry.split(": ");
-            String username = parts[0];
-            int points = Integer.parseInt(parts[1]);
-
-            if (points > maxPoints) {
-                maxPoints = points;
-                winner = username;
-            }
-        }
-        return winner;
-    }
-
-    */
-
     public String findPlayerWithMostTrophies() {
         String winner = "";
         int maxPoints = -1;
