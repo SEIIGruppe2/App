@@ -2,6 +2,8 @@ package com.example.munchkin.controller;
 
 
 
+import android.util.Log;
+
 import com.example.munchkin.DTO.MonsterDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
@@ -51,6 +53,7 @@ public class SpawnMonsterController extends BaseController {
             int ring = monsterJson.getInt("ring");
             String monsterName = monsterJson.getString("name");
             int lifePoints = monsterJson.getInt("lifepoints");
+            Log.d("SpawnMonster", "Spawnmonstermessage erhalten");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
             maingameView.spawnMonster(monster);

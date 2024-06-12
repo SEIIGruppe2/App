@@ -5,6 +5,7 @@
     <string name="button_register">Anmelden</string>
     <string name="button_options">Optionen</string>
     <string name="button_exit">Beenden</string>
+    <string name="button_game_rules">Spielregeln</string>
 
     <string name="text_view_username">Geben Sie ihren Benutzernamen ein:</string>
     <string name="edit_text_username_hint">Benutzername</string>
@@ -27,6 +28,8 @@
     <string name="button_ok">Ok</string>
     <string name="button_tauschendeck">Decktausch</string>
     <string name="button_tauschenspieler">Spielertausch</string>
+    <string name="switch_cheat_mode">Cheat-Modus</string>
+    <string name="button_accuse_cheater">Beschuldigen</string>
 
     <string name="popupzugbeenden">Bist du sicher, dass du den Zug beenden möchtest?</string>
 
@@ -37,7 +40,7 @@
     <string name="roterschwertkaempfer1">Roter Schwertkämpfer</string>
     <string name="roterschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
 
-    <string name="gruenerschwertkaempfer1">Lila Schwertkämpfer</string>
+    <string name="gruenerschwertkaempfer1">Grüner Schwertkämpfer</string>
     <string name="gruenerschwertkaempfer2">Füge einem Monster im Schwertkämpferring 1 Punkt Schaden zu</string>
 
     <string name="braunerschwertkaempfer1">Brauner Schwertkämpfer</string>
@@ -49,7 +52,7 @@
     <string name="roterritter1">Roter\nRitter</string>
     <string name="roterritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
-    <string name="gruenerritter1">Lila\nRitter</string>
+    <string name="gruenerritter1">Grüner\nRitter</string>
     <string name="gruenerritter2">Füge einem Monster im Rittering 1 Punkt Schaden zu</string>
 
     <string name="braunerritter1">Brauner\nRitter</string>
@@ -61,7 +64,7 @@
     <string name="roterbogenschuetze1">Roter Bogenschütze</string>
     <string name="roterbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
-    <string name="gruenerbogenschuetze1">Lila Bogenschütze</string>
+    <string name="gruenerbogenschuetze1">Grüner Bogenschütze</string>
     <string name="gruenerbogenschuetze2">Füge einem Monster im Bogenschützenring 1 Punkt Schaden zu</string>
 
     <string name="braunerbogenschuetze1">Brauner Bogenschütze</string>
@@ -73,7 +76,7 @@
     <string name="roterheld1">Roter\nHeld</string>
     <string name="roterheld2">Füge einem Monster im roten Ring 1 Punkt Schaden zu</string>
 
-    <string name="gruenerheld1">Lila\nHeld</string>
+    <string name="gruenerheld1">Grüner\nHeld</string>
     <string name="gruenerheld2">Füge einem Monster im grünen Ring 1 Punkt Schaden zu</string>
 
     <string name="braunerheld1">Brauner\nHeld</string>
@@ -84,7 +87,34 @@
     <string name="lobby">Warten auf weitere Spieler...</string>
 
     <string name="showMonsters">Wähle eines der Monster welches angezeigt wird um es anzugreifen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
+    <string name="spielbeschreibung">Spielbeschreibung</string>
+    <string name="spielbeschreibung_inhalt"> Munchkin Panic ist ein Tower Defense-Spiel für vier Spieler, das sowohl kooperative als auch kompetitive Elemente enthält.
+        Alle Spieler arbeiten zusammen, um eine Burg vor anrückenden Monstern zu schützen. Sollte die Burg zerstört werden, verlieren alle Spieler.
+        Wenn die Monster erfolgreich abgewehrt werden, gewinnt der Spieler mit den meisten getöteten Monstern (Monster-Punkten).</string>
+    <string name="spielmechanik">Spielmechanik</string>
+    <string name="spielmechanik_inhalt"> Das Spielfeld ist in vier Zonen (rot, blau, grün, braun) und vier Ringe (Wald, Bogenschütze, König, Schwertkämpfer) unterteilt.
+    Zu Beginn jeder Runde würfelt der Spieler der an der Reihe ist dreimal, um die Zonen zu bestimmen, in denen neue Monster platziert werden.
+    Während die anderen Spieler die Hauptansicht sehen, steuert der würfelnde Spieler die Monsterplatzierungen.</string>
+    <string name="monster_kämpfe">Monster und Kämpfe</string>
+    <string name="monster_kämpfe_inhalt"> Jedes Monster erscheint am äußersten Ring, dem Wald, und bewegt sich jede Runde einen Ring weiter nach innen. Wenn ein Monster die Burg erreicht, fügt es der Burg Schaden zu und stirbt anschließend selbst. Die Burg hat insgesamt 10 Lebenspunkte.
+    Jedes Monster verfügt über 1 bis 3 Lebenspunkte. Die Art des Monsters und seine Lebenspunkte werden zufällig bestimmt, wenn es am Spielfeld erscheint. Die Spieler müssen strategisch handeln, um die Monster erfolgreich zu bekämpfen.</string>
+    <string name="kampfkarten">Kampfkarten</string>
+    <string name="kampfkarten_inhalt"> Die Spieler setzen Kampfkarten ein, um die Monster anzugreifen. Jede Zone auf dem Spielfeld ist einer anderen Farbe zugeordnet:
+    Rot
+    Grün
+    Blau
+    Braun
+    Die Kampfkarten sind ebenfalls diesen Farben zugeordnet und spezifisch für die Ringe ausgerichtet:\n
+    Roter Ritter: Kann nur in der roten Zone im Ritter-Ring verwendet werden.\n
+    Grüner Bogenschütze: Wirkt ausschließlich in der grünen Zone im Bogenschützen-Ring.\n
+    Dies gilt auch für alle anderen Karten. \n
+    Ausnahme: Held: Der Held hat zwar eine Farbe und kann somit auch nur in dieser Zone eingesetzt werden, kann dafür aber in jedem Ring in dieser Zone benutzt werden.
+    Jede Karte fügt dem Monster 1 Schadenspunkt zu. Diese spezifischen Zuordnungen erfordern, dass die Spieler taktisch überlegen, welche Karten sie wo und wann einsetzen, um die Monster effektiv zu bekämpfen und die Burg zu schützen.</string>
+    <string name="Spielziel">Ziel des Spiels</string>
+    <string name="spielziel_inhalt"> Das Spielziel ist es, die Burg vor den Monstern zu schützen, indem die Spieler sie erfolgreich besiegen und gleichzeitig durch strategischen Einsatz ihrer Karten interagieren.
+    Das Spiel endet entweder, wenn die Burg zerstört wird oder alle Monster erfolgreich abgewehrt wurden. Der Sieger ist der Spieler, der die meisten Monster besiegt hat.</string>
 
 </resources>

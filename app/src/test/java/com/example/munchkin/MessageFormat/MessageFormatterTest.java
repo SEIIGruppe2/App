@@ -117,6 +117,33 @@ class MessageFormatterTest {
         constructor.setAccessible(true);
         constructor.newInstance();
     }
+
+
+    @Test
+    void testCreateAccusationMessage() {
+        String result = MessageFormatter.createAccusationMessage("Cheater", "Accusator");
+        assertEquals("{\"type\":\"ACCUSATION_MSG\",\"cheaterName\":\"Cheater\",\"accusatorName\":\"Accusator\"}", result);
+    }
+
+    @Test
+    void testCreateCheaterMessage() {
+        String result = MessageFormatter.createCheaterMessage("ON");
+        assertEquals("{\"type\":\"CHEAT_MODE\",\"cheatMode\":\"ON\"}", result);
+    }
+
+    @Test
+    void testCreatePlayerTrophiesRequestMessage() {
+        String result = MessageFormatter.createPlayerTrophiesRequestMessage();
+        assertEquals("{\"type\":\"PLAYER_TROPHIES\"}", result);
+    }
+
+    @Test
+    void testCreateEndGameMessage() {
+        String result = MessageFormatter.createEndGameMessage("Player1");
+        assertEquals("{\"type\":\"END_GAME\",\"hasWinner\":\"Player1\"}", result);
+    }
+
+
 }
 
 

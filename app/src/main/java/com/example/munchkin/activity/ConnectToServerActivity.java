@@ -8,11 +8,14 @@ import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.view.CarddeckView;
 import com.example.munchkin.view.ConnectToServerView;
 
 public class ConnectToServerActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
+
+    public static boolean usernameaccepted=true;
 
 
 
@@ -26,24 +29,19 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
         ConnectToServerView view = new ConnectToServerView(this);
         WebSocketClientModel model = new WebSocketClientModel();
-        controller = new ConnectToServerController(model, view);
-
-
-        router.registerController("REGISTER_USERNAME",controller);
+        controller = new ConnectToServerController(model, this);
+        if(!usernameaccepted) {
+            view.updateServerResponse("Username bereits vergeben. Wähle einen anderen usernamen");
+        }
         router.registerController("LOBBY_ASSIGNED",controller);
         router.registerController("WAITING_FOR_PLAYERS",controller);
 
         model.setMessageRouter(router);
     }
 
-    public void connectToServer(){
-        //controller.setupController();
-    }
+    public void sendMessage() {
 
-
-    public void sendMessage(String username) {
-
-        controller.registerUserMessage(username);
+        controller.setupController();
 
     }
 
@@ -54,9 +52,11 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
 
     public void transitionToLoadingScreen(String username) {
-        //TODO: change to LobbyActivity activity
-        Intent intent = new Intent(ConnectToServerActivity.this, LobbyActivity.class);
-        startActivity(intent);
+
+        Intent intent = new Intent(ConnectToServerActivity.this, LoadingscreenActivity.class);
+        Bundle usernameintent = new Bundle();
+        usernameintent.putString("username",username);
+        startActivity(intent, usernameintent);
     }
 
 }

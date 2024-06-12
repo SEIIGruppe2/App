@@ -68,17 +68,7 @@
             android:backgroundTint="#FFE500"
             android:fontFamily="@font/chewyregular"
             android:visibility="gone"/>
-        <Button
-            android:id="@+id/buttonzugbeenden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_zugbeenden"
-            android:layout_gravity="center"
-            android:layout_marginLeft="70dp"
-            android:background="@drawable/rippleeffect"
-            android:backgroundTint="#FFE500"
-            android:fontFamily="@font/chewyregular"
-            />
+
 
 
 

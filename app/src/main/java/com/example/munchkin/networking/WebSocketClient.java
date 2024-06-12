@@ -70,7 +70,6 @@ public class WebSocketClient {
     }
 
     public void sendMessageToServer(String msg) {
-        System.out.println("WebSocketClient"+msg);
         webSocket.send(msg);
     }
 

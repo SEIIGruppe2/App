@@ -44,7 +44,32 @@ public class ButtonRotateView {
         button.startAnimation(animationSet);
     }
 
-    public void resetRotation() {
+    public void applyCurrentRotation(Button button) {
+        RotateAnimation applyRotation = new RotateAnimation(0, currentRotation,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        applyRotation.setDuration(0);
+        applyRotation.setFillAfter(true);
+        button.startAnimation(applyRotation);
+    }
+
+    public void resetRotation(Button button) {
+        // Reset current rotation to 0
         currentRotation = 0;
+        // Instantly rotate the button back to 0 degrees
+        RotateAnimation resetRotate = new RotateAnimation(currentRotation, 0,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        resetRotate.setDuration(0);
+        resetRotate.setFillAfter(true);
+        button.startAnimation(resetRotate);
+    }
+
+    public void setCurrentRotation(float rotation) {
+        currentRotation = rotation;
+    }
+
+    public float getCurrentRotation() {
+        return currentRotation;
     }
 }

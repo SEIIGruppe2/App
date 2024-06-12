@@ -10,12 +10,24 @@ public class MessageFormatter {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
+    public static String createAccusationMessage(String cheaterName, String accusatorName) {
+        return createMessage("ACCUSATION_MSG", "cheaterName", cheaterName, "accusatorName", accusatorName);
+    }
+
     public static String createPlayerAttackMessage(String monsterId, String cardTypePlayed) {
         return createMessage("PLAYER_ATTACK", monster, monsterId, "cardTypePlayed", cardTypePlayed);
     }
 
     public static String createMonsterAttackMessage(String monsterId, String towerId) {
         return createMessage("MONSTER_ATTACK", monster, monsterId, "towerid", towerId);
+    }
+
+    public static String createCheaterMessage(String cheatMode) {
+        return createMessage("CHEAT_MODE", "cheatMode", cheatMode);
+    }
+
+    public static String createPlayerTrophiesRequestMessage(){
+        return createMessage("PLAYER_TROPHIES");
     }
 
     public static String createSwitchCardsDeckMessage(String cardid) {
@@ -39,9 +51,9 @@ public class MessageFormatter {
     public static String createUsernameRequestMessage() {
         return createMessage("REQUEST_USERNAMES");
     }
-  public static String createUsernameForSwitchRequestMessage(){
-      return createMessage("REQUEST_USERNAMES_SWITCH");
-  }
+    public static String createUsernameForSwitchRequestMessage(){
+        return createMessage("REQUEST_USERNAMES_SWITCH");
+    }
 
 
     public static String createSpawnMonsterMessage(String zone) {
@@ -67,6 +79,11 @@ public class MessageFormatter {
     public static String createCardAttackMonsterMessage(String monsterId, String cardId) {
         return createMessage("CARD_ATTACK_MONSTER", monster, monsterId, card, cardId);
     }
+
+    public static String createEndGameMessage(String hasWinner){
+        return createMessage("END_GAME", "hasWinner", hasWinner);
+    }
+
 
     private static String createMessage(String type, String... params) {
         StringBuilder message = new StringBuilder("{\"type\":\"" + type + "\"");

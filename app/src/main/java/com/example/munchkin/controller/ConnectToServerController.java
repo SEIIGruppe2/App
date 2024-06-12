@@ -3,8 +3,10 @@ package com.example.munchkin.controller;
 import android.util.Log;
 
 import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.activity.ConnectToServerActivity;
+import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.ConnectToServerView;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,14 +15,15 @@ import org.json.JSONObject;
 public class ConnectToServerController extends BaseController {
 
     private WebSocketClientModel webSocketClientModel;
-    private ConnectToServerView view;
+    private ConnectToServerActivity connectToServerActivity;
 
 
-    public ConnectToServerController(WebSocketClientModel model, ConnectToServerView view) {
+    public ConnectToServerController(WebSocketClientModel model, ConnectToServerActivity connectToServerActivity) {
         super(model);
         this.webSocketClientModel = model;
-        this.view = view;
-        setupController();
+        this.connectToServerActivity=connectToServerActivity;
+
+        //setupController();
     }
 
    public void setupController() {
@@ -48,9 +51,6 @@ public class ConnectToServerController extends BaseController {
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
             switch (messageType) {
-                case "REGISTER_USERNAME":
-                    handleRegisterUsernameMessage(jsonResponse);
-                    break;
                 case "LOBBY_ASSIGNED":
                     handleLobbyAssignedMessage(jsonResponse);
                     break;
@@ -67,30 +67,12 @@ public class ConnectToServerController extends BaseController {
     }
 
 
-
-    private void handleRegisterUsernameMessage(JSONObject jsonResponse) {
-
-        String accepted = "accepted";
-        try{
-            String serverResponse = jsonResponse.getString("response");
-
-            if(serverResponse.equals(accepted)){
-               view.updateServerResponse(serverResponse);
-            }
-            else {
-                throw new IllegalArgumentException("User konnte nicht erstellt werden");
-            }
-        }
-        catch (JSONException e) {
-            throw new IllegalArgumentException("Fehler bei handleRegisterUsernameMessage/ConnectToServerController");
-        }
-
-    }
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
 
         try {
             String type = jsonResponse.getString("type");
-            Log.d("TypeMessage LobbyAssigned", type);
+            Log.d(type, "Lobby assigned in Connect to server");
+
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
@@ -103,7 +85,7 @@ public class ConnectToServerController extends BaseController {
             String type = jsonResponse.getString("type");
             String content = jsonResponse.getString("content");
             Log.d(type, content);
-
+            connectToServerActivity.runOnUiThread(()->connectToServerActivity.transitionToLoadingScreen(AppState.getInstance().getCurrentUser()));
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Verarbeitung der LobbyActivity-Zuweisungsnachricht", e);
         }

@@ -12,11 +12,11 @@ class CardUtilsTest {
     @Test
     protected void testGetResources() {
         List<ActionCardDTO> cards = Arrays.asList(
-                new ActionCardDTO("Bogenschütze", 0, 1),
-                new ActionCardDTO("Schwertkämpfer", 1, 2),
-                new ActionCardDTO("Held", 2, 3),
-                new ActionCardDTO("Ritter", 3, 4),
-                new ActionCardDTO("Unknown", 4, 5)
+                new ActionCardDTO("Bogenschütze", 1, 1),
+                new ActionCardDTO("Schwertkämpfer", 2, 2),
+                new ActionCardDTO("Held", 3, 3),
+                new ActionCardDTO("Ritter", 4, 4),
+                new ActionCardDTO("Unknown", 5, 5)
         );
         String[] expected = {"roterbogenschuetze", "blauerschwertkaempfer", "gruenerheld", "braunerritter", "blauerheld"};
         assertArrayEquals(expected, CardUtils.getresources(cards));
@@ -39,11 +39,11 @@ class CardUtilsTest {
 
     @Test
     protected void testGetZone() {
-        assertEquals("roter", CardUtils.getzone(0));
-        assertEquals("blauer", CardUtils.getzone(1));
-        assertEquals("gruener", CardUtils.getzone(2));
-        assertEquals("brauner", CardUtils.getzone(3));
+        assertEquals("roter", CardUtils.getzone(1));
+        assertEquals("blauer", CardUtils.getzone(2));
+        assertEquals("gruener", CardUtils.getzone(3));
+        assertEquals("brauner", CardUtils.getzone(4));
 
-        assertEquals("blauer", CardUtils.getzone(4));
+        assertEquals("blauer", CardUtils.getzone(5));
     }
 }

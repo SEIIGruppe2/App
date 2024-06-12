@@ -107,7 +107,6 @@ public class CardDeckController extends BaseController {
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-            System.out.println(karte.getName());
             playerHand.addCard(karte);
             carddeckView.updatescreen();
 
@@ -148,7 +147,6 @@ public class CardDeckController extends BaseController {
             ArrayList<String>  monsterList = new ArrayList<>();
             for (int i = 0; i < monsterIdArray.length(); i++) {
                 monsterList.add(monsterIdArray.getString(i));
-
 
             }
             MainGameActivity.monsterList = monsterList;
