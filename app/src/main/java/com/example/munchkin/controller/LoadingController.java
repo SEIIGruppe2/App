@@ -32,6 +32,7 @@ public class LoadingController extends BaseController {
                     break;
                 case "REGISTER_USERNAME":
                     handleRegisterUsernameMessage(jsonResponse);
+                    break;
                 default:
                     break;
             }
