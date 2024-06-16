@@ -22,8 +22,6 @@ public class ConnectToServerController extends BaseController {
         super(model);
         this.webSocketClientModel = model;
         this.connectToServerActivity=connectToServerActivity;
-
-        //setupController();
     }
 
    public void setupController() {
@@ -33,12 +31,6 @@ public class ConnectToServerController extends BaseController {
     public void reconnectToServer() {
         webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
-
-    public void registerUserMessage(String username) {
-        String message = MessageFormatter.registerUserMessage(username);
-        webSocketClientModel.sendMessageToServer(message);
-    }
-
 
 
     private void messageReceivedFromServer(String message) {
