@@ -282,7 +282,7 @@ public class CarddeckActivity extends AppCompatActivity {
         neuerbutton.setTypeface(typeface);
         neuerbutton.setOnClickListener(v -> {
 
-            switchdone= true;
+            CarddeckActivity.switchdone= true;
             findViewById(R.id.buttontauschen).setVisibility(View.GONE);
             findViewById(R.id.buttonspielen).setVisibility(View.GONE);
             popuptauschen.dismiss();
