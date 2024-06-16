@@ -45,7 +45,6 @@ public class MainGameView {
     private GameController gameController;
     private List<ArrayList<MonsterDTO>> monsterZones;
     private Button[] allPlayerButtons;
-    private ListView listActions;
     private ListView listTrophies;
     private Button towerButton;
     private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
@@ -141,10 +140,7 @@ public class MainGameView {
 
         buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
-        buttonCards.setOnClickListener(v -> {
-            mainGameActivity.transitionToCardDeckscreen();
-
-        });
+        buttonCards.setOnClickListener(v -> mainGameActivity.transitionToCardDeckscreen());
     }
 
 
@@ -533,7 +529,6 @@ public class MainGameView {
         String name = message.getString("name");
         int zone = Integer.parseInt(message.getString("zone"));
         ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-        String username = message.getString("switchedWith");
         Log.d("Karte in tauschenAnfrageErhalten",karte.getName());
         View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
 
@@ -622,15 +617,6 @@ public class MainGameView {
         }
     }
 
-
-    public int getTowerHealth() {
-        TowerDTO tower = (TowerDTO) towerButton.getTag();
-        return tower.getLifePoints();
-    }
-
-    public List<String> getTrophiesList() {
-        return new ArrayList<>(trophiesList);
-    }
 
     private void showAccusePopup() {
         View popupView = mainGameActivity.getLayoutInflater().inflate(R.layout.popup_accuse_cheater, null);
