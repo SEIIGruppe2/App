@@ -160,15 +160,11 @@ public class GameController extends BaseController implements DiceRollListener, 
     public String findPlayerWithMostTrophies() {
         String winner = "";
         int maxPoints = -1;
-        Log.d("findPlayerWithMostTrophies", "Current points: " + usernamesWithPoints.toString());
 
         for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
             if (entry == null || entry.getValue() == null) {
-                Log.e("findPlayerWithMostTrophies", "Found null entry or value: " + entry);
                 continue;
             }
-
-            Log.d("findPlayerWithMostTrophies", "Evaluating player: " + entry.getKey() + " with points: " + entry.getValue());
 
             if (entry.getValue() > maxPoints) {
                 maxPoints = entry.getValue();
@@ -176,7 +172,6 @@ public class GameController extends BaseController implements DiceRollListener, 
             }
         }
 
-        Log.d("findPlayerWithMostTrophies", "Winner: " + winner + " with points: " + maxPoints);
         return winner;
     }
 
