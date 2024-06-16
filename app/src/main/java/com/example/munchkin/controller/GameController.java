@@ -119,7 +119,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     }
 
-    public void cheatMode() {
+    public void cheatModeMethod() {
         cheatMode=!cheatMode;
         sendCheatMessage(String.valueOf(cheatMode));
     }
