@@ -15,10 +15,10 @@ public class ButtonRotateView {
     public void rotateButton(Button button) {
 
         TranslateAnimation shake = new TranslateAnimation(
-                TranslateAnimation.RELATIVE_TO_SELF, -0.1f + random.nextFloat() * 0.2f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0.1f + random.nextFloat() * 0.2f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 0f
+                Animation.RELATIVE_TO_SELF, -0.1f + random.nextFloat() * 0.2f,
+                Animation.RELATIVE_TO_SELF, 0.1f + random.nextFloat() * 0.2f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f
         );
         shake.setDuration(300);
         shake.setRepeatCount(3);
