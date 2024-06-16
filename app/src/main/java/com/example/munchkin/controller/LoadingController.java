@@ -1,14 +1,11 @@
 package com.example.munchkin.controller;
 
-import android.content.Intent;
-import android.os.Bundle;
 
+import android.util.Log;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.LoadingscreenActivity;
-import com.example.munchkin.activity.LobbyActivity;
 import com.example.munchkin.model.WebSocketClientModel;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,7 +65,7 @@ public class LoadingController extends BaseController {
     }
 
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
-        //Log.d("Lobby wurde Assigned", jsonResponse.toString());
+        Log.d("Lobby wurde Assigned", jsonResponse.toString());
     }
 
 }
