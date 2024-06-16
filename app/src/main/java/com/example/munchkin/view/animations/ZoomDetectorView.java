@@ -66,11 +66,13 @@ public class ZoomDetectorView extends ScaleGestureDetector.SimpleOnScaleGestureL
 
     @Override
     public void onLongPress(MotionEvent e) {
+        // Diese Methode wurde absichtlich leer gelassen
     }
 
 
     @Override
     public void onShowPress(MotionEvent e) {
+        // Diese Methode wurde absichtlich leer gelassen
     }
 
 
