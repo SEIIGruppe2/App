@@ -35,12 +35,14 @@ import java.util.Map;
 
 public class MainGameView {
     private static MainGameActivity mainGameActivity;
-    private Button buttonEndRound, buttonCards, buttonAccuseCheater;
+    private Button buttonAccuseCheater;
+    private Button buttonCards;
+    private Button buttonEndRound;
     private Switch switchCheatMode;
     private static List<Button> Zone1Monster = new ArrayList<>();
-    private static List<Button> Zone2Monster = new ArrayList<>();
-    private static List<Button> Zone3Monster = new ArrayList<>();
-    private static List<Button> Zone4Monster = new ArrayList<>();
+    private static List<Button> zone2monster = new ArrayList<>();
+    private static List<Button> zone3monster = new ArrayList<>();
+    private static List<Button> zone4monster = new ArrayList<>();
     static MonsterManager monsterManager = new MonsterManager();
     private GameController gameController;
     private List<ArrayList<MonsterDTO>> monsterZones;
@@ -56,7 +58,6 @@ public class MainGameView {
 
     public MainGameView(MainGameActivity mainGameActivity) {
 
-        MainGameView.mainGameActivity = mainGameActivity;
         this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
         this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
         this.switchCheatMode = mainGameActivity.findViewById(R.id.switchCheatMode);
@@ -86,19 +87,19 @@ public class MainGameView {
                 R.id.button_knight1_spawn1, R.id.button_knight1_spawn2, R.id.button_knight1_spawn3,
                 R.id.button_swordsman1_spawn1, R.id.button_swordsman1_spawn2, R.id.button_swordsman1_spawn3);
 
-        addButtonsToZoneList(Zone2Monster,
+        addButtonsToZoneList(zone2monster,
                 R.id.button_forest2_spawn1, R.id.button_forest2_spawn2, R.id.button_forest2_spawn3,
                 R.id.button_archer2_spawn1, R.id.button_archer2_spawn2, R.id.button_archer2_spawn3,
                 R.id.button_knight2_spawn1, R.id.button_knight2_spawn2, R.id.button_knight2_spawn3,
                 R.id.button_swordsman2_spawn1, R.id.button_swordsman2_spawn2, R.id.button_swordsman2_spawn3);
 
-        addButtonsToZoneList(Zone3Monster,
+        addButtonsToZoneList(zone3monster,
                 R.id.button_forest3_spawn1, R.id.button_forest3_spawn2, R.id.button_forest3_spawn3,
                 R.id.button_archer3_spawn1, R.id.button_archer3_spawn2, R.id.button_archer3_spawn3,
                 R.id.button_knight3_spawn1, R.id.button_knight3_spawn2, R.id.button_knight3_spawn3,
                 R.id.button_swordsman3_spawn1, R.id.button_swordsman3_spawn2, R.id.button_swordsman3_spawn3);
 
-        addButtonsToZoneList(Zone4Monster,
+        addButtonsToZoneList(zone4monster,
                 R.id.button_forest4_spawn1, R.id.button_forest4_spawn2, R.id.button_forest4_spawn3,
                 R.id.button_archer4_spawn1, R.id.button_archer4_spawn2, R.id.button_archer4_spawn3,
                 R.id.button_knight4_spawn1, R.id.button_knight4_spawn2, R.id.button_knight4_spawn3,
@@ -106,7 +107,7 @@ public class MainGameView {
 
         towerButton = mainGameActivity.findViewById(R.id.tower);
         initializeTower();
-        setupRotate(Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster));
+        setupRotate(Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster));
 
         ListView listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
         if (listTrophies == null) {
@@ -195,13 +196,13 @@ public class MainGameView {
                     spawnMonsterInZone(Zone1Monster, monster);
                     break;
                 case 2:
-                    spawnMonsterInZone(Zone2Monster, monster);
+                    spawnMonsterInZone(zone2monster, monster);
                     break;
                 case 3:
-                    spawnMonsterInZone(Zone3Monster, monster);
+                    spawnMonsterInZone(zone3monster, monster);
                     break;
                 case 4:
-                    spawnMonsterInZone(Zone4Monster, monster);
+                    spawnMonsterInZone(zone4monster, monster);
                     break;
                 default:
 
@@ -251,7 +252,7 @@ public class MainGameView {
         Log.d(TAG, "Initial active monster count: " + monsterManager.countActiveMonsters());
 
         mainGameActivity.runOnUiThread(() -> {
-            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+            List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
             for (List<Button> zone : zones) {
                 for (Button button : zone) {
                     if (isButtonSwordsman(button) && button.getVisibility() == View.VISIBLE && button.getTag() instanceof MonsterDTO) {
@@ -276,7 +277,7 @@ public class MainGameView {
 
     public void updateMonsterHealth(String monsterId, int newLifePoints) {
         mainGameActivity.runOnUiThread(() -> {
-            for (List<Button> zone : Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster)) {
+            for (List<Button> zone : Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster)) {
                 for (Button button : zone) {
                     MonsterDTO monster = (MonsterDTO) button.getTag();
                     if (monster != null && String.valueOf(monster.getId()).equals(monsterId)) {
@@ -309,7 +310,7 @@ public class MainGameView {
 
 
     public boolean isMonsterInAttackZone() {
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
         for (List<Button> zone : zones) {
             for (Button button : zone) {
                 if (isButtonSwordsman(button) && isButtonFull(button)) {
@@ -359,7 +360,7 @@ public class MainGameView {
 
     public void moveMonstersInward() {
         mainGameActivity.runOnUiThread(() -> {
-            List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+            List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
             for (List<Button> zone : zones) {
                 for (int i = 9; i >= 3; i -= 3) {
                     for (int j = 0; j < 3; j++) {
@@ -444,7 +445,7 @@ public class MainGameView {
     }
     public static void showMonster(){
         disableforMonsters();
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
         for (List<Button> zone : zones) {
 
             for(Button b:zone){
@@ -551,7 +552,7 @@ public class MainGameView {
 
     }
     public static void showallMonsters() {
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
 
         for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
             Log.d("showAllMonsters", entry.getKey() + "/" + entry.getValue());
@@ -597,7 +598,7 @@ public class MainGameView {
         }
     }
     public void updateMonstersView(String monsterId) {
-        List<List<Button>> zones = Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster);
+        List<List<Button>> zones = Arrays.asList(Zone1Monster, zone2monster, zone3monster, zone4monster);
         for (List<Button> zone : zones) {
 
             for (Button b : zone) {
