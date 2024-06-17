@@ -2,7 +2,7 @@ package com.example.munchkin.DrawableUtils;
 
 
 
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 
 
 import java.util.List;

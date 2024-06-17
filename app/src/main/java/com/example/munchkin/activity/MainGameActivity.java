@@ -18,7 +18,7 @@ import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.Player.PlayerHand;
 import com.example.munchkin.controller.DrawCardController;
 import androidx.activity.result.ActivityResultLauncher;

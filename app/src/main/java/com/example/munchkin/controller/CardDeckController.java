@@ -2,7 +2,7 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.MessageFormat.MessageFormatter;
 
 import com.example.munchkin.Player.PlayerHand;

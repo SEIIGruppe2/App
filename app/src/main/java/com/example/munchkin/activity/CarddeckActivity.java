@@ -20,7 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.DrawableUtils.CardUtils;
 import com.example.munchkin.MessageFormat.MessageRouter;
 import com.example.munchkin.Player.PlayerHand;

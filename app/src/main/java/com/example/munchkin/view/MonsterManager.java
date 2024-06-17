@@ -1,6 +1,6 @@
 package com.example.munchkin.view;
 
-import com.example.munchkin.DTO.MonsterDTO;
+import com.example.munchkin.dto.MonsterDTO;
 
 import java.util.HashMap;
 import java.util.Map;

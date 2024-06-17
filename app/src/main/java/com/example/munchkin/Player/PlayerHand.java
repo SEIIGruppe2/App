@@ -1,6 +1,6 @@
 package com.example.munchkin.Player;
 
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 
 import java.util.ArrayList;
 import java.util.List;

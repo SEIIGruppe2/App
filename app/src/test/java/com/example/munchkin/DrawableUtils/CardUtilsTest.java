@@ -1,6 +1,6 @@
 package com.example.munchkin.DrawableUtils;
 
-import com.example.munchkin.DTO.ActionCardDTO;
+import com.example.munchkin.dto.ActionCardDTO;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;
