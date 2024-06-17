@@ -1,4 +1,4 @@
-package com.example.munchkin.Player;
+package com.example.munchkin.player;
 
 public class Player {
 

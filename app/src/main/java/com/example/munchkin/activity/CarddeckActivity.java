@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.drawableutils.CardUtils;
 import com.example.munchkin.messageformat.MessageRouter;
-import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.player.PlayerHand;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.example.munchkin.Player;
+package com.example.munchkin.player;
 
 import com.example.munchkin.dto.ActionCardDTO;
 

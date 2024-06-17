@@ -3,7 +3,7 @@ package com.example.munchkin.controller;
 import android.util.Log;
 
 import com.example.munchkin.messageformat.MessageFormatter;
-import com.example.munchkin.Player.Player;
+import com.example.munchkin.player.Player;
 
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
