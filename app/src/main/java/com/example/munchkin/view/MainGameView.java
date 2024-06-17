@@ -45,7 +45,6 @@ public class MainGameView {
     private GameController gameController;
     private List<ArrayList<MonsterDTO>> monsterZones;
     private Button[] allPlayerButtons;
-    private ListView listTrophies;
     private Button towerButton;
     private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
     private HashMap<String, Integer> trophiesMap = new HashMap<>();
@@ -109,13 +108,13 @@ public class MainGameView {
         initializeTower();
         setupRotate(Arrays.asList(Zone1Monster, Zone2Monster, Zone3Monster, Zone4Monster));
 
-        this.listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
-        if (this.listTrophies == null) {
+        ListView listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
+        if (listTrophies == null) {
             Log.e(MainGameViewString, "listTrophies is null");
             return;
         }
         this.trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
-        this.listTrophies.setAdapter(trophiesAdapter);
+        listTrophies.setAdapter(trophiesAdapter);
 
         setUI();
     }
@@ -364,7 +363,7 @@ public class MainGameView {
             for (List<Button> zone : zones) {
                 for (int i = 9; i >= 3; i -= 3) {
                     for (int j = 0; j < 3; j++) {
-                        if (i + j - 3 >= 0 && i + j < zone.size()) {
+                        if (i + j < zone.size()) {
                             Button outer = zone.get(i + j - 3);
                             if (outer.getVisibility() == View.VISIBLE && outer.getTag() instanceof MonsterDTO) {
                                 MonsterDTO monster = (MonsterDTO) outer.getTag();
