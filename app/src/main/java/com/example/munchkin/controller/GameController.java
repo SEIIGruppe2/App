@@ -152,7 +152,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             gameEndet = true;
             String message = MessageFormatter.createEndGameMessage(hasWinner);
             model.sendMessageToServer(message);
-            Log.d("Nach send message an Server", message.toString());
+            Log.d("Nach send message an Server", message);
         }
     }
 
