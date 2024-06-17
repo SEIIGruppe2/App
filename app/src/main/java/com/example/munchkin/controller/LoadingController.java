@@ -51,11 +51,11 @@ public class LoadingController extends BaseController {
 
             if(serverResponse.equals(accepted)){
                 ConnectToServerActivity.usernameaccepted=true;
-                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());
             }
             else {
                 ConnectToServerActivity.usernameaccepted=false;
-                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());
             }
         }
         catch (JSONException e) {
