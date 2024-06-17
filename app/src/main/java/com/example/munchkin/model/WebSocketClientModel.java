@@ -2,7 +2,7 @@ package com.example.munchkin.model;
 
 
 
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.networking.WebSocketClient;
 import com.example.munchkin.networking.WebSocketMessageHandler;
 

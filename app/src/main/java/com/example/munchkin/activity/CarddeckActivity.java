@@ -21,8 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.munchkin.dto.ActionCardDTO;
-import com.example.munchkin.DrawableUtils.CardUtils;
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.drawableutils.CardUtils;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.Player.PlayerHand;
 
 import androidx.activity.EdgeToEdge;

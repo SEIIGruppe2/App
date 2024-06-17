@@ -13,7 +13,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
-import com.example.munchkin.DrawableUtils.CardUtils;
+import com.example.munchkin.drawableutils.CardUtils;
 import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;

@@ -1,7 +1,7 @@
 package com.example.munchkin.controller;
 
 
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.messageformat.MessageFormatter;
 
 import com.example.munchkin.model.WebSocketClientModel;
 

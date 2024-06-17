@@ -5,7 +5,7 @@ package com.example.munchkin.controller;
 import android.util.Log;
 
 import com.example.munchkin.dto.MonsterDTO;
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;

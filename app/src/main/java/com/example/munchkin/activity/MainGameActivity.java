@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;

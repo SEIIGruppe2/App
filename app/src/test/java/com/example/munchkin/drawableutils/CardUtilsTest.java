@@ -1,4 +1,4 @@
-package com.example.munchkin.DrawableUtils;
+package com.example.munchkin.drawableutils;
 
 import com.example.munchkin.dto.ActionCardDTO;
 import org.junit.jupiter.api.Test;

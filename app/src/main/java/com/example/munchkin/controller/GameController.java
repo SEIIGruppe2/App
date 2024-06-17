@@ -2,7 +2,7 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.Player.Player;
 
 import com.example.munchkin.activity.CarddeckActivity;

@@ -1,4 +1,4 @@
-package com.example.munchkin.MessageFormat;
+package com.example.munchkin.messageformat;
 
 import com.example.munchkin.controller.BaseController;
 import org.json.JSONObject;
