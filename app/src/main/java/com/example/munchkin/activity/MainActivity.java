@@ -12,7 +12,6 @@ import com.example.munchkin.view.MainView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainView mainView;
     MediaPlayer mediaPlayer1;
 
     @Override
@@ -20,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        setContentView(R.layout.activity_main); mainView = new MainView(this);
+        setContentView(R.layout.activity_main);
+        MainView mainView = new MainView(this);
         findViewById(R.id.buttonOptions).setOnClickListener(view -> {
 
         });
