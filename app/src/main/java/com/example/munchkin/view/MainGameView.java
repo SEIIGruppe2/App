@@ -277,34 +277,60 @@ public class MainGameView {
 
     public void updateMonsterHealth(String monsterId, int newLifePoints) {
         mainGameActivity.runOnUiThread(() -> {
-            for (List<Button> zone : Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster)) {
-                for (Button button : zone) {
-                    MonsterDTO monster = (MonsterDTO) button.getTag();
-                    if (monster != null && String.valueOf(monster.getId()).equals(monsterId)) {
-                        ButtonRotateView rotateView = buttonRotateViews.get(button);
-                        if (newLifePoints <= 0) {
-                            button.setVisibility(View.GONE);
-                            button.setTag(null);
-                            button.setBackground(null);
-
-                            if (rotateView != null) {
-                                rotateView.resetRotation(button); //Auf Standardwert. Notwendinger fix.
-                            }
-                            monsterManager.removeMonster(monsterId);
-                            Log.d(mainGameViewString, "Monster " + monsterId + " is dead and removed.");
-                        } else {
-                            monster.setLifePoints(newLifePoints);
-                            monsterManager.updateMonster(monster.getId(), newLifePoints);
-                            if (rotateView != null) {
-                                rotateView.rotateButton(button);
-                            }
-                            Log.d(mainGameViewString, "Updated Monster " + monsterId + " HP to " + newLifePoints);
-                        }
-                        break;
-                    }
-                }
+            List<List<Button>> zones = Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster);
+            for (List<Button> zone : zones) {
+                updateHealthInZone(zone, monsterId, newLifePoints);
             }
         });
+    }
+
+    private void updateHealthInZone(List<Button> zone, String monsterId, int newLifePoints) {
+        for (Button button : zone) {
+            MonsterDTO monster = getMonsterFromButton(button, monsterId);
+            if (monster != null) {
+                updateMonsterHealth(button, monster, newLifePoints);
+                break;
+            }
+        }
+    }
+
+    private MonsterDTO getMonsterFromButton(Button button, String monsterId) {
+        MonsterDTO monster = (MonsterDTO) button.getTag();
+        return (monster != null && String.valueOf(monster.getId()).equals(monsterId)) ? monster : null;
+    }
+
+    private void updateMonsterHealth(Button button, MonsterDTO monster, int newLifePoints) {
+        ButtonRotateView rotateView = buttonRotateViews.get(button);
+        if (newLifePoints <= 0) {
+            handleMonsterDeath(button, monster, rotateView);
+        } else {
+            updateMonster(button, monster, newLifePoints, rotateView);
+        }
+    }
+
+    private void handleMonsterDeath(Button button, MonsterDTO monster, ButtonRotateView rotateView) {
+        removeMonsterVisuals(button);
+
+        if (rotateView != null) {
+            rotateView.resetRotation(button);
+        }
+        monsterManager.removeMonster(String.valueOf(monster.getId()));
+        Log.d(mainGameViewString, "Monster " + monster.getId() + " is dead and removed.");
+    }
+
+    private void updateMonster(Button button, MonsterDTO monster, int newLifePoints, ButtonRotateView rotateView) {
+        monster.setLifePoints(newLifePoints);
+        monsterManager.updateMonster(monster.getId(), newLifePoints);
+        if (rotateView != null) {
+            rotateView.rotateButton(button);
+        }
+        Log.d(mainGameViewString, "Updated Monster " + monster.getId() + " HP to " + newLifePoints);
+    }
+
+    private void removeMonsterVisuals(Button button){
+        button.setVisibility(View.GONE);
+        button.setTag(null);
+        button.setBackground(null);
     }
 
 
