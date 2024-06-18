@@ -217,8 +217,8 @@ public class CardDeckActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
         switchCardsText.setText("Du hast folgende Karte erhalten");
-        String[] StringArrHandCards = CardUtils.getresources(this.handCards);
-        String newCard = StringArrHandCards[StringArrHandCards.length-1];
+        String[] stringArrHandCards = CardUtils.getresources(this.handCards);
+        String newCard = stringArrHandCards[stringArrHandCards.length-1];
         String newCardName= newCard+"1";
         cardName.setText(getResources().getIdentifier(newCardName,DEF_TYPE_STRING,getPackageName()));
 
