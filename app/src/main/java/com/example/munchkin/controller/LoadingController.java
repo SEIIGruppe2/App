@@ -4,15 +4,15 @@ package com.example.munchkin.controller;
 import android.util.Log;
 import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.activity.ConnectToServerActivity;
-import com.example.munchkin.activity.LoadingscreenActivity;
+import com.example.munchkin.activity.LoadingScreenActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoadingController extends BaseController {
 
-    LoadingscreenActivity loadingscreenActivity;
-    public LoadingController(WebSocketClientModel model, LoadingscreenActivity loadingscreenActivity) {
+    LoadingScreenActivity loadingscreenActivity;
+    public LoadingController(WebSocketClientModel model, LoadingScreenActivity loadingscreenActivity) {
         super(model);
         this.loadingscreenActivity=loadingscreenActivity;
     }
@@ -51,7 +51,7 @@ public class LoadingController extends BaseController {
 
             if(serverResponse.equals(accepted)){
                 ConnectToServerActivity.usernameAccepted = true;
-                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startLobby());
             }
             else {
                 ConnectToServerActivity.usernameAccepted = false;
