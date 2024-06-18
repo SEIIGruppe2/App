@@ -59,7 +59,7 @@ public class DrawCardController extends BaseController{
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-            MainGameview.addtoList(karte);
+            MainGameview.addToList(karte);
 
 
         }
