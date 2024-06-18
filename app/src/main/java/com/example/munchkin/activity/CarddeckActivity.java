@@ -50,8 +50,8 @@ public class CarddeckActivity extends AppCompatActivity {
     private CardDeckController controller;
     public static int passivmode;
     public static CardView selectedCard;
-    private final String defTypeString = "string";
-    private final String defTypeDrawable = "drawable";
+    private static final String defTypeString = "string";
+    private static final String defTypeDrawable = "drawable";
     public List<ActionCardDTO> handkarten;
     private CarddeckView view;
     private String usernametoswitchwith;
@@ -134,7 +134,7 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
     public int getblackcolour(){
-        return getResources().getColor(R.color.black);
+        return ContextCompat.getColor(this, R.color.black);
     }
 
     public Drawable getyellowborder(){

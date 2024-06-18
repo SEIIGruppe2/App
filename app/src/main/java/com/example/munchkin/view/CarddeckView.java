@@ -28,7 +28,7 @@ public class CarddeckView {
     Button zurueck;
 
     private CarddeckActivity carddeckActivity;
-    public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
+    public ArrayList<String> usernames = new ArrayList<>();
 
 
     public CarddeckView(CarddeckActivity carddeckActivity){
