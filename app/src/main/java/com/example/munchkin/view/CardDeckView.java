@@ -28,7 +28,7 @@ public class CardDeckView {
     Button buttonGoBack;
 
     private final CardDeckActivity cardDeckActivity;
-    public List<String> usernames = new ArrayList<>();
+    private List<String> usernames = new ArrayList<>();
 
     public CardDeckView(CardDeckActivity cardDeckActivity){
         this.cardDeckActivity = cardDeckActivity;
@@ -247,5 +247,12 @@ public class CardDeckView {
                     }
                 });
             }
+    public List<String> getUsernames() {
+        return usernames;
+    }
+
+    public void setUsernames(List<String> usernames) {
+        this.usernames = usernames;
+    }
 }
 
