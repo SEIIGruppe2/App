@@ -521,7 +521,7 @@ public class MainGameView {
     }
 
     public static String removeCardFromHandCards(){
-        CardView currentCard = CardDeckActivity.selectedCard;
+        CardView currentCard = CardDeckActivity.getSelectedCard();
         LinearLayout getCardName = (LinearLayout) currentCard.getChildAt(0);
         TextView getTag = (TextView)  getCardName.getChildAt(2);
         String cardId = (String) getTag.getTag();
