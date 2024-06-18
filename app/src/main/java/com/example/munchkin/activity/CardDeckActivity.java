@@ -217,8 +217,8 @@ public class CardDeckActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
         switchCardsText.setText("Du hast folgende Karte erhalten");
-        String[] handCards = CardUtils.getresources(this.handCards);
-        String newCard = handCards[handCards.length-1];
+        String[] StringArrHandCards = CardUtils.getresources(this.handCards);
+        String newCard = StringArrHandCards[StringArrHandCards.length-1];
         String newCardName= newCard+"1";
         cardName.setText(getResources().getIdentifier(newCardName,DEF_TYPE_DRAWABLE,getPackageName()));
 
@@ -235,7 +235,7 @@ public class CardDeckActivity extends AppCompatActivity {
         neuerbutton.setTypeface(typeface);
         neuerbutton.setOnClickListener(v -> {
 
-            CardDeckActivity.switchDone = true;
+            CardDeckActivity.setSwitchDone(true);
             findViewById(R.id.buttontauschen).setVisibility(View.GONE);
             findViewById(R.id.buttonspielen).setVisibility(View.GONE);
             popupSwitchCards.dismiss();
