@@ -142,10 +142,10 @@ public class MainGameActivity extends AppCompatActivity {
     public void goToHandCards(JSONObject messageFromServer){
         Bundle b = new Bundle();
         b.putString("key", messageFromServer.toString());
-        Intent handCards = new Intent(this, CardDeckActivity.class);
-        handCards.putExtras(b);
+        Intent intentHandCards = new Intent(this, CardDeckActivity.class);
+        intentHandCards.putExtras(b);
         CardDeckActivity.setPassiveMode(1);
-        startActivity(handCards);
+        startActivity(intentHandCards);
 
     }
 
