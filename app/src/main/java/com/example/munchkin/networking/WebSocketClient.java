@@ -73,6 +73,12 @@ public class WebSocketClient {
         webSocket.send(msg);
     }
 
+    /**
+     * This method is deprecated and should not be used.
+     *
+     * @deprecated The finalize method is deprecated because it is inherently problematic and
+     * unreliable. Instead, use try-with-resources or explicit close methods to release resources.
+     */
     @Deprecated
     protected void finalize() throws Throwable {
         try {
