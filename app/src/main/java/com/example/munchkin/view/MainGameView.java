@@ -640,7 +640,7 @@ public class MainGameView {
     }
 
     private void updateGameView(){
-        if(gameController.currentPlayer()){
+        if(gameController.isCurrentPlayer()){
             enableForMonsters();
             showAllMonsters();
         }

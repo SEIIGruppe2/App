@@ -340,7 +340,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         diceRollModel.rollDice(result -> callback.onDiceRolled(new int[]{result}));
     }
 
-    public boolean currentPlayer(){
+    public boolean isCurrentPlayer(){
         return currentPlayer != null && currentPlayer.equals(CLIENT_PLAYER_USERNAME);
     }
 
