@@ -49,17 +49,17 @@ public class CardDeckActivity extends AppCompatActivity {
 
     private CardDeckController controller;
     private static int passiveMode;
-    public static CardView selectedCard;
+    private static CardView selectedCard;
     private static final String DEF_TYPE_STRING = "string";
     private static final String DEF_TYPE_DRAWABLE = "drawable";
-    public List<ActionCardDTO> handCards;
+    private List<ActionCardDTO> handCards;
     private CardDeckView view;
     private String usernameToSwitchWith;
     private PopupWindow popupSwitchCards;
     private TextView cardName;
     private ImageView cardImage;
     private TextView cardDescription;
-    public static boolean switchDone = false;
+    private static boolean switchDone = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,6 +277,24 @@ public class CardDeckActivity extends AppCompatActivity {
         CardDeckActivity.passiveMode = passiveMode;
     }
 
+    public static CardView getSelectedCard() {
+        return selectedCard;
+    }
+
+    public static void setSelectedCard(CardView selectedCard) {
+        CardDeckActivity.selectedCard = selectedCard;
+    }
+
+    public List<ActionCardDTO> getHandCards() {
+        return handCards;
+    }
+    public static boolean isSwitchDone() {
+        return switchDone;
+    }
+
+    public static void setSwitchDone(boolean switchDone) {
+        CardDeckActivity.switchDone = switchDone;
+    }
 }
 
 
