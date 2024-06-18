@@ -126,7 +126,7 @@ public class CardDeckController extends BaseController {
                     usernamesList.add(usernamesArray.getString(i));
                 }
             }
-            carddeckView.usernames = usernamesList;
+            carddeckView.setUsernames(usernamesList);
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/CardDeckController");
         }
