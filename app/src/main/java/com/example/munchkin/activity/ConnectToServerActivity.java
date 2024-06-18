@@ -14,7 +14,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
 
-    public static boolean usernameAccepted = true;
+    private static boolean usernameAccepted = true;
 
 
 
@@ -58,6 +58,9 @@ public class ConnectToServerActivity extends AppCompatActivity {
         startActivity(intent, usernameintent);
     }
 
+    public static void setUsernameAccepted(boolean usernameAccepted) {
+        ConnectToServerActivity.usernameAccepted = usernameAccepted;
+    }
 }
 
 
