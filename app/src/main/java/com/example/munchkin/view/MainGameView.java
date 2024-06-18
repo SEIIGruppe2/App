@@ -142,12 +142,12 @@ public class MainGameView {
 
         buttonAccuseCheater.setOnClickListener(v -> showAccusePopup());
 
-        buttonCards.setOnClickListener(v -> mainGameActivity.transitionToCardDeckscreen());
+        buttonCards.setOnClickListener(v -> mainGameActivity.transitionToCardDeckScreen());
     }
 
 
     public void addToList(ActionCardDTO card){
-        mainGameActivity.addcardtolist(card);
+        mainGameActivity.addCardToList(card);
     }
 
 
@@ -546,7 +546,7 @@ public class MainGameView {
 
             showAllMonsters();
             MainGameActivity.monsterList=new ArrayList<>();
-            mainGameActivity.transitionToCardDeckscreen();
+            mainGameActivity.transitionToCardDeckScreen();
             enableForMonsters();
 
         });
@@ -590,12 +590,12 @@ public class MainGameView {
             popupTauschanfrage.setElevation(10);
             popupTauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
 
-            mainGameActivity.dimmwindow(popupTauschanfrage);
+            mainGameActivity.dimWindow(popupTauschanfrage);
             Button ok = popupDrawable.findViewById(R.id.ok);
 
             ok.setOnClickListener(v -> {
                 popupTauschanfrage.dismiss();
-                mainGameActivity.gehezuhandkarten(message);
+                mainGameActivity.goToHandCards(message);
             });
         });
 
