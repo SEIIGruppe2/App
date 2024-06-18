@@ -50,7 +50,7 @@ public class MainGameView {
     private Button towerButton;
     private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
     private HashMap<String, Integer> trophiesMap = new HashMap<>();
-    private final String MainGameViewString = "MainGameView";
+    private static final String mainGameViewString = "MainGameView";
 
 
     private List<String> trophiesList = new ArrayList<>();
@@ -111,7 +111,7 @@ public class MainGameView {
 
         ListView listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
         if (listTrophies == null) {
-            Log.e(MainGameViewString, "listTrophies is null");
+            Log.e(mainGameViewString, "listTrophies is null");
             return;
         }
         this.trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
@@ -291,14 +291,14 @@ public class MainGameView {
                                 rotateView.resetRotation(button); //Auf Standardwert. Notwendinger fix.
                             }
                             monsterManager.removeMonster(monsterId);
-                            Log.d(MainGameViewString, "Monster " + monsterId + " is dead and removed.");
+                            Log.d(mainGameViewString, "Monster " + monsterId + " is dead and removed.");
                         } else {
                             monster.setLifePoints(newLifePoints);
                             monsterManager.updateMonster(monster.getId(), newLifePoints);
                             if (rotateView != null) {
                                 rotateView.rotateButton(button);
                             }
-                            Log.d(MainGameViewString, "Updated Monster " + monsterId + " HP to " + newLifePoints);
+                            Log.d(mainGameViewString, "Updated Monster " + monsterId + " HP to " + newLifePoints);
                         }
                         break;
                     }
@@ -422,7 +422,7 @@ public class MainGameView {
         }
     }
     public void updateListTrophies(String username, int points) {
-        Log.d(MainGameViewString, "Updating list trophies for user: " + username + " with points: " + points);
+        Log.d(mainGameViewString, "Updating list trophies for user: " + username + " with points: " + points);
         mainGameActivity.runOnUiThread(() -> {
             trophiesMap.put(username, points);
             refreshTrophiesList();
@@ -430,13 +430,13 @@ public class MainGameView {
     }
 
     private void refreshTrophiesList() {
-        Log.d(MainGameViewString, "Refreshing trophies list");
+        Log.d(mainGameViewString, "Refreshing trophies list");
         trophiesList.clear(); // Clear the current list
         for (Map.Entry<String, Integer> entry : trophiesMap.entrySet()) {
             trophiesList.add(entry.getKey() + ": " + entry.getValue());
         }
         trophiesAdapter.notifyDataSetChanged();
-        Log.d(MainGameViewString, "Trophies list updated");
+        Log.d(mainGameViewString, "Trophies list updated");
     }
     private void initializeMonsterZones() {
         for (int i = 0; i < 4; i++) {
