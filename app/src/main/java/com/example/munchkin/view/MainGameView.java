@@ -184,7 +184,8 @@ public class MainGameView {
     public void updateRoundView(int round) {
         mainGameActivity.runOnUiThread(() -> {
             TextView roundView = mainGameActivity.findViewById(R.id.textViewRound);
-            roundView.setText("Runde: " + round);
+            String roundText = mainGameActivity.getString(R.string.round_text, round);
+            roundView.setText(roundText);
         });
     }
 
@@ -373,7 +374,8 @@ public class MainGameView {
 
     public void updateTowerDisplay() {
         TowerDTO tower = (TowerDTO) towerButton.getTag();
-        towerButton.setText("HP: " + tower.getLifePoints());
+        String hpText = mainGameActivity.getString(R.string.button_tower_hp, tower.getLifePoints());
+        towerButton.setText(hpText);
     }
 
     public void modifyTowerLifePoints(int lifeChange) {
