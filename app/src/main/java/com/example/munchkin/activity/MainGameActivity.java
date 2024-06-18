@@ -144,7 +144,7 @@ public class MainGameActivity extends AppCompatActivity {
         b.putString("key", messageFromServer.toString());
         Intent handCards = new Intent(this, CardDeckActivity.class);
         handCards.putExtras(b);
-        CardDeckActivity.passiveMode =1;
+        CardDeckActivity.setPassiveMode(1);
         startActivity(handCards);
 
     }

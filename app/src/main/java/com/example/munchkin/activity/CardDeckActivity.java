@@ -48,7 +48,7 @@ import java.util.List;
 public class CardDeckActivity extends AppCompatActivity {
 
     private CardDeckController controller;
-    public static int passiveMode;
+    private static int passiveMode;
     public static CardView selectedCard;
     private static final String DEF_TYPE_STRING = "string";
     private static final String DEF_TYPE_DRAWABLE = "drawable";
@@ -268,6 +268,15 @@ public class CardDeckActivity extends AppCompatActivity {
         String id = (String) getTag.getTag();
         controller.showMonsterMessage(id);
     }
+
+    public static int getPassiveMode() {
+        return passiveMode;
+    }
+
+    public static void setPassiveMode(int passiveMode) {
+        CardDeckActivity.passiveMode = passiveMode;
+    }
+
 }
 
 

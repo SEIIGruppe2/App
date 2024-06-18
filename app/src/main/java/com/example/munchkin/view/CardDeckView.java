@@ -46,7 +46,7 @@ public class CardDeckView {
         buttonSwitchCards.setOnClickListener(v -> cardDeckActivity.switchCards());
 
         buttonGoBack = cardDeckActivity.findViewById(R.id.buttonzurueck1);
-        if(CardDeckActivity.passiveMode ==1){
+        if(CardDeckActivity.getPassiveMode() == 1){
             buttonGoBack.setVisibility(View.GONE);
         }
         else {
@@ -138,7 +138,7 @@ public class CardDeckView {
             cards.addView(cardDescription);
 
             cards.setOnClickListener((v -> {
-                if(CardDeckActivity.passiveMode == 1){
+                if(CardDeckActivity.getPassiveMode() == 1){
                     onCardClickPassive(cards);
                 }else{
                     onCardClick(cards);
