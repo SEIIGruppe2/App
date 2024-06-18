@@ -42,7 +42,7 @@
             android:name=".activity.LoadingScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.CarddeckActivity"
+            android:name=".activity.CardDeckActivity"
             android:exported="false" />
         <activity
             android:name=".activity.WinActivity"

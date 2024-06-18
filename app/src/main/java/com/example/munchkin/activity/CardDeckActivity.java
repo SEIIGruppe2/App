@@ -38,14 +38,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.CarddeckView;
+import com.example.munchkin.view.CardDeckView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class CarddeckActivity extends AppCompatActivity {
+public class CardDeckActivity extends AppCompatActivity {
 
     private CardDeckController controller;
     public static int passiveMode;
@@ -53,7 +53,7 @@ public class CarddeckActivity extends AppCompatActivity {
     private static final String DEF_TYPE_STRING = "string";
     private static final String DEF_TYPE_DRAWABLE = "drawable";
     public List<ActionCardDTO> handCards;
-    private CarddeckView view;
+    private CardDeckView view;
     private String usernameToSwitchWith;
     private PopupWindow popupSwitchCards;
     private TextView cardName;
@@ -72,7 +72,7 @@ public class CarddeckActivity extends AppCompatActivity {
 
         handCards = playerCards.getCards();
 
-        view =new CarddeckView(this);
+        view =new CardDeckView(this);
         controller = new CardDeckController(model,view);
         MessageRouter router = new MessageRouter();
         router.registerController("SHOW_MONSTERS",controller);
@@ -184,7 +184,7 @@ public class CarddeckActivity extends AppCompatActivity {
         view.usernames.add("Kartenstapel");
         Spinner dropDownMenu = popupDrawable.findViewById(R.id.spinner1);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CarddeckActivity.this, R.layout.list,view.usernames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CardDeckActivity.this, R.layout.list,view.usernames);
         dropDownMenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
 
@@ -212,7 +212,7 @@ public class CarddeckActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void updatePopUpWindow(){
         LinearLayout buttonContainer = popupDrawable.findViewById(R.id.buttoncontainer);
-        Button neuerbutton = new Button(CarddeckActivity.this);
+        Button neuerbutton = new Button(CardDeckActivity.this);
         LinearLayout.LayoutParams layoutParamsCardsContent = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, // Breite
                 ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -229,13 +229,13 @@ public class CarddeckActivity extends AppCompatActivity {
         neuerbutton.setLayoutParams(layoutParamsCardsContent);
         neuerbutton.setText("ok");
         neuerbutton.setBackgroundResource(R.drawable.rippleeffect);
-        neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CarddeckActivity.this, R.color.yellow));
+        neuerbutton.setBackgroundTintList(ContextCompat.getColorStateList(CardDeckActivity.this, R.color.yellow));
         buttonContainer.addView(neuerbutton);
-        Typeface typeface = ResourcesCompat.getFont(CarddeckActivity.this, R.font.chewyregular);
+        Typeface typeface = ResourcesCompat.getFont(CardDeckActivity.this, R.font.chewyregular);
         neuerbutton.setTypeface(typeface);
         neuerbutton.setOnClickListener(v -> {
 
-            CarddeckActivity.switchDone = true;
+            CardDeckActivity.switchDone = true;
             findViewById(R.id.buttontauschen).setVisibility(View.GONE);
             findViewById(R.id.buttonspielen).setVisibility(View.GONE);
             popupSwitchCards.dismiss();
