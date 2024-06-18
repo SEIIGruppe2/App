@@ -123,7 +123,7 @@ public class MainGameActivity extends AppCompatActivity {
     }
 
     public void transitionToCardDeckScreen() {
-        Intent intent = new Intent(this, CardDeckActivity.class);
+        Intent intent = new Intent(this, CarddeckActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
@@ -142,9 +142,9 @@ public class MainGameActivity extends AppCompatActivity {
     public void goToHandCards(JSONObject messageFromServer){
         Bundle b = new Bundle();
         b.putString("key", messageFromServer.toString());
-        Intent handCards = new Intent(this, CardDeckActivity.class);
+        Intent handCards = new Intent(this, CarddeckActivity.class);
         handCards.putExtras(b);
-        CardDeckActivity.passiveMode =1;
+        CarddeckActivity.passiveMode =1;
         startActivity(handCards);
 
     }
