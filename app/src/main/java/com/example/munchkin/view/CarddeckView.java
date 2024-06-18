@@ -18,7 +18,6 @@ import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CarddeckView {
@@ -28,8 +27,8 @@ public class CarddeckView {
     Button buttonSwitchCards;
     Button buttonGoBack;
 
-    private CarddeckActivity cardDeckActivity;
-    public List<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
+    private final CarddeckActivity cardDeckActivity;
+    public List<String> usernames = new ArrayList<>();
 
     public CarddeckView(CarddeckActivity cardDeckActivity){
         this.cardDeckActivity = cardDeckActivity;
@@ -191,7 +190,7 @@ public class CarddeckView {
             card.setForeground(cardDeckActivity.getYellowBorder());
             CarddeckActivity.selectedCard = card;
             buttonPlay.setVisibility(View.VISIBLE);
-            if(!cardDeckActivity.switchDone){
+            if(!CarddeckActivity.switchDone){
             buttonSwitchCards.setVisibility(View.VISIBLE);}
         }
     }

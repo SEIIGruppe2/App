@@ -50,8 +50,8 @@ public class CarddeckActivity extends AppCompatActivity {
     private CardDeckController controller;
     public static int passiveMode;
     public static CardView selectedCard;
-    private final String defTypeString = "string";
-    private final String defTypeDrawable = "drawable";
+    private static final String DEF_TYPE_STRING = "string";
+    private static final String DEF_TYPE_DRAWABLE = "drawable";
     public List<ActionCardDTO> handCards;
     private CarddeckView view;
     private String usernameToSwitchWith;
@@ -116,15 +116,16 @@ public class CarddeckActivity extends AppCompatActivity {
     }
 
     public int getStringResource(String tag){
-        return getResources().getIdentifier(tag, defTypeString,getPackageName());
+        return getResources().getIdentifier(tag, DEF_TYPE_STRING,getPackageName());
     }
 
     public int getImageResource(String tag){
-        return getResources().getIdentifier(tag,defTypeDrawable,getPackageName());
+        return getResources().getIdentifier(tag, DEF_TYPE_DRAWABLE,getPackageName());
+
     }
 
     public int getBlackColour(){
-        return getResources().getColor(R.color.black);
+        return ContextCompat.getColor(this, R.color.black);
     }
 
     public Drawable getYellowBorder(){
@@ -170,14 +171,14 @@ public class CarddeckActivity extends AppCompatActivity {
         cardDescription =  popupDrawable.findViewById(R.id.kartenbeschreibungpopup);
         cardImage = popupDrawable.findViewById(R.id.kartenbildpopup);
         String cardName2 = resource+"1";
-        int resIdCardName = getResources().getIdentifier(cardName2,defTypeString,getPackageName());
+        int resIdCardName = getResources().getIdentifier(cardName2,DEF_TYPE_STRING,getPackageName());
         cardName.setText(resIdCardName);
 
         String cardDescription2 = resource+"2";
-        int resIdCardDescription = getResources().getIdentifier(cardDescription2,defTypeString,getPackageName());
+        int resIdCardDescription = getResources().getIdentifier(cardDescription2,DEF_TYPE_STRING,getPackageName());
         cardDescription.setText(resIdCardDescription);
 
-        int resIdCardImage = getResources().getIdentifier(resource,defTypeDrawable,getPackageName());
+        int resIdCardImage = getResources().getIdentifier(resource,DEF_TYPE_DRAWABLE,getPackageName());
         cardImage.setImageResource(resIdCardImage);
 
         view.usernames.add("Kartenstapel");
@@ -202,7 +203,7 @@ public class CarddeckActivity extends AppCompatActivity {
             switchCardsText.setText("Anfrage wurde gesendet");
             cardName.setText("");
             cardDescription.setText("");
-            cardImage.setImageResource(getResources().getIdentifier("loadingimage",defTypeDrawable,getPackageName()));
+            cardImage.setImageResource(getResources().getIdentifier("loadingimage",DEF_TYPE_DRAWABLE,getPackageName()));
         });
 
         goBack.setOnClickListener(v -> popupSwitchCards.dismiss());
@@ -219,11 +220,11 @@ public class CarddeckActivity extends AppCompatActivity {
         String[] handCards = CardUtils.getresources(this.handCards);
         String newCard = handCards[handCards.length-1];
         String newCardName= newCard+"1";
-        cardName.setText(getResources().getIdentifier(newCardName,defTypeString,getPackageName()));
+        cardName.setText(getResources().getIdentifier(newCardName,DEF_TYPE_DRAWABLE,getPackageName()));
 
         String newCardDescription = newCard+"2";
-        cardDescription.setText(getResources().getIdentifier(newCardDescription,defTypeString,getPackageName()));
-        cardImage.setImageResource(getResources().getIdentifier(newCard,defTypeDrawable,getPackageName()));
+        cardDescription.setText(getResources().getIdentifier(newCardDescription,DEF_TYPE_DRAWABLE,getPackageName()));
+        cardImage.setImageResource(getResources().getIdentifier(newCard,DEF_TYPE_DRAWABLE,getPackageName()));
 
         neuerbutton.setLayoutParams(layoutParamsCardsContent);
         neuerbutton.setText("ok");
