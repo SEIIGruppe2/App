@@ -137,31 +137,6 @@ public class CardDeckActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
-    //TODO: bei zugbeenden in maingame einbauen
-    public void zugbeenden(){
-
-        View drawablePopUp = getLayoutInflater().inflate(R.layout.popupzugbeenden, null);
-
-        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        PopupWindow popupzugzuende = new PopupWindow(drawablePopUp,width,height,true);
-        popupzugzuende.setOutsideTouchable(false);
-        popupzugzuende.setElevation(10);
-        popupzugzuende.showAtLocation(getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
-        dimmwindow(popupzugzuende);
-        Button ja = drawablePopUp.findViewById(R.id.buttonja);
-        Button nein = drawablePopUp.findViewById(R.id.nein);
-
-
-        ja.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoadingscreenActivity.class);
-            startActivity(intent);
-        });
-        nein.setOnClickListener(v -> popupzugzuende.dismiss());
-    }
-    */
-
     public void passiveSwitchCards(){
         CardView currentCard = selectedCard;
         LinearLayout getCardName = (LinearLayout) currentCard.getChildAt(0);
