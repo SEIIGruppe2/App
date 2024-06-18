@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EntityDTOTest {
 
     @Test
-    protected void testEntityDTOAttributes() {
+    void testEntityDTOAttributes() {
         EntityDTO entity = new EntityDTO("Entity", 3, 420);
         assertEquals("Entity", entity.getName());
         assertEquals(3, entity.getZone());
@@ -23,7 +23,7 @@ class EntityDTOTest {
     }
 
     @Test
-    protected void testDefaultConstructor() {
+    void testDefaultConstructor() {
         EntityDTO entity = new EntityDTO();
         assertNull(entity.getName());
         assertEquals(0, entity.getZone());
