@@ -14,7 +14,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
     private ConnectToServerController controller;
 
-    public static boolean usernameaccepted=true;
+    public static boolean usernameAccepted = true;
 
 
 
@@ -29,7 +29,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
         ConnectToServerView view = new ConnectToServerView(this);
         WebSocketClientModel model = new WebSocketClientModel();
         controller = new ConnectToServerController(model, this);
-        if(!usernameaccepted) {
+        if(!usernameAccepted) {
             view.updateServerResponse("Username bereits vergeben. Wähle einen anderen usernamen");
         }
         router.registerController("LOBBY_ASSIGNED",controller);
