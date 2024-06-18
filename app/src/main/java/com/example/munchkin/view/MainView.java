@@ -12,9 +12,10 @@ import com.example.munchkin.R;
 
 public class MainView {
 
-    private MainActivity mainActivity;
-    private Button buttonRegister, buttonOptions, buttonExit;
-
+    private final MainActivity mainActivity;
+    private final Button buttonRegister;
+    private final Button buttonOptions;
+    private final Button buttonExit;
     private Switch switchMusic;
     MediaPlayer mediaPlayer;
 
