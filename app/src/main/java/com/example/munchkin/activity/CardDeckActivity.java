@@ -181,10 +181,10 @@ public class CardDeckActivity extends AppCompatActivity {
         int resIdCardImage = getResources().getIdentifier(resource,DEF_TYPE_DRAWABLE,getPackageName());
         cardImage.setImageResource(resIdCardImage);
 
-        view.usernames.add("Kartenstapel");
+        view.getUsernames().add("Kartenstapel");
         Spinner dropDownMenu = popupDrawable.findViewById(R.id.spinner1);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CardDeckActivity.this, R.layout.list,view.usernames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CardDeckActivity.this, R.layout.list,view.getUsernames());
         dropDownMenu.setAdapter(adapter);
         adapter.setDropDownViewResource(R.layout.list);
 
