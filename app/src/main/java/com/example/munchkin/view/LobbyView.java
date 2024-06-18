@@ -1,6 +1,7 @@
 package com.example.munchkin.view;
 
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class LobbyView {
         textViewArray[3]=lobbyActivity.findViewById(R.id.Player4);
 
     }
+    @SuppressLint("SetTextI18n")
     public void updateUserList(int arraylength){
 
 
@@ -36,10 +38,10 @@ public class LobbyView {
 
             for(int i=0; i< 4;i++) {
                 if (!(LobbyController.usernames[i] ==null)) {
-                    textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": " + LobbyController.usernames[i]);
+                    textViewArray[i].setText("Spieler " + (i + 1) + ": " + LobbyController.usernames[i]);
 
                 } else {
-                    textViewArray[i].setText("Spieler " + String.valueOf(i + 1) + ": ");
+                    textViewArray[i].setText("Spieler " + (i + 1) + ": ");
                 }
             }
             if(arraylength==4){
