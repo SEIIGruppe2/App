@@ -4,8 +4,8 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
-import com.example.munchkin.DTO.MonsterDTO;
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.dto.MonsterDTO;
+import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import org.json.JSONException;
@@ -14,13 +14,14 @@ import org.json.JSONObject;
 public class SpawnMonsterController extends BaseController {
 
 
-    private WebSocketClientModel model;
+    private WebSocketClientModel Websockmodel;
     private MainGameView maingameView;
+
 
 
     public SpawnMonsterController(WebSocketClientModel model, MainGameView maingameView) {
         super(model);
-        this.model = model;
+        this.Websockmodel = model;
         this.maingameView = maingameView;
     }
 
@@ -41,7 +42,7 @@ public class SpawnMonsterController extends BaseController {
 
     public void sendMonsterSpawnMessage(String zone) {
         String message = MessageFormatter.createSpawnMonsterMessage(zone);
-        model.sendMessageToServer(message);
+        Websockmodel.sendMessageToServer(message);
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.munchkin.DTO;
+package com.example.munchkin.dto;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

@@ -11,15 +11,15 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.GameController;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.MainGameView;
 import com.example.munchkin.view.animations.ZoomDetectorView;
 import org.json.JSONObject;
-import com.example.munchkin.DTO.ActionCardDTO;
-import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.dto.ActionCardDTO;
+import com.example.munchkin.player.PlayerHand;
 import com.example.munchkin.controller.DrawCardController;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -148,12 +148,6 @@ public class MainGameActivity extends AppCompatActivity {
         CarddeckActivity.passivmode=1;
         startActivity(handcards);
 
-    }
-
-    public void gehezukarten(){
-        Intent intent = new Intent(this, CarddeckActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
     }
 
 

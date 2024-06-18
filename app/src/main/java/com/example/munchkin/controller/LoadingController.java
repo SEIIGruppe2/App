@@ -1,14 +1,11 @@
 package com.example.munchkin.controller;
 
-import android.content.Intent;
-import android.os.Bundle;
 
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import android.util.Log;
+import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.LoadingscreenActivity;
-import com.example.munchkin.activity.LobbyActivity;
 import com.example.munchkin.model.WebSocketClientModel;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +29,7 @@ public class LoadingController extends BaseController {
                     break;
                 case "REGISTER_USERNAME":
                     handleRegisterUsernameMessage(jsonResponse);
+                    break;
                 default:
                     break;
             }
@@ -53,11 +51,11 @@ public class LoadingController extends BaseController {
 
             if(serverResponse.equals(accepted)){
                 ConnectToServerActivity.usernameaccepted=true;
-                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startlobby());
             }
             else {
                 ConnectToServerActivity.usernameaccepted=false;
-                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());;
+                loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());
             }
         }
         catch (JSONException e) {
@@ -67,7 +65,7 @@ public class LoadingController extends BaseController {
     }
 
     private void handleLobbyAssignedMessage(JSONObject jsonResponse) {
-        //Log.d("Lobby wurde Assigned", jsonResponse.toString());
+        Log.d("Lobby wurde Assigned", jsonResponse.toString());
     }
 
 }

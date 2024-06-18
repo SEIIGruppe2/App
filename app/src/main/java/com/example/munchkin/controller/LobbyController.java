@@ -1,7 +1,7 @@
 package com.example.munchkin.controller;
 
 
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.messageformat.MessageFormatter;
 
 import com.example.munchkin.model.WebSocketClientModel;
 
@@ -33,14 +33,9 @@ public class LobbyController extends BaseController{
         try {
         JSONObject jsonResponse = new JSONObject(message);
         String messageType = jsonResponse.getString("type");
-        switch (messageType) {
-            case "REQUEST_USERNAMES":
+            if (messageType.equals("REQUEST_USERNAMES")) {
                 handleRequestUsernameMessage(jsonResponse);
-                break;
-
-            default:
-                break;
-        }
+            }
         }
      catch(JSONException e){
             throw new IllegalArgumentException("Fehler bei handleMessage/LobbyController");

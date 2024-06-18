@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.ConnectToServerController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.CarddeckView;
 import com.example.munchkin.view.ConnectToServerView;
 
 public class ConnectToServerActivity extends AppCompatActivity {

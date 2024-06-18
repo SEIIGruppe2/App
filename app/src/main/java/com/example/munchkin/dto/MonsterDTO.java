@@ -1,4 +1,4 @@
-package com.example.munchkin.DTO;
+package com.example.munchkin.dto;
 
 public class MonsterDTO extends EntityDTO {
     private int ring;

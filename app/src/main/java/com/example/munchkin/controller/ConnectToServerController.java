@@ -2,7 +2,6 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
-import com.example.munchkin.MessageFormat.MessageFormatter;
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
@@ -22,8 +21,6 @@ public class ConnectToServerController extends BaseController {
         super(model);
         this.webSocketClientModel = model;
         this.connectToServerActivity=connectToServerActivity;
-
-        //setupController();
     }
 
    public void setupController() {
@@ -33,12 +30,6 @@ public class ConnectToServerController extends BaseController {
     public void reconnectToServer() {
         webSocketClientModel.connectToServer(this::messageReceivedFromServer);
     }
-
-    public void registerUserMessage(String username) {
-        String message = MessageFormatter.registerUserMessage(username);
-        webSocketClientModel.sendMessageToServer(message);
-    }
-
 
 
     private void messageReceivedFromServer(String message) {

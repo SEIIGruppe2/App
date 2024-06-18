@@ -1,4 +1,4 @@
-package com.example.munchkin.Player;
+package com.example.munchkin.player;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

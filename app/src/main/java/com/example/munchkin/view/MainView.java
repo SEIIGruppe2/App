@@ -5,11 +5,7 @@ import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
-
-
 import com.example.munchkin.activity.GameRules;
-import com.example.munchkin.activity.MainGameActivity;
-
 import com.example.munchkin.activity.ConnectToServerActivity;
 import com.example.munchkin.activity.MainActivity;
 import com.example.munchkin.R;

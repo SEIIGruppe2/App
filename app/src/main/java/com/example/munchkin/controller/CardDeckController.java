@@ -2,10 +2,10 @@ package com.example.munchkin.controller;
 
 import android.util.Log;
 
-import com.example.munchkin.DTO.ActionCardDTO;
-import com.example.munchkin.MessageFormat.MessageFormatter;
+import com.example.munchkin.dto.ActionCardDTO;
+import com.example.munchkin.messageformat.MessageFormatter;
 
-import com.example.munchkin.Player.PlayerHand;
+import com.example.munchkin.player.PlayerHand;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
 import com.example.munchkin.view.CarddeckView;

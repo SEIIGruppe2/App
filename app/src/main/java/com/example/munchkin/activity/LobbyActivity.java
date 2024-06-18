@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.munchkin.MessageFormat.MessageRouter;
+import com.example.munchkin.messageformat.MessageRouter;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.LobbyController;
 import com.example.munchkin.model.WebSocketClientModel;
