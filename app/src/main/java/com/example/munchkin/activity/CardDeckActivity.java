@@ -220,10 +220,10 @@ public class CardDeckActivity extends AppCompatActivity {
         String[] StringArrHandCards = CardUtils.getresources(this.handCards);
         String newCard = StringArrHandCards[StringArrHandCards.length-1];
         String newCardName= newCard+"1";
-        cardName.setText(getResources().getIdentifier(newCardName,DEF_TYPE_DRAWABLE,getPackageName()));
+        cardName.setText(getResources().getIdentifier(newCardName,DEF_TYPE_STRING,getPackageName()));
 
         String newCardDescription = newCard+"2";
-        cardDescription.setText(getResources().getIdentifier(newCardDescription,DEF_TYPE_DRAWABLE,getPackageName()));
+        cardDescription.setText(getResources().getIdentifier(newCardDescription,DEF_TYPE_STRING,getPackageName()));
         cardImage.setImageResource(getResources().getIdentifier(newCard,DEF_TYPE_DRAWABLE,getPackageName()));
 
         neuerbutton.setLayoutParams(layoutParamsCardsContent);
