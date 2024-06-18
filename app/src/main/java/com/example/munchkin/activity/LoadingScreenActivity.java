@@ -15,7 +15,7 @@ import com.example.munchkin.controller.LoadingController;
 import com.example.munchkin.game.AppState;
 import com.example.munchkin.model.WebSocketClientModel;
 
-public class LoadingscreenActivity extends AppCompatActivity {
+public class LoadingScreenActivity extends AppCompatActivity {
 
 
     @Override
@@ -47,7 +47,7 @@ public class LoadingscreenActivity extends AppCompatActivity {
         });
     }
 
-    public void startlobby(){
+    public void startLobby(){
 
         Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);

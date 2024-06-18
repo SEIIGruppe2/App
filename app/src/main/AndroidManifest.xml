@@ -39,7 +39,7 @@
             android:screenOrientation="landscape"
             android:writePermission="com.example.app.WRITE_PERMISSION" />
         <activity
-            android:name=".activity.LoadingscreenActivity"
+            android:name=".activity.LoadingScreenActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CardDeckActivity"
