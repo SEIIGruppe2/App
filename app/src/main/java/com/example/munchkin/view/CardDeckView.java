@@ -212,7 +212,7 @@ public class CardDeckView {
     }
 
     public void updateScreen() {
-        cardDeckActivity.runOnUiThread(() -> cardDeckActivity.updatePopUpWindow());
+        cardDeckActivity.runOnUiThread(cardDeckActivity::updatePopUpWindow);
     }
 
     public void startMonsterAttack(){
