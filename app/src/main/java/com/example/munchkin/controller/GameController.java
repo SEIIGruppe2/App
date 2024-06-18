@@ -32,7 +32,7 @@ import com.example.munchkin.game.AppState;
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
     private static boolean gameEnded = false;
-    public String currentPlayer;
+    private String currentPlayer;
     private static String roundCounter="0";
     private final MainGameView mainGameView;
     private boolean diceRolledThisRound = false;
@@ -349,5 +349,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         String message = MessageFormatter.createAccusationMessage(cheaterName, accusatoryName);
         model.sendMessageToServer(message);
     }
-
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
 }

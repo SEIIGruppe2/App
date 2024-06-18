@@ -677,7 +677,7 @@ public class MainGameView {
         Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
 
         List<String> players = new ArrayList<>(usernamesWithPoints.keySet());
-        players.remove(gameController.currentPlayer);
+        players.remove(gameController.getCurrentPlayer());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mainGameActivity, android.R.layout.simple_spinner_item, players);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPlayers.setAdapter(adapter);
