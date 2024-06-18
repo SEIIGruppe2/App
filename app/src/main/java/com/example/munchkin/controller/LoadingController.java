@@ -50,11 +50,11 @@ public class LoadingController extends BaseController {
             String serverResponse = jsonResponse.getString("response");
 
             if(serverResponse.equals(accepted)){
-                ConnectToServerActivity.usernameAccepted = true;
+                ConnectToServerActivity.setUsernameAccepted(true);
                 loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.startLobby());
             }
             else {
-                ConnectToServerActivity.usernameAccepted = false;
+                ConnectToServerActivity.setUsernameAccepted(false);
                 loadingscreenActivity.runOnUiThread(() -> loadingscreenActivity.goBackToUsername());
             }
         }
