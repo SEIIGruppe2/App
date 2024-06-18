@@ -24,7 +24,7 @@ class MessageRouterTest {
     }
 
     @Test
-    protected void testRouteMessageToRegisteredController() throws Exception {
+    void testRouteMessageToRegisteredController() throws Exception {
         String message = new JSONObject()
                 .put("type", "testType")
                 .put("data", "example data")
@@ -36,7 +36,7 @@ class MessageRouterTest {
     }
 
     @Test
-    protected void testRouteMessageWithInvalidJson() {
+    void testRouteMessageWithInvalidJson() {
         String message = "this is not a valid json";
 
         assertThrows(IllegalArgumentException.class, () -> MessageRouter.routeMessage(message));
