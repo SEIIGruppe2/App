@@ -119,4 +119,6 @@
 
     <string name="unknown_player">Unbekannt</string>
     <string name="current_player">Spieler: %1$s</string>
+    <string name="round_text">Runde: %1$d</string>
+    <string name="button_tower_hp">HP: %d</string>
 </resources>
