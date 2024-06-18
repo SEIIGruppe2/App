@@ -52,7 +52,7 @@ public class ConnectToServerActivity extends AppCompatActivity {
 
     public void transitionToLoadingScreen(String username) {
 
-        Intent intent = new Intent(ConnectToServerActivity.this, LoadingscreenActivity.class);
+        Intent intent = new Intent(ConnectToServerActivity.this, LoadingScreenActivity.class);
         Bundle usernameintent = new Bundle();
         usernameintent.putString("username",username);
         startActivity(intent, usernameintent);
