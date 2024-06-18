@@ -18,9 +18,9 @@ public class WebSocketClient {
 
     private WebSocket webSocket;
 
-    private WebSocketClientModel model;
+    private final WebSocketClientModel model;
 
-    private static WebSocketClient INSTANCE;
+    private static WebSocketClient instance;
 
 
     private WebSocketClient(WebSocketClientModel model) {
@@ -29,10 +29,10 @@ public class WebSocketClient {
 
     public static WebSocketClient getINSTANCE(WebSocketClientModel model){
 
-        if(INSTANCE == null){
-            INSTANCE = new WebSocketClient(model);
+        if(instance == null){
+            instance = new WebSocketClient(model);
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void connectToServer(WebSocketMessageHandler<String> messageHandler) {
@@ -40,9 +40,9 @@ public class WebSocketClient {
             throw new IllegalArgumentException("messageHandler is required");
 
         OkHttpClient client = new OkHttpClient();
-        String WEBSOCKET_URI = "ws://10.0.2.2:8080/game";
+        String websocketUri = "ws://10.0.2.2:8080/game";
         Request request = new Request.Builder()
-                .url(WEBSOCKET_URI)
+                .url(websocketUri)
                 .build();
 
         webSocket = client.newWebSocket(request, new WebSocketListener() {
@@ -73,7 +73,7 @@ public class WebSocketClient {
         webSocket.send(msg);
     }
 
-    @Override
+    @Deprecated
     protected void finalize() throws Throwable {
         try {
             webSocket.close(1000, "Closing");
