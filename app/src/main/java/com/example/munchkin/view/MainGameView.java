@@ -69,7 +69,6 @@ public class MainGameView {
         this.monsterZones = new ArrayList<>();
         initializeMonsterZones();
 
-        MainGameView.mainGameActivity = mainGameActivity;
         allPlayerButtons = new Button[]{
                 buttonEndRound,
                 buttonCards,
