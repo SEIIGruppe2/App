@@ -18,7 +18,6 @@ import com.example.munchkin.R;
 import com.example.munchkin.activity.CarddeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CarddeckView {
 
@@ -27,8 +26,8 @@ public class CarddeckView {
     Button tauschen;
     Button zurueck;
 
-    private CarddeckActivity carddeckActivity;
-    public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
+    private final CarddeckActivity carddeckActivity;
+    public ArrayList<String> usernames = new ArrayList<>();
 
 
     public CarddeckView(CarddeckActivity carddeckActivity){
@@ -206,7 +205,7 @@ public class CarddeckView {
             card.setForeground(carddeckActivity.getyellowborder());
             CarddeckActivity.selectedCard = card;
             spielen.setVisibility(View.VISIBLE);
-            if(!carddeckActivity.switchdone){
+            if(!CarddeckActivity.switchdone){
             tauschen.setVisibility(View.VISIBLE);}// Setze die ausgewählte Karte
         }
     }
@@ -236,7 +235,7 @@ public class CarddeckView {
 
         carddeckActivity.runOnUiThread(new Runnable() {
 
-                View popupdrawable = carddeckActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+                final View popupdrawable = carddeckActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
 
                     @Override
                     public void run() {

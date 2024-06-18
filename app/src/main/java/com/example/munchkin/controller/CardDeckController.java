@@ -116,18 +116,17 @@ public class CardDeckController extends BaseController {
         }
 
     }
-    private void handleUserName(JSONObject jsonResponse){
+    private void handleUserName(JSONObject jsonResponse) {
         try {
+            Log.e("Handleusername", "test");
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             ArrayList<String> usernamesList = new ArrayList<>();
-            for (int i = 0; i < usernamesArray.length(); i++) {
-
+            if (!usernamesArray.getString(0).equals("no users found")) {
+                for (int i = 0; i < usernamesArray.length(); i++) {
                     usernamesList.add(usernamesArray.getString(i));
-
+                }
             }
             carddeckView.usernames = usernamesList;
-
-
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleUserName/CardDeckController");
         }
