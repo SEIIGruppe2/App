@@ -384,56 +384,75 @@ public class MainGameView {
         });
     }
 
-
-
     public void moveMonstersInward() {
         mainGameActivity.runOnUiThread(() -> {
             List<List<Button>> zones = Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster);
             for (List<Button> zone : zones) {
-                for (int i = 9; i >= 3; i -= 3) {
-                    for (int j = 0; j < 3; j++) {
-                        if (i + j < zone.size()) {
-                            Button outer = zone.get(i + j - 3);
-                            if (outer.getVisibility() == View.VISIBLE && outer.getTag() instanceof MonsterDTO) {
-                                MonsterDTO monster = (MonsterDTO) outer.getTag();
-                                for (int k = 0; k < 3; k++) {
-                                    if (i + j + k < zone.size()) {
-                                        Button inner = zone.get(i + j + k);
-                                        if (isButtonEmpty(inner)) {
-                                            Drawable background = outer.getBackground();
-                                            outer.setVisibility(View.GONE);
-                                            outer.setBackground(null);
-                                            outer.setTag(null);
-
-                                            inner.setBackground(background);
-                                            inner.setVisibility(View.VISIBLE);
-                                            inner.setTag(monster);
-
-                                            // Get the current rotation from the outer button and apply it to the inner button
-                                            ButtonRotateView outerRotateView = buttonRotateViews.get(outer);
-                                            if (outerRotateView != null) {
-                                                float currentRotation = outerRotateView.getCurrentRotation();
-                                                outerRotateView.resetRotation(outer); // Reset outer rotation
-
-                                                // Set the same rotation to the inner button
-                                                ButtonRotateView innerRotateView = buttonRotateViews.get(inner);
-                                                if (innerRotateView != null) {
-                                                    innerRotateView.setCurrentRotation(currentRotation);
-                                                    innerRotateView.applyCurrentRotation(inner);
-                                                }
-                                            }
-
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                moveZoneMonstersInward(zone);
             }
         });
     }
+
+    private void moveZoneMonstersInward(List<Button> zone) {
+        for (int i = 9; i >= 3; i -= 3) {
+            moveMonstersInSegment(zone, i);
+        }
+    }
+
+    private void moveMonstersInSegment(List<Button> zone, int i) {
+        for (int j = 0; j < 3; j++) {
+            if (i + j < zone.size()) {
+                Button outer = zone.get(i + j - 3);
+                if (isButtonMonster(outer)) {
+                    moveMonsterInward(zone, outer, i + j);
+                }
+            }
+        }
+    }
+
+    private void moveMonsterInward(List<Button> zone, Button outer, int startIdx) {
+        MonsterDTO monster = (MonsterDTO) outer.getTag();
+        for (int k = 0; k < 3; k++) {
+            if (startIdx + k < zone.size()) {
+                Button inner = zone.get(startIdx + k);
+                if (isButtonEmpty(inner)) {
+                    transferMonster(outer, inner, monster);
+                    break;
+                }
+            }
+        }
+    }
+
+    private boolean isButtonMonster(Button button) {
+        return button.getVisibility() == View.VISIBLE && button.getTag() instanceof MonsterDTO;
+    }
+
+    private void transferMonster(Button outer, Button inner, MonsterDTO monster) {
+        Drawable background = outer.getBackground();
+        removeMonsterVisuals(outer);
+
+        inner.setBackground(background);
+        inner.setVisibility(View.VISIBLE);
+        inner.setTag(monster);
+
+        applyRotationOnMove(outer, inner);
+    }
+
+    private void applyRotationOnMove(Button outer, Button inner) {
+        ButtonRotateView outerRotateView = buttonRotateViews.get(outer);
+        if (outerRotateView != null) {
+            float currentRotation = outerRotateView.getCurrentRotation();
+            outerRotateView.resetRotation(outer); // Reset outer rotation
+
+            // Set the same rotation to the inner button
+            ButtonRotateView innerRotateView = buttonRotateViews.get(inner);
+            if (innerRotateView != null) {
+                innerRotateView.setCurrentRotation(currentRotation);
+                innerRotateView.applyCurrentRotation(inner);
+            }
+        }
+    }
+
 
     private boolean isButtonFull(Button button) {
         return button.getVisibility() == View.VISIBLE && button.getBackground() != null;
