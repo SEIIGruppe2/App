@@ -264,7 +264,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
     private void handleSwitchRequest(JSONObject message) throws JSONException {
-        maingameView.tauschanfrageerhalten(message);
+        maingameView.tauschanfrageErhalten(message);
 
     }
 
