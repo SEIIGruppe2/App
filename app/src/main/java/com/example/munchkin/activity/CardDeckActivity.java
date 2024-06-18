@@ -38,7 +38,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.CarddeckView;
+import com.example.munchkin.view.CardDeckView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +53,7 @@ public class CardDeckActivity extends AppCompatActivity {
     private final String defTypeString = "string";
     private final String defTypeDrawable = "drawable";
     public List<ActionCardDTO> handCards;
-    private CarddeckView view;
+    private CardDeckView view;
     private String usernameToSwitchWith;
     private PopupWindow popupSwitchCards;
     private TextView cardName;
@@ -72,7 +72,7 @@ public class CardDeckActivity extends AppCompatActivity {
 
         handCards = playerCards.getCards();
 
-        view =new CarddeckView(this);
+        view =new CardDeckView(this);
         controller = new CardDeckController(model,view);
         MessageRouter router = new MessageRouter();
         router.registerController("SHOW_MONSTERS",controller);
@@ -238,7 +238,7 @@ public class CardDeckActivity extends AppCompatActivity {
             findViewById(R.id.buttontauschen).setVisibility(View.GONE);
             findViewById(R.id.buttonspielen).setVisibility(View.GONE);
             popupSwitchCards.dismiss();
-            view.updatenachtauschen();
+            view.updateAfterSwitchCards();
         });
     }
 
