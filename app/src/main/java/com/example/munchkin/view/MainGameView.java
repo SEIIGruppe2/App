@@ -152,11 +152,11 @@ public class MainGameView {
 
 
     public void displayCurrentPlayer(String currentPlayer) {
-
         mainGameActivity.runOnUiThread(() -> {
             TextView currentPlayerTextView = mainGameActivity.findViewById(R.id.Spieler);
-            currentPlayerTextView.setText("Spieler: " + (currentPlayer != null ? currentPlayer : "Unbekannt"));
-
+            String playerName = currentPlayer != null ? currentPlayer : mainGameActivity.getString(R.string.unknown_player);
+            String playerText = mainGameActivity.getString(R.string.current_player, playerName);
+            currentPlayerTextView.setText(playerText);
         });
     }
 
@@ -676,7 +676,7 @@ public class MainGameView {
         Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
 
         List<String> players = new ArrayList<>(usernamesWithPoints.keySet());
-        players.remove(gameController.currentPlayerp);
+        players.remove(gameController.currentPlayer);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mainGameActivity, android.R.layout.simple_spinner_item, players);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPlayers.setAdapter(adapter);
