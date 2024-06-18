@@ -2,7 +2,6 @@ package com.example.munchkin.messageformat;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -13,13 +12,13 @@ import java.lang.reflect.InvocationTargetException;
 class MessageFormatterTest {
 
     @Test
-    protected void testCreatePlayerAttackMessage() {
+    void testCreatePlayerAttackMessage() {
         String result = MessageFormatter.createPlayerAttackMessage("123", "Fireball");
         assertEquals("{\"type\":\"PLAYER_ATTACK\",\"monsterid\":\"123\",\"cardTypePlayed\":\"Fireball\"}", result);
     }
 
     @Test
-    protected void testCreateMonsterAttackMessage() {
+    void testCreateMonsterAttackMessage() {
         String result = MessageFormatter.createMonsterAttackMessage("1", "1");
         assertEquals("{\"type\":\"MONSTER_ATTACK\",\"monsterid\":\"1\",\"towerid\":\"1\"}", result);
     }
@@ -37,43 +36,43 @@ class MessageFormatterTest {
     }
 
     @Test
-    protected void testCreateDrawCardMessage() {
+    void testCreateDrawCardMessage() {
         String result = MessageFormatter.createDrawCardMessage();
         assertEquals("{\"type\":\"DRAW_CARD\"}", result);
     }
 
     @Test
-    protected void testRegisterUserMessage() {
+    void testRegisterUserMessage() {
         String result = MessageFormatter.registerUserMessage("Bob");
         assertEquals("{\"type\":\"REGISTER_USERNAME\",\"username\":\"Bob\"}", result);
     }
 
     @Test
-    protected void testCreateUsernameRequestMessage() {
+    void testCreateUsernameRequestMessage() {
         String result = MessageFormatter.createUsernameRequestMessage();
         assertEquals("{\"type\":\"REQUEST_USERNAMES\"}", result);
     }
 
     @Test
-    protected void testCreateSpawnMonsterMessage() {
+    void testCreateSpawnMonsterMessage() {
         String result = MessageFormatter.createSpawnMonsterMessage("North");
         assertEquals("{\"type\":\"SPAWN_MONSTER\",\"zone\":\"North\"}", result);
     }
 
     @Test
-    protected void testCreatePlayerRollDiceMessage() {
+    void testCreatePlayerRollDiceMessage() {
         String result = MessageFormatter.createPlayerRollDiceMessage();
         assertEquals("{\"type\":\"PLAYER_ROLL_DICE\"}", result);
     }
 
     @Test
-    protected void testCreateRequestRoundMessage() {
+    void testCreateRequestRoundMessage() {
         String result = MessageFormatter.createRequestRoundMessage();
         assertEquals("{\"type\":\"ROUND_COUNTER\"}", result);
     }
 
     @Test
-    protected void createEndTurnMessage() {
+    void createEndTurnMessage() {
         String currentturn = "Player1";
         String result = MessageFormatter.createEndTurnMessage(currentturn);
         assertEquals("{\"type\":\"END_TURN\",\"turn\":\"Player1\"}", result);
