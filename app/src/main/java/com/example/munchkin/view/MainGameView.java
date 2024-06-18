@@ -299,7 +299,7 @@ public class MainGameView {
         return (monster != null && String.valueOf(monster.getId()).equals(monsterId)) ? monster : null;
     }
 
-    private void updateMonsterHealth(Button button, MonsterDTO monster, int newLifePoints) {
+    private void manageMonsterHealth(Button button, MonsterDTO monster, int newLifePoints) {
         ButtonRotateView rotateView = buttonRotateViews.get(button);
         if (newLifePoints <= 0) {
             handleMonsterDeath(button, monster, rotateView);
