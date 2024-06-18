@@ -58,14 +58,14 @@ public class MainGameView {
     private final List<String> trophiesList = new ArrayList<>();
     ArrayAdapter<String> trophiesAdapter;
 
-    public MainGameView(MainGameActivity mainGameActivity) {
+    public MainGameView(MainGameActivity gameActivity) {
 
-        this.buttonEndRound = mainGameActivity.findViewById(R.id.buttonEndRound);
-        this.buttonCards = mainGameActivity.findViewById(R.id.buttonCards);
-        this.switchCheatMode = mainGameActivity.findViewById(R.id.switchCheatMode);
-        this.buttonAccuseCheater = mainGameActivity.findViewById(R.id.buttonAccuseCheater);
+        this.buttonEndRound = gameActivity.findViewById(R.id.buttonEndRound);
+        this.buttonCards = gameActivity.findViewById(R.id.buttonCards);
+        this.switchCheatMode = gameActivity.findViewById(R.id.switchCheatMode);
+        this.buttonAccuseCheater = gameActivity.findViewById(R.id.buttonAccuseCheater);
 
-
+        MainGameView.mainGameActivity = gameActivity;
         this.monsterZones = new ArrayList<>();
         initializeMonsterZones();
 
@@ -106,16 +106,16 @@ public class MainGameView {
                 R.id.button_knight4_spawn1, R.id.button_knight4_spawn2, R.id.button_knight4_spawn3,
                 R.id.button_swordsman4_spawn1, R.id.button_swordsman4_spawn2, R.id.button_swordsman4_spawn3);
 
-        towerButton = mainGameActivity.findViewById(R.id.tower);
+        towerButton = gameActivity.findViewById(R.id.tower);
         initializeTower();
         setupRotate(Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster));
 
-        ListView listTrophies = mainGameActivity.findViewById(R.id.listTrophies);
+        ListView listTrophies = gameActivity.findViewById(R.id.listTrophies);
         if (listTrophies == null) {
             Log.e(mainGameViewString, "listTrophies is null");
             return;
         }
-        this.trophiesAdapter = new ArrayAdapter<>(mainGameActivity, R.layout.list_item_text, trophiesList);
+        this.trophiesAdapter = new ArrayAdapter<>(gameActivity, R.layout.list_item_text, trophiesList);
         listTrophies.setAdapter(trophiesAdapter);
 
         setUI();
