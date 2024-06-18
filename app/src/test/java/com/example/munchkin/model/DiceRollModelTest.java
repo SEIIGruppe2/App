@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 class DiceRollModelTest {
 
     @Test
-    protected void testRollDice() throws InterruptedException {
+    void testRollDice() throws InterruptedException {
         DiceRollModel.DiceRollCallback mockCallback = mock(DiceRollModel.DiceRollCallback.class);
         DiceRollModel model = new DiceRollModel();
         CountDownLatch latch = new CountDownLatch(1);
