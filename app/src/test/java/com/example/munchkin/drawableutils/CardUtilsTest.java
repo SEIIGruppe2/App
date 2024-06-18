@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CardUtilsTest {
 
     @Test
-    protected void testGetResources() {
+    void testGetResources() {
         List<ActionCardDTO> cards = Arrays.asList(
                 new ActionCardDTO("Bogenschütze", 1, 1),
                 new ActionCardDTO("Schwertkämpfer", 2, 2),
@@ -23,12 +23,12 @@ class CardUtilsTest {
     }
 
     @Test
-    protected void testGetResourcesWithEmptyList() {
+    void testGetResourcesWithEmptyList() {
         assertEquals(0, CardUtils.getresources(Collections.emptyList()).length);
     }
 
     @Test
-    protected void testGetCharacter() {
+    void testGetCharacter() {
         assertEquals("bogenschuetze", CardUtils.getcharacter("Bogenschütze"));
         assertEquals("schwertkaempfer", CardUtils.getcharacter("Schwertkämpfer"));
         assertEquals("held", CardUtils.getcharacter("Held"));
@@ -38,7 +38,7 @@ class CardUtilsTest {
     }
 
     @Test
-    protected void testGetZone() {
+    void testGetZone() {
         assertEquals("roter", CardUtils.getzone(1));
         assertEquals("blauer", CardUtils.getzone(2));
         assertEquals("gruener", CardUtils.getzone(3));
