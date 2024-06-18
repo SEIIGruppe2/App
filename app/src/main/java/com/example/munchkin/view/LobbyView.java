@@ -14,7 +14,7 @@ import com.example.munchkin.controller.LobbyController;
 public class LobbyView {
 
     LobbyActivity lobbyActivity;
-    public TextView[] textViewArray = new TextView[4];
+    public static final TextView[] textViewArray = new TextView[4];
     public LobbyView( LobbyActivity lobbyActivity){
         this.lobbyActivity= lobbyActivity;
 
