@@ -8,7 +8,7 @@ import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.player.PlayerHand;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.model.WebSocketClientModel;
-import com.example.munchkin.view.CarddeckView;
+import com.example.munchkin.view.CardDeckView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,10 +20,10 @@ public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
     public static PlayerHand playerHand = new PlayerHand();
-    private static CarddeckView carddeckView;
+    private static CardDeckView carddeckView;
 
 
-    public CardDeckController(WebSocketClientModel model, CarddeckView carddeckView) {
+    public CardDeckController(WebSocketClientModel model, CardDeckView carddeckView) {
         super(model);
         websocket=model;
         CardDeckController.carddeckView = carddeckView;
@@ -108,7 +108,7 @@ public class CardDeckController extends BaseController {
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
             ActionCardDTO karte = new ActionCardDTO(name, zone,id);
             playerHand.addCard(karte);
-            carddeckView.updatescreen();
+            carddeckView.updateScreen();
 
         }
         catch (JSONException e) {
