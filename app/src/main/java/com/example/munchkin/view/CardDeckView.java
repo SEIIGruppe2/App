@@ -52,12 +52,12 @@ public class CardDeckView {
         else {
             buttonGoBack.setOnClickListener(v -> cardDeckActivity.goBack());
         }
-        String[] handCards = CardUtils.getresources(cardDeckActivity.handCards);
+        String[] handCards = CardUtils.getresources(cardDeckActivity.getHandCards());
         fillCards(handCards);
     }
 
     public void updateAfterSwitchCards(){
-        String[] handCards = CardUtils.getresources(cardDeckActivity.handCards);
+        String[] handCards = CardUtils.getresources(cardDeckActivity.getHandCards());
         for(String a:handCards){
             Log.d("updatenachTauschen", a);
         }
@@ -115,7 +115,7 @@ public class CardDeckView {
             LinearLayout.LayoutParams layoutParamsCardImage = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     pixelValueImage);
             cardImage.setImageResource(cardDeckActivity.getImageResource(filler));
-            String id = String.valueOf(cardDeckActivity.handCards.get(i).getId());
+            String id = String.valueOf(cardDeckActivity.getHandCards().get(i).getId());
             cardImage.setTag(filler);
             cardImage.setLayoutParams(layoutParamsCardImage);
             cardDescription.addView(cardImage);
@@ -153,20 +153,20 @@ public class CardDeckView {
 
     public void onCardClickPassive(CardView card){
 
-        if (card == CardDeckActivity.selectedCard) {
-            changeCardView(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
-            CardDeckActivity.selectedCard = null;
+        if (card == CardDeckActivity.getSelectedCard()) {
+            changeCardView(CardDeckActivity.getSelectedCard(), 125f,200f,16,16,12);
+            CardDeckActivity.setSelectedCard(null);
             card.setForeground(cardDeckActivity.getCardForeground());
             buttonSwitchCards.setVisibility(View.GONE);
         } else {
 
-            if (CardDeckActivity.selectedCard != null) {
-                changeCardView(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
-                CardDeckActivity.selectedCard.setForeground(cardDeckActivity.getCardForeground());
+            if (CardDeckActivity.getSelectedCard() != null) {
+                changeCardView(CardDeckActivity.getSelectedCard(), 125f,200f,16,16,12);
+                CardDeckActivity.getSelectedCard().setForeground(cardDeckActivity.getCardForeground());
             }
             changeCardView(card, 155f,250f,20,20,15);
             card.setForeground(cardDeckActivity.getYellowBorder());
-            CardDeckActivity.selectedCard = card;
+            CardDeckActivity.setSelectedCard(card);
             buttonSwitchCards.setOnClickListener((v -> cardDeckActivity.passiveSwitchCards()));
             buttonSwitchCards.setVisibility(View.VISIBLE);
         }
@@ -174,23 +174,23 @@ public class CardDeckView {
 
     public void onCardClick(CardView card){
 
-        if (card == CardDeckActivity.selectedCard) {
-            changeCardView(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
-            CardDeckActivity.selectedCard = null;
+        if (card == CardDeckActivity.getSelectedCard()) {
+            changeCardView(CardDeckActivity.getSelectedCard(), 125f,200f,16,16,12);
+            CardDeckActivity.setSelectedCard(null);
             card.setForeground(cardDeckActivity.getCardForeground());
             buttonPlay.setVisibility(View.GONE);
             buttonSwitchCards.setVisibility(View.GONE);
         } else {
 
-            if (CardDeckActivity.selectedCard != null) {
-                changeCardView(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
-                CardDeckActivity.selectedCard.setForeground(cardDeckActivity.getCardForeground());
+            if (CardDeckActivity.getSelectedCard() != null) {
+                changeCardView(CardDeckActivity.getSelectedCard(), 125f,200f,16,16,12);
+                CardDeckActivity.getSelectedCard().setForeground(cardDeckActivity.getCardForeground());
             }
             changeCardView(card, 155f,250f,20,20,15);
             card.setForeground(cardDeckActivity.getYellowBorder());
-            CardDeckActivity.selectedCard = card;
+            CardDeckActivity.setSelectedCard(card);
             buttonPlay.setVisibility(View.VISIBLE);
-            if(!CardDeckActivity.switchDone){
+            if(!CardDeckActivity.isSwitchDone()){
             buttonSwitchCards.setVisibility(View.VISIBLE);}
         }
     }
