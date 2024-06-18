@@ -146,8 +146,8 @@ public class MainGameView {
     }
 
 
-    public void addtoList(ActionCardDTO karte){
-        mainGameActivity.addcardtolist(karte);
+    public void addToList(ActionCardDTO card){
+        mainGameActivity.addcardtolist(card);
     }
 
 
@@ -491,7 +491,7 @@ public class MainGameView {
         }
     }
     public static void showMonster(){
-        disableforMonsters();
+        disableForMonsters();
         List<List<Button>> zones = Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster);
         for (List<Button> zone : zones) {
 
@@ -502,12 +502,12 @@ public class MainGameView {
                     int tagFromMonster = monster.getId();
 
 
-                    if(checkifitsinlist(tagFromMonster)) {
+                    if(checkIfItsInList(tagFromMonster)) {
 
                         b.setOnClickListener(v -> {
 
                             mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
-                            mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandcards());
+                            mainGameActivity.sendCardAttackMonsterMessage(String.valueOf(tagFromMonster), removeCardFromHandCards());
                             mainGameActivity.sendPlayerTrophiesRequest();
                         });
                     }else{
@@ -519,45 +519,45 @@ public class MainGameView {
         }
     }
 
-    public static String removeCardFromHandcards(){
-        CardView currentcard = CarddeckActivity.selectedCard;
-        LinearLayout getkardname = (LinearLayout) currentcard.getChildAt(0);
-        TextView gettag = (TextView)  getkardname.getChildAt(2);
-        String cardId = (String) gettag.getTag();
-        ActionCardDTO toremove = new ActionCardDTO();
+    public static String removeCardFromHandCards(){
+        CardView currentCard = CarddeckActivity.selectedCard;
+        LinearLayout getCardName = (LinearLayout) currentCard.getChildAt(0);
+        TextView getTag = (TextView)  getCardName.getChildAt(2);
+        String cardId = (String) getTag.getTag();
+        ActionCardDTO toRemove = new ActionCardDTO();
         for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
             if(a.getId() == Integer.parseInt(cardId)){
-                toremove=a;
+                toRemove=a;
             }
         }
-        CardDeckController.playerHand.removeCard(toremove);
+        CardDeckController.playerHand.removeCard(toRemove);
         return cardId;
     }
 
 
-    private static void disableforMonsters(){
+    private static void disableForMonsters(){
         mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.GONE);
         mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.GONE);
         mainGameActivity.findViewById(R.id.stop).setVisibility(View.VISIBLE);
         mainGameActivity.findViewById(R.id.stop).setOnClickListener(v -> {
 
 
-            showallMonsters();
+            showAllMonsters();
             MainGameActivity.monsterList=new ArrayList<>();
             mainGameActivity.transitionToCardDeckscreen();
-            enableforMonsters();
+            enableForMonsters();
 
         });
 
     }
 
-    private static void enableforMonsters(){
+    private static void enableForMonsters(){
         mainGameActivity.findViewById(R.id.buttonEndRound).setVisibility(View.VISIBLE);
         mainGameActivity.findViewById(R.id.buttonCards).setVisibility(View.VISIBLE);
         mainGameActivity.findViewById(R.id.stop).setVisibility(View.GONE);
 
     }
-    private static boolean checkifitsinlist(int id) {
+    private static boolean checkIfItsInList(int id) {
 
         for (String m : MainGameActivity.monsterList) {
             if (id == Integer.parseInt(m)) {
@@ -570,35 +570,35 @@ public class MainGameView {
 
 
 
-    public void tauschanfrageerhalten(JSONObject message) throws JSONException {
+    public void tauschanfrageErhalten(JSONObject message) throws JSONException {
 
         int id = Integer.parseInt(message.getString("id"));
         String name = message.getString("name");
         int zone = Integer.parseInt(message.getString("zone"));
         ActionCardDTO karte = new ActionCardDTO(name, zone,id);
         Log.d("Karte in tauschenAnfrageErhalten",karte.getName());
-        View popupdrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
+        View popupDrawable = mainGameActivity.getLayoutInflater().inflate(R.layout.popuptauschenanfrage, null);
 
 
         mainGameActivity.runOnUiThread(() -> {
             int width = ViewGroup.LayoutParams.WRAP_CONTENT;
             int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            PopupWindow popuptauschanfrage = new PopupWindow(popupdrawable,width,height,true);
-            popuptauschanfrage.setOutsideTouchable(false);
-            popuptauschanfrage.setElevation(10);
-            popuptauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
+            PopupWindow popupTauschanfrage = new PopupWindow(popupDrawable,width,height,true);
+            popupTauschanfrage.setOutsideTouchable(false);
+            popupTauschanfrage.setElevation(10);
+            popupTauschanfrage.showAtLocation(mainGameActivity.getWindow().getDecorView().getRootView(), Gravity.CENTER,0,0);
 
-            mainGameActivity.dimmwindow(popuptauschanfrage);
-            Button ok = popupdrawable.findViewById(R.id.ok);
+            mainGameActivity.dimmwindow(popupTauschanfrage);
+            Button ok = popupDrawable.findViewById(R.id.ok);
 
             ok.setOnClickListener(v -> {
-                popuptauschanfrage.dismiss();
+                popupTauschanfrage.dismiss();
                 mainGameActivity.gehezuhandkarten(message);
             });
         });
 
     }
-    public static void showallMonsters() {
+    public static void showAllMonsters() {
         List<List<Button>> zones = Arrays.asList(zone1monster, zone2monster, zone3monster, zone4monster);
 
         for (Map.Entry<Integer, MonsterDTO> entry : monsterManager.activeMonsters.entrySet()) {
@@ -640,8 +640,8 @@ public class MainGameView {
 
     private void updateGameView(){
         if(gameController.currentPlayer()){
-            enableforMonsters();
-            showallMonsters();
+            enableForMonsters();
+            showAllMonsters();
         }
     }
     public void updateMonstersView(String monsterId) {
