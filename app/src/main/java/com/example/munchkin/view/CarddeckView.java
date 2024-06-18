@@ -15,7 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import com.example.munchkin.drawableutils.CardUtils;
 import com.example.munchkin.R;
-import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.CardDeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +27,11 @@ public class CarddeckView {
     Button tauschen;
     Button zurueck;
 
-    private CarddeckActivity carddeckActivity;
+    private CardDeckActivity carddeckActivity;
     public ArrayList<String> usernames = new ArrayList<>(Arrays.asList("Buenos Aires", "Córdoba", "La Plata"));
 
 
-    public CarddeckView(CarddeckActivity carddeckActivity){
+    public CarddeckView(CardDeckActivity carddeckActivity){
         this.carddeckActivity=carddeckActivity;
             setupUI();
     }
@@ -47,16 +47,16 @@ public class CarddeckView {
 
 
         tauschen = carddeckActivity.findViewById(R.id.buttontauschen);
-        tauschen.setOnClickListener(v -> carddeckActivity.tauschen());
+        tauschen.setOnClickListener(v -> carddeckActivity.switchCards());
 
         zurueck = carddeckActivity.findViewById(R.id.buttonzurueck1);
-        if(CarddeckActivity.passivmode==1){
+        if(CardDeckActivity.passiveMode ==1){
             zurueck.setVisibility(View.GONE);
         }
         else {
-            zurueck.setOnClickListener(v -> carddeckActivity.zurueck());
+            zurueck.setOnClickListener(v -> carddeckActivity.goBack());
         }
-        String[] handcards = CardUtils.getresources(carddeckActivity.handkarten);
+        String[] handcards = CardUtils.getresources(carddeckActivity.handCards);
         fillcards(handcards);
 
 
@@ -64,7 +64,7 @@ public class CarddeckView {
     }
 
     public void updatenachtauschen(){
-        String[] handcrads = CardUtils.getresources(carddeckActivity.handkarten);
+        String[] handcrads = CardUtils.getresources(carddeckActivity.handCards);
         for(String a:handcrads){
             Log.d("updatenachTauschen", a);
         }
@@ -81,7 +81,7 @@ public class CarddeckView {
             CardView cards = new CardView(carddeckActivity);
             float dpValue = 125f;
             float dpValue2 = 200f;
-            float density = carddeckActivity.getdensity();
+            float density = carddeckActivity.getDensity();
             int pixelValue1 = (int) (dpValue * density);
             int pixelValue2 = (int) (dpValue2 * density);
 
@@ -90,7 +90,7 @@ public class CarddeckView {
 
             layoutParamscards.setMargins(16,16,16,16);
             cards.setLayoutParams(layoutParamscards);
-            cards.setForeground(carddeckActivity.getcardforeground());
+            cards.setForeground(carddeckActivity.getCardForeground());
             float radius = 23f;
             int pixelValueradius = (int) (radius * density);
             cards.setRadius(pixelValueradius);
@@ -114,8 +114,8 @@ public class CarddeckView {
             String kartenname1 = filler+"1";
 
 
-            kartenname.setText(carddeckActivity.getstringressource(kartenname1));
-            kartenname.setTextColor(carddeckActivity.getblackcolour());
+            kartenname.setText(carddeckActivity.getStringResource(kartenname1));
+            kartenname.setTextColor(carddeckActivity.getBlackColour());
             kartenname.setTextSize(16);
             kartenname.setGravity(Gravity.CENTER);
             kartenname.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -127,8 +127,8 @@ public class CarddeckView {
             int pixelValueimage = (int) (dpvalueimage * density);
             LinearLayout.LayoutParams layoutParamskartenbild = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,
                     pixelValueimage);
-            kartenbild.setImageResource(carddeckActivity.getimageressource(filler));
-            String id = String.valueOf(carddeckActivity.handkarten.get(i).getId());
+            kartenbild.setImageResource(carddeckActivity.getImageResource(filler));
+            String id = String.valueOf(carddeckActivity.handCards.get(i).getId());
             kartenbild.setTag(filler);
             kartenbild.setLayoutParams(layoutParamskartenbild);
             karteninhalt.addView(kartenbild);
@@ -138,8 +138,8 @@ public class CarddeckView {
                     ViewGroup.LayoutParams.MATCH_PARENT);
 
             String kartenbeschreibung2 = filler+"2";
-            kartenbeschreibung.setText(carddeckActivity.getstringressource(kartenbeschreibung2));
-            kartenbeschreibung.setTextColor(carddeckActivity.getblackcolour());
+            kartenbeschreibung.setText(carddeckActivity.getStringResource(kartenbeschreibung2));
+            kartenbeschreibung.setTextColor(carddeckActivity.getBlackColour());
             kartenbeschreibung.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             kartenbeschreibung.setTag(id);
             kartenbeschreibung.setTextSize(12);
@@ -153,7 +153,7 @@ public class CarddeckView {
 
 
             cards.setOnClickListener((v -> {
-                if(CarddeckActivity.passivmode == 1){
+                if(CardDeckActivity.passiveMode == 1){
                     oncardclickpassive(cards);
                 }else{
                     oncardclick(cards);
@@ -168,21 +168,21 @@ public class CarddeckView {
 
     public void oncardclickpassive(CardView card){
 
-        if (card == CarddeckActivity.selectedCard) {
-            changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
-            CarddeckActivity.selectedCard = null;
-            card.setForeground(carddeckActivity.getcardforeground());
+        if (card == CardDeckActivity.selectedCard) {
+            changecardview(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
+            CardDeckActivity.selectedCard = null;
+            card.setForeground(carddeckActivity.getCardForeground());
             tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
-            if (CarddeckActivity.selectedCard != null) {
-                changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
-                CarddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
+            if (CardDeckActivity.selectedCard != null) {
+                changecardview(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
+                CardDeckActivity.selectedCard.setForeground(carddeckActivity.getCardForeground());
             }
             changecardview(card, 155f,250f,20,20,15);
-            card.setForeground(carddeckActivity.getyellowborder());
-            CarddeckActivity.selectedCard = card;
-            tauschen.setOnClickListener((v -> carddeckActivity.passivetauschen()));
+            card.setForeground(carddeckActivity.getYellowBorder());
+            CardDeckActivity.selectedCard = card;
+            tauschen.setOnClickListener((v -> carddeckActivity.passiveSwitchCards()));
             tauschen.setVisibility(View.VISIBLE);
         }
     }
@@ -190,30 +190,30 @@ public class CarddeckView {
     public void oncardclick(CardView card){
 
 
-        if (card == CarddeckActivity.selectedCard) {
-            changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
-            CarddeckActivity.selectedCard = null;
-            card.setForeground(carddeckActivity.getcardforeground());
+        if (card == CardDeckActivity.selectedCard) {
+            changecardview(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
+            CardDeckActivity.selectedCard = null;
+            card.setForeground(carddeckActivity.getCardForeground());
             spielen.setVisibility(View.GONE);
             tauschen.setVisibility(View.GONE);// Setze die ausgewählte Karte zurück
         } else {
 
-            if (CarddeckActivity.selectedCard != null) {
-                changecardview(CarddeckActivity.selectedCard, 125f,200f,16,16,12);
-                CarddeckActivity.selectedCard.setForeground(carddeckActivity.getcardforeground());
+            if (CardDeckActivity.selectedCard != null) {
+                changecardview(CardDeckActivity.selectedCard, 125f,200f,16,16,12);
+                CardDeckActivity.selectedCard.setForeground(carddeckActivity.getCardForeground());
             }
             changecardview(card, 155f,250f,20,20,15);
-            card.setForeground(carddeckActivity.getyellowborder());
-            CarddeckActivity.selectedCard = card;
+            card.setForeground(carddeckActivity.getYellowBorder());
+            CardDeckActivity.selectedCard = card;
             spielen.setVisibility(View.VISIBLE);
-            if(!carddeckActivity.switchdone){
+            if(!carddeckActivity.switchDone){
             tauschen.setVisibility(View.VISIBLE);}// Setze die ausgewählte Karte
         }
     }
 
     public void changecardview(CardView card, float layoutparam1, float layoutparam2, int margin, int textsizekartenname, int textsizekartenbeschreibung){
 
-        float density = carddeckActivity.getdensity();
+        float density = carddeckActivity.getDensity();
         int pixelValue1 = (int) (layoutparam1 * density);
         int pixelValue2 = (int) (layoutparam2 * density);
 
@@ -229,7 +229,7 @@ public class CarddeckView {
     }
 
     public void updatescreen() {
-        carddeckActivity.runOnUiThread(() -> carddeckActivity.updatepopupwindow());
+        carddeckActivity.runOnUiThread(() -> carddeckActivity.updatePopUpWindow());
     }
 
     public void startMonsterAttack(){

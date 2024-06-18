@@ -20,7 +20,7 @@ import androidx.cardview.widget.CardView;
 import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.dto.MonsterDTO;
 import com.example.munchkin.dto.TowerDTO;
-import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.CardDeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 import com.example.munchkin.R;
 import com.example.munchkin.controller.CardDeckController;
@@ -521,7 +521,7 @@ public class MainGameView {
     }
 
     public static String removeCardFromHandCards(){
-        CardView currentCard = CarddeckActivity.selectedCard;
+        CardView currentCard = CardDeckActivity.selectedCard;
         LinearLayout getCardName = (LinearLayout) currentCard.getChildAt(0);
         TextView getTag = (TextView)  getCardName.getChildAt(2);
         String cardId = (String) getTag.getTag();
