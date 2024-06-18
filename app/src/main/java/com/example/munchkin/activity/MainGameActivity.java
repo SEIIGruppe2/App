@@ -44,7 +44,7 @@ public class MainGameActivity extends AppCompatActivity {
 
     private DrawCardController drawCardController;
 
-    private PlayerHand handkarten;
+    private PlayerHand handCards;
 
 
     public static ArrayList<String>  monsterList = new ArrayList<>();
@@ -90,7 +90,7 @@ public class MainGameActivity extends AppCompatActivity {
 
         mainGameView.setGameController(gameController);
 
-        this.handkarten = new PlayerHand();
+        this.handCards = new PlayerHand();
 
         MessageRouter router = new MessageRouter();
         router.registerController("PLAYER_ATTACK", gameController);
@@ -115,14 +115,14 @@ public class MainGameActivity extends AppCompatActivity {
 
 
     public void sendMessage() {
-        drawCardController.drawMeassage();
+        drawCardController.drawMessage();
     }
 
-    public void addcardtolist(ActionCardDTO karte){
-        handkarten.addCard(karte);
+    public void addCardToList(ActionCardDTO card){
+        handCards.addCard(card);
     }
 
-    public void transitionToCardDeckscreen() {
+    public void transitionToCardDeckScreen() {
         Intent intent = new Intent(this, CarddeckActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
@@ -130,7 +130,7 @@ public class MainGameActivity extends AppCompatActivity {
 
 
 
-    public void dimmwindow(PopupWindow popup){
+    public void dimWindow(PopupWindow popup){
         View container = (View) popup.getContentView().getParent();
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
@@ -139,14 +139,13 @@ public class MainGameActivity extends AppCompatActivity {
         p.dimAmount = 0.3f;
         wm.updateViewLayout(container, p);
     }
-    public void gehezuhandkarten(JSONObject messagefromserver){
+    public void goToHandCards(JSONObject messageFromServer){
         Bundle b = new Bundle();
-        b.putString("key", messagefromserver.toString()); //Your id
-        //
-        Intent handcards = new Intent(this, CarddeckActivity.class);
-        handcards.putExtras(b);
+        b.putString("key", messageFromServer.toString());
+        Intent handCards = new Intent(this, CarddeckActivity.class);
+        handCards.putExtras(b);
         CarddeckActivity.passivmode=1;
-        startActivity(handcards);
+        startActivity(handCards);
 
     }
 
