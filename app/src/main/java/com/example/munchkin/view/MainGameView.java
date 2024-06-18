@@ -65,7 +65,7 @@ public class MainGameView {
         this.switchCheatMode = gameActivity.findViewById(R.id.switchCheatMode);
         this.buttonAccuseCheater = gameActivity.findViewById(R.id.buttonAccuseCheater);
 
-        MainGameView.mainGameActivity = gameActivity;
+        mainGameActivity = gameActivity;
         this.monsterZones = new ArrayList<>();
         initializeMonsterZones();
 
