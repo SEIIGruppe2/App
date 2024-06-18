@@ -2,6 +2,7 @@ package com.example.munchkin.view;
 
 import static com.example.munchkin.controller.GameController.usernamesWithPoints;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,25 +36,26 @@ import java.util.Map;
 
 public class MainGameView {
     private static MainGameActivity mainGameActivity;
-    private Button buttonAccuseCheater;
-    private Button buttonCards;
-    private Button buttonEndRound;
-    private Switch switchCheatMode;
-    private static List<Button> zone1monster = new ArrayList<>();
-    private static List<Button> zone2monster = new ArrayList<>();
-    private static List<Button> zone3monster = new ArrayList<>();
-    private static List<Button> zone4monster = new ArrayList<>();
+    private final Button buttonAccuseCheater;
+    private final Button buttonCards;
+    private final Button buttonEndRound;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private final Switch switchCheatMode;
+    private static final List<Button> zone1monster = new ArrayList<>();
+    private static final List<Button> zone2monster = new ArrayList<>();
+    private static final List<Button> zone3monster = new ArrayList<>();
+    private static final List<Button> zone4monster = new ArrayList<>();
     static MonsterManager monsterManager = new MonsterManager();
     private GameController gameController;
-    private List<ArrayList<MonsterDTO>> monsterZones;
-    private Button[] allPlayerButtons;
-    private Button towerButton;
-    private Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
-    private HashMap<String, Integer> trophiesMap = new HashMap<>();
+    private final List<ArrayList<MonsterDTO>> monsterZones;
+    private final Button[] allPlayerButtons;
+    private final Button towerButton;
+    private final Map<Button, ButtonRotateView> buttonRotateViews = new HashMap<>();
+    private final HashMap<String, Integer> trophiesMap = new HashMap<>();
     private static final String mainGameViewString = "MainGameView";
 
 
-    private List<String> trophiesList = new ArrayList<>();
+    private final List<String> trophiesList = new ArrayList<>();
     ArrayAdapter<String> trophiesAdapter;
 
     public MainGameView(MainGameActivity mainGameActivity) {
@@ -288,7 +290,7 @@ public class MainGameView {
         for (Button button : zone) {
             MonsterDTO monster = getMonsterFromButton(button, monsterId);
             if (monster != null) {
-                updateMonsterHealth(button, monster, newLifePoints);
+                manageMonsterHealth(button, monster, newLifePoints);
                 break;
             }
         }
