@@ -416,7 +416,7 @@ public class MainGameView {
         return button.getVisibility() == View.GONE;
     }
 
-    public void initializeUsernamesWithPoints(HashMap<String, Integer> usernamesWithPoints) {
+    public void initializeUsernamesWithPoints(Map<String, Integer> usernamesWithPoints) {
         for (Map.Entry<String, Integer> entry : usernamesWithPoints.entrySet()) {
             updateListTrophies(entry.getKey(), entry.getValue());
         }
