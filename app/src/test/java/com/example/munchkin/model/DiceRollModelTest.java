@@ -2,16 +2,13 @@ package com.example.munchkin.model;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.MockedStatic;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-import com.example.munchkin.interfaces.DiceRollCallback;
 
 class DiceRollModelTest {
 
