@@ -16,7 +16,7 @@ public class LobbyController extends BaseController{
     private WebSocketClientModel clientModel;
     private LobbyView lobbyView;
 
-    public static String[] usernames;
+    private static String[] usernames;
 
     public LobbyController(WebSocketClientModel model, LobbyView lobbyView) {
         super(model);
@@ -48,7 +48,7 @@ public class LobbyController extends BaseController{
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
                 //TODO change
-                usernames[i]=username;
+                getUsernames()[i]=username;
 
             }
             if(usernamesArray.length()==4){
@@ -68,9 +68,9 @@ public class LobbyController extends BaseController{
         clientModel.sendMessageToServer(message);
     }
 
-
-
-
+    public static String[] getUsernames() {
+        return usernames;
+    }
 
 
 }
