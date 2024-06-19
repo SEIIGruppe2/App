@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CardDeckController extends BaseController {
 
     WebSocketClientModel websocket;
-    public static PlayerHand playerHand = new PlayerHand();
+    private static PlayerHand playerHand = new PlayerHand();
     private static CardDeckView carddeckView;
 
 
@@ -148,13 +148,16 @@ public class CardDeckController extends BaseController {
                 monsterList.add(monsterIdArray.getString(i));
 
             }
-            MainGameActivity.monsterList = monsterList;
+            MainGameActivity.setMonsterList(monsterList);
             carddeckView.startMonsterAttack();
         }
         catch (JSONException e) {
         throw new IllegalArgumentException("Fehler bei handleShowMonsters/Cardddeckcontroller");
     }
 
+    }
+    public static PlayerHand getPlayerHand() {
+        return playerHand;
     }
 
 }

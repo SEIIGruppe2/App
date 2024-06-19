@@ -29,6 +29,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.munchkin.controller.SpawnMonsterController;
 import com.example.munchkin.view.DiceRollView;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainGameActivity extends AppCompatActivity {
@@ -47,7 +48,8 @@ public class MainGameActivity extends AppCompatActivity {
     private PlayerHand handCards;
 
 
-    public static ArrayList<String>  monsterList = new ArrayList<>();
+    private static List<String> monsterList = new ArrayList<>();
+
 
 
     @Override
@@ -206,6 +208,12 @@ public class MainGameActivity extends AppCompatActivity {
         });
 
     }
+    public static List<String> getMonsterList() {
+        return monsterList;
+    }
 
+    public static void setMonsterList(List<String> monsterList) {
+        MainGameActivity.monsterList = monsterList;
+    }
 
 }

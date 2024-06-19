@@ -1,6 +1,6 @@
 package com.example.munchkin.view;
 
-import static com.example.munchkin.controller.GameController.usernamesWithPoints;
+import static com.example.munchkin.controller.GameController.getUsernamesWithPoints;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
@@ -132,7 +132,7 @@ public class MainGameView {
         }
     }
     public void setUI() {
-        initializeUsernamesWithPoints(usernamesWithPoints);
+        initializeUsernamesWithPoints(getUsernamesWithPoints());
         mainGameActivity.runOnUiThread(this::disablePlayerAction);
 
         buttonEndRound.setOnClickListener(v -> gameController.endTurn());
@@ -526,12 +526,12 @@ public class MainGameView {
         TextView getTag = (TextView)  getCardName.getChildAt(2);
         String cardId = (String) getTag.getTag();
         ActionCardDTO toRemove = new ActionCardDTO();
-        for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
+        for(ActionCardDTO a:  CardDeckController.getPlayerHand().getCards()){
             if(a.getId() == Integer.parseInt(cardId)){
                 toRemove=a;
             }
         }
-        CardDeckController.playerHand.removeCard(toRemove);
+        CardDeckController.getPlayerHand().removeCard(toRemove);
         return cardId;
     }
 
@@ -544,7 +544,7 @@ public class MainGameView {
 
 
             showAllMonsters();
-            MainGameActivity.monsterList=new ArrayList<>();
+            MainGameActivity.setMonsterList(new ArrayList<>());
             mainGameActivity.transitionToCardDeckScreen();
             enableForMonsters();
 
@@ -560,7 +560,7 @@ public class MainGameView {
     }
     private static boolean checkIfItsInList(int id) {
 
-        for (String m : MainGameActivity.monsterList) {
+        for (String m : MainGameActivity.getMonsterList()) {
             if (id == Integer.parseInt(m)) {
                 return true;
             }
@@ -676,7 +676,7 @@ public class MainGameView {
         Button buttonAccuse = popupView.findViewById(R.id.buttonAccuseCheater);
         Button buttonCancel = popupView.findViewById(R.id.buttonCancel);
 
-        List<String> players = new ArrayList<>(usernamesWithPoints.keySet());
+        List<String> players = new ArrayList<>(getUsernamesWithPoints().keySet());
         players.remove(gameController.getCurrentPlayer());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(mainGameActivity, android.R.layout.simple_spinner_item, players);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

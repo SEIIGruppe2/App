@@ -93,7 +93,7 @@ public class CardDeckActivity extends AppCompatActivity {
                 int zone = Integer.parseInt(message.getString("zone"));
                 ActionCardDTO cards = new ActionCardDTO(name, zone,id);
                 usernameToSwitchWith = message.getString("switchedWith");
-                CardDeckController.playerHand.addCard(cards);
+                CardDeckController.getPlayerHand().addCard(cards);
 
             } catch (JSONException e) {
                 throw new IllegalArgumentException(e);

@@ -37,8 +37,8 @@ public class LobbyView {
         lobbyActivity.runOnUiThread((() -> {
 
             for(int i=0; i< 4;i++) {
-                if (LobbyController.usernames[i] != null) {
-                    textViewArray[i].setText("Spieler " + (i + 1) + ": " + LobbyController.usernames[i]);
+                if (LobbyController.getUsernames()[i] != null) {
+                    textViewArray[i].setText("Spieler " + (i + 1) + ": " + LobbyController.getUsernames()[i]);
 
                 } else {
                     textViewArray[i].setText("Spieler " + (i + 1) + ": ");
