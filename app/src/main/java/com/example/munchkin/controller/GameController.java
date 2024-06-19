@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.player.Player;
 
-import com.example.munchkin.activity.CarddeckActivity;
+import com.example.munchkin.activity.CardDeckActivity;
 import com.example.munchkin.activity.MainGameActivity;
 
 import com.example.munchkin.interfaces.DiceRollCallback;
@@ -31,22 +31,22 @@ import com.example.munchkin.game.AppState;
 
 public class GameController extends BaseController implements DiceRollListener, GameEventHandler {
 
-    private static boolean gameEndet = false;
-    public String currentPlayerp;
+    private static boolean gameEnded = false;
+    private String currentPlayer;
     private static String roundCounter="0";
-    private MainGameView maingameView;
+    private final MainGameView mainGameView;
     private boolean diceRolledThisRound = false;
-    public boolean cheatMode = false;
-    private SpawnMonsterController spawnMonsterController;
-    private MainGameActivity mainGameActivity;
-    private static String clientplayerUsername = AppState.getInstance().getCurrentUser();
+    private boolean cheatMode = false;
+    private final SpawnMonsterController spawnMonsterController;
+    private final MainGameActivity mainGameActivity;
+    private static final String CLIENT_PLAYER_USERNAME = AppState.getInstance().getCurrentUser();
     public static HashMap<String, Integer> usernamesWithPoints = new HashMap<>();
 
-    private static  List<String> playerusernames = new ArrayList<>();
+    private static final List<String> PLAYER_USERNAMES = new ArrayList<>();
 
-    public GameController(WebSocketClientModel model, MainGameView maingameView, SpawnMonsterController spawnMonsterController,MainGameActivity mainGameActivity) {
+    public GameController(WebSocketClientModel model, MainGameView mainGameView, SpawnMonsterController spawnMonsterController, MainGameActivity mainGameActivity) {
         super(model);
-        this.maingameView = maingameView;
+        this.mainGameView = mainGameView;
         this.spawnMonsterController = spawnMonsterController;
         this.mainGameActivity = mainGameActivity;
 
@@ -64,7 +64,7 @@ public class GameController extends BaseController implements DiceRollListener, 
                     handleMonsterAttackMessage(jsonResponse);
                     break;
                 case "SWITCH_CARD_PLAYER_RESPONSE1":
-                    handleswitchrequest(jsonResponse);
+                    handleSwitchRequest(jsonResponse);
                     break;
                 case "CURRENT_PLAYER":
                     handleCurrentPlayer(jsonResponse);
@@ -93,7 +93,7 @@ public class GameController extends BaseController implements DiceRollListener, 
         try{
             String monsterId = jsonObject.getString("monsterid");
             int lifepoints = jsonObject.getInt("lifepoints");
-            maingameView.updateMonsterList(monsterId, lifepoints);
+            mainGameView.updateMonsterList(monsterId, lifepoints);
 
         } catch (JSONException e) {
             Log.e("GameController1", "Error parsing monster attack message", e);
@@ -111,7 +111,7 @@ public class GameController extends BaseController implements DiceRollListener, 
     public void endTurn() {
         Log.d("GameController3", "End of turn for: test " );
 
-        maingameView.disablePlayerAction();
+        mainGameView.disablePlayerAction();
         diceRolledThisRound=false;
 
         Log.d("GameController4", "End of turn for: test2 "+roundCounter);
@@ -125,8 +125,8 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
 
 
-    public void sendEndTurnMessage(String currentturn) {
-        String message = MessageFormatter.createEndTurnMessage(currentturn);
+    public void sendEndTurnMessage(String currentTurn) {
+        String message = MessageFormatter.createEndTurnMessage(currentTurn);
         model.sendMessageToServer(message);
     }
 
@@ -148,8 +148,8 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
     public void sendEndGameMessage(String hasWinner) {
-        if (!gameEndet) {
-            gameEndet = true;
+        if (!gameEnded) {
+            gameEnded = true;
             String message = MessageFormatter.createEndGameMessage(hasWinner);
             model.sendMessageToServer(message);
             Log.d("Nach send message an Server", message);
@@ -177,12 +177,12 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
 
-    public void checkEndCondition(int towerhealth) {
-        if (gameEndet) {
+    public void checkEndCondition(int towerHealth) {
+        if (gameEnded) {
             return;
         }
-        if (towerhealth == 0) {
-            checkTowerHealth(towerhealth);
+        if (towerHealth == 0) {
+            checkTowerHealth(towerHealth);
         }
         else
         {
@@ -193,8 +193,8 @@ public class GameController extends BaseController implements DiceRollListener, 
         }
     }
 
-    public void checkTowerHealth(int towerhealth) {
-        if (towerhealth == 0) {
+    public void checkTowerHealth(int towerHealth) {
+        if (towerHealth == 0) {
             sendEndGameMessage("false");
         }
     }
@@ -206,7 +206,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             String hasWinner = message.getString("hasWinner");
             if (hasWinner.equals("true")) {
                 String winner = findPlayerWithMostTrophies();
-                if(clientplayerUsername.equals(winner))
+                if(CLIENT_PLAYER_USERNAME.equals(winner))
                     mainGameActivity.navigateToWinScreen(winner);
                 else{
                     Log.d("InLoseZweig", message.toString());
@@ -229,13 +229,13 @@ public class GameController extends BaseController implements DiceRollListener, 
             int monsterHp = message.getInt("monsterHp");
             int towerHp = message.getInt("towerHp");
             Log.d("GameController5", "Tower HP received: " + towerHp);
-            maingameView.modifyTowerLifePoints(towerHp);
+            mainGameView.modifyTowerLifePoints(towerHp);
 
 
 
 
             Log.d("GameController6", "UI should now be updated.");
-            maingameView.updateMonsterHealth(monsterId, monsterHp);
+            mainGameView.updateMonsterHealth(monsterId, monsterHp);
 
 
             checkEndCondition(towerHp);
@@ -251,7 +251,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             String playerName = jsonResponse.getString("playerName");
             int points = jsonResponse.getInt("points");
             usernamesWithPoints.put(playerName, points);
-            maingameView.updateListTrophies(playerName, points);
+            mainGameView.updateListTrophies(playerName, points);
             Log.d("Player Points", playerName + points);
         } catch (JSONException e) {
             Log.e("GameController", "Error parsing trophies message", e);
@@ -263,12 +263,12 @@ public class GameController extends BaseController implements DiceRollListener, 
         model.sendMessageToServer(message);
     }
 
-    private void handleswitchrequest(JSONObject message) throws JSONException {
-        maingameView.tauschanfrageerhalten(message);
+    private void handleSwitchRequest(JSONObject message) throws JSONException {
+        mainGameView.tauschanfrageErhalten(message);
 
     }
 
-    private void performeRoll() {
+    private void performRoll() {
         if(!diceRolledThisRound) {
             mainGameActivity.requestRoll();
             diceRolledThisRound=true;
@@ -282,7 +282,7 @@ public class GameController extends BaseController implements DiceRollListener, 
             JSONArray usernamesArray = jsonResponse.getJSONArray("usernames");
             for (int i = 0; i < usernamesArray.length(); i++) {
                 String username = usernamesArray.getString(i);
-                playerusernames.add(i, username);
+                PLAYER_USERNAMES.add(i, username);
                 Player player = new Player(username);
                 playerQueue.add(player);
                 usernamesWithPoints.put(username, 0);
@@ -301,23 +301,23 @@ public class GameController extends BaseController implements DiceRollListener, 
             roundCounter = jsonResponse.getString("turnCount");
             Log.d("inHandleCurrentPlayer", "endConditionCheckedThisRound = false;");
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
-            currentPlayerp= currentPlayerUsername;
+            currentPlayer = currentPlayerUsername;
 
-            mainGameActivity.runOnUiThread(() -> maingameView.displayCurrentPlayer(currentPlayerUsername));
-            maingameView.updateRoundView(Integer.parseInt(roundCounter));
-            if(currentPlayerUsername.equals(clientplayerUsername) && maingameView.isMonsterInAttackZone()) {
-                maingameView.doDamageToTower();
+            mainGameActivity.runOnUiThread(() -> mainGameView.displayCurrentPlayer(currentPlayerUsername));
+            mainGameView.updateRoundView(Integer.parseInt(roundCounter));
+            if(currentPlayerUsername.equals(CLIENT_PLAYER_USERNAME) && mainGameView.isMonsterInAttackZone()) {
+                mainGameView.doDamageToTower();
             }
-            maingameView.moveMonstersInward();
+            mainGameView.moveMonstersInward();
 
 
-            if (currentPlayerUsername.equals(clientplayerUsername)) {
-                maingameView.enablePlayerAction();
-                CarddeckActivity.switchdone= false;
-                mainGameActivity.runOnUiThread(() -> mainGameActivity.sendMessage());
-                performeRoll();
+            if (currentPlayerUsername.equals(CLIENT_PLAYER_USERNAME)) {
+                mainGameView.enablePlayerAction();
+                CardDeckActivity.setSwitchDone(false);
+                mainGameActivity.runOnUiThread(mainGameActivity::sendMessage);
+                performRoll();
             } else {
-                maingameView.disablePlayerAction();
+                mainGameView.disablePlayerAction();
             }
 
 
@@ -340,14 +340,16 @@ public class GameController extends BaseController implements DiceRollListener, 
         diceRollModel.rollDice(result -> callback.onDiceRolled(new int[]{result}));
     }
 
-    public boolean currentPlayer(){
-        return currentPlayerp != null && currentPlayerp.equals(clientplayerUsername);
+    public boolean isCurrentPlayer(){
+        return currentPlayer != null && currentPlayer.equals(CLIENT_PLAYER_USERNAME);
     }
 
     public void sendAccusationMessage(String cheaterName) {
-        String accusatorName = currentPlayerp;
-        String message = MessageFormatter.createAccusationMessage(cheaterName, accusatorName);
+        String accusatoryName = currentPlayer;
+        String message = MessageFormatter.createAccusationMessage(cheaterName, accusatoryName);
         model.sendMessageToServer(message);
     }
-
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
 }

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ActionCardDTOTest {
 
     @Test
-    protected void testActionCardDTOConstructorAndAccessors() {
+    void testActionCardDTOConstructorAndAccessors() {
         ActionCardDTO actionCard = new ActionCardDTO("Red Knight", 2, 69);
 
         assertEquals("Red Knight", actionCard.getName());
@@ -15,7 +15,7 @@ class ActionCardDTOTest {
     }
 
     @Test
-    protected void testNoArgConstructor() {
+    void testNoArgConstructor() {
         ActionCardDTO actionCard = new ActionCardDTO();
         assertNotNull(actionCard);
     }

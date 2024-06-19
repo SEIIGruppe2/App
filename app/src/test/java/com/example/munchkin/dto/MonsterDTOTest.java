@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MonsterDTOTest {
 
     @Test
-    protected void testMonsterDTOFunctions() {
+    void testMonsterDTOFunctions() {
         MonsterDTO monster = new MonsterDTO("Goblin", 4, 2, 1, 1);
         assertEquals("Goblin", monster.getName());
         assertEquals(4, monster.getZone());
@@ -22,7 +22,7 @@ class MonsterDTOTest {
     }
 
     @Test
-    protected void testDefaultConstructor() {
+    void testDefaultConstructor() {
         MonsterDTO monster = new MonsterDTO();
         assertNull(monster.getName());
         assertEquals(0, monster.getZone());

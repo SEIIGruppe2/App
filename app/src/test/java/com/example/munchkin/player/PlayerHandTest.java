@@ -22,20 +22,20 @@ class PlayerHandTest {
     }
 
     @Test
-    protected void testAddCard() {
+    void testAddCard() {
         ActionCardDTO newCard = new ActionCardDTO();
         playerHand.addCard(newCard);
         assertTrue(playerHand.getCards().contains(newCard));
     }
 
     @Test
-    protected void testRemoveCard() {
+    void testRemoveCard() {
         playerHand.removeCard(card1);
         assertFalse(playerHand.getCards().contains(card1));
     }
 
     @Test
-    protected void testGetCards() {
+    void testGetCards() {
         List<ActionCardDTO> cards = playerHand.getCards();
         assertEquals(2, cards.size());
     }

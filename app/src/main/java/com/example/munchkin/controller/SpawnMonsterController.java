@@ -1,7 +1,5 @@
 package com.example.munchkin.controller;
 
-
-
 import android.util.Log;
 
 import com.example.munchkin.dto.MonsterDTO;
@@ -14,15 +12,15 @@ import org.json.JSONObject;
 public class SpawnMonsterController extends BaseController {
 
 
-    private WebSocketClientModel Websockmodel;
-    private MainGameView maingameView;
+    private final WebSocketClientModel websocketModel;
+    private final MainGameView mainGameView;
 
 
 
-    public SpawnMonsterController(WebSocketClientModel model, MainGameView maingameView) {
+    public SpawnMonsterController(WebSocketClientModel model, MainGameView mainGameView) {
         super(model);
-        this.Websockmodel = model;
-        this.maingameView = maingameView;
+        this.websocketModel = model;
+        this.mainGameView = mainGameView;
     }
 
 
@@ -42,7 +40,7 @@ public class SpawnMonsterController extends BaseController {
 
     public void sendMonsterSpawnMessage(String zone) {
         String message = MessageFormatter.createSpawnMonsterMessage(zone);
-        Websockmodel.sendMessageToServer(message);
+        websocketModel.sendMessageToServer(message);
     }
 
 
@@ -57,7 +55,7 @@ public class SpawnMonsterController extends BaseController {
             Log.d("SpawnMonster", "Spawnmonstermessage erhalten");
 
             MonsterDTO monster = new MonsterDTO(monsterName, monsterZone, ring, lifePoints, monsterId);
-            maingameView.spawnMonster(monster);
+            mainGameView.spawnMonster(monster);
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei der Erstellung des Monsters anhand der Informationen/SpawnMonsterController");

@@ -1,7 +1,5 @@
 package com.example.munchkin.game;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,18 +9,18 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AppStateTest {
+class AppStateTest {
 
 
     @Test
-    public void testSingletonInstance() {
+    void testSingletonInstance() {
         AppState firstInstance = AppState.getInstance();
         AppState secondInstance = AppState.getInstance();
         Assertions.assertEquals(firstInstance, secondInstance);
     }
 
     @Test
-    public void testSetAndGetUser() {
+    void testSetAndGetUser() {
         AppState instance = AppState.getInstance();
         instance.setCurrentUser("testUser");
         Assertions.assertEquals("testUser", instance.getCurrentUser());
@@ -30,7 +28,7 @@ public class AppStateTest {
 
 
     @Test
-    public void testSingletonThreadSafety() throws InterruptedException {
+    void testSingletonThreadSafety() throws InterruptedException {
         final int threadCount = 100;
         final ExecutorService service = Executors.newFixedThreadPool(threadCount);
         final CountDownLatch latch = new CountDownLatch(threadCount);

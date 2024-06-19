@@ -10,22 +10,22 @@ import org.json.JSONObject;
 
 public class DrawCardController extends BaseController{
 
-    private WebSocketClientModel websocket;
-    private  MainGameView MainGameview;
+    private final WebSocketClientModel websocket;
+    private final MainGameView mainGameView;
 
 
 
-    public DrawCardController(WebSocketClientModel model,  MainGameView MainGameview) {
+    public DrawCardController(WebSocketClientModel model,  MainGameView mainGameView) {
         super(model);
         this.websocket = model;
-        this.MainGameview = MainGameview;
+        this.mainGameView = mainGameView;
 
 
     }
 
 
 
-    public void drawMeassage() {
+    public void drawMessage() {
         String message = MessageFormatter.createDrawCardMessage();
         websocket.sendMessageToServer(message);
     }
@@ -41,7 +41,7 @@ public class DrawCardController extends BaseController{
             JSONObject jsonResponse = new JSONObject(message);
             String messageType = jsonResponse.getString("type");
             if (messageType.equals("DRAW_CARD")) {
-                handledrawcard(jsonResponse);
+                handleDrawCard(jsonResponse);
             }
         } catch (JSONException e) {
             throw new IllegalArgumentException("Fehler bei handleMessage/DrawCardController");
@@ -50,7 +50,7 @@ public class DrawCardController extends BaseController{
 
 
 
-    private void handledrawcard(JSONObject jsonResponse) {
+    private void handleDrawCard(JSONObject jsonResponse) {
 
 
         try{
@@ -58,8 +58,8 @@ public class DrawCardController extends BaseController{
             int id = Integer.parseInt(jsonResponse.getString("id"));
             String name = jsonResponse.getString("name");
             int zone = Integer.parseInt(jsonResponse.getString("zone"));
-            ActionCardDTO karte = new ActionCardDTO(name, zone,id);
-            MainGameview.addtoList(karte);
+            ActionCardDTO card = new ActionCardDTO(name, zone,id);
+            mainGameView.addToList(card);
 
 
         }

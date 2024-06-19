@@ -117,4 +117,8 @@
     <string name="spielziel_inhalt"> Das Spielziel ist es, die Burg vor den Monstern zu schützen, indem die Spieler sie erfolgreich besiegen und gleichzeitig durch strategischen Einsatz ihrer Karten interagieren.
     Das Spiel endet entweder, wenn die Burg zerstört wird oder alle Monster erfolgreich abgewehrt wurden. Der Sieger ist der Spieler, der die meisten Monster besiegt hat.</string>
 
+    <string name="unknown_player">Unbekannt</string>
+    <string name="current_player">Spieler: %1$s</string>
+    <string name="round_text">Runde: %1$d</string>
+    <string name="button_tower_hp">HP: %d</string>
 </resources>
