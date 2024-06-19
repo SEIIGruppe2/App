@@ -40,7 +40,9 @@ public class GameController extends BaseController implements DiceRollListener, 
     private final SpawnMonsterController spawnMonsterController;
     private final MainGameActivity mainGameActivity;
     private static final String CLIENT_PLAYER_USERNAME = AppState.getInstance().getCurrentUser();
-    public static HashMap<String, Integer> usernamesWithPoints = new HashMap<>();
+    private static Map<String, Integer> usernamesWithPoints = new HashMap<>();
+
+
 
     private static final List<String> PLAYER_USERNAMES = new ArrayList<>();
 
@@ -351,5 +353,9 @@ public class GameController extends BaseController implements DiceRollListener, 
     }
     public String getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public static Map<String, Integer> getUsernamesWithPoints() {
+        return usernamesWithPoints;
     }
 }
