@@ -526,12 +526,12 @@ public class MainGameView {
         TextView getTag = (TextView)  getCardName.getChildAt(2);
         String cardId = (String) getTag.getTag();
         ActionCardDTO toRemove = new ActionCardDTO();
-        for(ActionCardDTO a:  CardDeckController.playerHand.getCards()){
+        for(ActionCardDTO a:  CardDeckController.getPlayerHand().getCards()){
             if(a.getId() == Integer.parseInt(cardId)){
                 toRemove=a;
             }
         }
-        CardDeckController.playerHand.removeCard(toRemove);
+        CardDeckController.getPlayerHand().removeCard(toRemove);
         return cardId;
     }
 
