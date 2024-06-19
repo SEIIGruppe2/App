@@ -148,7 +148,7 @@ public class CardDeckController extends BaseController {
                 monsterList.add(monsterIdArray.getString(i));
 
             }
-            MainGameActivity.monsterList = monsterList;
+            MainGameActivity.setMonsterList(monsterList);
             carddeckView.startMonsterAttack();
         }
         catch (JSONException e) {
