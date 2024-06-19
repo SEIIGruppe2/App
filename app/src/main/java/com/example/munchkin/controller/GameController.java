@@ -151,7 +151,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
     public void sendEndGameMessage(String hasWinner) {
         if (!gameEnded) {
-            gameEnded = true;
+            setGameEnded(true);
             String message = MessageFormatter.createEndGameMessage(hasWinner);
             model.sendMessageToServer(message);
             Log.d("Nach send message an Server", message);
@@ -300,7 +300,7 @@ public class GameController extends BaseController implements DiceRollListener, 
 
 
         try {
-            roundCounter = jsonResponse.getString("turnCount");
+            setRoundCounter(jsonResponse.getString("turnCount"));
             Log.d("inHandleCurrentPlayer", "endConditionCheckedThisRound = false;");
             String currentPlayerUsername = jsonResponse.getString("currentPlayer");
             currentPlayer = currentPlayerUsername;
@@ -358,4 +358,13 @@ public class GameController extends BaseController implements DiceRollListener, 
     public static Map<String, Integer> getUsernamesWithPoints() {
         return usernamesWithPoints;
     }
+
+    public static void setGameEnded(boolean gameEnded) {
+        GameController.gameEnded = gameEnded;
+    }
+
+    public static void setRoundCounter(String roundCounter) {
+        GameController.roundCounter = roundCounter;
+    }
+
 }
