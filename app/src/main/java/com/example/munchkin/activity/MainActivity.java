@@ -26,24 +26,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void startOptions(){
-        //setContentView(R.layout.options);
-    }
-
-    public void startmusic(){
-        // Initialize the MediaPlayer with the correct audio attributes
-        mediaPlayer1.start();
-    }
 
 
 
-    private void loadView(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null) // This allows the back button to navigate between views
-                .commit();
-    }
     @Override
     protected void onDestroy() {
         if (mediaPlayer1 != null) {
