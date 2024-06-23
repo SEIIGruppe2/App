@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.networking.WebSocketClient;
 
 public class WinActivity extends AppCompatActivity {
     @Override
@@ -20,7 +22,12 @@ public class WinActivity extends AppCompatActivity {
         TextView textViewWin = findViewById(R.id.textViewWin);
         textViewWin.setText("Herzlichen Glückwunsch " + winnerName + "! Du hast gewonnen!");
 
+
         Button homeButton = findViewById(R.id.homeButtonWin);
+
+        WebSocketClient webSocketClient = WebSocketClient.getINSTANCE(new WebSocketClientModel());
+        webSocketClient.closeWebSocket();
+
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

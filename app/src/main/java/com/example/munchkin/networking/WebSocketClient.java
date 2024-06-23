@@ -59,7 +59,7 @@ public class WebSocketClient {
 
             @Override
             public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-                // WebSocket connection closed
+                webSocket.close(1000,"Close Session");
             }
 
             @Override
@@ -79,10 +79,19 @@ public class WebSocketClient {
      * @deprecated The finalize method is deprecated because it is inherently problematic and
      * unreliable. Instead, use try-with-resources or explicit close methods to release resources.
      */
+
+
+    public void closeWebSocket() {
+        if (webSocket != null) {
+            webSocket.close(1000, "Closing");
+            webSocket = null;
+        }
+    }
+
     @Deprecated
     protected void finalize() throws Throwable {
         try {
-            webSocket.close(1000, "Closing");
+            webSocket.close(1000, "Cloisng");
         } finally {
             super.finalize();
         }

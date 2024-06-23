@@ -7,6 +7,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.munchkin.R;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.networking.WebSocketClient;
 
 public class AllLoseActivity extends AppCompatActivity {
     @Override
@@ -15,10 +17,21 @@ public class AllLoseActivity extends AppCompatActivity {
         setContentView(R.layout.all_lose_screen);
 
         Button homeButton = findViewById(R.id.homeButtonAllLose);
+
+        WebSocketClient webSocketClient = WebSocketClient.getINSTANCE(new WebSocketClientModel());
+        webSocketClient.closeWebSocket();
+
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         });
+
+
+
+
+
+
+
     }
 }

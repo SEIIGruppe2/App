@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.munchkin.R;
+import com.example.munchkin.model.WebSocketClientModel;
+import com.example.munchkin.networking.WebSocketClient;
 
 public class LoseActivity extends AppCompatActivity {
     @Override
@@ -22,6 +24,11 @@ public class LoseActivity extends AppCompatActivity {
         textViewWin.setText("Oh nein, " + winnerName + " hat das Spiel gewonnen! Du hast verloren!");
 
         Button homeButton = findViewById(R.id.homeButtonLose);
+
+        WebSocketClient webSocketClient = WebSocketClient.getINSTANCE(new WebSocketClientModel());
+        webSocketClient.closeWebSocket();
+
+
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
