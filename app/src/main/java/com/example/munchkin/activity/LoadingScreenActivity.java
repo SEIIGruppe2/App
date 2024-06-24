@@ -17,6 +17,8 @@ import com.example.munchkin.model.WebSocketClientModel;
 
 public class LoadingScreenActivity extends AppCompatActivity {
 
+    private static boolean flag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,11 @@ public class LoadingScreenActivity extends AppCompatActivity {
 
 
 
+        if(!flag){
+            loadingController.registerUserMessage(AppState.getInstance().getCurrentUser());
+            flag = true;
+        }
 
-        loadingController.registerUserMessage(AppState.getInstance().getCurrentUser());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

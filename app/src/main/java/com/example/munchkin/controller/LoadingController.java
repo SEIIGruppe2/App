@@ -40,6 +40,7 @@ public class LoadingController extends BaseController {
 
     public void registerUserMessage(String username) {
         String message = MessageFormatter.registerUserMessage(username);
+        Log.d("Send Message",username);
         model.sendMessageToServer(message);
     }
 

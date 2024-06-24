@@ -1,5 +1,7 @@
 package com.example.munchkin.controller;
 
+import android.util.Log;
+
 import com.example.munchkin.dto.ActionCardDTO;
 import com.example.munchkin.messageformat.MessageFormatter;
 import com.example.munchkin.model.WebSocketClientModel;
@@ -27,6 +29,7 @@ public class DrawCardController extends BaseController{
 
     public void drawMessage() {
         String message = MessageFormatter.createDrawCardMessage();
+        Log.d("drawCardMessage", message);
         websocket.sendMessageToServer(message);
     }
 

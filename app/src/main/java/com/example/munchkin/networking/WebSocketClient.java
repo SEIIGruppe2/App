@@ -40,7 +40,7 @@ public class WebSocketClient {
             throw new IllegalArgumentException("messageHandler is required");
 
         OkHttpClient client = new OkHttpClient();
-        String websocketUri = "ws://10.0.2.2:8080/game";
+        String websocketUri = "ws://se2-demo.aau.at:53217/game";
         Request request = new Request.Builder()
                 .url(websocketUri)
                 .build();
@@ -53,7 +53,7 @@ public class WebSocketClient {
 
             @Override
             public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-
+                Log.d("Servertext",text);
                 model.notifyObservers(text);
             }
 
